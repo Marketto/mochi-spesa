@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Glifo originale di Mochi Spesa: coniglietto-mochi. Orecchie e corpo in senso orario, occhi antiorari (buchi). -->
+  <path d="M100 62 C152 62 182 98 180 140 C178 174 144 190 100 190 C56 190 22 174 20 140 C18 98 48 62 100 62 Z"/>
+  <path d="M58 82 C42 42 46 8 64 6 C82 5 90 40 88 78 Z"/>
+  <path d="M112 78 C110 40 118 5 136 6 C154 8 158 42 142 82 Z"/>
+  <path d="M88 124 A15 17 0 0 0 58 124 A15 17 0 0 0 88 124 Z"/>
+  <path d="M142 124 A15 17 0 0 0 112 124 A15 17 0 0 0 142 124 Z"/>
+  <path d="M112 152 A12 7 0 0 1 88 152 A12 9 0 0 0 112 152 Z"/>
+</svg>
