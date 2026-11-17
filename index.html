@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mochi Spesa</title>
-<meta name="description" content="Lista della spesa condivisa e carinissima, con Mochi che cerca le offerte per te.">
+<meta name="description" content="Shared, super cute shopping list with Mochi finding deals for you.">
 <meta name="theme-color" content="#ffd9e8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#241b2a" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<a class="skip" href="#main">Vai al contenuto</a>
+<a class="skip" href="#main" data-i18n="a11y.skip">Skip to content</a>
 
 <div class="sky" aria-hidden="true">
   <span>✿</span><span>♡</span><span>✦</span><span>❀</span><span>♡</span><span>✧</span><span>✿</span><span>♡</span>
@@ -28,13 +28,13 @@
 
 <header class="top">
   <div class="mascot-wrap">
-    <button class="mascot" id="mascot" type="button" aria-label="Mochi, la mascotte: toccala per salutarla"></button>
+    <button class="mascot" id="mascot" type="button" data-i18n-attr="aria-label:a11y.mascot"></button>
     <p class="bubble" id="bubble" aria-hidden="true"></p>
   </div>
   <div class="title">
-    <h1>Mochi <span>Spesa</span></h1>
-    <button class="sync" id="sync" type="button" aria-describedby="sync-txt">
-      <i class="mi mi-phone" id="sync-ic" aria-hidden="true"></i><span id="sync-txt">Solo su questo telefono</span>
+    <h1>Mochi <span data-i18n="app.word">Spesa</span></h1>
+    <button class="sync" id="sync" type="button">
+      <i class="mi mi-phone" id="sync-ic" aria-hidden="true"></i><span id="sync-txt"></span>
     </button>
   </div>
 </header>
@@ -45,35 +45,35 @@
   <section id="p-lista" role="tabpanel" aria-labelledby="t-lista" class="panel">
     <div id="onboard"></div>
     <form id="f-add" class="add card" autocomplete="off">
-      <label for="add-nome" class="sr">Aggiungi un prodotto alla lista</label>
-      <input id="add-nome" name="nome" placeholder="Aggiungi… es. 2 kg mele" enterkeyhint="done" maxlength="120">
-      <button class="btn primary round" type="submit" aria-label="Aggiungi alla lista"><i class="mi mi-add" aria-hidden="true"></i></button>
+      <label for="add-nome" class="sr" data-i18n="list.addLabel"></label>
+      <input id="add-nome" name="nome" data-i18n-attr="placeholder:list.addPh" enterkeyhint="done" maxlength="120">
+      <button class="btn primary round" type="submit" data-i18n-attr="aria-label:list.addBtn"><i class="mi mi-add" aria-hidden="true"></i></button>
     </form>
     <div class="progress card" id="progress" hidden>
       <div class="pbar" role="progressbar" aria-labelledby="ptxt" aria-valuemin="0" id="pbar"><span id="pfill"></span></div>
       <p id="ptxt"></p>
     </div>
     <div id="lista"></div>
-    <div class="center"><button class="btn ghost" id="clear-done" type="button" hidden><i class="mi mi-clean" aria-hidden="true"></i> Togli i prodotti presi</button></div>
+    <div class="center"><button class="btn ghost" id="clear-done" type="button" hidden><i class="mi mi-clean" aria-hidden="true"></i> <span data-i18n="list.clear"></span></button></div>
   </section>
 
   <!-- OFFERTE -->
   <section id="p-offerte" role="tabpanel" aria-labelledby="t-offerte" class="panel" hidden>
-    <h2><i class="mi mi-watch" aria-hidden="true"></i> Prodotti da tenere d'occhio</h2>
+    <h2><i class="mi mi-watch" aria-hidden="true"></i> <span data-i18n="deals.watchTitle"></span></h2>
     <div class="card">
       <form id="f-mon" class="monform" autocomplete="off">
-        <label for="mon-nome" class="sr">Nome del prodotto da monitorare</label>
-        <input id="mon-nome" placeholder="es. detersivo lavatrice" maxlength="80">
-        <label for="mon-unita" class="sr">Unità di confronto</label>
+        <label for="mon-nome" class="sr" data-i18n="deals.watchLabel"></label>
+        <input id="mon-nome" data-i18n-attr="placeholder:deals.watchPh" maxlength="80">
+        <label for="mon-unita" class="sr" data-i18n="deals.unitLabel"></label>
         <select id="mon-unita">
-          <option value="lavaggi">per lavaggio</option><option value="litri">per litro</option>
-          <option value="kg">per kg</option><option value="pezzi">per pezzo</option>
+          <option value="lavaggi" data-i18n="unitPer.lavaggi"></option><option value="litri" data-i18n="unitPer.litri"></option>
+          <option value="kg" data-i18n="unitPer.kg"></option><option value="pezzi" data-i18n="unitPer.pezzi"></option>
         </select>
-        <button class="btn primary round" type="submit" aria-label="Tieni d'occhio questo prodotto"><i class="mi mi-watch" aria-hidden="true"></i></button>
+        <button class="btn primary round" type="submit" data-i18n-attr="aria-label:deals.watchBtn"><i class="mi mi-watch" aria-hidden="true"></i></button>
       </form>
-      <ul class="chips" id="monitor" aria-label="Prodotti monitorati"></ul>
+      <ul class="chips" id="monitor" data-i18n-attr="aria-label:deals.watchTitle"></ul>
     </div>
-    <div class="center"><button class="btn primary big" id="cerca" type="button"><i class="mi mi-search" aria-hidden="true"></i> Cerca offerte vicino a casa</button></div>
+    <div class="center"><button class="btn primary big" id="cerca" type="button"><i class="mi mi-search" aria-hidden="true"></i> <span data-i18n="deals.search"></span></button></div>
     <p class="hint" id="off-info" aria-live="polite"></p>
     <div id="offerte"></div>
   </section>
@@ -81,98 +81,147 @@
   <!-- VALUTA -->
   <section id="p-valuta" role="tabpanel" aria-labelledby="t-valuta" class="panel" hidden>
     <form class="card" id="f-val" autocomplete="off">
-      <h2 class="in"><i class="mi mi-tab-rate" aria-hidden="true"></i> È un buon affare?</h2>
-      <label for="val-testo">Prodotto o link Amazon</label>
-      <input id="val-testo" placeholder="Incolla il link o scrivi il nome" inputmode="url">
+      <h2 class="in"><i class="mi mi-tab-rate" aria-hidden="true"></i> <span data-i18n="rate.title"></span></h2>
+      <label for="val-testo" data-i18n="rate.what"></label>
+      <input id="val-testo" data-i18n-attr="placeholder:rate.whatPh" inputmode="url">
       <div class="grid2">
-        <div><label for="val-prezzo">Prezzo (€)</label><input id="val-prezzo" inputmode="decimal" placeholder="12,90"></div>
-        <div><label for="val-q">Quantità</label><input id="val-q" inputmode="decimal" placeholder="40"></div>
+        <div><label for="val-prezzo"><span data-i18n="rate.price"></span> (<span class="cur-sym"></span>)</label><input id="val-prezzo" inputmode="decimal" placeholder="12,90"></div>
+        <div><label for="val-q" data-i18n="rate.qty"></label><input id="val-q" inputmode="decimal" placeholder="40"></div>
       </div>
-      <label for="val-u">Unità</label>
-      <select id="val-u"><option value="lavaggi">lavaggi</option><option value="litri">litri</option><option value="kg">kg</option><option value="pezzi">pezzi</option></select>
+      <label for="val-u" data-i18n="rate.unit"></label>
+      <select id="val-u">
+        <option value="lavaggi" data-i18n="units.lavaggi"></option><option value="litri" data-i18n="units.litri"></option>
+        <option value="kg" data-i18n="units.kg"></option><option value="pezzi" data-i18n="units.pezzi"></option>
+      </select>
       <div class="row wrap gap">
-        <button class="btn ghost" type="button" id="val-calc"><i class="mi mi-calc" aria-hidden="true"></i> Calcola subito</button>
-        <button class="btn primary" type="submit" id="val-ask"><i class="mi mi-mochi" aria-hidden="true"></i> Chiedi a Mochi</button>
+        <button class="btn ghost" type="button" id="val-calc"><i class="mi mi-calc" aria-hidden="true"></i> <span data-i18n="rate.calc"></span></button>
+        <button class="btn primary" type="submit" id="val-ask"><i class="mi mi-mochi" aria-hidden="true"></i> <span data-i18n="rate.ask"></span></button>
       </div>
       <div id="val-out" aria-live="polite"></div>
     </form>
-    <h2><i class="mi mi-heart-line" aria-hidden="true"></i> Valutazioni</h2>
+    <h2><i class="mi mi-heart-line" aria-hidden="true"></i> <span data-i18n="rate.history"></span></h2>
     <div id="valutazioni"></div>
   </section>
 
   <!-- IMPOSTAZIONI -->
   <section id="p-imp" role="tabpanel" aria-labelledby="t-imp" class="panel" hidden>
     <form class="card" id="f-me">
-      <h2 class="in"><i class="mi mi-user" aria-hidden="true"></i> Tu</h2>
-      <label for="me-nome">Il tuo nome (per “aggiunto da…”)</label>
+      <h2 class="in"><i class="mi mi-user" aria-hidden="true"></i> <span data-i18n="me.title"></span></h2>
+      <label for="me-lang"><i class="mi mi-lang" aria-hidden="true"></i> <span data-i18n="lang.label"></span></label>
+      <select id="me-lang" class="lang-select"></select>
+      <label for="me-nome" data-i18n="me.name"></label>
       <input id="me-nome" maxlength="30" autocomplete="given-name">
       <fieldset class="seg">
-        <legend>Animazioni</legend>
-        <label><input type="radio" name="anim" value="auto"> <i class="mi mi-phone" aria-hidden="true"></i> Automatiche</label>
-        <label><input type="radio" name="anim" value="on"> <i class="mi mi-magic" aria-hidden="true"></i> Sempre</label>
-        <label><input type="radio" name="anim" value="off"> <i class="mi mi-heart-line" aria-hidden="true"></i> Ridotte</label>
+        <legend data-i18n="anim.legend"></legend>
+        <label><input type="radio" name="anim" value="auto"> <i class="mi mi-phone" aria-hidden="true"></i> <span data-i18n="anim.auto"></span></label>
+        <label><input type="radio" name="anim" value="on"> <i class="mi mi-magic" aria-hidden="true"></i> <span data-i18n="anim.on"></span></label>
+        <label><input type="radio" name="anim" value="off"> <i class="mi mi-heart-line" aria-hidden="true"></i> <span data-i18n="anim.off"></span></label>
       </fieldset>
-      <button class="btn primary" type="submit"><i class="mi mi-save" aria-hidden="true"></i> Salva</button>
+      <button class="btn primary" type="submit"><i class="mi mi-save" aria-hidden="true"></i> <span data-i18n="common.save"></span></button>
     </form>
 
     <form class="card" id="f-dbx">
-      <h2 class="in"><i class="mi mi-cloud" aria-hidden="true"></i> Condivisione con Dropbox</h2>
-      <p class="hint">La lista sta in un file della tua Dropbox, in una cartella condivisa con tua moglie. Nessun server.</p>
-      <label for="dbx-key">App key Dropbox</label>
-      <input id="dbx-key" autocomplete="off" spellcheck="false" aria-describedby="dbx-key-h">
-      <p class="hint" id="dbx-key-h">Si crea una volta sola su dropbox.com/developers (vedi la guida nel README).</p>
-      <label for="dbx-path">File condiviso</label>
-      <input id="dbx-path" spellcheck="false" placeholder="/Spesa/mochi-spesa.json">
+      <h2 class="in"><i class="mi mi-cloud" aria-hidden="true"></i> <span data-i18n="dbx.title"></span></h2>
+      <p class="hint" data-i18n="dbx.hint"></p>
+      <label for="dbx-key" data-i18n="dbx.key"></label>
+      <input id="dbx-key" autocomplete="off" spellcheck="false" aria-describedby="dbx-key-h" dir="ltr">
+      <p class="hint" id="dbx-key-h" data-i18n="dbx.keyHint"></p>
+      <label for="dbx-path" data-i18n="dbx.path"></label>
+      <input id="dbx-path" spellcheck="false" dir="ltr" placeholder="/Spesa/mochi-spesa.json">
       <div class="row wrap gap">
-        <button class="btn primary" type="submit" id="dbx-go"><i class="mi mi-connect" aria-hidden="true"></i> <span>Collega Dropbox</span></button>
-        <button class="btn ghost" type="button" id="dbx-off" hidden><i class="mi mi-disconnect" aria-hidden="true"></i> Scollega</button>
-        <button class="btn ghost" type="button" id="dbx-share"><i class="mi mi-copy" aria-hidden="true"></i> Copia link per tua moglie</button>
+        <button class="btn primary" type="submit" id="dbx-go"><i class="mi mi-connect" aria-hidden="true"></i> <span id="dbx-go-txt"></span></button>
+        <button class="btn ghost" type="button" id="dbx-off" hidden><i class="mi mi-disconnect" aria-hidden="true"></i> <span data-i18n="dbx.disconnect"></span></button>
+        <button class="btn ghost" type="button" id="dbx-share"><i class="mi mi-copy" aria-hidden="true"></i> <span data-i18n="dbx.share"></span></button>
       </div>
       <p class="hint" id="dbx-msg" aria-live="polite"></p>
     </form>
 
     <form class="card" id="f-zona">
-      <h2 class="in"><i class="mi mi-pin" aria-hidden="true"></i> Zona e negozi <small>(condivisi)</small></h2>
-      <label for="z-luogo">Zona di casa</label>
-      <input id="z-luogo" placeholder="es. Torino, Borgo San Paolo" autocomplete="off">
-      <label for="z-raggio">Raggio: <output id="z-raggio-v" for="z-raggio">5</output> km</label>
+      <h2 class="in"><i class="mi mi-pin" aria-hidden="true"></i> <span data-i18n="zone.title"></span> <small data-i18n="zone.shared"></small></h2>
+      <label for="z-luogo" data-i18n="zone.place"></label>
+      <input id="z-luogo" data-i18n-attr="placeholder:zone.placePh" autocomplete="off">
+      <label for="z-raggio"><span data-i18n="zone.radius"></span>: <output id="z-raggio-v" for="z-raggio">5</output> km</label>
       <input id="z-raggio" type="range" min="1" max="30" value="5">
-      <label for="z-negozi">Negozi preferiti</label>
-      <input id="z-negozi" placeholder="es. Esselunga, Lidl, Tigotà">
-      <label class="check"><input type="checkbox" id="z-amz" checked> Confronta con Amazon</label>
-      <button class="btn primary" type="submit"><i class="mi mi-save" aria-hidden="true"></i> Salva</button>
+      <label for="z-negozi" data-i18n="zone.shops"></label>
+      <input id="z-negozi" data-i18n-attr="placeholder:zone.shopsPh">
+      <label for="z-valuta"><i class="mi mi-coins" aria-hidden="true"></i> <span data-i18n="zone.currency"></span></label>
+      <select id="z-valuta"></select>
+      <label class="check"><input type="checkbox" id="z-amz" checked> <span data-i18n="zone.amazon"></span></label>
+      <button class="btn primary" type="submit"><i class="mi mi-save" aria-hidden="true"></i> <span data-i18n="common.save"></span></button>
     </form>
 
     <form class="card" id="f-ai">
-      <h2 class="in"><i class="mi mi-key" aria-hidden="true"></i> Ricerca offerte (API Claude)</h2>
-      <p class="hint">Serve per cercare volantini e prezzi. La chiave resta solo su questo telefono. Ogni ricerca ha un piccolo costo sul tuo account Anthropic.</p>
-      <label for="ai-key">Chiave API</label>
-      <input id="ai-key" type="password" autocomplete="off" spellcheck="false" placeholder="sk-ant-…">
-      <label for="ai-model">Modello</label>
-      <input id="ai-model" spellcheck="false">
-      <button class="btn primary" type="submit"><i class="mi mi-save" aria-hidden="true"></i> Salva</button>
+      <h2 class="in"><i class="mi mi-key" aria-hidden="true"></i> <span data-i18n="ai.title"></span></h2>
+      <p class="hint" data-i18n="ai.hint"></p>
+      <label for="ai-key" data-i18n="ai.key"></label>
+      <input id="ai-key" type="password" autocomplete="off" spellcheck="false" dir="ltr" placeholder="sk-ant-…">
+      <label for="ai-model" data-i18n="ai.model"></label>
+      <input id="ai-model" spellcheck="false" dir="ltr">
+      <button class="btn primary" type="submit"><i class="mi mi-save" aria-hidden="true"></i> <span data-i18n="common.save"></span></button>
     </form>
-    <p class="hint center">Mochi Spesa · software libero · i tuoi dati restano sui tuoi dispositivi e nella tua Dropbox.</p>
+
+    <div class="card">
+      <h2 class="in"><i class="mi mi-info" aria-hidden="true"></i> <span data-i18n="about.title"></span></h2>
+      <p class="hint" id="about-ver"></p>
+      <div class="row wrap gap">
+        <button class="btn ghost" type="button" id="open-legal"><i class="mi mi-privacy" aria-hidden="true"></i> <span data-i18n="legal.open"></span></button>
+        <button class="btn ghost" type="button" id="open-news"><i class="mi mi-gift" aria-hidden="true"></i> <span data-i18n="news.open"></span></button>
+        <button class="btn ghost" type="button" id="open-wizard"><i class="mi mi-wave" aria-hidden="true"></i> <span data-i18n="wiz.open"></span></button>
+      </div>
+    </div>
+    <p class="hint center" data-i18n="about.footer"></p>
   </section>
 </main>
 
-<nav class="tabbar" aria-label="Sezioni dell'app">
-  <div role="tablist" aria-label="Sezioni">
-  <button role="tab" id="t-lista" aria-controls="p-lista" aria-selected="true"><i class="mi mi-tab-list" aria-hidden="true"></i>Lista</button>
-  <button role="tab" id="t-offerte" aria-controls="p-offerte" aria-selected="false" tabindex="-1"><i class="mi mi-tab-deals" aria-hidden="true"></i>Offerte</button>
-  <button role="tab" id="t-valuta" aria-controls="p-valuta" aria-selected="false" tabindex="-1"><i class="mi mi-tab-rate" aria-hidden="true"></i>Valuta</button>
-  <button role="tab" id="t-imp" aria-controls="p-imp" aria-selected="false" tabindex="-1"><i class="mi mi-tab-settings" aria-hidden="true"></i>Impostazioni</button>
+<nav class="tabbar" data-i18n-attr="aria-label:a11y.nav">
+  <div role="tablist" data-i18n-attr="aria-label:a11y.nav">
+    <button role="tab" id="t-lista" aria-controls="p-lista" aria-selected="true"><i class="mi mi-tab-list" aria-hidden="true"></i><span data-i18n="tab.list"></span></button>
+    <button role="tab" id="t-offerte" aria-controls="p-offerte" aria-selected="false" tabindex="-1"><i class="mi mi-tab-deals" aria-hidden="true"></i><span data-i18n="tab.deals"></span></button>
+    <button role="tab" id="t-valuta" aria-controls="p-valuta" aria-selected="false" tabindex="-1"><i class="mi mi-tab-rate" aria-hidden="true"></i><span data-i18n="tab.rate"></span></button>
+    <button role="tab" id="t-imp" aria-controls="p-imp" aria-selected="false" tabindex="-1"><i class="mi mi-tab-settings" aria-hidden="true"></i><span data-i18n="tab.settings"></span></button>
   </div>
 </nav>
 
+<!-- Conferma -->
 <dialog id="dlg" aria-labelledby="dlg-t">
   <form method="dialog">
     <p id="dlg-t"></p>
     <div class="row gap end">
-      <button class="btn ghost" value="no"><i class="mi mi-close" aria-hidden="true"></i> Annulla</button>
-      <button class="btn primary" value="si"><i class="mi mi-ok" id="dlg-ic" aria-hidden="true"></i> <span id="dlg-ok">Sì</span></button>
+      <button class="btn ghost" value="no"><i class="mi mi-close" aria-hidden="true"></i> <span data-i18n="common.cancel"></span></button>
+      <button class="btn primary" value="si"><i class="mi mi-ok" id="dlg-ic" aria-hidden="true"></i> <span id="dlg-ok"></span></button>
     </div>
   </form>
+</dialog>
+
+<!-- Wizard primo avvio -->
+<dialog id="wiz" class="big-dlg" aria-labelledby="wiz-title">
+  <div class="wiz-top">
+    <div class="wiz-mochi" id="wiz-mochi" aria-hidden="true"></div>
+    <ol class="dots" id="wiz-dots" aria-hidden="true"></ol>
+    <p class="hint" id="wiz-step"></p>
+  </div>
+  <h2 class="wiz-h" id="wiz-title" tabindex="-1"></h2>
+  <div id="wiz-body" class="wiz-body"></div>
+  <div class="row gap wiz-nav">
+    <button class="btn ghost" type="button" id="wiz-back"><i class="mi mi-prev" aria-hidden="true"></i> <span data-i18n="wiz.back"></span></button>
+    <button class="btn ghost" type="button" id="wiz-skip"><span data-i18n="wiz.skip"></span></button>
+    <button class="btn primary" type="button" id="wiz-next"><span id="wiz-next-txt"></span> <i class="mi mi-next" id="wiz-next-ic" aria-hidden="true"></i></button>
+  </div>
+</dialog>
+
+<!-- Privacy e condizioni d'uso -->
+<dialog id="legal" class="big-dlg" aria-labelledby="legal-title">
+  <h2 class="wiz-h" id="legal-title"><i class="mi mi-privacy" aria-hidden="true"></i> <span data-i18n="legal.title"></span></h2>
+  <div class="legal-body" id="legal-body" tabindex="0" role="region" data-i18n-attr="aria-label:legal.title"></div>
+  <form method="dialog" class="row gap end"><button class="btn primary"><i class="mi mi-ok" aria-hidden="true"></i> <span data-i18n="common.close"></span></button></form>
+</dialog>
+
+<!-- Novità -->
+<dialog id="news" class="big-dlg" aria-labelledby="news-title">
+  <div class="news-head" aria-hidden="true"><i class="mi mi-gift"></i></div>
+  <h2 class="wiz-h" id="news-title"></h2>
+  <div id="news-body"></div>
+  <form method="dialog" class="row gap end"><button class="btn primary"><i class="mi mi-party" aria-hidden="true"></i> <span data-i18n="news.ok"></span></button></form>
 </dialog>
 
 <div class="toast" id="toast" role="status" aria-live="polite"><i class="mi mi-heart" id="toast-ic" aria-hidden="true"></i> <span id="toast-txt"></span></div>

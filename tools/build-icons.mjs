@@ -73,6 +73,16 @@ const ICONS = {
   "cat-drinks": ["bold/coffee", "bevande"],
   "cat-pantry": ["bold/cooking-pot", "dispensa"],
   "cat-other": ["bold/shopping-bag", "altro"],
+  // lingue, privacy, wizard
+  "lang": ["bold/translate", "lingua"],
+  "privacy": ["bold/shield-check", "privacy"],
+  "terms": ["bold/scroll", "condizioni d'uso"],
+  "prev": ["bold/arrow-left", "indietro (si specchia in RTL)"],
+  "next": ["bold/arrow-right", "avanti (si specchia in RTL)"],
+  "gift": ["bold/gift", "novità"],
+  "wave": ["bold/hand-waving", "benvenuto"],
+  "party": ["bold/confetti", "si parte"],
+  "coins": ["bold/coins", "valuta"],
   // glifo originale
   "mochi": ["custom/mochi", "Mochi"],
 };

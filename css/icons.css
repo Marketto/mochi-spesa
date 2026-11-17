@@ -3,7 +3,7 @@
    Uso: <i class="mi mi-add" aria-hidden="true"></i> sempre con un testo o un aria-label sul controllo. */
 @font-face {
   font-family: "Mochi Icons";
-  src: url("../fonts/mochi-icons.woff2?v=d54d4035") format("woff2");
+  src: url("../fonts/mochi-icons.woff2?v=928d9e32") format("woff2");
   font-weight: normal; font-style: normal; font-display: block;
 }
 .mi {
@@ -66,7 +66,16 @@
 .mi-cat-drinks::before { content: "\e035"; content: "\e035" / ""; } /* bevande */
 .mi-cat-pantry::before { content: "\e036"; content: "\e036" / ""; } /* dispensa */
 .mi-cat-other::before { content: "\e037"; content: "\e037" / ""; } /* altro */
-.mi-mochi::before { content: "\e038"; content: "\e038" / ""; } /* Mochi */
+.mi-lang::before { content: "\e038"; content: "\e038" / ""; } /* lingua */
+.mi-privacy::before { content: "\e039"; content: "\e039" / ""; } /* privacy */
+.mi-terms::before { content: "\e03a"; content: "\e03a" / ""; } /* condizioni d'uso */
+.mi-prev::before { content: "\e03b"; content: "\e03b" / ""; } /* indietro (si specchia in RTL) */
+.mi-next::before { content: "\e03c"; content: "\e03c" / ""; } /* avanti (si specchia in RTL) */
+.mi-gift::before { content: "\e03d"; content: "\e03d" / ""; } /* novità */
+.mi-wave::before { content: "\e03e"; content: "\e03e" / ""; } /* benvenuto */
+.mi-party::before { content: "\e03f"; content: "\e03f" / ""; } /* si parte */
+.mi-coins::before { content: "\e040"; content: "\e040" / ""; } /* valuta */
+.mi-mochi::before { content: "\e041"; content: "\e041" / ""; } /* Mochi */
 :root {
   --mi-add: "\e001";
   --mi-delete: "\e002";
@@ -123,5 +132,14 @@
   --mi-cat-drinks: "\e035";
   --mi-cat-pantry: "\e036";
   --mi-cat-other: "\e037";
-  --mi-mochi: "\e038";
+  --mi-lang: "\e038";
+  --mi-privacy: "\e039";
+  --mi-terms: "\e03a";
+  --mi-prev: "\e03b";
+  --mi-next: "\e03c";
+  --mi-gift: "\e03d";
+  --mi-wave: "\e03e";
+  --mi-party: "\e03f";
+  --mi-coins: "\e040";
+  --mi-mochi: "\e041";
 }

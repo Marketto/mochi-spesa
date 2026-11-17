@@ -1,5 +1,6 @@
 // Mochi: la mascotte. Un coniglietto-mochi tondo con occhioni lucidi.
 // SVG puro, nessuna immagine esterna. Le espressioni cambiano con una classe CSS.
+import { list } from "./i18n.js";
 
 export const MOCHI_SVG = `
 <svg class="mochi" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
@@ -69,16 +70,8 @@ export const MOCHI_SVG = `
   </g>
 </svg>`;
 
-const FRASI = {
-  aggiunto: ["Segnato! ✿", "Ok, me lo ricordo io~", "Aggiunto con amore ♡", "Nella lista! (｡•̀ᴗ-)✧"],
-  preso: ["Grande! ✨", "Uno in meno! ♪", "Yatta! ٩(◕‿◕)۶", "Evviva~"],
-  finito: ["Spesa finita!! 🎉", "Tutto preso, sei un mito ♡", "Missione compiuta! ✧*。"],
-  offerta: ["Ho trovato qualcosa! 💕", "Guarda che affare~"],
-  vuoto: ["Cosa ci serve oggi?", "Lista vuota… ho fame (´・ω・`)"],
-  errore: ["Ops… riprovo dopo (；ω；)"],
-  ciao: ["Ciao! Sono Mochi ♡", "Pronto per la spesa? ✿"],
-};
-export const frase = tipo => { const a = FRASI[tipo] || FRASI.ciao; return a[Math.floor(Math.random() * a.length)]; };
+// Frasi tradotte: chiavi "phr.<tipo>" nei file locales, separate da "|".
+export const frase = tipo => { const a = list("phr." + tipo); return a[Math.floor(Math.random() * a.length)] || ""; };
 
 /** Collega una mascotte già nel DOM. Restituisce i comandi per farla reagire. */
 export function mountMochi(host, bubble) {

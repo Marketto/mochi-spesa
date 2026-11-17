@@ -2,7 +2,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { merge, emptyState, same, live, TOMBSTONE_MS } from "../js/store.js";
-import { parseAdd, catOf } from "../js/categories.js";
+import { parseAdd, catOf, catId } from "../js/categories.js";
 
 const base = () => ({ ...emptyState(), items: {} });
 
@@ -48,8 +48,10 @@ test("merge è idempotente e commutativo", () => {
 test("parseAdd e categorie", () => {
   assert.deepEqual(parseAdd("2 kg mele"), { nome: "mele", qta: "2 kg" });
   assert.deepEqual(parseAdd("latte"), { nome: "latte", qta: "" });
-  assert.equal(catOf("detersivo lavatrice"), "Detersivi e casa");
-  assert.equal(catOf("ammorbidente"), "Detersivi e casa");
-  assert.equal(catOf("mozzarella"), "Latte, uova e formaggi");
-  assert.equal(catOf("salesiani"), "Altro");
+  assert.equal(catOf("detersivo lavatrice"), "clean");
+  assert.equal(catOf("ammorbidente"), "clean");
+  assert.equal(catOf("laundry detergent"), "clean");
+  assert.equal(catOf("mozzarella"), "dairy");
+  assert.equal(catId("Frutta e verdura"), "veg");
+  assert.equal(catOf("salesiani"), "other");
 });
