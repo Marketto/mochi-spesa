@@ -1,0 +1,13 @@
+# Dati personali: MAI su GitHub
+config.local.js
+*.local.*
+.env
+.env.*
+secrets/
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+node_modules/
