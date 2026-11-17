@@ -9,6 +9,7 @@ import * as geo from "./geo.js";
 import * as voice from "./voice.js";
 import * as pantry from "./pantry.js";
 import * as importer from "./importer.js";
+import * as op from "./openprices.js";
 
 // ---------- utilità ----------
 const $ = s => document.querySelector(s);
@@ -196,7 +197,6 @@ const VOTO = { ottima: ["vote.great", "gold", "star"], buona: ["vote.good", "", 
 function renderOfferte() {
   const s = state.settings, o = state.offerte, key = !!ai.getCfg().key;
   $("#off-info").innerHTML = !s.luogo ? `${ic("pin")} ${esc(t("geo.ask"))} <button class="btn ghost" type="button" id="offerte-geo2">${ic("pin")} ${esc(t("geo.use"))}</button>`
-    : !key ? `${ic("key")} ${esc(t("deals.needKey"))}`
     : o.updatedAt ? `${ic("pin")} ${esc(t("deals.last", { when: quando(o.updatedAt), km: s.raggioKm, place: s.luogo }))}`
     : `${ic("info")} ${esc(t("deals.first"))}`;
   $("#offerte-geo2")?.addEventListener("click", () => { selectTab($("#t-imp")); usaPosizione($("#geo-btn")); });
@@ -204,7 +204,10 @@ function renderOfferte() {
   $("#away").innerHTML = a0 ? `<div class="card notice-card"><p>${ic("pin")} ${esc(t("geo.using", { place: a0.nome }))}</p>
     <button class="btn ghost" type="button" id="away-home">${ic("tab-list")} ${esc(t("geo.backHome"))}</button></div>` : "";
   $("#away-home")?.addEventListener("click", () => { lsSet(AWAY_KEY, null); renderOfferte(); toast(t("geo.backHome"), "pin"); $("#cerca").focus(); });
-  $("#cerca").disabled = !s.luogo || !key || !live(state.monitor).length;
+  $("#cerca").disabled = !s.luogo || !live(state.monitor).length;
+  const mons = live(state.monitor);
+  $("#free-box").innerHTML = key ? "" : `<div class="card notice-card"><p>${ic("heart")} ${esc(t("free.info"))}</p>
+    ${mons.length && s.luogo ? `<p class="hint">${esc(t("free.flyers"))}</p><ul class="flyer-links">${mons.map(m => `<li><a class="chip" href="https://www.google.com/search?q=${encodeURIComponent(`${t("free.flyerWord")} ${m.nome} ${s.luogo}`)}" target="_blank" rel="noopener noreferrer">${ic("flyer")} ${esc(m.nome)}<span class="sr"> ${esc(t("a11y.newTab"))}</span></a></li>`).join("")}</ul>` : ""}</div>`;
   if (!o.list.length) { $("#offerte").innerHTML = `<div class="card empty">${ic("percent", "big-emoji")}<p>${esc(t("deals.none"))}</p></div>`; renderOfferte.sorted = []; return; }
   const list = [...o.list].sort((a, b) => (a.categoria || a.prodotto).localeCompare(b.categoria || b.prodotto) || (a.prezzoUnit ?? 1e9) - (b.prezzoUnit ?? 1e9));
   const nt = `<span class="sr"> ${esc(t("a11y.newTab"))}</span>`;
@@ -223,10 +226,11 @@ function renderOfferte() {
       <div class="badges">${v ? `<span class="badge ${v[1]}">${ic(v[2])} ${esc(t(v[0]))}</span>` : ""}${x.prezzoUnit ? `<span class="unit">${esc(perUnit(x.prezzoUnit, x.unita))}</span>` : ""}</div>
       ${az ? `<p class="cmp">Amazon: ${money(az.prezzo)}${az.prezzoUnit ? ` (${esc(perUnit(az.prezzoUnit, x.unita))})` : ""}${diff ? " · " + diff : ""}${azu ? ` · <a href="${esc(azu)}" target="_blank" rel="noopener noreferrer">${ic("external")}${esc(t("deals.seeAmazon"))}${nt}</a>` : ""}</p>` : ""}
       ${x.nota ? `<p class="hint">${esc(x.nota)}</p>` : ""}
-      <div class="foot">${src ? `<a href="${esc(src)}" target="_blank" rel="noopener noreferrer">${ic("flyer")}${esc(t("deals.flyer"))}${nt}</a>` : "<span></span>"}
+      <div class="foot">${src ? `<a href="${esc(src)}" target="_blank" rel="noopener noreferrer">${ic(x.gratis ? "external" : "flyer")}${esc(t(x.gratis ? "free.source" : "deals.flyer"))}${nt}</a>` : "<span></span>"}
         <button class="btn ghost" type="button" data-addoff="${i}" data-fk="o${i}" aria-label="${esc(t("deals.addToList", { name: x.prodotto }))}">${ic("list-add")} ${esc(t("deals.addList"))}</button></div>
     </article>`;
   }).join("");
+  if (list.some(x => x.gratis)) $("#offerte").insertAdjacentHTML("beforeend", OP_CREDIT());
   renderOfferte.sorted = list;
 }
 
@@ -709,11 +713,10 @@ $("#places-edit").addEventListener("click", async () => {
   toast(t("common.saved"), "store-room");
 });
 
-// verso di conteggio dei ripiani (condiviso)
-document.querySelectorAll('input[name="lvdir"]').forEach(r => r.addEventListener("change", () => {
-  mutate((s, now) => { s.settings = { ...s.settings, ripiani: r.value, updatedAt: now }; });
-  toast(t("common.saved"), "shelf");
-}));
+// zona per le ricerche: fuori casa se confermato, altrimenti casa
+const searchPoint = () => { const a0 = away(), s0 = state.settings; return a0 ? { lat: a0.lat, lon: a0.lon } : s0.lat != null ? { lat: s0.lat, lon: s0.lon } : null; };
+const opNote = p => t("free.seen", { product: [p.nome, p.quantita ? `${p.quantita} ${p.unitaQ}` : ""].filter(Boolean).join(" "), date: p.data ? new Date(p.data + "T12:00").toLocaleDateString(locale(), { dateStyle: "medium" }) : "–" });
+const OP_CREDIT = () => `<p class="hint op-credit">${ic("info")} ${esc(t("free.credit"))} <a href="${op.SITE}" target="_blank" rel="noopener noreferrer">Open Food Facts – Open Prices${`<span class="sr"> ${esc(t("a11y.newTab"))}</span>`}</a> (ODbL)</p>`;
 
 // ---------- DOVE CONVIENE? ----------
 const prefOf = (prodotto, negozio) => live(state.preferenze).find(p => pantry.sameProduct(p.prodotto, prodotto) && pantry.norm(p.negozio) === pantry.norm(negozio));
@@ -752,7 +755,7 @@ function compareBody() {
     h += `</fieldset>`;
   }
   h += `<p class="cmp-total" aria-live="polite">${esc(t("cmp.total", { total: money(tot) }))}</p>
-    <p class="hint">${esc(t("cmp.when", { when: state.confronto.updatedAt ? quando(state.confronto.updatedAt) : "–" }))}</p>`;
+    <p class="hint">${esc(t("cmp.when", { when: state.confronto.updatedAt ? quando(state.confronto.updatedAt) : "–" }))}</p>${state.confronto.fonte === "openprices" ? OP_CREDIT() + `<p class="hint">${ic("key")} ${esc(t("free.moreWithKey"))}</p>` : ""}`;
   return h;
 }
 $("#sheet-body").addEventListener("click", e => {
@@ -789,9 +792,21 @@ async function openCompare() {
 }
 async function runCompare() {
   const s0 = state.settings, btn = $("#compare");
-  if (!ai.getCfg().key) { toast(t("deals.needKey"), "key"); return; }
   if (!s0.luogo) { toast(t("geo.ask"), "pin"); selectTab($("#t-imp")); $("#z-luogo").focus(); return; }
   const prodotti = live(state.items).filter(i => !i.fatto).slice(0, 25).map(i => ({ id: i.id, nome: i.nome, qta: i.qta || "" }));
+  if (!ai.getCfg().key) {
+    const pt = searchPoint(); if (!pt) { toast(t("geo.ask"), "pin"); return; }
+    btn.classList.add("loading"); btn.setAttribute("aria-busy", "true");
+    try {
+      const prices = await op.nearby({ ...pt, raggioKm: Math.max(s0.raggioKm || 5, 10) });
+      const res = prodotti.map(p => ({ id: p.id, nome: p.nome, opzioni: op.bestFor(p.nome, prices).map(x => ({
+        negozio: x.negozio, prezzo: x.prezzo, offerta: x.sconto, fonte: op.priceUrl(x.id), nota: opNote(x) })) }));
+      mutate((s, now) => { s.confronto = { prodotti: res, fonte: "openprices", updatedAt: now }; });
+      openCompare();
+    } catch (err) { toast(err.message, "warn"); }
+    finally { btn.classList.remove("loading"); btn.removeAttribute("aria-busy"); }
+    return;
+  }
   btn.classList.add("loading"); btn.setAttribute("aria-busy", "true"); mochi.mood("wow", 0); mochi.say(frase("cerco"), 90000);
   toast(t("cmp.searching"), "search");
   try {
@@ -801,7 +816,7 @@ async function runCompare() {
     const res = await ai.confrontaPrezzi({ prodotti, luogo, raggioKm: s0.raggioKm, negozi: s0.negozi, valuta: currency(), lingua: langName(),
       preferiti: prefs.filter(p => p.tipo === "preferito").map(p => ({ prodotto: p.prodotto, negozio: p.negozio })),
       evitati: prefs.filter(p => p.tipo === "evita").map(p => ({ prodotto: p.prodotto, negozio: p.negozio })) });
-    mutate((s, now) => { s.confronto = { prodotti: res, updatedAt: now }; });
+    mutate((s, now) => { s.confronto = { prodotti: res, fonte: "ai", updatedAt: now }; });
     mochi.mood("happy", 2000); mochi.say(frase("offerta"));
     openCompare();
   } catch (err) { toast(err.message, "warn"); mochi.mood("sleepy", 2000); mochi.say(frase("errore")); }
@@ -866,7 +881,16 @@ $("#cerca").addEventListener("click", async () => {
     await checkAway({ ask: true, modal: true });
     const s0 = state.settings, a0 = away();
     const luogo = a0 ? `${a0.nome} (lat ${a0.lat}, lon ${a0.lon})` : s0.lat != null ? `${s0.luogo} (lat ${s0.lat}, lon ${s0.lon})` : s0.luogo;
-    const offerte = await ai.cercaOfferte({ prodotti: live(state.monitor), ...s0, luogo, valuta: currency(), lingua: langName() }, { signal: searching.signal });
+    let offerte;
+    if (ai.getCfg().key) offerte = await ai.cercaOfferte({ prodotti: live(state.monitor), ...s0, luogo, valuta: currency(), lingua: langName() }, { signal: searching.signal });
+    else {
+      const pt = searchPoint(); if (!pt) throw new Error(t("geo.ask"));
+      const prices = await op.nearby({ ...pt, raggioKm: Math.max(s0.raggioKm || 5, 10) }, { signal: searching.signal });
+      offerte = live(state.monitor).flatMap(m => op.bestFor(m.nome, prices, 3).map(x => ({
+        prodotto: [x.marca, x.nome].filter(Boolean).join(" · "), categoria: m.nome, negozio: x.citta ? `${x.negozio} · ${x.citta}` : x.negozio,
+        prezzo: x.prezzo, quantita: null, unita: m.unita, prezzoUnit: op.unitPrice(x, m.unita), validoFino: null,
+        fonte: op.priceUrl(x.id), amazon: null, voto: null, nota: opNote(x), gratis: true })));
+    }
     endSearch();
     mutate((st, now) => { st.offerte = { list: offerte, updatedAt: now }; });
     const top = offerte.filter(o => o.voto === "ottima").length;
@@ -931,6 +955,10 @@ function fillLangSelect(sel) {
 function fillSettings() {
   const m = me();
   fillLangSelect($("#me-lang"));
+  $("#about-ver").textContent = t("about.version", { v: APP_VERSION });
+  $("#dbx-off").hidden = !dbx.isConnected();
+  $("#dbx-go-txt").textContent = t(dbx.isConnected() ? "dbx.reconnect" : "dbx.connect");
+  if (settingsDirty) return; // non cancellare quello che stai scrivendo
   $("#me-nome").value = m.nome || "";
   for (const r of document.querySelectorAll('input[name="anim"]')) r.checked = r.value === (m.anim || "auto");
   const c = dbxCfg(); $("#dbx-key").value = BUILT_KEY ? "" : (c.appKey || ""); $("#dbx-path").value = c.path || "";
@@ -956,31 +984,50 @@ async function changeLang(code) {
   await setLang(code);
   fillSettings(); renderOnboard(); render(); syncSet(syncKind, syncKey, syncVars); setMic(!!stopVoice);
 }
-$("#me-lang").addEventListener("change", async e => { await changeLang(e.target.value); toast(t("lang.changed"), "lang"); $("#me-lang").focus(); });
-$("#f-me").addEventListener("submit", e => {
-  e.preventDefault();
-  const nome = $("#me-nome").value.trim();
-  setMe({ nome, anim: document.querySelector('input[name="anim"]:checked')?.value || "auto" });
-  applyAnim(); render(); toast(t("common.saved"), "save"); mochi.mood("happy"); mochi.say(nome ? t("phr.nice", { name: nome }) : frase("aggiunto"));
-});
-$("#f-zona").addEventListener("submit", async e => {
-  e.preventDefault();
-  const luogo = $("#z-luogo").value.trim(), old = state.settings;
-  let coords = luogo === old.luogo && old.lat != null ? { lat: old.lat, lon: old.lon } : {};
-  if (luogo && coords.lat == null) {
-    const g = await geo.geocode(luogo, lang());
-    if (g) coords = { lat: g.lat, lon: g.lon }; else $("#geo-msg").textContent = t("geo.geocodeFail");
-  }
-  mutate((s, now) => {
-    s.settings = { ripiani: s.settings.ripiani, luogo, raggioKm: +$("#z-raggio").value, negozi: $("#z-negozi").value.trim(), amazon: $("#z-amz").checked, valuta: $("#z-valuta").value, ...coords, updatedAt: now };
-  });
-  toast(t("zone.saved"), "pin");
-});
-$("#f-ai").addEventListener("submit", e => {
-  e.preventDefault();
-  ai.setCfg({ key: $("#ai-key").value.trim(), model: $("#ai-model").value.trim() || ai.DEFAULT_MODEL });
-  renderOfferte(); toast(t("ai.saved"), "key");
-});
+$("#me-lang").addEventListener("change", async e => {
+  e.stopPropagation(); await changeLang(e.target.value); toast(t("lang.changed"), "lang"); $("#me-lang").focus(); });
+$("#me-lang").addEventListener("input", e => e.stopPropagation());
+// ---------- IMPOSTAZIONI: una sola barra Salva / Annulla ----------
+let settingsDirty = false;
+function setDirty(v) {
+  settingsDirty = v;
+  $("#save-bar").hidden = !v;
+  document.body.classList.toggle("has-save-bar", v);
+}
+for (const f of document.querySelectorAll("form.track")) {
+  f.addEventListener("input", () => setDirty(true));
+  f.addEventListener("change", () => setDirty(true));
+  f.addEventListener("submit", e => { e.preventDefault(); saveSettings(); });
+}
+async function saveSettings() {
+  const btn = $("#set-save"); if (btn.getAttribute("aria-busy")) return;
+  btn.classList.add("loading"); btn.setAttribute("aria-busy", "true");
+  try {
+    // tu: nome e animazioni (solo su questo telefono)
+    const nome = $("#me-nome").value.trim();
+    setMe({ nome, anim: document.querySelector('input[name="anim"]:checked')?.value || "auto" });
+    applyAnim();
+    // chiave Claude (solo su questo telefono)
+    ai.setCfg({ key: $("#ai-key").value.trim(), model: $("#ai-model").value.trim() || ai.DEFAULT_MODEL });
+    // zona e dispensa (condivisi)
+    const luogo = $("#z-luogo").value.trim(), old = state.settings;
+    let coords = luogo === old.luogo && old.lat != null ? { lat: old.lat, lon: old.lon } : { lat: null, lon: null };
+    if (luogo && coords.lat == null) {
+      const g = await geo.geocode(luogo, lang());
+      if (g) coords = { lat: g.lat, lon: g.lon }; else $("#geo-msg").textContent = t("geo.geocodeFail");
+    }
+    const ripiani = document.querySelector('input[name="lvdir"]:checked')?.value === "basso" ? "basso" : "alto";
+    mutate((s, now) => {
+      s.settings = { ...s.settings, luogo, raggioKm: +$("#z-raggio").value, negozi: $("#z-negozi").value.trim(), amazon: $("#z-amz").checked,
+        valuta: $("#z-valuta").value, ripiani, ...coords, updatedAt: now };
+    });
+    setDirty(false); fillSettings(); render(); renderOfferte();
+    toast(t("set.saved"), "save"); mochi.mood("happy"); mochi.say(nome ? t("phr.nice", { name: nome }) : frase("aggiunto"));
+  } finally { btn.classList.remove("loading"); btn.removeAttribute("aria-busy"); }
+}
+$("#set-save").addEventListener("click", saveSettings);
+$("#set-cancel").addEventListener("click", () => { setDirty(false); fillSettings(); toast(t("set.reverted"), "undo"); $("#p-imp").querySelector("input, select")?.focus(); });
+window.addEventListener("beforeunload", e => { if (settingsDirty) { e.preventDefault(); e.returnValue = ""; } });
 const normPath = p => { p = (p || "").trim() || "/Spesa/mochi-spesa.json"; if (!p.startsWith("/")) p = "/" + p; if (!/\.json$/i.test(p)) p += ".json"; return p; };
 $("#f-dbx").addEventListener("submit", async e => {
   e.preventDefault();
@@ -1132,7 +1179,7 @@ async function usaPosizione(btn) {
     const nome = (await geo.placeName(pos, lang())) || t("geo.label", pos);
     mutate((s, now) => { s.settings = { ...s.settings, ...pos, luogo: nome, updatedAt: now }; });
     lsSet(AWAY_KEY, null);
-    fillSettings(); msg.textContent = t("geo.ok"); toast(t("geo.ok"), "pin"); mochi.mood("happy"); mochi.say(frase("guardo"));
+    $("#z-luogo").value = nome; fillSettings(); msg.textContent = t("geo.ok"); toast(t("geo.ok"), "pin"); mochi.mood("happy"); mochi.say(frase("guardo"));
   } catch (err) {
     msg.textContent = err && err.code === 1 ? t("geo.denied") : t("geo.fail"); $("#z-luogo").focus();
   } finally { btn.classList.remove("loading"); btn.removeAttribute("aria-busy"); }
@@ -1167,7 +1214,7 @@ function legalHtml() {
   const sec = (icon, title, prefix, n) => `<h3>${ic(icon)} ${esc(t(title))}</h3><ul>${
     Array.from({ length: n }, (_, i) => `<li>${esc(t(`${prefix}${i + 1}`))}</li>`).join("")}</ul>`;
   return `<p class="hint">${esc(t("legal.updated", { date: new Date(POLICY_VERSION).toLocaleDateString(locale(), { dateStyle: "long" }) }))}</p>
-    ${sec("privacy", "legal.privacyTitle", "legal.p", 10)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
+    ${sec("privacy", "legal.privacyTitle", "legal.p", 11)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
 }
 function openLegal() { $("#legal-body").innerHTML = legalHtml(); $("#legal").showModal(); }
 

@@ -148,7 +148,7 @@
   "zone.amazon": "Vertaa Amazoniin",
   "zone.saved": "Alue tallennettu",
   "ai.title": "Tarjoushaku (Claude API)",
-  "ai.hint": "Käytetään mainoslehtien ja hintojen hakuun. Avain pysyy vain tässä puhelimessa. Jokainen haku maksaa hieman Anthropic-tililläsi.",
+  "ai.hint": "Vapaaehtoinen. Ilman avainta Mochi käyttää yhteisön ilmaisia hintoja; avaimella se etsii myös mainoksista ja Amazonista. Avain pysyy vain tässä puhelimessa ja jokainen haku maksaa hieman Anthropic-tililläsi.",
   "ai.key": "API-avain",
   "ai.model": "Malli",
   "ai.saved": "Avain tallennettu tähän puhelimeen",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Tasojen numerointi",
   "pantry.countTop": "Ylhäältä",
   "pantry.countBottom": "Alhaalta",
-  "new.lvdir": "Asetuksissa valitset, lasketaanko tasot ylhäältä vai alhaalta."
+  "new.lvdir": "Asetuksissa valitset, lasketaanko tasot ylhäältä vai alhaalta.",
+  "set.unsaved": "Tallentamattomia muutoksia",
+  "set.saved": "Asetukset tallennettu",
+  "set.reverted": "Muutokset peruttu",
+  "free.seen": "{product}, ilmoitettu {date}",
+  "free.credit": "Yhteisön ilmoittamat hinnat:",
+  "free.moreWithKey": "Claude-avaimella Mochi etsii myös tämän päivän mainoksista.",
+  "free.info": "Ilmainen haku: Mochi käyttää Open Food Facts -yhteisön alueeltasi ilmoittamia hintoja. Niitä on vähän eivätkä ne aina ole tuoreita; lisää Claude-avain ajantasaisia mainoksia varten.",
+  "free.flyers": "Etsi mainoksia verkosta:",
+  "free.flyerWord": "mainos tarjous",
+  "legal.p11": "Ilman Claude-avainta hintahaku käyttää Open Pricesia (Open Food Facts), joka saa alueesi koordinaatit noin 1 km:iin pyöristettyinä. ”Etsi mainoksia” -linkit avaavat Google-haun.",
+  "new.savebar": "Asetukset: yksi palkki, jossa Peruuta ja Tallenna.",
+  "new.free": "Ilmainen hintahaku ilman avainta, Open Food Facts -yhteisön hinnoilla.",
+  "free.source": "Ilmoitus"
 }

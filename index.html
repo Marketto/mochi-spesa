@@ -111,6 +111,7 @@
     <div class="center"><button class="btn primary big" id="cerca" type="button"><i class="mi mi-search" aria-hidden="true"></i> <span data-i18n="deals.search"></span></button></div>
     <div id="away" aria-live="polite"></div>
     <p class="hint" id="off-info" aria-live="polite"></p>
+    <div id="free-box"></div>
     <div id="offerte"></div>
   </section>
 
@@ -141,7 +142,12 @@
 
   <!-- IMPOSTAZIONI -->
   <section id="p-imp" role="tabpanel" aria-labelledby="t-imp" class="panel" hidden>
-    <form class="card" id="f-me">
+    <div class="save-bar" id="save-bar" role="region" data-i18n-attr="aria-label:set.unsaved" hidden>
+      <span class="save-msg"><i class="mi mi-edit" aria-hidden="true"></i> <span data-i18n="set.unsaved"></span></span>
+      <button class="btn ghost" type="button" id="set-cancel"><i class="mi mi-close" aria-hidden="true"></i> <span data-i18n="common.cancel"></span></button>
+      <button class="btn primary" type="button" id="set-save"><i class="mi mi-save" aria-hidden="true"></i> <span data-i18n="common.save"></span></button>
+    </div>
+    <form class="card track" id="f-me">
       <h2 class="in"><i class="mi mi-user" aria-hidden="true"></i> <span data-i18n="me.title"></span></h2>
       <label for="me-lang"><i class="mi mi-lang" aria-hidden="true"></i> <span data-i18n="lang.label"></span></label>
       <select id="me-lang" class="lang-select"></select>
@@ -153,7 +159,6 @@
         <label><input type="radio" name="anim" value="on"> <i class="mi mi-magic" aria-hidden="true"></i> <span data-i18n="anim.on"></span></label>
         <label><input type="radio" name="anim" value="off"> <i class="mi mi-heart-line" aria-hidden="true"></i> <span data-i18n="anim.off"></span></label>
       </fieldset>
-      <button class="btn primary" type="submit"><i class="mi mi-save" aria-hidden="true"></i> <span data-i18n="common.save"></span></button>
     </form>
 
     <form class="card" id="f-dbx">
@@ -177,7 +182,7 @@
       <p class="hint" id="dbx-msg" aria-live="polite"></p>
     </form>
 
-    <form class="card" id="f-zona">
+    <form class="card track" id="f-zona">
       <h2 class="in"><i class="mi mi-pin" aria-hidden="true"></i> <span data-i18n="zone.title"></span> <small data-i18n="zone.shared"></small></h2>
       <label for="z-luogo" data-i18n="zone.place"></label>
       <div class="row gap" style="margin-top:0">
@@ -192,31 +197,29 @@
       <label for="z-valuta"><i class="mi mi-coins" aria-hidden="true"></i> <span data-i18n="zone.currency"></span></label>
       <select id="z-valuta"></select>
       <label class="check"><input type="checkbox" id="z-amz" checked> <span data-i18n="zone.amazon"></span></label>
-      <button class="btn primary" type="submit"><i class="mi mi-save" aria-hidden="true"></i> <span data-i18n="common.save"></span></button>
     </form>
 
-    <section class="card" aria-labelledby="lvdir-t">
+    <form class="card track" id="f-lvdir" aria-labelledby="lvdir-t">
       <h2 class="in" id="lvdir-t"><i class="mi mi-shelf" aria-hidden="true"></i> <span data-i18n="tab.pantry"></span> <small data-i18n="zone.shared"></small></h2>
       <fieldset class="seg" id="lvdir">
         <legend data-i18n="pantry.countLevels"></legend>
         <label><input type="radio" name="lvdir" value="alto"> <span data-i18n="pantry.countTop"></span></label>
         <label><input type="radio" name="lvdir" value="basso"> <span data-i18n="pantry.countBottom"></span></label>
       </fieldset>
-    </section>
+    </form>
     <section class="card" aria-labelledby="pref-t">
       <h2 class="in" id="pref-t"><i class="mi mi-star" aria-hidden="true"></i> <span data-i18n="pref.title"></span> <small data-i18n="zone.shared"></small></h2>
       <p class="hint" data-i18n="pref.hint"></p>
       <ul class="pref-list" id="pref-list"></ul>
     </section>
 
-    <form class="card" id="f-ai">
+    <form class="card track" id="f-ai">
       <h2 class="in"><i class="mi mi-key" aria-hidden="true"></i> <span data-i18n="ai.title"></span></h2>
       <p class="hint" data-i18n="ai.hint"></p>
       <label for="ai-key" data-i18n="ai.key"></label>
       <input id="ai-key" type="password" autocomplete="off" spellcheck="false" dir="ltr" placeholder="sk-ant-…">
       <label for="ai-model" data-i18n="ai.model"></label>
       <input id="ai-model" spellcheck="false" dir="ltr">
-      <button class="btn primary" type="submit"><i class="mi mi-save" aria-hidden="true"></i> <span data-i18n="common.save"></span></button>
     </form>
 
     <div class="card">

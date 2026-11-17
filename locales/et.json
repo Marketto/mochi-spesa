@@ -148,7 +148,7 @@
   "zone.amazon": "Võrdle Amazoniga",
   "zone.saved": "Piirkond salvestatud",
   "ai.title": "Pakkumiste otsing (Claude API)",
-  "ai.hint": "Kasutatakse kliendilehtede ja hindade otsimiseks. Võti jääb ainult sellesse telefoni. Iga otsing maksab sinu Anthropicu kontol veidi.",
+  "ai.hint": "Valikuline. Võtmeta kasutab Mochi kogukonna tasuta hindu; võtmega otsib ka kampaanialehtedest ja Amazonist. Võti jääb ainult sellesse telefoni ja iga otsing maksab veidi sinu Anthropicu kontol.",
   "ai.key": "API võti",
   "ai.model": "Mudel",
   "ai.saved": "Võti salvestatud sellesse telefoni",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Tasandite loendus",
   "pantry.countTop": "Ülevalt",
   "pantry.countBottom": "Alt",
-  "new.lvdir": "Seadetes valid, kas tasandeid loetakse ülevalt või alt."
+  "new.lvdir": "Seadetes valid, kas tasandeid loetakse ülevalt või alt.",
+  "set.unsaved": "Salvestamata muudatused",
+  "set.saved": "Seaded salvestatud",
+  "set.reverted": "Muudatused tühistatud",
+  "free.seen": "{product}, teatatud {date}",
+  "free.credit": "Kogukonna teatatud hinnad:",
+  "free.moreWithKey": "Claude'i võtmega otsib Mochi ka tänastest kampaanialehtedest.",
+  "free.info": "Tasuta otsing: Mochi kasutab Open Food Factsi kogukonna sinu piirkonnas teatatud hindu. Neid on vähe ja need pole alati värsked; ajakohaste kampaanialehtede jaoks lisa Claude'i võti.",
+  "free.flyers": "Otsi kampaanialehti veebist:",
+  "free.flyerWord": "kampaanialeht pakkumine",
+  "legal.p11": "Claude'i võtmeta kasutab hinnaotsing Open Pricesit (Open Food Facts), mis saab piirkonna koordinaadid umbes 1 km täpsusega. Lingid „Otsi kampaanialehti” avavad Google'i otsingu.",
+  "new.savebar": "Seaded: üks riba nuppudega Tühista ja Salvesta.",
+  "new.free": "Tasuta hinnaotsing ilma võtmeta, Open Food Factsi kogukonna hindadega.",
+  "free.source": "Teade"
 }

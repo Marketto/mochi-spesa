@@ -148,7 +148,7 @@
   "zone.amazon": "Mit Amazon vergleichen",
   "zone.saved": "Gegend gespeichert",
   "ai.title": "Angebotssuche (Claude-API)",
-  "ai.hint": "Wird für Prospekte und Preise gebraucht. Der Schlüssel bleibt nur auf diesem Handy. Jede Suche kostet ein wenig auf deinem Anthropic-Konto.",
+  "ai.hint": "Optional. Ohne Schlüssel nutzt Mochi kostenlose Community-Preise; mit Schlüssel sucht es auch in Prospekten und bei Amazon. Der Schlüssel bleibt nur auf diesem Handy, jede Suche kostet ein wenig auf deinem Anthropic-Konto.",
   "ai.key": "API-Schlüssel",
   "ai.model": "Modell",
   "ai.saved": "Schlüssel auf diesem Handy gespeichert",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Fächer zählen",
   "pantry.countTop": "Von oben",
   "pantry.countBottom": "Von unten",
-  "new.lvdir": "In den Einstellungen wählst du, ob Fächer von oben oder unten gezählt werden."
+  "new.lvdir": "In den Einstellungen wählst du, ob Fächer von oben oder unten gezählt werden.",
+  "set.unsaved": "Ungespeicherte Änderungen",
+  "set.saved": "Einstellungen gespeichert",
+  "set.reverted": "Änderungen verworfen",
+  "free.seen": "{product}, gemeldet am {date}",
+  "free.credit": "Von der Community gemeldete Preise:",
+  "free.moreWithKey": "Mit einem Claude-Schlüssel sucht Mochi auch in aktuellen Prospekten.",
+  "free.info": "Kostenlose Suche: Mochi nutzt Preise, die die Open-Food-Facts-Community in deiner Gegend gemeldet hat. Es sind wenige und nicht immer aktuelle; für aktuelle Prospekte füge einen Claude-Schlüssel hinzu.",
+  "free.flyers": "Prospekte im Web suchen:",
+  "free.flyerWord": "Prospekt Angebot",
+  "legal.p11": "Ohne Claude-Schlüssel nutzt die Preissuche Open Prices (Open Food Facts), das die auf ca. 1 km gerundeten Koordinaten deiner Gegend erhält. Die Links „Prospekte suchen“ öffnen eine Google-Suche.",
+  "new.savebar": "Einstellungen: eine Leiste mit Abbrechen und Speichern.",
+  "new.free": "Kostenlose Preissuche ohne Schlüssel, mit Preisen der Open-Food-Facts-Community.",
+  "free.source": "Meldung"
 }

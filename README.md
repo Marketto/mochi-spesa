@@ -11,6 +11,7 @@ Lista della spesa **condivisa**, **kawaii** e **senza server**, con Mochi che ce
 - 📥 **Importa da Invendo**: carichi l'export Excel (.xlsx) o CSV. “Cantina | Angolo | 3” diventa posto › scaffale › ripiano, con quantità, categorie e scadenze. Se reimporti, i prodotti vengono aggiornati e non duplicati. Quelli a quantità 0 vengono tolti.
 - 🏪 **Dove conviene?**: per la lista scegli il negozio più economico di ogni prodotto. I preferiti ★ e i negozi da evitare ⦸ valgono anche per le ricerche successive.
 - ☁️ **Sincronizzata con Dropbox**: un file JSON in una cartella condivisa in famiglia. Funziona anche offline e le modifiche si uniscono da sole.
+- 🆓 **Prezzi gratis, senza chiave**: Mochi usa i prezzi segnalati dalla community di [Open Food Facts – Open Prices](https://prices.openfoodfacts.org) (ODbL) vicino a casa, sia in “Dove conviene?” sia in Offerte. Ci sono anche link rapidi per cercare i volantini. La chiave Claude è facoltativa: serve per i volantini aggiornati e per Amazon.
 - 🏷️ **Offerte vicino a casa**: scegli i prodotti da tenere d'occhio (detersivo lavatrice, ammorbidente…), la zona e il raggio. Mochi cerca nei volantini e confronta con Amazon il **prezzo per lavaggio, litro o kg**.
 - ⚖️ **È un buon affare?**: incolli un link Amazon o un prezzo. Ottieni subito il prezzo per unità e, se vuoi, un'analisi di qualità e prezzo.
 - 🌍 **29 lingue**: le 24 lingue ufficiali dell'UE più russo, cinese, giapponese, coreano e arabo (impaginazione da destra a sinistra). Rileva la lingua del telefono e si cambia dalle impostazioni.
@@ -117,6 +118,7 @@ js/claude.js          ricerca offerte e valutazioni con l'API di Claude
 js/voice.js           dettatura con il riconoscimento vocale del browser
 js/pantry.js          dispensa: posti, scaffali, ripiani, quantità
 js/importer.js        importazione da Invendo (.xlsx/.csv) senza librerie
+js/openprices.js      prezzi gratuiti della community (Open Food Facts – Open Prices)
 js/geo.js             posizione, distanza da casa, indirizzi con OpenStreetMap
 js/i18n.js            traduzioni, lingua RTL, font per lingua
 js/version.js         versione, novità e versione della policy

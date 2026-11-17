@@ -148,7 +148,7 @@
   "zone.amazon": "与亚马逊比较",
   "zone.saved": "区域已保存",
   "ai.title": "优惠搜索（Claude API）",
-  "ai.hint": "用于搜索促销单和价格。密钥只保存在这部手机上。每次搜索会在你的 Anthropic 账户产生少量费用。",
+  "ai.hint": "可选。没有密钥时麻糬使用社区的免费价格；有密钥时还会搜索促销单和 Amazon。密钥只保存在这台手机上，每次搜索会在你的 Anthropic 账户产生少量费用。",
   "ai.key": "API 密钥",
   "ai.model": "模型",
   "ai.saved": "密钥已保存在这部手机上",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "层的编号",
   "pantry.countTop": "从上往下",
   "pantry.countBottom": "从下往上",
-  "new.lvdir": "可在设置中选择层从上往下还是从下往上编号。"
+  "new.lvdir": "可在设置中选择层从上往下还是从下往上编号。",
+  "set.unsaved": "有未保存的更改",
+  "set.saved": "设置已保存",
+  "set.reverted": "已放弃更改",
+  "free.seen": "{product}，{date} 记录",
+  "free.credit": "社区记录的价格：",
+  "free.moreWithKey": "有 Claude 密钥时，麻糬还会搜索今天的促销单。",
+  "free.info": "免费搜索：麻糬使用 Open Food Facts 社区在你附近记录的价格。数据不多，也不一定是最新的；想要最新促销单可以添加 Claude 密钥。",
+  "free.flyers": "在网上搜索促销单：",
+  "free.flyerWord": "促销单 优惠",
+  "legal.p11": "没有 Claude 密钥时，价格搜索使用 Open Prices（Open Food Facts），它会收到精确到约 1 公里的区域坐标。“搜索促销单”链接会打开 Google 搜索。",
+  "new.savebar": "设置：只有一条带“取消”和“保存”的栏。",
+  "new.free": "免费价格搜索，无需密钥，使用 Open Food Facts 社区价格。",
+  "free.source": "记录"
 }

@@ -461,3 +461,17 @@ h3.shelf.flash { animation: flash 1.2s ease; }
 .lv-row .stepper output { min-width: 2ch; text-align: center; font-weight: 800; font-size: 18px; }
 .lv-row > input { flex: 1; min-width: 120px; }
 .btn.small { font-size: 15px; padding: 8px 14px; min-height: 44px; }
+
+/* barra Salva / Annulla delle impostazioni */
+.save-bar { position: fixed; z-index: 11; left: 50%; transform: translateX(-50%); bottom: calc(96px + env(safe-area-inset-bottom));
+  width: min(560px, calc(100% - 20px)); display: flex; align-items: center; gap: 8px; padding: 8px 8px 8px 16px;
+  background: var(--card); border: 2px solid var(--pink); border-radius: 24px; box-shadow: var(--shadow); animation: pop-up .25s var(--ease-bounce); }
+.save-bar .save-msg { flex: 1; font-weight: 700; font-size: 14px; display: flex; gap: 6px; align-items: center; min-width: 0; }
+.save-bar .btn { min-height: 44px; padding: 8px 14px; }
+body.has-save-bar { padding-bottom: calc(170px + env(safe-area-inset-bottom)); }
+@keyframes pop-up { from { transform: translate(-50%, 20px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+
+/* ricerca gratuita */
+.flyer-links { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 6px 0 0; }
+.flyer-links a.chip { text-decoration: none; color: var(--ink); min-height: 44px; display: inline-flex; align-items: center; gap: 6px; }
+.op-credit a { color: var(--pink); }

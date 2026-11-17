@@ -148,7 +148,7 @@
   "zone.amazon": "Compară cu Amazon",
   "zone.saved": "Zonă salvată",
   "ai.title": "Căutare oferte (API Claude)",
-  "ai.hint": "Folosită pentru cataloage și prețuri. Cheia rămâne doar pe acest telefon. Fiecare căutare are un mic cost în contul tău Anthropic.",
+  "ai.hint": "Opțională. Fără cheie, Mochi folosește prețuri gratuite ale comunității; cu cheie caută și în cataloage și pe Amazon. Cheia rămâne doar pe acest telefon, iar fiecare căutare are un mic cost în contul tău Anthropic.",
   "ai.key": "Cheie API",
   "ai.model": "Model",
   "ai.saved": "Cheie salvată pe acest telefon",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Numără polițele",
   "pantry.countTop": "De sus",
   "pantry.countBottom": "De jos",
-  "new.lvdir": "În setări alegi dacă polițele se numără de sus sau de jos."
+  "new.lvdir": "În setări alegi dacă polițele se numără de sus sau de jos.",
+  "set.unsaved": "Modificări nesalvate",
+  "set.saved": "Setări salvate",
+  "set.reverted": "Modificări anulate",
+  "free.seen": "{product}, raportat pe {date}",
+  "free.credit": "Prețuri raportate de comunitate:",
+  "free.moreWithKey": "Cu o cheie Claude, Mochi caută și în cataloagele de azi.",
+  "free.info": "Căutare gratuită: Mochi folosește prețurile raportate de comunitatea Open Food Facts în zona ta. Sunt puține și nu mereu recente; adaugă o cheie Claude pentru cataloage actuale.",
+  "free.flyers": "Caută cataloage pe web:",
+  "free.flyerWord": "catalog ofertă",
+  "legal.p11": "Fără cheie Claude, căutarea folosește Open Prices (Open Food Facts), care primește coordonatele zonei rotunjite la circa 1 km. Linkurile „Caută cataloage” deschid o căutare Google.",
+  "new.savebar": "Setări: o singură bară cu Anulează și Salvează.",
+  "new.free": "Căutare gratuită de prețuri, fără cheie, cu prețurile comunității Open Food Facts.",
+  "free.source": "Raportare"
 }

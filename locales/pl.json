@@ -148,7 +148,7 @@
   "zone.amazon": "Porównaj z Amazonem",
   "zone.saved": "Okolica zapisana",
   "ai.title": "Wyszukiwanie promocji (API Claude)",
-  "ai.hint": "Służy do wyszukiwania gazetek i cen. Klucz zostaje tylko na tym telefonie. Każde wyszukiwanie to niewielki koszt na Twoim koncie Anthropic.",
+  "ai.hint": "Opcjonalny. Bez klucza Mochi używa darmowych cen społeczności; z kluczem szuka też w gazetkach i na Amazonie. Klucz zostaje tylko na tym telefonie, a każde wyszukiwanie to niewielki koszt na koncie Anthropic.",
   "ai.key": "Klucz API",
   "ai.model": "Model",
   "ai.saved": "Klucz zapisany na tym telefonie",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Licz półki",
   "pantry.countTop": "Od góry",
   "pantry.countBottom": "Od dołu",
-  "new.lvdir": "W ustawieniach wybierz, czy półki liczyć od góry, czy od dołu."
+  "new.lvdir": "W ustawieniach wybierz, czy półki liczyć od góry, czy od dołu.",
+  "set.unsaved": "Niezapisane zmiany",
+  "set.saved": "Zapisano ustawienia",
+  "set.reverted": "Odrzucono zmiany",
+  "free.seen": "{product}, zgłoszone {date}",
+  "free.credit": "Ceny zgłoszone przez społeczność:",
+  "free.moreWithKey": "Z kluczem Claude Mochi szuka też w dzisiejszych gazetkach.",
+  "free.info": "Darmowe wyszukiwanie: Mochi korzysta z cen zgłoszonych przez społeczność Open Food Facts w Twojej okolicy. Jest ich mało i nie zawsze są aktualne; dodaj klucz Claude, by mieć aktualne gazetki.",
+  "free.flyers": "Szukaj gazetek w sieci:",
+  "free.flyerWord": "gazetka promocja",
+  "legal.p11": "Bez klucza Claude wyszukiwanie korzysta z Open Prices (Open Food Facts), które otrzymuje współrzędne okolicy zaokrąglone do ok. 1 km. Linki „Szukaj gazetek” otwierają wyszukiwanie Google.",
+  "new.savebar": "Ustawienia: jeden pasek z Anuluj i Zapisz.",
+  "new.free": "Darmowe wyszukiwanie cen bez klucza, z cenami społeczności Open Food Facts.",
+  "free.source": "Zgłoszenie"
 }

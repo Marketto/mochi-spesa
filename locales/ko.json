@@ -148,7 +148,7 @@
   "zone.amazon": "아마존과 비교",
   "zone.saved": "지역을 저장했어요",
   "ai.title": "할인 검색(Claude API)",
-  "ai.hint": "전단지와 가격을 찾는 데 쓰여요. 키는 이 휴대폰에만 저장돼요. 검색할 때마다 Anthropic 계정에 약간의 비용이 들어요.",
+  "ai.hint": "선택 사항. 키가 없으면 커뮤니티의 무료 가격을, 키가 있으면 전단지와 Amazon까지 찾아요. 키는 이 휴대폰에만 남고 검색마다 Anthropic 계정에 약간의 비용이 들어요.",
   "ai.key": "API 키",
   "ai.model": "모델",
   "ai.saved": "키를 이 휴대폰에 저장했어요",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "칸 번호 세기",
   "pantry.countTop": "위에서부터",
   "pantry.countBottom": "아래에서부터",
-  "new.lvdir": "설정에서 칸을 위에서부터 셀지 아래에서부터 셀지 고를 수 있어요."
+  "new.lvdir": "설정에서 칸을 위에서부터 셀지 아래에서부터 셀지 고를 수 있어요.",
+  "set.unsaved": "저장하지 않은 변경 사항",
+  "set.saved": "설정을 저장했어요",
+  "set.reverted": "변경을 취소했어요",
+  "free.seen": "{product}, {date} 등록",
+  "free.credit": "커뮤니티가 등록한 가격:",
+  "free.moreWithKey": "Claude 키가 있으면 오늘의 전단지도 찾아요.",
+  "free.info": "무료 검색: 모찌는 Open Food Facts 커뮤니티가 근처에서 등록한 가격을 사용해요. 수가 적고 항상 최신은 아니에요. 최신 전단지를 보려면 Claude 키를 추가하세요.",
+  "free.flyers": "웹에서 전단지 찾기:",
+  "free.flyerWord": "전단지 할인",
+  "legal.p11": "Claude 키가 없으면 가격 검색은 Open Prices(Open Food Facts)를 사용하며, 약 1km로 반올림한 지역 좌표를 보내요. “전단지 찾기” 링크는 Google 검색을 열어요.",
+  "new.savebar": "설정: 취소와 저장이 있는 바 하나로.",
+  "new.free": "키 없이 무료 가격 검색 — Open Food Facts 커뮤니티 가격.",
+  "free.source": "등록 정보"
 }

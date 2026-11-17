@@ -148,7 +148,7 @@
   "zone.amazon": "Amazon と比較する",
   "zone.saved": "エリアを保存しました",
   "ai.title": "セール検索（Claude API）",
-  "ai.hint": "チラシや価格の検索に使います。キーはこの端末にだけ保存されます。検索のたびに Anthropic アカウントで少額の費用がかかります。",
+  "ai.hint": "任意。キーなしではコミュニティの無料価格を使い、キーがあればチラシや Amazon も探します。キーはこのスマホだけに保存され、検索ごとに Anthropic アカウントに少し費用がかかります。",
   "ai.key": "API キー",
   "ai.model": "モデル",
   "ai.saved": "キーをこの端末に保存しました",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "段の数え方",
   "pantry.countTop": "上から",
   "pantry.countBottom": "下から",
-  "new.lvdir": "設定で段を上から数えるか下から数えるか選べます。"
+  "new.lvdir": "設定で段を上から数えるか下から数えるか選べます。",
+  "set.unsaved": "未保存の変更があります",
+  "set.saved": "設定を保存しました",
+  "set.reverted": "変更を取り消しました",
+  "free.seen": "{product}（{date} の記録）",
+  "free.credit": "コミュニティが記録した価格：",
+  "free.moreWithKey": "Claude キーがあれば、今日のチラシも探します。",
+  "free.info": "無料検索：もちっ子は、近くで Open Food Facts コミュニティが記録した価格を使います。数は少なく、新しいとは限りません。最新のチラシには Claude キーを追加してね。",
+  "free.flyers": "Web でチラシを探す：",
+  "free.flyerWord": "チラシ 特売",
+  "legal.p11": "Claude キーがない場合、価格検索は Open Prices（Open Food Facts）を使います。約 1 km に丸めた地域の座標が送られます。「チラシを探す」リンクは Google 検索を開きます。",
+  "new.savebar": "設定：キャンセルと保存のバーをひとつに。",
+  "new.free": "キー不要の無料価格検索（Open Food Facts コミュニティの価格）。",
+  "free.source": "記録"
 }

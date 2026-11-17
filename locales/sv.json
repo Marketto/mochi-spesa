@@ -148,7 +148,7 @@
   "zone.amazon": "Jämför med Amazon",
   "zone.saved": "Området sparat",
   "ai.title": "Sök erbjudanden (Claude API)",
-  "ai.hint": "Används för att söka reklamblad och priser. Nyckeln stannar bara på den här telefonen. Varje sökning kostar lite på ditt Anthropic-konto.",
+  "ai.hint": "Valfri. Utan nyckel använder Mochi gratis priser från gemenskapen; med nyckel söker den även i reklamblad och på Amazon. Nyckeln stannar bara på den här telefonen och varje sökning kostar lite på ditt Anthropic-konto.",
   "ai.key": "API-nyckel",
   "ai.model": "Modell",
   "ai.saved": "Nyckeln sparad på den här telefonen",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Räkna hyllplan",
   "pantry.countTop": "Uppifrån",
   "pantry.countBottom": "Nerifrån",
-  "new.lvdir": "I inställningarna väljer du om hyllplan räknas uppifrån eller nerifrån."
+  "new.lvdir": "I inställningarna väljer du om hyllplan räknas uppifrån eller nerifrån.",
+  "set.unsaved": "Osparade ändringar",
+  "set.saved": "Inställningar sparade",
+  "set.reverted": "Ändringar ångrade",
+  "free.seen": "{product}, rapporterat {date}",
+  "free.credit": "Priser rapporterade av gemenskapen:",
+  "free.moreWithKey": "Med en Claude-nyckel söker Mochi även i dagens reklamblad.",
+  "free.info": "Gratis sökning: Mochi använder priser som Open Food Facts-gemenskapen rapporterat i ditt område. De är få och inte alltid aktuella; lägg till en Claude-nyckel för aktuella reklamblad.",
+  "free.flyers": "Sök reklamblad på webben:",
+  "free.flyerWord": "reklamblad erbjudande",
+  "legal.p11": "Utan Claude-nyckel använder prissökningen Open Prices (Open Food Facts), som får områdets koordinater avrundade till cirka 1 km. Länkarna ”Sök reklamblad” öppnar en Google-sökning.",
+  "new.savebar": "Inställningar: en rad med Avbryt och Spara.",
+  "new.free": "Gratis prissökning utan nyckel, med priser från Open Food Facts-gemenskapen.",
+  "free.source": "Rapport"
 }

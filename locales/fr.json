@@ -148,7 +148,7 @@
   "zone.amazon": "Comparer avec Amazon",
   "zone.saved": "Zone enregistrée",
   "ai.title": "Recherche de promos (API Claude)",
-  "ai.hint": "Sert à chercher prospectus et prix. La clé reste uniquement sur ce téléphone. Chaque recherche a un petit coût sur ton compte Anthropic.",
+  "ai.hint": "Facultative. Sans clé, Mochi utilise les prix gratuits de la communauté ; avec une clé, il cherche aussi dans les prospectus et sur Amazon. La clé reste sur ce téléphone et chaque recherche a un petit coût sur ton compte Anthropic.",
   "ai.key": "Clé API",
   "ai.model": "Modèle",
   "ai.saved": "Clé enregistrée sur ce téléphone",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Compter les niveaux",
   "pantry.countTop": "Depuis le haut",
   "pantry.countBottom": "Depuis le bas",
-  "new.lvdir": "Dans les réglages, choisis de compter les niveaux depuis le haut ou le bas."
+  "new.lvdir": "Dans les réglages, choisis de compter les niveaux depuis le haut ou le bas.",
+  "set.unsaved": "Modifications non enregistrées",
+  "set.saved": "Réglages enregistrés",
+  "set.reverted": "Modifications annulées",
+  "free.seen": "{product}, relevé le {date}",
+  "free.credit": "Prix relevés par la communauté :",
+  "free.moreWithKey": "Avec une clé Claude, Mochi cherche aussi dans les prospectus du jour.",
+  "free.info": "Recherche gratuite : Mochi utilise les prix relevés par la communauté Open Food Facts près de chez toi. Ils sont peu nombreux et pas toujours récents ; ajoute une clé Claude pour les prospectus à jour.",
+  "free.flyers": "Chercher les prospectus sur le web :",
+  "free.flyerWord": "prospectus promo",
+  "legal.p11": "Sans clé Claude, la recherche utilise Open Prices (Open Food Facts), qui reçoit les coordonnées de ta zone arrondies à environ 1 km. Les liens « Chercher les prospectus » ouvrent une recherche Google.",
+  "new.savebar": "Réglages : une seule barre Annuler / Enregistrer.",
+  "new.free": "Recherche de prix gratuite, sans clé, avec les prix de la communauté Open Food Facts.",
+  "free.source": "Relevé"
 }

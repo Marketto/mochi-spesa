@@ -148,7 +148,7 @@
   "zone.amazon": "Palyginti su Amazon",
   "zone.saved": "Rajonas išsaugotas",
   "ai.title": "Akcijų paieška (Claude API)",
-  "ai.hint": "Naudojama leidiniams ir kainoms ieškoti. Raktas lieka tik šiame telefone. Kiekviena paieška šiek tiek kainuoja jūsų Anthropic paskyroje.",
+  "ai.hint": "Neprivaloma. Be rakto Moči naudoja nemokamas bendruomenės kainas; su raktu ieško ir leidiniuose bei Amazon. Raktas lieka tik šiame telefone, o kiekviena paieška šiek tiek kainuoja jūsų Anthropic paskyroje.",
   "ai.key": "API raktas",
   "ai.model": "Modelis",
   "ai.saved": "Raktas išsaugotas šiame telefone",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Aukštų skaičiavimas",
   "pantry.countTop": "Iš viršaus",
   "pantry.countBottom": "Iš apačios",
-  "new.lvdir": "Nustatymuose pasirinkite, ar aukštus skaičiuoti iš viršaus, ar iš apačios."
+  "new.lvdir": "Nustatymuose pasirinkite, ar aukštus skaičiuoti iš viršaus, ar iš apačios.",
+  "set.unsaved": "Neišsaugoti pakeitimai",
+  "set.saved": "Nustatymai išsaugoti",
+  "set.reverted": "Pakeitimai atšaukti",
+  "free.seen": "{product}, pranešta {date}",
+  "free.credit": "Bendruomenės praneštos kainos:",
+  "free.moreWithKey": "Su Claude raktu Moči ieško ir šiandienos leidiniuose.",
+  "free.info": "Nemokama paieška: Moči naudoja Open Food Facts bendruomenės jūsų apylinkėse praneštas kainas. Jų mažai ir ne visada naujos; aktualiems leidiniams pridėkite Claude raktą.",
+  "free.flyers": "Ieškoti leidinių internete:",
+  "free.flyerWord": "leidinys akcija",
+  "legal.p11": "Be Claude rakto kainų paieška naudoja Open Prices (Open Food Facts), kuris gauna apylinkės koordinates, suapvalintas iki ~1 km. Nuorodos „Ieškoti leidinių“ atveria Google paiešką.",
+  "new.savebar": "Nustatymai: viena juosta su Atšaukti ir Išsaugoti.",
+  "new.free": "Nemokama kainų paieška be rakto, su Open Food Facts bendruomenės kainomis.",
+  "free.source": "Pranešimas"
 }

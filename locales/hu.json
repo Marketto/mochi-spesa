@@ -148,7 +148,7 @@
   "zone.amazon": "Összehasonlítás az Amazonnal",
   "zone.saved": "Környék mentve",
   "ai.title": "Akciókeresés (Claude API)",
-  "ai.hint": "Akciós újságok és árak kereséséhez kell. A kulcs csak ezen a telefonon marad. Minden keresés kis költséggel jár az Anthropic-fiókodban.",
+  "ai.hint": "Nem kötelező. Kulcs nélkül Mochi ingyenes közösségi árakat használ; kulccsal szórólapokban és az Amazonon is keres. A kulcs csak ezen a telefonon marad, minden keresés kis költség az Anthropic-fiókodon.",
   "ai.key": "API-kulcs",
   "ai.model": "Modell",
   "ai.saved": "Kulcs mentve ezen a telefonon",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Szintek számozása",
   "pantry.countTop": "Felülről",
   "pantry.countBottom": "Alulról",
-  "new.lvdir": "A beállításokban választhatod, hogy a szinteket felülről vagy alulról számozza."
+  "new.lvdir": "A beállításokban választhatod, hogy a szinteket felülről vagy alulról számozza.",
+  "set.unsaved": "Nem mentett módosítások",
+  "set.saved": "Beállítások mentve",
+  "set.reverted": "Módosítások elvetve",
+  "free.seen": "{product}, jelentve: {date}",
+  "free.credit": "A közösség által jelentett árak:",
+  "free.moreWithKey": "Claude-kulccsal Mochi a mai szórólapokban is keres.",
+  "free.info": "Ingyenes keresés: Mochi az Open Food Facts közösség által a környékeden jelentett árakat használja. Kevés van belőlük és nem mindig frissek; friss szórólapokhoz adj meg Claude-kulcsot.",
+  "free.flyers": "Szórólapok keresése a weben:",
+  "free.flyerWord": "szórólap akció",
+  "legal.p11": "Claude-kulcs nélkül az árkeresés az Open Prices-t (Open Food Facts) használja, amely kb. 1 km-re kerekített koordinátákat kap. A „Szórólapok keresése” linkek Google-keresést nyitnak.",
+  "new.savebar": "Beállítások: egy sáv Mégse és Mentés gombbal.",
+  "new.free": "Ingyenes árkeresés kulcs nélkül, az Open Food Facts közösség áraival.",
+  "free.source": "Bejelentés"
 }

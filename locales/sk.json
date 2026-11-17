@@ -148,7 +148,7 @@
   "zone.amazon": "Porovnať s Amazonom",
   "zone.saved": "Oblasť uložená",
   "ai.title": "Hľadanie akcií (Claude API)",
-  "ai.hint": "Slúži na hľadanie letákov a cien. Kľúč zostane len v tomto telefóne. Každé hľadanie má malý poplatok na tvojom účte Anthropic.",
+  "ai.hint": "Voliteľné. Bez kľúča Mochi používa bezplatné ceny komunity; s kľúčom hľadá aj v letákoch a na Amazone. Kľúč zostáva len v tomto telefóne a každé hľadanie stojí trochu na tvojom účte Anthropic.",
   "ai.key": "API kľúč",
   "ai.model": "Model",
   "ai.saved": "Kľúč uložený v tomto telefóne",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Počítať police",
   "pantry.countTop": "Zhora",
   "pantry.countBottom": "Zdola",
-  "new.lvdir": "V nastaveniach zvolíš, či sa police počítajú zhora alebo zdola."
+  "new.lvdir": "V nastaveniach zvolíš, či sa police počítajú zhora alebo zdola.",
+  "set.unsaved": "Neuložené zmeny",
+  "set.saved": "Nastavenia uložené",
+  "set.reverted": "Zmeny zahodené",
+  "free.seen": "{product}, nahlásené {date}",
+  "free.credit": "Ceny nahlásené komunitou:",
+  "free.moreWithKey": "S kľúčom Claude hľadá Mochi aj v dnešných letákoch.",
+  "free.info": "Bezplatné hľadanie: Mochi používa ceny nahlásené komunitou Open Food Facts vo tvojom okolí. Je ich málo a nie vždy aktuálne; pre aktuálne letáky pridaj kľúč Claude.",
+  "free.flyers": "Hľadať letáky na webe:",
+  "free.flyerWord": "leták akcia",
+  "legal.p11": "Bez kľúča Claude používa hľadanie Open Prices (Open Food Facts), ktorý dostáva súradnice okolia zaokrúhlené na asi 1 km. Odkazy „Hľadať letáky“ otvoria vyhľadávanie Google.",
+  "new.savebar": "Nastavenia: jedna lišta so Zrušiť a Uložiť.",
+  "new.free": "Bezplatné hľadanie cien bez kľúča, s cenami komunity Open Food Facts.",
+  "free.source": "Záznam"
 }

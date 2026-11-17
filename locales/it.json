@@ -148,7 +148,7 @@
   "zone.amazon": "Confronta con Amazon",
   "zone.saved": "Zona salvata",
   "ai.title": "Ricerca offerte (API Claude)",
-  "ai.hint": "Serve per cercare volantini e prezzi. La chiave resta solo su questo telefono. Ogni ricerca ha un piccolo costo sul tuo account Anthropic.",
+  "ai.hint": "Facoltativa. Senza chiave Mochi usa i prezzi gratuiti della community; con la chiave cerca anche nei volantini e su Amazon. La chiave resta solo su questo telefono e ogni ricerca ha un piccolo costo sul tuo account Anthropic.",
   "ai.key": "Chiave API",
   "ai.model": "Modello",
   "ai.saved": "Chiave salvata su questo telefono",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Conta i ripiani",
   "pantry.countTop": "Dall'alto",
   "pantry.countBottom": "Dal basso",
-  "new.lvdir": "Nelle impostazioni scegli se contare i ripiani dall'alto o dal basso."
+  "new.lvdir": "Nelle impostazioni scegli se contare i ripiani dall'alto o dal basso.",
+  "set.unsaved": "Modifiche non salvate",
+  "set.saved": "Impostazioni salvate",
+  "set.reverted": "Modifiche annullate",
+  "free.seen": "{product}, segnalato il {date}",
+  "free.credit": "Prezzi segnalati dalla community:",
+  "free.moreWithKey": "Con una chiave Claude Mochi cerca anche nei volantini di oggi.",
+  "free.info": "Ricerca gratuita: Mochi usa i prezzi segnalati dalla community di Open Food Facts nella tua zona. Sono pochi e non sempre recenti; per i volantini aggiornati puoi aggiungere una chiave Claude.",
+  "free.flyers": "Cerca i volantini sul web:",
+  "free.flyerWord": "volantino offerta",
+  "legal.p11": "Senza chiave Claude, la ricerca prezzi usa Open Prices (Open Food Facts): riceve le coordinate della zona arrotondate a circa 1 km. I link “Cerca i volantini” aprono una ricerca Google.",
+  "new.savebar": "Impostazioni: una sola barra con Annulla e Salva.",
+  "new.free": "Ricerca prezzi gratuita, senza chiave, con i prezzi della community Open Food Facts.",
+  "free.source": "Segnalazione"
 }
