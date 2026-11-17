@@ -3,7 +3,7 @@
    Uso: <i class="mi mi-add" aria-hidden="true"></i> sempre con un testo o un aria-label sul controllo. */
 @font-face {
   font-family: "Mochi Icons";
-  src: url("../fonts/mochi-icons.woff2?v=9a110022") format("woff2");
+  src: url("../fonts/mochi-icons.woff2?v=5abac4f3") format("woff2");
   font-weight: normal; font-style: normal; font-display: block;
 }
 .mi {
@@ -79,8 +79,18 @@
 .mi-share-ios::before { content: "\e042"; content: "\e042" / ""; } /* condividi (iPhone) */
 .mi-mic::before { content: "\e043"; content: "\e043" / ""; } /* detta a voce */
 .mi-share::before { content: "\e044"; content: "\e044" / ""; } /* condividi l'app */
-.mi-mic-on::before { content: "\e045"; content: "\e045" / ""; } /* sto ascoltando */
-.mi-mochi::before { content: "\e046"; content: "\e046" / ""; } /* Mochi */
+.mi-tab-pantry::before { content: "\e045"; content: "\e045" / ""; } /* dispensa */
+.mi-tab-pantry-on::before { content: "\e046"; content: "\e046" / ""; } /* dispensa attiva */
+.mi-store-room::before { content: "\e047"; content: "\e047" / ""; } /* magazzino / cantina */
+.mi-home::before { content: "\e048"; content: "\e048" / ""; } /* a casa / metti via */
+.mi-avoid::before { content: "\e049"; content: "\e049" / ""; } /* negozio da evitare */
+.mi-avoid-on::before { content: "\e04a"; content: "\e04a" / ""; } /* evitato */
+.mi-star-line::before { content: "\e04b"; content: "\e04b" / ""; } /* preferito (vuoto) */
+.mi-minus::before { content: "\e04c"; content: "\e04c" / ""; } /* meno */
+.mi-edit::before { content: "\e04d"; content: "\e04d" / ""; } /* modifica / quantità */
+.mi-undo::before { content: "\e04e"; content: "\e04e" / ""; } /* annulla */
+.mi-mic-on::before { content: "\e04f"; content: "\e04f" / ""; } /* sto ascoltando */
+.mi-mochi::before { content: "\e050"; content: "\e050" / ""; } /* Mochi */
 :root {
   --mi-add: "\e001";
   --mi-delete: "\e002";
@@ -150,6 +160,16 @@
   --mi-share-ios: "\e042";
   --mi-mic: "\e043";
   --mi-share: "\e044";
-  --mi-mic-on: "\e045";
-  --mi-mochi: "\e046";
+  --mi-tab-pantry: "\e045";
+  --mi-tab-pantry-on: "\e046";
+  --mi-store-room: "\e047";
+  --mi-home: "\e048";
+  --mi-avoid: "\e049";
+  --mi-avoid-on: "\e04a";
+  --mi-star-line: "\e04b";
+  --mi-minus: "\e04c";
+  --mi-edit: "\e04d";
+  --mi-undo: "\e04e";
+  --mi-mic-on: "\e04f";
+  --mi-mochi: "\e050";
 }
