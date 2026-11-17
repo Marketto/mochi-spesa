@@ -86,6 +86,7 @@ const ICONS = {
   "install": ["bold/download-simple", "installa l'app"],
   "share-ios": ["bold/export", "condividi (iPhone)"],
   "mic": ["bold/microphone", "detta a voce"],
+  "share": ["bold/share-network", "condividi l'app"],
   "mic-on": ["fill/microphone-fill", "sto ascoltando"],
   // glifo originale
   "mochi": ["custom/mochi", "Mochi"],

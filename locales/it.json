@@ -286,5 +286,11 @@
   "voice.denied": "Microfono non consentito.",
   "voice.none": "Non ho sentito niente, riprova.",
   "legal.p10": "La dettatura usa il riconoscimento vocale del browser: su Chrome l'audio è elaborato da Google, su Safari da Apple. Parte solo quando tocchi il microfono.",
-  "new.voice": "Detta la lista della spesa a voce, gratis."
+  "new.voice": "Detta la lista della spesa a voce, gratis.",
+  "share.btn": "Condividi l'app",
+  "share.title": "Mochi Spesa",
+  "share.text": "La lista della spesa condivisa e carinissima, con Mochi che cerca le offerte!",
+  "share.copied": "Link dell'app copiato",
+  "new.share": "Condividi l'app con amici e parenti in un tocco.",
+  "new.version": "La versione è sempre visibile accanto al titolo: toccala per vedere le novità."
 }

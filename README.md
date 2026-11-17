@@ -11,6 +11,7 @@ Lista della spesa **condivisa**, **kawaii** e **senza server**, con Mochi che ce
 - 🌍 **29 lingue**: le 24 lingue ufficiali dell'UE più russo, cinese, giapponese, coreano e arabo (impaginazione da destra a sinistra). Rileva la lingua del telefono e si cambia dalle impostazioni.
 - 📍 **Posizione**: scrivi l'indirizzo di casa o usa la posizione del telefono. Se sei a più di 40 km da casa, Mochi ti chiede se cercare le offerte dove sei.
 - 🎙️ **Dettatura vocale gratuita**: tocca il microfono e di' “latte, pane e uova”. Usa il riconoscimento vocale del browser (Chrome su Android, Safari su iPhone).
+- 💌 **Condividi l'app** con un tocco (menu di condivisione del telefono) e **versione** sempre visibile accanto al titolo.
 - 📲 **Proposta di installazione** sulla schermata Home (pulsante su Android, istruzioni su iPhone).
 - 👋 **Tour di benvenuto** al primo avvio, con **privacy e condizioni d'uso** da accettare, e la schermata **Novità** dopo ogni aggiornamento.
 - 📱 **Installabile** (PWA): “Aggiungi a schermata Home” su iPhone e Android.

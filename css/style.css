@@ -354,3 +354,15 @@ details.adv[open] summary::after { transform: rotate(180deg); }
 @keyframes mic-pulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--pink) 45%, transparent); } 50% { box-shadow: 0 0 0 12px transparent; } }
 .voice-hint { margin: -4px 8px 6px; min-height: 0; }
 .voice-hint:empty { display: none; }
+
+/* ---------- condividi ---------- */
+.title-row { display: flex; align-items: center; gap: 4px; }
+.share-btn { color: var(--pink); background: var(--card); border: 2px solid var(--line); }
+.share-btn:hover { background: var(--pink-soft); }
+.ver-chip { font: inherit; font-size: 12px; font-weight: 800; color: var(--lav); background: var(--lav-soft); border: 0; border-radius: 99px; padding: 4px 10px; min-height: 28px; cursor: pointer; align-self: center; }
+.ver-chip:hover { background: var(--card); }
+.title-row { flex-wrap: nowrap; }
+.title-row .sync { min-width: 0; }
+.title-row #sync-txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.share-btn { margin-top: 6px; flex: none; }
+.top { align-items: flex-start; }

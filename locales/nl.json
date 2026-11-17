@@ -286,5 +286,11 @@
   "voice.denied": "Microfoon niet toegestaan.",
   "voice.none": "Ik hoorde niets, probeer het opnieuw.",
   "legal.p10": "Dicteren gebruikt de spraakherkenning van je browser: in Chrome verwerkt Google het geluid, in Safari Apple. Het start alleen als je op de microfoon tikt.",
-  "new.voice": "Dicteer je boodschappenlijst met je stem, gratis."
+  "new.voice": "Dicteer je boodschappenlijst met je stem, gratis.",
+  "share.btn": "App delen",
+  "share.title": "Mochi Spesa",
+  "share.text": "De gedeelde, superschattige boodschappenlijst, met Mochi die aanbiedingen zoekt!",
+  "share.copied": "App-link gekopieerd",
+  "new.share": "Deel de app met één tik met vrienden en familie.",
+  "new.version": "De versie staat altijd naast de titel: tik erop voor het nieuws."
 }

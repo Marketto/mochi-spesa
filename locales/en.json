@@ -286,5 +286,11 @@
   "voice.denied": "Microphone not allowed.",
   "voice.none": "I didn't hear anything, try again.",
   "legal.p10": "Voice dictation uses the speech recognition built into your browser: on Chrome the audio is processed by Google, on Safari by Apple. It only starts when you tap the microphone.",
-  "new.voice": "Dictate your shopping list by voice, for free."
+  "new.voice": "Dictate your shopping list by voice, for free.",
+  "share.btn": "Share the app",
+  "share.title": "Mochi Spesa",
+  "share.text": "A shared, super cute shopping list with Mochi finding deals for you!",
+  "share.copied": "App link copied",
+  "new.share": "Share the app with friends and family in one tap.",
+  "new.version": "The version is always visible next to the title: tap it to see what's new."
 }

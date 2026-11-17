@@ -286,5 +286,11 @@
   "voice.denied": "Mikrofonas neleidžiamas.",
   "voice.none": "Nieko negirdėjau, bandykite dar kartą.",
   "legal.p10": "Diktavimas naudoja naršyklės kalbos atpažinimą: „Chrome“ garsą apdoroja „Google“, „Safari“ – „Apple“. Jis prasideda tik palietus mikrofoną.",
-  "new.voice": "Diktuokite pirkinių sąrašą balsu, nemokamai."
+  "new.voice": "Diktuokite pirkinių sąrašą balsu, nemokamai.",
+  "share.btn": "Bendrinti programėlę",
+  "share.title": "Mochi Spesa",
+  "share.text": "Bendras ir labai mielas pirkinių sąrašas – Moči ieško akcijų!",
+  "share.copied": "Programėlės nuoroda nukopijuota",
+  "new.share": "Bendrinkite programėlę su draugais ir šeima vienu palietimu.",
+  "new.version": "Versija visada matoma šalia pavadinimo: palieskite ir pamatysite naujienas."
 }

@@ -286,5 +286,11 @@
   "voice.denied": "Mikrofon pole lubatud.",
   "voice.none": "Ma ei kuulnud midagi, proovi uuesti.",
   "legal.p10": "Dikteerimine kasutab brauseri kõnetuvastust: Chrome'is töötleb heli Google, Safaris Apple. See käivitub ainult siis, kui puudutad mikrofoni.",
-  "new.voice": "Dikteeri ostunimekiri häälega, tasuta."
+  "new.voice": "Dikteeri ostunimekiri häälega, tasuta.",
+  "share.btn": "Jaga rakendust",
+  "share.title": "Mochi Spesa",
+  "share.text": "Jagatud ja väga armas ostunimekiri, kus Mochi otsib pakkumisi!",
+  "share.copied": "Rakenduse link kopeeritud",
+  "new.share": "Jaga rakendust sõprade ja perega ühe puudutusega.",
+  "new.version": "Versioon on alati pealkirja kõrval: puuduta seda uudiste nägemiseks."
 }

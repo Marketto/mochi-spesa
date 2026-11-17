@@ -286,5 +286,11 @@
   "voice.denied": "마이크가 허용되지 않았어요.",
   "voice.none": "아무것도 듣지 못했어요. 다시 해 보세요.",
   "legal.p10": "음성 입력은 브라우저의 음성 인식을 사용해요. Chrome에서는 Google이, Safari에서는 Apple이 소리를 처리해요. 마이크를 누를 때만 시작돼요.",
-  "new.voice": "장보기 목록을 목소리로 무료 입력."
+  "new.voice": "장보기 목록을 목소리로 무료 입력.",
+  "share.btn": "앱 공유",
+  "share.title": "Mochi Spesa",
+  "share.text": "함께 쓰는 귀여운 장보기 목록, 모찌가 할인을 찾아 줘요!",
+  "share.copied": "앱 링크를 복사했어요",
+  "new.share": "탭 한 번으로 친구와 가족에게 앱 공유.",
+  "new.version": "버전이 항상 제목 옆에 보여요: 누르면 새 기능을 볼 수 있어요."
 }

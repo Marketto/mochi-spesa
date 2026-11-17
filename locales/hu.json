@@ -286,5 +286,11 @@
   "voice.denied": "A mikrofon nincs engedélyezve.",
   "voice.none": "Nem hallottam semmit, próbáld újra.",
   "legal.p10": "A diktálás a böngésző beszédfelismerését használja: Chrome-ban a Google, Safariban az Apple dolgozza fel a hangot. Csak akkor indul, ha a mikrofonra koppintasz.",
-  "new.voice": "Diktáld be a bevásárlólistát hanggal, ingyen."
+  "new.voice": "Diktáld be a bevásárlólistát hanggal, ingyen.",
+  "share.btn": "App megosztása",
+  "share.title": "Mochi Spesa",
+  "share.text": "Közös, szuper cuki bevásárlólista, Mochi pedig akciókat keres!",
+  "share.copied": "Az app linkje másolva",
+  "new.share": "Oszd meg az appot barátokkal és családdal egy koppintással.",
+  "new.version": "A verzió mindig látszik a cím mellett: koppints rá az újdonságokért."
 }

@@ -286,5 +286,11 @@
   "voice.denied": "Mikrofons nav atļauts.",
   "voice.none": "Neko nedzirdēju, mēģini vēlreiz.",
   "legal.p10": "Diktēšana izmanto pārlūka runas atpazīšanu: Chrome skaņu apstrādā Google, Safari – Apple. Tā sākas tikai, kad pieskaries mikrofonam.",
-  "new.voice": "Diktē iepirkumu sarakstu ar balsi, bez maksas."
+  "new.voice": "Diktē iepirkumu sarakstu ar balsi, bez maksas.",
+  "share.btn": "Kopīgot lietotni",
+  "share.title": "Mochi Spesa",
+  "share.text": "Kopīgs un ļoti mīlīgs iepirkumu saraksts – Moči meklē akcijas!",
+  "share.copied": "Lietotnes saite nokopēta",
+  "new.share": "Kopīgo lietotni ar draugiem un ģimeni ar vienu pieskārienu.",
+  "new.version": "Versija vienmēr redzama blakus nosaukumam: pieskaries, lai redzētu jaunumus."
 }

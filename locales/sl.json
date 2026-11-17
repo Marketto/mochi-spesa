@@ -286,5 +286,11 @@
   "voice.denied": "Mikrofon ni dovoljen.",
   "voice.none": "Nič nisem slišala, poskusi znova.",
   "legal.p10": "Narekovanje uporablja prepoznavanje govora v brskalniku: v Chromu zvok obdela Google, v Safariju Apple. Začne se le, ko tapneš mikrofon.",
-  "new.voice": "Nareki nakupovalni seznam z glasom, brezplačno."
+  "new.voice": "Nareki nakupovalni seznam z glasom, brezplačno.",
+  "share.btn": "Deli aplikacijo",
+  "share.title": "Mochi Spesa",
+  "share.text": "Skupni, prisrčni nakupovalni seznam, kjer Mochi išče akcije!",
+  "share.copied": "Povezava do aplikacije kopirana",
+  "new.share": "Deli aplikacijo s prijatelji in družino z enim tapom.",
+  "new.version": "Različica je vedno vidna ob naslovu: tapni jo za novosti."
 }

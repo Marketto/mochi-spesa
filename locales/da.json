@@ -286,5 +286,11 @@
   "voice.denied": "Mikrofonen er ikke tilladt.",
   "voice.none": "Jeg hørte ingenting, prøv igen.",
   "legal.p10": "Diktering bruger browserens talegenkendelse: i Chrome behandles lyden af Google, i Safari af Apple. Den starter kun, når du trykker på mikrofonen.",
-  "new.voice": "Diktér indkøbslisten med stemmen, gratis."
+  "new.voice": "Diktér indkøbslisten med stemmen, gratis.",
+  "share.btn": "Del appen",
+  "share.title": "Mochi Spesa",
+  "share.text": "Den delte, supersøde indkøbsliste, hvor Mochi finder tilbud!",
+  "share.copied": "Applink kopieret",
+  "new.share": "Del appen med venner og familie med ét tryk.",
+  "new.version": "Versionen ses altid ved siden af titlen: tryk på den for nyheder."
 }

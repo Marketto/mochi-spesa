@@ -419,6 +419,8 @@ function fillSettings() {
   $("#dbx-off").hidden = !dbx.isConnected();
   $("#dbx-go-txt").textContent = t(dbx.isConnected() ? "dbx.reconnect" : "dbx.connect");
   $("#about-ver").textContent = t("about.version", { v: APP_VERSION });
+  $("#ver-chip").textContent = "v" + APP_VERSION;
+  $("#ver-chip").setAttribute("aria-label", t("about.version", { v: APP_VERSION }) + ". " + t("news.open"));
 }
 $("#z-raggio").addEventListener("input", e => $("#z-raggio-v").textContent = e.target.value);
 async function changeLang(code) {
@@ -473,7 +475,22 @@ $("#dbx-share").addEventListener("click", async () => {
 });
 $("#open-legal").addEventListener("click", () => openLegal());
 $("#open-news").addEventListener("click", () => openNews(CHANGELOG, false));
+$("#ver-chip").addEventListener("click", () => openNews(CHANGELOG, false));
 $("#open-wizard").addEventListener("click", () => openWizard({ required: false }));
+
+// ---------- CONDIVIDI L'APP ----------
+async function shareApp(btn) {
+  const url = dbx.redirectUri(); // indirizzo pubblico dell'app, senza configurazioni né dati
+  const data = { title: t("share.title"), text: t("share.text"), url };
+  try {
+    if (navigator.share) { await navigator.share(data); mochi.mood("happy"); mochi.say(frase("aggiunto")); return; }
+  } catch (e) { if (e && e.name === "AbortError") return; }
+  try { await navigator.clipboard.writeText(`${data.text} ${url}`); toast(t("share.copied"), "share"); }
+  catch { await confirmDlg(`${t("dbx.copyThis")} ${url}`, t("common.close"), "share"); }
+  sparkles(btn);
+}
+$("#share-top").addEventListener("click", e => shareApp(e.currentTarget));
+$("#share-app").addEventListener("click", e => shareApp(e.currentTarget));
 
 // ---------- SINCRONIZZAZIONE ----------
 let rev = lsGet("mochi.rev", null), syncing = false, syncAgain = false, syncT;

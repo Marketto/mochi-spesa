@@ -286,5 +286,11 @@
   "voice.denied": "Mikrofon není povolen.",
   "voice.none": "Nic jsem neslyšela, zkus to znovu.",
   "legal.p10": "Diktování používá rozpoznávání řeči v prohlížeči: v Chromu zvuk zpracovává Google, v Safari Apple. Spustí se jen po klepnutí na mikrofon.",
-  "new.voice": "Nadiktuj nákupní seznam hlasem, zdarma."
+  "new.voice": "Nadiktuj nákupní seznam hlasem, zdarma.",
+  "share.btn": "Sdílet aplikaci",
+  "share.title": "Mochi Spesa",
+  "share.text": "Sdílený a roztomilý nákupní seznam, kde Mochi hledá akce!",
+  "share.copied": "Odkaz na aplikaci zkopírován",
+  "new.share": "Sdílej aplikaci s přáteli a rodinou jedním klepnutím.",
+  "new.version": "Verze je vždy vidět vedle názvu: klepni na ni a uvidíš novinky."
 }

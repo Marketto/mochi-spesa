@@ -286,5 +286,11 @@
   "voice.denied": "Mikrofonia ei sallittu.",
   "voice.none": "En kuullut mitään, yritä uudelleen.",
   "legal.p10": "Sanelu käyttää selaimen puheentunnistusta: Chromessa äänen käsittelee Google, Safarissa Apple. Se alkaa vain, kun napautat mikrofonia.",
-  "new.voice": "Sanele ostoslista äänellä, ilmaiseksi."
+  "new.voice": "Sanele ostoslista äänellä, ilmaiseksi.",
+  "share.btn": "Jaa sovellus",
+  "share.title": "Mochi Spesa",
+  "share.text": "Jaettu ja suloinen ostoslista – Mochi etsii tarjoukset!",
+  "share.copied": "Sovelluksen linkki kopioitu",
+  "new.share": "Jaa sovellus ystäville ja perheelle yhdellä napautuksella.",
+  "new.version": "Versio näkyy aina otsikon vieressä: napauta sitä nähdäksesi uutuudet."
 }

@@ -286,5 +286,11 @@
   "voice.denied": "Micro non autorisé.",
   "voice.none": "Je n'ai rien entendu, réessaie.",
   "legal.p10": "La dictée utilise la reconnaissance vocale du navigateur : sur Chrome l'audio est traité par Google, sur Safari par Apple. Elle ne démarre que si tu touches le micro.",
-  "new.voice": "Dicte ta liste de courses à voix haute, gratuitement."
+  "new.voice": "Dicte ta liste de courses à voix haute, gratuitement.",
+  "share.btn": "Partager l'app",
+  "share.title": "Mochi Spesa",
+  "share.text": "La liste de courses partagée et trop mignonne, avec Mochi qui cherche les promos !",
+  "share.copied": "Lien de l'app copié",
+  "new.share": "Partage l'app avec tes proches en une touche.",
+  "new.version": "La version est toujours visible à côté du titre : touche-la pour voir les nouveautés."
 }
