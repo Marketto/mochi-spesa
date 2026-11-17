@@ -9,6 +9,8 @@ Lista della spesa **condivisa**, **kawaii** e **senza server**, con Mochi che ce
 - 🏷️ **Offerte vicino a casa**: scegli i prodotti da tenere d'occhio (detersivo lavatrice, ammorbidente…), la zona e il raggio. Mochi cerca nei volantini e confronta con Amazon il **prezzo per lavaggio, litro o kg**.
 - ⚖️ **È un buon affare?**: incolli un link Amazon o un prezzo. Ottieni subito il prezzo per unità e, se vuoi, un'analisi di qualità e prezzo.
 - 🌍 **29 lingue**: le 24 lingue ufficiali dell'UE più russo, cinese, giapponese, coreano e arabo (impaginazione da destra a sinistra). Rileva la lingua del telefono e si cambia dalle impostazioni.
+- 📍 **Posizione**: scrivi l'indirizzo di casa o usa la posizione del telefono. Se sei a più di 40 km da casa, Mochi ti chiede se cercare le offerte dove sei.
+- 📲 **Proposta di installazione** sulla schermata Home (pulsante su Android, istruzioni su iPhone).
 - 👋 **Tour di benvenuto** al primo avvio, con **privacy e condizioni d'uso** da accettare, e la schermata **Novità** dopo ogni aggiornamento.
 - 📱 **Installabile** (PWA): “Aggiungi a schermata Home” su iPhone e Android.
 - ♿ **Accessibile**: contrasti WCAG AA, tutto usabile da tastiera e con screen reader, target da 44px o più, rispetta “riduci movimento”, tema chiaro e scuro.
@@ -18,7 +20,8 @@ Lista della spesa **condivisa**, **kawaii** e **senza server**, con Mochi che ce
 | Dato | Dove sta |
 |---|---|
 | Lista, offerte, zona di casa | Nel **tuo** file Dropbox e nel telefono |
-| Token Dropbox, chiave API Claude, il tuo nome | Solo nel `localStorage` del telefono |
+| Token Dropbox, chiave API Claude, il tuo nome, la posizione “fuori casa” | Solo nel `localStorage` del telefono |
+| App key Dropbox | Variabile del repo GitHub, scritta nel sito al deploy |
 | `config.local.js` (facoltativo, per sviluppo) | In `.gitignore`, mai su GitHub |
 
 Il deploy controlla che non finiscano nel sito `config.local.js` o chiavi API.
@@ -39,8 +42,11 @@ Il deploy controlla che non finiscano nel sito `config.local.js` o chiavi API.
    - in **Allow public clients (Implicit Grant & PKCE)** scegli **Allow**
    - copia la **App key**. È pubblica per natura, non è una password, ma resta comunque fuori dal repo.
 4. In Dropbox crea la cartella **`/Spesa`** e **condividila con tua moglie**.
-5. Nell'app apri ⚙️ **Impostazioni** → incolla l'App key → **Collega Dropbox**.
-6. Tocca **💌 Copia link per tua moglie** e mandaglielo. Aprendolo trova tutto pronto e deve solo toccare *Collega Dropbox*. Il link contiene solo l'app key e il percorso, mai i token.
+5. Su GitHub: **Settings → Secrets and variables → Actions → Variables → New repository variable**, nome `DROPBOX_APP_KEY`, valore = la tua App key. Poi rilancia il deploy (*Actions → Deploy su GitHub Pages → Run workflow*).
+   Il deploy scrive la chiave in `config.js` dentro il sito, quindi **nessun utente deve inserirla**: basta toccare *Collega Dropbox*. La App key non è un segreto (serve proprio a identificare l'app nel browser), ma così non sta nel codice del repo.
+6. Nell'app tocca **Collega Dropbox** e autorizza. A tua moglie basta aprire l'app e fare lo stesso.
+
+> Senza la variabile l'app funziona comunque: chiede la App key in *Impostazioni → Avanzate*.
 
 > Se tua moglie ha spostato la cartella condivisa in un'altra posizione, deve solo correggere il percorso del file nelle impostazioni.
 
@@ -101,6 +107,7 @@ js/mascot.js          Mochi (SVG) con espressioni e frasi
 js/store.js           unione senza conflitti (last-writer-wins per elemento + tombstone)
 js/dropbox.js         OAuth PKCE e file Dropbox dal browser
 js/claude.js          ricerca offerte e valutazioni con l'API di Claude
+js/geo.js             posizione, distanza da casa, indirizzi con OpenStreetMap
 js/i18n.js            traduzioni, lingua RTL, font per lingua
 js/version.js         versione, novità e versione della policy
 locales/              29 file di traduzione

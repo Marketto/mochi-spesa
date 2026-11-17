@@ -43,6 +43,7 @@
 
   <!-- LISTA -->
   <section id="p-lista" role="tabpanel" aria-labelledby="t-lista" class="panel">
+    <div id="install"></div>
     <div id="onboard"></div>
     <form id="f-add" class="add card" autocomplete="off">
       <label for="add-nome" class="sr" data-i18n="list.addLabel"></label>
@@ -74,6 +75,7 @@
       <ul class="chips" id="monitor" data-i18n-attr="aria-label:deals.watchTitle"></ul>
     </div>
     <div class="center"><button class="btn primary big" id="cerca" type="button"><i class="mi mi-search" aria-hidden="true"></i> <span data-i18n="deals.search"></span></button></div>
+    <div id="away" aria-live="polite"></div>
     <p class="hint" id="off-info" aria-live="polite"></p>
     <div id="offerte"></div>
   </section>
@@ -123,11 +125,16 @@
     <form class="card" id="f-dbx">
       <h2 class="in"><i class="mi mi-cloud" aria-hidden="true"></i> <span data-i18n="dbx.title"></span></h2>
       <p class="hint" data-i18n="dbx.hint"></p>
-      <label for="dbx-key" data-i18n="dbx.key"></label>
-      <input id="dbx-key" autocomplete="off" spellcheck="false" aria-describedby="dbx-key-h" dir="ltr">
-      <p class="hint" id="dbx-key-h" data-i18n="dbx.keyHint"></p>
-      <label for="dbx-path" data-i18n="dbx.path"></label>
-      <input id="dbx-path" spellcheck="false" dir="ltr" placeholder="/Spesa/mochi-spesa.json">
+      <details class="adv" id="dbx-adv">
+        <summary><i class="mi mi-tab-settings" aria-hidden="true"></i> <span data-i18n="dbx.advanced"></span></summary>
+        <div id="dbx-key-wrap">
+          <label for="dbx-key" data-i18n="dbx.key"></label>
+          <input id="dbx-key" autocomplete="off" spellcheck="false" aria-describedby="dbx-key-h" dir="ltr">
+          <p class="hint" id="dbx-key-h" data-i18n="dbx.keyHint"></p>
+        </div>
+        <label for="dbx-path" data-i18n="dbx.path"></label>
+        <input id="dbx-path" spellcheck="false" dir="ltr" placeholder="/Spesa/mochi-spesa.json">
+      </details>
       <div class="row wrap gap">
         <button class="btn primary" type="submit" id="dbx-go"><i class="mi mi-connect" aria-hidden="true"></i> <span id="dbx-go-txt"></span></button>
         <button class="btn ghost" type="button" id="dbx-off" hidden><i class="mi mi-disconnect" aria-hidden="true"></i> <span data-i18n="dbx.disconnect"></span></button>
@@ -139,7 +146,11 @@
     <form class="card" id="f-zona">
       <h2 class="in"><i class="mi mi-pin" aria-hidden="true"></i> <span data-i18n="zone.title"></span> <small data-i18n="zone.shared"></small></h2>
       <label for="z-luogo" data-i18n="zone.place"></label>
-      <input id="z-luogo" data-i18n-attr="placeholder:zone.placePh" autocomplete="off">
+      <div class="row gap" style="margin-top:0">
+        <input id="z-luogo" data-i18n-attr="placeholder:zone.placePh" autocomplete="off" aria-describedby="geo-msg">
+      </div>
+      <button class="btn ghost" type="button" id="geo-btn" style="margin-top:8px"><i class="mi mi-pin" aria-hidden="true"></i> <span data-i18n="geo.use"></span></button>
+      <p class="hint" id="geo-msg" aria-live="polite"></p>
       <label for="z-raggio"><span data-i18n="zone.radius"></span>: <output id="z-raggio-v" for="z-raggio">5</output> km</label>
       <input id="z-raggio" type="range" min="1" max="30" value="5">
       <label for="z-negozi" data-i18n="zone.shops"></label>

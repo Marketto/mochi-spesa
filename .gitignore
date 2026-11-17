@@ -1,5 +1,6 @@
 # Dati personali: MAI su GitHub
 config.local.js
+config.js
 *.local.*
 .env
 .env.*

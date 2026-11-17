@@ -5,6 +5,7 @@ import { t, setLang, detect, lang, locale, langName, LANGS } from "./i18n.js";
 import { APP_VERSION, POLICY_VERSION, CHANGELOG, novitaDopo } from "./version.js";
 import * as dbx from "./dropbox.js";
 import * as ai from "./claude.js";
+import * as geo from "./geo.js";
 
 // ---------- utilità ----------
 const $ = s => document.querySelector(s);
@@ -27,12 +28,24 @@ const curSymbol = () => new Intl.NumberFormat(locale(), { style: "currency", cur
 const perUnit = (n, u) => `${money3(n)} ${t("unitPer." + (u || "pezzi"))}`;
 
 // ---------- configurazione locale (mai nel repo) ----------
+// config.js è generato dal deploy (App key Dropbox da variabile del repo); config.local.js solo in sviluppo.
 let LOCAL_CFG = {};
-if (["localhost", "127.0.0.1"].includes(location.hostname)) {
-  try { LOCAL_CFG = (await import("../config.local.js")).default || {}; } catch {}
-}
+const isLocal = ["localhost", "127.0.0.1"].includes(location.hostname);
+try { LOCAL_CFG = (await import(isLocal ? "../config.local.js" : "../config.js")).default || {}; } catch {}
+const BUILT_KEY = String(LOCAL_CFG.dropboxAppKey || "");
 const DBX_CFG_KEY = "mochi.dbxcfg";
-const dbxCfg = () => ({ appKey: LOCAL_CFG.dropboxAppKey || "", path: LOCAL_CFG.dropboxPath || "/Spesa/mochi-spesa.json", ...lsGet(DBX_CFG_KEY, {}) });
+const dbxCfg = () => {
+  const c = { appKey: "", path: LOCAL_CFG.dropboxPath || "/Spesa/mochi-spesa.json", ...lsGet(DBX_CFG_KEY, {}) };
+  if (BUILT_KEY) c.appKey = BUILT_KEY; // la chiave del sito vince: gli utenti non devono inserirla
+  return c;
+};
+async function connectDropbox() {
+  const { appKey } = dbxCfg();
+  if (!appKey) { selectTab($("#t-imp")); $("#dbx-adv").open = true; $("#dbx-key").focus(); $("#dbx-msg").textContent = t("dbx.needKey"); return; }
+  lsSet(DBX_CFG_KEY, { ...lsGet(DBX_CFG_KEY, {}), appKey, path: dbxCfg().path });
+  toast(t("dbx.redirecting"), "cloud");
+  await dbx.startAuth(appKey);
+}
 const me = () => ({ nome: "", anim: "auto", lang: "", ...lsGet("mochi.me", {}) });
 const setMe = patch => lsSet("mochi.me", { ...me(), ...patch });
 
@@ -159,10 +172,15 @@ function renderMonitor() {
 const VOTO = { ottima: ["vote.great", "gold", "star"], buona: ["vote.good", "", "down"], normale: ["vote.avg", "warn", "info"] };
 function renderOfferte() {
   const s = state.settings, o = state.offerte, key = !!ai.getCfg().key;
-  $("#off-info").innerHTML = !s.luogo ? `${ic("tab-settings")} ${esc(t("deals.needZone"))}`
+  $("#off-info").innerHTML = !s.luogo ? `${ic("pin")} ${esc(t("geo.ask"))} <button class="btn ghost" type="button" id="offerte-geo2">${ic("pin")} ${esc(t("geo.use"))}</button>`
     : !key ? `${ic("key")} ${esc(t("deals.needKey"))}`
     : o.updatedAt ? `${ic("pin")} ${esc(t("deals.last", { when: quando(o.updatedAt), km: s.raggioKm, place: s.luogo }))}`
     : `${ic("info")} ${esc(t("deals.first"))}`;
+  $("#offerte-geo2")?.addEventListener("click", () => { selectTab($("#t-imp")); usaPosizione($("#geo-btn")); });
+  const a0 = away();
+  $("#away").innerHTML = a0 ? `<div class="card notice-card"><p>${ic("pin")} ${esc(t("geo.using", { place: a0.nome }))}</p>
+    <button class="btn ghost" type="button" id="away-home">${ic("tab-list")} ${esc(t("geo.backHome"))}</button></div>` : "";
+  $("#away-home")?.addEventListener("click", () => { lsSet(AWAY_KEY, null); renderOfferte(); toast(t("geo.backHome"), "pin"); $("#cerca").focus(); });
   $("#cerca").disabled = !s.luogo || !key || !live(state.monitor).length;
   if (!o.list.length) { $("#offerte").innerHTML = `<div class="card empty">${ic("percent", "big-emoji")}<p>${esc(t("deals.none"))}</p></div>`; renderOfferte.sorted = []; return; }
   const list = [...o.list].sort((a, b) => (a.categoria || a.prodotto).localeCompare(b.categoria || b.prodotto) || (a.prezzoUnit ?? 1e9) - (b.prezzoUnit ?? 1e9));
@@ -290,7 +308,10 @@ $("#cerca").addEventListener("click", async () => {
   mochi.mood("wow", 0); mochi.say(frase("cerco"), 60000);
   searching = new AbortController();
   try {
-    const offerte = await ai.cercaOfferte({ prodotti: live(state.monitor), ...state.settings, valuta: currency(), lingua: langName() }, { signal: searching.signal });
+    await checkAway({ ask: true, modal: true });
+    const s0 = state.settings, a0 = away();
+    const luogo = a0 ? `${a0.nome} (lat ${a0.lat}, lon ${a0.lon})` : s0.lat != null ? `${s0.luogo} (lat ${s0.lat}, lon ${s0.lon})` : s0.luogo;
+    const offerte = await ai.cercaOfferte({ prodotti: live(state.monitor), ...s0, luogo, valuta: currency(), lingua: langName() }, { signal: searching.signal });
     endSearch();
     mutate((st, now) => { st.offerte = { list: offerte, updatedAt: now }; });
     const top = offerte.filter(o => o.voto === "ottima").length;
@@ -357,7 +378,9 @@ function fillSettings() {
   fillLangSelect($("#me-lang"));
   $("#me-nome").value = m.nome || "";
   for (const r of document.querySelectorAll('input[name="anim"]')) r.checked = r.value === (m.anim || "auto");
-  const c = dbxCfg(); $("#dbx-key").value = c.appKey || ""; $("#dbx-path").value = c.path || "";
+  const c = dbxCfg(); $("#dbx-key").value = BUILT_KEY ? "" : (c.appKey || ""); $("#dbx-path").value = c.path || "";
+  $("#dbx-key-wrap").hidden = !!BUILT_KEY;
+  if (!BUILT_KEY && !c.appKey) $("#dbx-adv").open = true;
   const s = state.settings;
   $("#z-luogo").value = s.luogo || ""; $("#z-raggio").value = s.raggioKm || 5; $("#z-raggio-v").textContent = s.raggioKm || 5;
   $("#z-negozi").value = s.negozi || ""; $("#z-amz").checked = s.amazon !== false;
@@ -382,9 +405,17 @@ $("#f-me").addEventListener("submit", e => {
   setMe({ nome, anim: document.querySelector('input[name="anim"]:checked')?.value || "auto" });
   applyAnim(); render(); toast(t("common.saved"), "save"); mochi.mood("happy"); mochi.say(nome ? t("phr.nice", { name: nome }) : frase("aggiunto"));
 });
-$("#f-zona").addEventListener("submit", e => {
+$("#f-zona").addEventListener("submit", async e => {
   e.preventDefault();
-  mutate((s, now) => { s.settings = { luogo: $("#z-luogo").value.trim(), raggioKm: +$("#z-raggio").value, negozi: $("#z-negozi").value.trim(), amazon: $("#z-amz").checked, valuta: $("#z-valuta").value, updatedAt: now }; });
+  const luogo = $("#z-luogo").value.trim(), old = state.settings;
+  let coords = luogo === old.luogo && old.lat != null ? { lat: old.lat, lon: old.lon } : {};
+  if (luogo && coords.lat == null) {
+    const g = await geo.geocode(luogo, lang());
+    if (g) coords = { lat: g.lat, lon: g.lon }; else $("#geo-msg").textContent = t("geo.geocodeFail");
+  }
+  mutate((s, now) => {
+    s.settings = { luogo, raggioKm: +$("#z-raggio").value, negozi: $("#z-negozi").value.trim(), amazon: $("#z-amz").checked, valuta: $("#z-valuta").value, ...coords, updatedAt: now };
+  });
   toast(t("zone.saved"), "pin");
 });
 $("#f-ai").addEventListener("submit", e => {
@@ -395,9 +426,9 @@ $("#f-ai").addEventListener("submit", e => {
 const normPath = p => { p = (p || "").trim() || "/Spesa/mochi-spesa.json"; if (!p.startsWith("/")) p = "/" + p; if (!/\.json$/i.test(p)) p += ".json"; return p; };
 $("#f-dbx").addEventListener("submit", async e => {
   e.preventDefault();
-  const appKey = $("#dbx-key").value.trim(), path = normPath($("#dbx-path").value);
-  if (!appKey) { $("#dbx-msg").textContent = t("dbx.needKey"); $("#dbx-key").focus(); return; }
-  lsSet(DBX_CFG_KEY, { appKey, path });
+  const appKey = BUILT_KEY || $("#dbx-key").value.trim(), path = normPath($("#dbx-path").value);
+  if (!appKey) { $("#dbx-adv").open = true; $("#dbx-msg").textContent = t("dbx.needKey"); $("#dbx-key").focus(); return; }
+  lsSet(DBX_CFG_KEY, { appKey: BUILT_KEY ? "" : appKey, path });
   $("#dbx-msg").textContent = t("dbx.redirecting");
   await dbx.startAuth(appKey);
 });
@@ -406,8 +437,8 @@ $("#dbx-off").addEventListener("click", async () => {
   dbx.disconnect(); fillSettings(); renderOnboard(); syncSet("local", "sync.local"); toast(t("dbx.disconnected"), "disconnect");
 });
 $("#dbx-share").addEventListener("click", async () => {
-  const c = { k: $("#dbx-key").value.trim(), p: normPath($("#dbx-path").value), l: lang() };
-  if (!c.k) { $("#dbx-msg").textContent = t("dbx.needKey"); return; }
+  const c = { k: BUILT_KEY ? "" : $("#dbx-key").value.trim(), p: normPath($("#dbx-path").value), l: lang() };
+  if (!BUILT_KEY && !c.k) { $("#dbx-adv").open = true; $("#dbx-msg").textContent = t("dbx.needKey"); return; }
   const link = dbx.redirectUri() + "#setup=" + btoa(unescape(encodeURIComponent(JSON.stringify(c)))); // solo app key, percorso e lingua: mai token
   try { await navigator.clipboard.writeText(link); $("#dbx-msg").textContent = t("dbx.copied"); toast(t("dbx.copiedShort"), "copy"); }
   catch { $("#dbx-msg").innerHTML = `${esc(t("dbx.copyThis"))} <input readonly dir="ltr" value="${esc(link)}" aria-label="${esc(t("dbx.share"))}">`; }
@@ -468,7 +499,7 @@ async function sync() {
 }
 $("#sync").addEventListener("click", () => {
   if (dbx.isConnected()) sync();
-  else { selectTab($("#t-imp")); $("#dbx-key").focus(); }
+  else connectDropbox();
 });
 setInterval(() => { if (document.visibilityState === "visible") sync(); }, 20000);
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") sync(); });
@@ -481,15 +512,89 @@ function renderOnboard() {
     `<div class="card"><h2 class="in">${ic("mochi")} ${esc(t("onboard.title"))}</h2>
      <p style="margin:0 0 10px">${esc(t("onboard.text"))}</p>
      <button class="btn primary" type="button" id="go-dbx">${ic("connect")} ${esc(t("dbx.connect"))}</button></div>`;
-  $("#go-dbx")?.addEventListener("click", () => { selectTab($("#t-imp")); $("#dbx-key").focus(); });
+  $("#go-dbx")?.addEventListener("click", connectDropbox);
+  renderInstall();
 }
+
+
+// ---------- INSTALLAZIONE (PWA) ----------
+let installEvt = null;
+const standalone = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+addEventListener("beforeinstallprompt", e => { e.preventDefault(); installEvt = e; renderInstall(); });
+addEventListener("appinstalled", () => { installEvt = null; renderInstall(); toast(t("install.done"), "install"); mochi.mood("happy", 2500); confetti(); });
+function renderInstall() {
+  const box = $("#install");
+  const later = lsGet("mochi.installLater", 0);
+  const show = !standalone() && Date.now() - later > 7 * 864e5 && (installEvt || isIOS()) && !$("#wiz").open;
+  if (!show) { box.innerHTML = ""; return; }
+  box.innerHTML = `<section class="card install-card" aria-labelledby="inst-t">
+    <div class="big-ic">${ic("install")}</div>
+    <div><h2 id="inst-t">${esc(t("install.title"))}</h2>
+    <p>${installEvt ? esc(t("install.text")) : esc(t("install.ios")).replace("{share}", `<span class="ios-share">${ic("share-ios")}</span>`)}</p>
+    <div class="row">${installEvt ? `<button class="btn primary" type="button" id="inst-go">${ic("install")} ${esc(t("install.btn"))}</button>` : ""}
+      <button class="btn ghost" type="button" id="inst-later">${esc(t("install.later"))}</button></div></div></section>`;
+  $("#inst-go")?.addEventListener("click", async () => {
+    if (!installEvt) return;
+    installEvt.prompt();
+    try { await installEvt.userChoice; } catch {}
+    installEvt = null; renderInstall();
+  });
+  $("#inst-later").addEventListener("click", () => { lsSet("mochi.installLater", Date.now()); renderInstall(); $("#add-nome").focus(); });
+}
+
+// ---------- POSIZIONE ----------
+// Casa = impostazione condivisa (indirizzo + coordinate). "Fuori casa" = solo su questo telefono.
+const AWAY_KEY = "mochi.away";
+const away = () => lsGet(AWAY_KEY, null);          // { lat, lon, nome } se si cercano offerte fuori casa
+let awayAsked = null;                              // posizione per cui l'utente ha già risposto "no" in questa sessione
+const home = () => state.settings.lat != null ? { lat: state.settings.lat, lon: state.settings.lon } : null;
+
+/** "Usa la mia posizione" nelle impostazioni: imposta casa qui. */
+async function usaPosizione(btn) {
+  const msg = $("#geo-msg");
+  btn.classList.add("loading"); btn.setAttribute("aria-busy", "true"); msg.textContent = t("geo.locating");
+  try {
+    const pos = await geo.here();
+    const nome = (await geo.placeName(pos, lang())) || t("geo.label", pos);
+    mutate((s, now) => { s.settings = { ...s.settings, ...pos, luogo: nome, updatedAt: now }; });
+    lsSet(AWAY_KEY, null);
+    fillSettings(); msg.textContent = t("geo.ok"); toast(t("geo.ok"), "pin"); mochi.mood("happy"); mochi.say(frase("guardo"));
+  } catch (err) {
+    msg.textContent = err && err.code === 1 ? t("geo.denied") : t("geo.fail"); $("#z-luogo").focus();
+  } finally { btn.classList.remove("loading"); btn.removeAttribute("aria-busy"); }
+}
+$("#geo-btn").addEventListener("click", e => usaPosizione(e.currentTarget));
+
+/** Se sei a più di 40 km da casa propone di cercare qui. modal=true usa il dialogo, altrimenti una scheda in Offerte. */
+async function checkAway({ ask = false, modal = false } = {}) {
+  const h = home(); if (!h) return;
+  if (!ask && (await geo.permission()) !== "granted") return; // senza permesso già dato non chiediamo all'apertura
+  let pos; try { pos = await geo.here({ timeout: 8000 }); } catch { return; }
+  const a = away();
+  if (geo.distKm(h, pos) <= geo.AWAY_KM) { if (a) { lsSet(AWAY_KEY, null); renderOfferte(); } return; }
+  if (a && geo.distKm(a, pos) <= geo.AWAY_KM) return;                    // già in uso qui
+  if (awayAsked && geo.distKm(awayAsked, pos) <= geo.AWAY_KM) return;    // ha già detto no qui
+  const km = Math.round(geo.distKm(h, pos));
+  const nome = (await geo.placeName(pos, lang())) || t("geo.label", pos);
+  const accetta = () => { lsSet(AWAY_KEY, { ...pos, nome }); awayAsked = null; renderOfferte(); toast(t("geo.using", { place: nome }), "pin"); mochi.mood("wow"); };
+  const rifiuta = () => { awayAsked = pos; renderOfferte(); };
+  if (modal) { (await confirmDlg(t("geo.away", { km, place: nome }), t("geo.awayYes"), "pin")) ? accetta() : rifiuta(); return; }
+  $("#away").innerHTML = `<div class="card notice-card" role="region" aria-labelledby="away-t">
+    <p id="away-t">${ic("pin")} ${esc(t("geo.away", { km, place: nome }))}</p>
+    <div class="row gap"><button class="btn primary" type="button" id="away-yes">${ic("ok")} ${esc(t("geo.awayYes"))}</button>
+    <button class="btn ghost" type="button" id="away-no">${ic("close")} ${esc(t("geo.awayNo"))}</button></div></div>`;
+  $("#away-yes").addEventListener("click", accetta);
+  $("#away-no").addEventListener("click", rifiuta);
+}
+$("#t-offerte").addEventListener("click", () => checkAway());
 
 // ---------- PRIVACY E CONDIZIONI ----------
 function legalHtml() {
   const sec = (icon, title, prefix, n) => `<h3>${ic(icon)} ${esc(t(title))}</h3><ul>${
     Array.from({ length: n }, (_, i) => `<li>${esc(t(`${prefix}${i + 1}`))}</li>`).join("")}</ul>`;
   return `<p class="hint">${esc(t("legal.updated", { date: new Date(POLICY_VERSION).toLocaleDateString(locale(), { dateStyle: "long" }) }))}</p>
-    ${sec("privacy", "legal.privacyTitle", "legal.p", 8)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
+    ${sec("privacy", "legal.privacyTitle", "legal.p", 9)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
 }
 function openLegal() { $("#legal-body").innerHTML = legalHtml(); $("#legal").showModal(); }
 
@@ -573,6 +678,7 @@ $("#wiz-next").addEventListener("click", () => {
   fillSettings(); render();
   mochi.mood("happy", 2500); mochi.say(t("phr.nice", { name: me().nome || "♡" }));
   if (wiz.steps.length > 1) confetti();
+  renderInstall();
   $("#add-nome").focus();
 });
 
@@ -585,7 +691,7 @@ $("#wiz-next").addEventListener("click", () => {
   if (m) {
     try {
       const c = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
-      lsSet(DBX_CFG_KEY, { appKey: String(c.k || ""), path: normPath(c.p) });
+      lsSet(DBX_CFG_KEY, { appKey: String(c.k || ""), path: normPath(c.p) }); // c.k vuota se la chiave è nel sito
       if (c.l && LANGS[c.l] && !me().lang) setMe({ lang: c.l });
       setupOk = true;
     } catch {}

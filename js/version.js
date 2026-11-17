@@ -3,10 +3,15 @@
 // (icona + chiave di traduzione "new.*" in tutti i file locales/*.json).
 // Se cambiano privacy o condizioni d'uso, alza anche POLICY_VERSION: verrà chiesta di nuovo l'accettazione.
 
-export const APP_VERSION = "1.1.0";
-export const POLICY_VERSION = "2026-11-17";
+export const APP_VERSION = "1.2.0";
+export const POLICY_VERSION = "2026-11-17b";
 
 export const CHANGELOG = [
+  { v: "1.2.0", items: [
+    ["install", "new.install"],
+    ["connect", "new.easyDbx"],
+    ["pin", "new.geo"],
+  ] },
   { v: "1.1.0", items: [
     ["lang", "new.lang"],
     ["tab-settings", "new.icons"],

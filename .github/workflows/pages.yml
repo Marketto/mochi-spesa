@@ -41,6 +41,12 @@ jobs:
           mkdir _site
           cp -r index.html manifest.webmanifest sw.js css js icons fonts locales _site/
           touch _site/.nojekyll
+      - name: Configurazione dal deploy (App key Dropbox da variabile del repo)
+        env:
+          DROPBOX_APP_KEY: ${{ vars.DROPBOX_APP_KEY }}
+        run: |
+          printf 'export default { dropboxAppKey: "%s" };\n' "$DROPBOX_APP_KEY" > _site/config.js
+          test -n "$DROPBOX_APP_KEY" || echo "::warning::Variabile DROPBOX_APP_KEY non impostata: l'app chiederà la App key agli utenti"
       - uses: actions/configure-pages@v5
         with:
           enablement: true
