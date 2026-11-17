@@ -512,18 +512,45 @@ function renderPantry() {
     const g = {}; for (const d of items) (g[catId(d.cat)] ||= []).push(d);
     for (const c of ORDER) if (g[c]) h += `<section class="group" aria-labelledby="pc-${c}"><h2 id="pc-${c}">${ic(iconOf(c), "em")}${esc(t("cat." + c))}</h2><div class="card"><ul class="items">${g[c].sort((a, b) => a.nome.localeCompare(b.nome)).map(d => row(d, true)).join("")}</ul></div></section>`;
   } else {
+    let lvSeq = 0;
     for (const l of pantry.sortedPlaces(state.luoghi)) {
       const inL = items.filter(d => (state.luoghi[d.luogo] && !state.luoghi[d.luogo].deleted ? d.luogo : "credenza") === l.id);
-      if (!inL.length) continue;
-      const sub = {}; for (const d of inL) (sub[[d.scaffale || "", d.ripiano || ""].join("|")] ||= []).push(d);
-      const keys = Object.keys(sub).sort((a, b) => (a === "|") - (b === "|") || a.localeCompare(b));
-      h += `<section class="group" aria-labelledby="pl-${esc(l.id)}"><h2 id="pl-${esc(l.id)}">${ic(l.base ? "cat-pantry" : "store-room", "em")}${esc(nameOf(l))} <small>· ${inL.length}</small></h2><div class="card">`;
-      for (const k of keys) {
-        const [sc, ri] = k.split("|");
-        if (sc) h += `<h3 class="shelf">${esc([sc, ri].filter(Boolean).join(" › "))}</h3>`;
-        h += `<ul class="items">${sub[k].sort((a, b) => a.nome.localeCompare(b.nome)).map(d => row(d, false)).join("")}</ul>`;
+      // scaffali definiti + quelli che compaiono solo nei prodotti
+      const racks = (l.scaffali || []).map(x => ({ nome: x.nome, ripiani: [...(x.ripiani || [])], basso: !!x.basso }));
+      for (const d of inL) {
+        if (!d.scaffale) continue;
+        let r = racks.find(x => pantry.norm(x.nome) === pantry.norm(d.scaffale));
+        if (!r) racks.push(r = { nome: d.scaffale, ripiani: [] });
+        if (d.ripiano && !r.ripiani.some(x => pantry.norm(x) === pantry.norm(d.ripiano))) r.ripiani.push(d.ripiano);
       }
-      h += `</div></section>`;
+      if (!inL.length && !racks.length) continue;
+      const inLevel = (r, lv) => inL.filter(d => pantry.norm(d.scaffale) === pantry.norm(r.nome) && pantry.norm(d.ripiano || "") === pantry.norm(lv));
+      const ids = new Map(); const idOf = (r, lv) => { const k = r.nome + "|" + lv; if (!ids.has(k)) ids.set(k, "lv" + lvSeq++); return ids.get(k); };
+      h += `<section class="group" aria-labelledby="pl-${esc(l.id)}"><h2 id="pl-${esc(l.id)}">${ic(l.base ? "cat-pantry" : "store-room", "em")}${esc(nameOf(l))} <small>· ${inL.length}</small></h2>`;
+      if (racks.length) {
+        h += `<div class="racks">${racks.map(r => {
+          const sciolti = inLevel(r, "");
+          const lvls = [...pantry.levelsTopDown(r), ...(sciolti.length ? [""] : [])];
+          return `<div class="rack"><div class="rack-name">${ic("shelf")} ${esc(r.nome)}</div><ul class="rack-body">${lvls.map(lv => {
+            const ds = inLevel(r, lv), cats = [...new Set(ds.map(d => catId(d.cat)))].slice(0, 4);
+            const lab = t("pantry.rackLevel", { shelf: r.nome, level: lv || "–", n: ds.length });
+            const inner = `<span class="lv-n">${esc(lv || "–")}</span><span class="lv-ic">${cats.map(c => ic(iconOf(c))).join("")}</span><span class="lv-c">${ds.length || ""}</span>`;
+            return `<li>${ds.length ? `<button type="button" class="rack-lvl" data-goto="${idOf(r, lv)}" aria-label="${esc(lab)}">${inner}</button>` : `<div class="rack-lvl empty" role="img" aria-label="${esc(lab)}">${inner}</div>`}</li>`;
+          }).join("")}</ul></div>`;
+        }).join("")}</div>`;
+      }
+      if (inL.length) {
+        h += `<div class="card">`;
+        const sort = arr => arr.sort((a, b) => a.nome.localeCompare(b.nome)).map(d => row(d, false)).join("");
+        for (const r of racks) for (const lv of [...r.ripiani, ""]) {
+          const ds = inLevel(r, lv); if (!ds.length) continue;
+          h += `<h3 class="shelf" id="${idOf(r, lv)}" tabindex="-1">${ic("shelf")} ${esc([r.nome, lv].filter(Boolean).join(" › "))}</h3><ul class="items">${sort(ds)}</ul>`;
+        }
+        const liberi = inL.filter(d => !d.scaffale);
+        if (liberi.length) h += `${racks.length ? `<h3 class="shelf">${esc(t("pantry.noShelf"))}</h3>` : ""}<ul class="items">${sort(liberi)}</ul>`;
+        h += `</div>`;
+      }
+      h += `</section>`;
     }
   }
   box.innerHTML = h;
@@ -539,6 +566,13 @@ $("#f-pantry").addEventListener("submit", e => {
   toast(t("pantry.added", { n: nuovi.length, place: pantry.placeLabel(p, state.luoghi, nameOf) }), "store-room"); mochi.mood("happy");
 });
 $("#pantry").addEventListener("click", async e => {
+  const go = e.target.closest("[data-goto]");
+  if (go) {
+    const h3 = document.getElementById(go.dataset.goto); if (!h3) return;
+    h3.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+    h3.focus({ preventScroll: true }); h3.classList.remove("flash"); void h3.offsetWidth; h3.classList.add("flash");
+    return;
+  }
   const del = e.target.closest("[data-pdel]"), tl = e.target.closest("[data-p2l]"), ed = e.target.closest("[data-pedit]");
   if (del) {
     const prima = state.dispensa[del.dataset.pdel];
@@ -595,30 +629,82 @@ $("#import-file").addEventListener("change", async e => {
   toast(t("pantry.importDone", { n: plan.n }), "import"); mochi.mood("happy");
 });
 
+// editor di posti, scaffali e ripiani
+let shelfSeq = 0;
+function shelfBlock(lid, sh) {
+  const k = shelfSeq++, id = `se${k}`, r = sh.ripiani || [];
+  return `<div class="shelf-edit" data-k="${k}">
+    <input type="hidden" name="so-${esc(lid)}-${k}" value="${esc(sh.nome || "")}"><input type="hidden" name="sl-${esc(lid)}-${k}" value="${esc(JSON.stringify(sh.nome ? r : []))}">
+    <div class="shelf-head"><label for="${id}-n">${ic("shelf")} ${esc(t("pantry.shelfName"))}</label>
+      <button class="icon-btn danger" type="button" data-rmshelf aria-label="${esc(t("pantry.removeShelf", { name: sh.nome || "" }))}">${ic("delete")}</button></div>
+    <input id="${id}-n" name="sn-${esc(lid)}-${k}" value="${esc(sh.nome || "")}" maxlength="40">
+    <label for="${id}-r">${esc(t("pantry.levels"))}</label>
+    <div class="lv-row"><div class="stepper"><button class="btn ghost round" type="button" data-lv="-1" aria-label="${esc(t("pantry.levelLess"))}">${ic("minus")}</button>
+      <output aria-live="polite">${r.length}</output>
+      <button class="btn ghost round" type="button" data-lv="1" aria-label="${esc(t("pantry.levelMore"))}">${ic("add")}</button></div>
+      <input id="${id}-r" name="sr-${esc(lid)}-${k}" value="${esc(r.join(", "))}" aria-describedby="lv-help" inputmode="text"></div>
+    <label class="check"><input type="checkbox" name="sb-${esc(lid)}-${k}"${sh.basso ? " checked" : ""}> ${esc(t("pantry.fromBottom"))}</label>
+  </div>`;
+}
 $("#places-edit").addEventListener("click", async () => {
   const ls = pantry.sortedPlaces(state.luoghi);
   const r = await sheet({
     title: t("pantry.organize"), icon: "store-room",
     body: `<p class="hint">${esc(t("pantry.organizeHint"))}</p>${ls.map(l => `<fieldset class="place-edit"><legend>${ic(l.base ? "cat-pantry" : "store-room")} ${esc(nameOf(l))}</legend>
       <label for="pn-${esc(l.id)}">${esc(t("pantry.placeName"))}</label><input id="pn-${esc(l.id)}" name="n-${esc(l.id)}" value="${esc(nameOf(l))}" maxlength="40">
-      <label for="ps-${esc(l.id)}">${esc(t("pantry.shelves"))}</label><textarea id="ps-${esc(l.id)}" name="s-${esc(l.id)}" rows="3" placeholder="${esc(t("pantry.shelvesPh"))}" aria-describedby="sh-h">${esc(pantry.shelvesToText(l.scaffali))}</textarea>
+      <div class="shelves" data-lid="${esc(l.id)}">${(l.scaffali || []).map(sh => shelfBlock(l.id, sh)).join("")}</div>
+      <button class="btn ghost small" type="button" data-addshelf="${esc(l.id)}">${ic("add")} ${esc(t("pantry.addShelf"))}</button>
       ${l.base ? "" : `<label class="check"><input type="checkbox" name="x-${esc(l.id)}"> ${esc(t("pantry.removePlace"))}</label>`}</fieldset>`).join("")}
-      <p class="hint" id="sh-h">${esc(t("pantry.shelvesHelp"))}</p>
+      <p class="hint" id="lv-help">${esc(t("pantry.levelsHelp"))}</p>
       <label for="pn-new">${ic("add")} ${esc(t("pantry.newPlace"))}</label><input id="pn-new" name="new" placeholder="${esc(t("pantry.newPlacePh"))}" maxlength="40">`,
     buttons: [{ value: "ok", label: t("common.save"), icon: "save", primary: true }, { value: "", label: t("common.cancel"), icon: "close" }],
+    onOpen: dl => {
+      const body = dl.querySelector("#sheet-body");
+      body.onclick = e => {
+        const add = e.target.closest("[data-addshelf]"), rm = e.target.closest("[data-rmshelf]"), lv = e.target.closest("[data-lv]");
+        if (add) {
+          const box = body.querySelector(`.shelves[data-lid="${CSS.escape(add.dataset.addshelf)}"]`);
+          box.insertAdjacentHTML("beforeend", shelfBlock(add.dataset.addshelf, { nome: t("pantry.newShelf", { n: box.children.length + 1 }), ripiani: ["1", "2", "3"] }));
+          const n = box.lastElementChild.querySelector('input[name^="sn-"]'); n.focus(); n.select();
+        } else if (rm) {
+          const blk = rm.closest(".shelf-edit"), fs = blk.closest("fieldset"); blk.remove(); fs.querySelector("[data-addshelf]").focus();
+        } else if (lv) {
+          const blk = lv.closest(".shelf-edit"), inp = blk.querySelector('input[name^="sr-"]');
+          const arr = pantry.splitLevels(inp.value);
+          if (+lv.dataset.lv > 0) arr.push(pantry.nextLevel(arr)); else arr.pop();
+          inp.value = arr.join(", "); blk.querySelector("output").value = arr.length;
+        }
+      };
+      body.oninput = e => { if (e.target.name?.startsWith("sr-")) e.target.closest(".shelf-edit").querySelector("output").value = pantry.splitLevels(e.target.value).length; };
+    },
   });
   if (r.value !== "ok") return;
+  const f = r.form;
   mutate((s, now) => {
     for (const l of ls) {
-      if (r.form.get("x-" + l.id)) {
+      if (f.get("x-" + l.id)) {
         s.luoghi[l.id] = { ...l, deleted: true, updatedAt: now };
         for (const d of live(s.dispensa)) if (d.luogo === l.id) s.dispensa[d.id] = { ...d, luogo: "credenza", scaffale: "", ripiano: "", updatedAt: now };
         continue;
       }
-      const nome = String(r.form.get("n-" + l.id) || "").trim();
-      s.luoghi[l.id] = { ...l, nome: nome === nameOf(l) && !l.nome ? "" : nome, scaffali: pantry.parseShelves(r.form.get("s-" + l.id)), updatedAt: now };
+      const scaffali = [], renamers = [];
+      for (const [key, val] of f.entries()) {
+        const m = key.match(/^sn-(.+)-(\d+)$/); if (!m || m[1] !== l.id) continue;
+        const k = m[2], nome = String(val).trim(); if (!nome) continue;
+        const sh = { nome, ripiani: pantry.splitLevels(f.get(`sr-${l.id}-${k}`)) };
+        if (f.get(`sb-${l.id}-${k}`)) sh.basso = true;
+        scaffali.push(sh);
+        const orig = String(f.get(`so-${l.id}-${k}`) || "");
+        if (orig) renamers.push(pantry.shelfRenamer({ nome: orig, ripiani: JSON.parse(f.get(`sl-${l.id}-${k}`) || "[]") }, sh));
+      }
+      for (const d of live(s.dispensa)) {
+        if (d.luogo !== l.id || !d.scaffale) continue;
+        for (const rn of renamers) { const x = rn(d.scaffale, d.ripiano || ""); if (x) { s.dispensa[d.id] = { ...d, scaffale: x[0], ripiano: x[1], updatedAt: now }; break; } }
+      }
+      const nome = String(f.get("n-" + l.id) || "").trim();
+      s.luoghi[l.id] = { ...l, nome: nome === nameOf(l) && !l.nome ? "" : nome, scaffali, updatedAt: now };
     }
-    const nuovo = String(r.form.get("new") || "").trim();
+    const nuovo = String(f.get("new") || "").trim();
     if (nuovo) { const id = uid(); s.luoghi[id] = { id, nome: nuovo, ordine: ls.length, scaffali: [], updatedAt: now }; }
   });
   toast(t("common.saved"), "store-room");

@@ -377,5 +377,17 @@
   "pantry.importDone": "Importováno produktů: {n}",
   "pantry.importErr": "Soubor nelze přečíst. Exportuj z Invendo jako Excel (.xlsx) nebo CSV.",
   "pantry.expires": "spotřebujte do {date}",
-  "new.import": "Import spíže z Invendo (Excel nebo CSV) s místy, regály, policemi a trvanlivostí."
+  "new.import": "Import spíže z Invendo (Excel nebo CSV) s místy, regály, policemi a trvanlivostí.",
+  "pantry.addShelf": "Přidat regál",
+  "pantry.shelfName": "Název regálu",
+  "pantry.levels": "Police",
+  "pantry.levelLess": "O polici méně",
+  "pantry.levelMore": "O polici více",
+  "pantry.fromBottom": "Police 1 je dole",
+  "pantry.removeShelf": "Smazat regál {name}",
+  "pantry.newShelf": "Regál {n}",
+  "pantry.levelsHelp": "Police oddělené čárkou, např. 1, 2, 3 nebo Nahoře, Dole. Při přejmenování se produkty přesunou s ní.",
+  "pantry.rackLevel": "{shelf}, police {level}: produktů {n}",
+  "pantry.noShelf": "Bez regálu",
+  "new.racks": "Nakreslené regály s policemi: klepni na polici a uvidíš obsah. Nový editor regálů."
 }

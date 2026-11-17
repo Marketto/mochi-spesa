@@ -377,5 +377,17 @@
   "pantry.importDone": "{n} productos importados",
   "pantry.importErr": "No puedo leer el archivo. Exporta desde Invendo en Excel (.xlsx) o CSV.",
   "pantry.expires": "caduca el {date}",
-  "new.import": "Importa la despensa desde Invendo (Excel o CSV), con lugares, estanterías, baldas y caducidades."
+  "new.import": "Importa la despensa desde Invendo (Excel o CSV), con lugares, estanterías, baldas y caducidades.",
+  "pantry.addShelf": "Añadir estantería",
+  "pantry.shelfName": "Nombre de la estantería",
+  "pantry.levels": "Baldas",
+  "pantry.levelLess": "Una balda menos",
+  "pantry.levelMore": "Una balda más",
+  "pantry.fromBottom": "La balda 1 está abajo",
+  "pantry.removeShelf": "Eliminar estantería {name}",
+  "pantry.newShelf": "Estantería {n}",
+  "pantry.levelsHelp": "Baldas separadas por comas, p. ej. 1, 2, 3 o Arriba, Abajo. Si renombras una estantería o balda, los productos la siguen.",
+  "pantry.rackLevel": "{shelf}, balda {level}: {n} productos",
+  "pantry.noShelf": "Sin estantería",
+  "new.racks": "Estanterías dibujadas con baldas: toca una balda para ver qué hay. Nuevo editor de estanterías."
 }

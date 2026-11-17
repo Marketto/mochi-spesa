@@ -377,5 +377,17 @@
   "pantry.importDone": "Importēti produkti: {n}",
   "pantry.importErr": "Nevaru nolasīt failu. Eksportē no Invendo kā Excel (.xlsx) vai CSV.",
   "pantry.expires": "derīgs līdz {date}",
-  "new.import": "Importē pieliekamo no Invendo (Excel vai CSV) ar vietām, plauktiem, līmeņiem un derīgumu."
+  "new.import": "Importē pieliekamo no Invendo (Excel vai CSV) ar vietām, plauktiem, līmeņiem un derīgumu.",
+  "pantry.addShelf": "Pievienot plauktu",
+  "pantry.shelfName": "Plaukta nosaukums",
+  "pantry.levels": "Līmeņi",
+  "pantry.levelLess": "Par vienu līmeni mazāk",
+  "pantry.levelMore": "Par vienu līmeni vairāk",
+  "pantry.fromBottom": "1. līmenis ir apakšā",
+  "pantry.removeShelf": "Dzēst plauktu {name}",
+  "pantry.newShelf": "Plaukts {n}",
+  "pantry.levelsHelp": "Līmeņi ar komatiem, piem. 1, 2, 3 vai Augšā, Apakšā. Pārdēvējot produkti pārvietojas līdzi.",
+  "pantry.rackLevel": "{shelf}, līmenis {level}: {n} produkti",
+  "pantry.noShelf": "Bez plaukta",
+  "new.racks": "Uzzīmēti plaukti ar līmeņiem: pieskaries līmenim, lai redzētu saturu. Jauns plauktu redaktors."
 }

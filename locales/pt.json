@@ -377,5 +377,17 @@
   "pantry.importDone": "{n} produtos importados",
   "pantry.importErr": "Não consigo ler o ficheiro. Exporta do Invendo em Excel (.xlsx) ou CSV.",
   "pantry.expires": "validade {date}",
-  "new.import": "Importa a despensa do Invendo (Excel ou CSV), com locais, estantes, prateleiras e validades."
+  "new.import": "Importa a despensa do Invendo (Excel ou CSV), com locais, estantes, prateleiras e validades.",
+  "pantry.addShelf": "Adicionar estante",
+  "pantry.shelfName": "Nome da estante",
+  "pantry.levels": "Prateleiras",
+  "pantry.levelLess": "Menos uma prateleira",
+  "pantry.levelMore": "Mais uma prateleira",
+  "pantry.fromBottom": "A prateleira 1 é em baixo",
+  "pantry.removeShelf": "Eliminar estante {name}",
+  "pantry.newShelf": "Estante {n}",
+  "pantry.levelsHelp": "Prateleiras separadas por vírgulas, ex. 1, 2, 3 ou Cima, Baixo. Se mudares o nome, os produtos acompanham.",
+  "pantry.rackLevel": "{shelf}, prateleira {level}: {n} produtos",
+  "pantry.noShelf": "Sem estante",
+  "new.racks": "Estantes desenhadas com prateleiras: toca numa prateleira para ver o que tem. Novo editor de estantes."
 }

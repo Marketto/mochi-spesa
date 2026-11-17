@@ -377,5 +377,17 @@
   "pantry.importDone": "Uvoženih izdelkov: {n}",
   "pantry.importErr": "Datoteke ne morem prebrati. Izvozi iz Invendo kot Excel (.xlsx) ali CSV.",
   "pantry.expires": "rok uporabe {date}",
-  "new.import": "Uvoz shrambe iz Invendo (Excel ali CSV) z mesti, regali, policami in roki uporabe."
+  "new.import": "Uvoz shrambe iz Invendo (Excel ali CSV) z mesti, regali, policami in roki uporabe.",
+  "pantry.addShelf": "Dodaj regal",
+  "pantry.shelfName": "Ime regala",
+  "pantry.levels": "Police",
+  "pantry.levelLess": "Ena polica manj",
+  "pantry.levelMore": "Ena polica več",
+  "pantry.fromBottom": "Polica 1 je spodaj",
+  "pantry.removeShelf": "Izbriši regal {name}",
+  "pantry.newShelf": "Regal {n}",
+  "pantry.levelsHelp": "Police ločene z vejico, npr. 1, 2, 3 ali Zgoraj, Spodaj. Ob preimenovanju se izdelki premaknejo z njo.",
+  "pantry.rackLevel": "{shelf}, polica {level}: izdelkov {n}",
+  "pantry.noShelf": "Brez regala",
+  "new.racks": "Narisani regali s policami: tapni polico za vsebino. Nov urejevalnik regalov."
 }

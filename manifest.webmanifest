@@ -32,6 +32,10 @@
       "type": "image/svg+xml"
     }
   ],
-  "theme_color_dark": "#211a27",
-  "background_color_dark": "#211a27"
+  "user_preferences": {
+    "color_scheme_dark": {
+      "theme_color": "#211a27",
+      "background_color": "#211a27"
+    }
+  }
 }

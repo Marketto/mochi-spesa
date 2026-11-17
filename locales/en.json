@@ -377,5 +377,17 @@
   "pantry.importDone": "{n} products imported",
   "pantry.importErr": "Can't read the file. Export from Invendo as Excel (.xlsx) or CSV.",
   "pantry.expires": "expires {date}",
-  "new.import": "Import your pantry from Invendo (Excel or CSV), with places, shelves, levels and expiry dates."
+  "new.import": "Import your pantry from Invendo (Excel or CSV), with places, shelves, levels and expiry dates.",
+  "pantry.addShelf": "Add shelf",
+  "pantry.shelfName": "Shelf name",
+  "pantry.levels": "Levels",
+  "pantry.levelLess": "One level less",
+  "pantry.levelMore": "One level more",
+  "pantry.fromBottom": "Level 1 is at the bottom",
+  "pantry.removeShelf": "Delete shelf {name}",
+  "pantry.newShelf": "Shelf {n}",
+  "pantry.levelsHelp": "Levels separated by commas, e.g. 1, 2, 3 or Top, Bottom. Renaming a shelf or level moves its products too.",
+  "pantry.rackLevel": "{shelf}, level {level}: {n} products",
+  "pantry.noShelf": "No shelf",
+  "new.racks": "Drawn shelves with levels: tap a level to see what's there. New shelf and level editor."
 }

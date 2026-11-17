@@ -377,5 +377,17 @@
   "pantry.importDone": "{n} termék importálva",
   "pantry.importErr": "Nem tudom beolvasni a fájlt. Exportáld az Invendóból Excelbe (.xlsx) vagy CSV-be.",
   "pantry.expires": "lejár: {date}",
-  "new.import": "Kamra importálása Invendóból (Excel vagy CSV) helyekkel, polcokkal, szintekkel és lejárattal."
+  "new.import": "Kamra importálása Invendóból (Excel vagy CSV) helyekkel, polcokkal, szintekkel és lejárattal.",
+  "pantry.addShelf": "Polc hozzáadása",
+  "pantry.shelfName": "Polc neve",
+  "pantry.levels": "Szintek",
+  "pantry.levelLess": "Eggyel kevesebb szint",
+  "pantry.levelMore": "Eggyel több szint",
+  "pantry.fromBottom": "Az 1. szint alul van",
+  "pantry.removeShelf": "{name} polc törlése",
+  "pantry.newShelf": "{n}. polc",
+  "pantry.levelsHelp": "Szintek vesszővel elválasztva, pl. 1, 2, 3 vagy Fent, Lent. Átnevezéskor a termékek is vele mennek.",
+  "pantry.rackLevel": "{shelf}, {level}. szint: {n} termék",
+  "pantry.noShelf": "Polc nélkül",
+  "new.racks": "Megrajzolt polcok szintekkel: koppints egy szintre, hogy lásd, mi van rajta. Új polcszerkesztő."
 }

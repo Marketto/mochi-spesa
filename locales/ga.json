@@ -377,5 +377,17 @@
   "pantry.importDone": "{n} táirge iompórtáilte",
   "pantry.importErr": "Ní féidir an comhad a léamh. Easpórtáil ó Invendo mar Excel (.xlsx) nó CSV.",
   "pantry.expires": "in éag {date}",
-  "new.import": "Iompórtáil do chófra ó Invendo (Excel nó CSV) le háiteanna, seilfeanna, leibhéil agus dátaí éaga."
+  "new.import": "Iompórtáil do chófra ó Invendo (Excel nó CSV) le háiteanna, seilfeanna, leibhéil agus dátaí éaga.",
+  "pantry.addShelf": "Cuir seilf leis",
+  "pantry.shelfName": "Ainm na seilfe",
+  "pantry.levels": "Leibhéil",
+  "pantry.levelLess": "Leibhéal amháin níos lú",
+  "pantry.levelMore": "Leibhéal amháin eile",
+  "pantry.fromBottom": "Tá leibhéal 1 ag an mbun",
+  "pantry.removeShelf": "Scrios seilf {name}",
+  "pantry.newShelf": "Seilf {n}",
+  "pantry.levelsHelp": "Leibhéil scartha le camóga, m.sh. 1, 2, 3 nó Barr, Bun. Má athainmníonn tú, bogann na táirgí leo.",
+  "pantry.rackLevel": "{shelf}, leibhéal {level}: {n} táirge",
+  "pantry.noShelf": "Gan seilf",
+  "new.racks": "Seilfeanna líníochta le leibhéil: tapáil leibhéal chun a bhfuil air a fheiceáil. Eagarthóir nua seilfeanna."
 }

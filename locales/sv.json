@@ -377,5 +377,17 @@
   "pantry.importDone": "{n} produkter importerade",
   "pantry.importErr": "Kan inte läsa filen. Exportera från Invendo som Excel (.xlsx) eller CSV.",
   "pantry.expires": "bäst före {date}",
-  "new.import": "Importera skafferiet från Invendo (Excel eller CSV) med platser, hyllor, nivåer och datum."
+  "new.import": "Importera skafferiet från Invendo (Excel eller CSV) med platser, hyllor, nivåer och datum.",
+  "pantry.addShelf": "Lägg till hylla",
+  "pantry.shelfName": "Hyllans namn",
+  "pantry.levels": "Hyllplan",
+  "pantry.levelLess": "Ett hyllplan mindre",
+  "pantry.levelMore": "Ett hyllplan till",
+  "pantry.fromBottom": "Hyllplan 1 är längst ner",
+  "pantry.removeShelf": "Ta bort hylla {name}",
+  "pantry.newShelf": "Hylla {n}",
+  "pantry.levelsHelp": "Hyllplan åtskilda med komma, t.ex. 1, 2, 3 eller Övre, Nedre. Byter du namn flyttar produkterna med.",
+  "pantry.rackLevel": "{shelf}, hyllplan {level}: {n} produkter",
+  "pantry.noShelf": "Utan hylla",
+  "new.racks": "Ritade hyllor med hyllplan: tryck på ett plan för att se vad som finns. Ny hylleditor."
 }

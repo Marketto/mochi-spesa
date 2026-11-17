@@ -45,3 +45,20 @@ test("merge della dispensa tra telefoni", () => {
   assert.equal(m.luoghi.cantina.nome, "Garage");
   assert.equal(m.preferenze.p.tipo, "evita");
 });
+
+import { levelsTopDown, nextLevel, splitLevels, shelfRenamer } from "../js/pantry.js";
+test("ripiani: ordine visivo, prossimo, testo", () => {
+  assert.deepEqual(levelsTopDown({ ripiani: ["1", "2", "3"], basso: true }), ["3", "2", "1"]);
+  assert.deepEqual(levelsTopDown({ ripiani: ["Alto", "Basso"] }), ["Alto", "Basso"]);
+  assert.equal(nextLevel(["1", "2", "5"]), "6");
+  assert.equal(nextLevel(["Alto", "Basso"]), "3");
+  assert.equal(nextLevel([]), "1");
+  assert.deepEqual(splitLevels(" 1, 2 ,,2; 3"), ["1", "2", "3"]);
+});
+test("rinomina scaffale e ripiani sposta i prodotti", () => {
+  const f = shelfRenamer({ nome: "Angolo", ripiani: ["1", "2"] }, { nome: "Angolo grande", ripiani: ["Basso", "2"] });
+  assert.deepEqual(f("Angolo", "1"), ["Angolo grande", "Basso"]);
+  assert.deepEqual(f("Angolo", "2"), ["Angolo grande", "2"]);
+  assert.equal(f("Altro", "1"), null);
+  assert.equal(shelfRenamer({ nome: "A", ripiani: ["1"] }, { nome: "A", ripiani: ["1"] })("A", "1"), null);
+});

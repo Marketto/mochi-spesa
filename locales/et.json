@@ -377,5 +377,17 @@
   "pantry.importDone": "Imporditud tooteid: {n}",
   "pantry.importErr": "Faili ei saa lugeda. Ekspordi Invendost Excelina (.xlsx) või CSV-na.",
   "pantry.expires": "parim enne {date}",
-  "new.import": "Impordi sahver Invendost (Excel või CSV) kohtade, riiulite, tasandite ja kuupäevadega."
+  "new.import": "Impordi sahver Invendost (Excel või CSV) kohtade, riiulite, tasandite ja kuupäevadega.",
+  "pantry.addShelf": "Lisa riiul",
+  "pantry.shelfName": "Riiuli nimi",
+  "pantry.levels": "Tasandid",
+  "pantry.levelLess": "Üks tasand vähem",
+  "pantry.levelMore": "Üks tasand rohkem",
+  "pantry.fromBottom": "Tasand 1 on all",
+  "pantry.removeShelf": "Kustuta riiul {name}",
+  "pantry.newShelf": "Riiul {n}",
+  "pantry.levelsHelp": "Tasandid komadega, nt 1, 2, 3 või Üleval, All. Ümbernimetamisel liiguvad tooted kaasa.",
+  "pantry.rackLevel": "{shelf}, tasand {level}: {n} toodet",
+  "pantry.noShelf": "Riiulita",
+  "new.racks": "Joonistatud riiulid tasanditega: puuduta tasandit, et näha sisu. Uus riiuliredaktor."
 }

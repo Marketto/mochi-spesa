@@ -377,5 +377,17 @@
   "pantry.importDone": "{n} 個読み込みました",
   "pantry.importErr": "ファイルを読めません。Invendo から Excel（.xlsx）か CSV で書き出してね。",
   "pantry.expires": "期限 {date}",
-  "new.import": "Invendo からストックを読み込み（Excel・CSV）。場所・棚・段・期限つき。"
+  "new.import": "Invendo からストックを読み込み（Excel・CSV）。場所・棚・段・期限つき。",
+  "pantry.addShelf": "棚を追加",
+  "pantry.shelfName": "棚の名前",
+  "pantry.levels": "段",
+  "pantry.levelLess": "段をひとつ減らす",
+  "pantry.levelMore": "段をひとつ増やす",
+  "pantry.fromBottom": "1 段目がいちばん下",
+  "pantry.removeShelf": "棚「{name}」を削除",
+  "pantry.newShelf": "棚 {n}",
+  "pantry.levelsHelp": "段はカンマ区切り（例：1, 2, 3 または 上, 下）。名前を変えると商品もいっしょに移動します。",
+  "pantry.rackLevel": "{shelf}・{level} 段目：{n} 個",
+  "pantry.noShelf": "棚なし",
+  "new.racks": "段つきの棚をイラストで表示：段をタップすると中身が見られます。新しい棚エディタ。"
 }

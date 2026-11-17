@@ -377,5 +377,17 @@
   "pantry.importDone": "상품 {n}개를 가져왔어요",
   "pantry.importErr": "파일을 읽을 수 없어요. Invendo에서 Excel(.xlsx)이나 CSV로 내보내 주세요.",
   "pantry.expires": "{date}까지",
-  "new.import": "Invendo에서 팬트리 가져오기(Excel 또는 CSV): 장소·선반·칸·유통기한 포함."
+  "new.import": "Invendo에서 팬트리 가져오기(Excel 또는 CSV): 장소·선반·칸·유통기한 포함.",
+  "pantry.addShelf": "선반 추가",
+  "pantry.shelfName": "선반 이름",
+  "pantry.levels": "칸",
+  "pantry.levelLess": "칸 하나 줄이기",
+  "pantry.levelMore": "칸 하나 늘리기",
+  "pantry.fromBottom": "1번 칸이 맨 아래",
+  "pantry.removeShelf": "선반 {name} 삭제",
+  "pantry.newShelf": "선반 {n}",
+  "pantry.levelsHelp": "칸은 쉼표로 구분(예: 1, 2, 3 또는 위, 아래). 이름을 바꾸면 상품도 함께 옮겨져요.",
+  "pantry.rackLevel": "{shelf}, {level}번 칸: 상품 {n}개",
+  "pantry.noShelf": "선반 없음",
+  "new.racks": "칸이 있는 선반 그림: 칸을 누르면 안에 뭐가 있는지 보여요. 새 선반 편집기."
 }

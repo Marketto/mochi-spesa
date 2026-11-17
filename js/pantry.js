@@ -75,3 +75,31 @@ export function stepQty(q, delta) {
   const n = Math.max(1, parseFloat(m[1].replace(",", ".")) + delta);
   return `${String(n).replace(".", m[1].includes(",") ? "," : ".")}${m[2]}`;
 }
+
+/** Ripiani dall'alto verso il basso, come si vedono (se "basso", il primo ripiano è quello in basso). */
+export const levelsTopDown = s => (s && s.basso ? [...(s.ripiani || [])].reverse() : [...((s && s.ripiani) || [])]);
+
+/** Nome del prossimo ripiano: numeri → massimo + 1, altrimenti numero progressivo. */
+export function nextLevel(ripiani) {
+  const r = ripiani || [];
+  if (r.length && r.every(x => /^\d+$/.test(x))) return String(Math.max(...r.map(Number)) + 1);
+  return String(r.length + 1);
+}
+
+/** Da "1, 2, 3" a ["1","2","3"] (senza vuoti né doppioni). */
+export const splitLevels = txt => [...new Set(String(txt || "").split(/[,;]/).map(x => x.trim()).filter(Boolean))];
+
+/**
+ * Rinominare uno scaffale o i suoi ripiani sposta i prodotti con lui.
+ * vecchio/nuovo: { nome, ripiani }. Restituisce (scaffale, ripiano) → [scaffale, ripiano] aggiornati, o null se invariato.
+ */
+export function shelfRenamer(vecchio, nuovo) {
+  if (!vecchio || !vecchio.nome) return () => null;
+  const lv = {};
+  (vecchio.ripiani || []).forEach((r, i) => { const n = (nuovo.ripiani || [])[i]; if (n && n !== r && !(vecchio.ripiani || []).includes(n)) lv[r] = n; });
+  return (sc, ri) => {
+    if (norm(sc) !== norm(vecchio.nome)) return null;
+    const s2 = nuovo.nome, r2 = lv[ri] ?? ri;
+    return s2 === sc && r2 === ri ? null : [s2, r2];
+  };
+}

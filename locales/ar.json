@@ -377,5 +377,17 @@
   "pantry.importDone": "تم استيراد {n} منتجًا",
   "pantry.importErr": "لا يمكن قراءة الملف. صدّره من Invendo بصيغة Excel (.xlsx) أو CSV.",
   "pantry.expires": "ينتهي في {date}",
-  "new.import": "استورد المؤونة من Invendo (Excel أو CSV) مع الأماكن والرفوف والطبقات وتواريخ الانتهاء."
+  "new.import": "استورد المؤونة من Invendo (Excel أو CSV) مع الأماكن والرفوف والطبقات وتواريخ الانتهاء.",
+  "pantry.addShelf": "أضف رفًّا",
+  "pantry.shelfName": "اسم الرف",
+  "pantry.levels": "الطبقات",
+  "pantry.levelLess": "طبقة أقل",
+  "pantry.levelMore": "طبقة أكثر",
+  "pantry.fromBottom": "الطبقة 1 في الأسفل",
+  "pantry.removeShelf": "احذف الرف {name}",
+  "pantry.newShelf": "رف {n}",
+  "pantry.levelsHelp": "الطبقات مفصولة بفواصل، مثلًا 1، 2، 3 أو أعلى، أسفل. عند إعادة التسمية تنتقل المنتجات معها.",
+  "pantry.rackLevel": "{shelf}، الطبقة {level}: {n} منتجات",
+  "pantry.noShelf": "بدون رف",
+  "new.racks": "رفوف مرسومة بطبقاتها: المس طبقة لترى ما عليها. محرر رفوف جديد."
 }

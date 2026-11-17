@@ -377,5 +377,17 @@
   "pantry.importDone": "Импортировано продуктов: {n}",
   "pantry.importErr": "Не удалось прочитать файл. Экспортируй из Invendo в Excel (.xlsx) или CSV.",
   "pantry.expires": "годен до {date}",
-  "new.import": "Импорт кладовой из Invendo (Excel или CSV) с местами, стеллажами, полками и сроками годности."
+  "new.import": "Импорт кладовой из Invendo (Excel или CSV) с местами, стеллажами, полками и сроками годности.",
+  "pantry.addShelf": "Добавить стеллаж",
+  "pantry.shelfName": "Название стеллажа",
+  "pantry.levels": "Полки",
+  "pantry.levelLess": "На одну полку меньше",
+  "pantry.levelMore": "На одну полку больше",
+  "pantry.fromBottom": "Полка 1 — нижняя",
+  "pantry.removeShelf": "Удалить стеллаж {name}",
+  "pantry.newShelf": "Стеллаж {n}",
+  "pantry.levelsHelp": "Полки через запятую, напр. 1, 2, 3 или Верх, Низ. При переименовании продукты переносятся вместе с ней.",
+  "pantry.rackLevel": "{shelf}, полка {level}: продуктов {n}",
+  "pantry.noShelf": "Без стеллажа",
+  "new.racks": "Нарисованные стеллажи с полками: нажми на полку, чтобы увидеть содержимое. Новый редактор стеллажей."
 }

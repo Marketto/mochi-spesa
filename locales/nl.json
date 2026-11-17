@@ -377,5 +377,17 @@
   "pantry.importDone": "{n} producten geïmporteerd",
   "pantry.importErr": "Kan het bestand niet lezen. Exporteer uit Invendo als Excel (.xlsx) of CSV.",
   "pantry.expires": "houdbaar tot {date}",
-  "new.import": "Importeer je voorraad uit Invendo (Excel of CSV), met plekken, rekken, planken en houdbaarheid."
+  "new.import": "Importeer je voorraad uit Invendo (Excel of CSV), met plekken, rekken, planken en houdbaarheid.",
+  "pantry.addShelf": "Rek toevoegen",
+  "pantry.shelfName": "Naam van het rek",
+  "pantry.levels": "Planken",
+  "pantry.levelLess": "Eén plank minder",
+  "pantry.levelMore": "Eén plank meer",
+  "pantry.fromBottom": "Plank 1 zit onderaan",
+  "pantry.removeShelf": "Rek {name} verwijderen",
+  "pantry.newShelf": "Rek {n}",
+  "pantry.levelsHelp": "Planken gescheiden door komma's, bv. 1, 2, 3 of Boven, Onder. Bij hernoemen verhuizen de producten mee.",
+  "pantry.rackLevel": "{shelf}, plank {level}: {n} producten",
+  "pantry.noShelf": "Zonder rek",
+  "new.racks": "Getekende rekken met planken: tik op een plank om te zien wat erop staat. Nieuwe rek-editor."
 }
