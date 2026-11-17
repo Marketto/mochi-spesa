@@ -321,6 +321,13 @@ $("#clear-done").addEventListener("click", async () => {
   $("#add-nome").focus(); mochi.mood("happy"); mochi.say(frase("pulito")); toast(t("toast.cleared"), "clean");
 });
 
+// colore barre di sistema allineato al tema
+(function themeBars() {
+  const mq = matchMedia("(prefers-color-scheme: dark)");
+  const set = () => { const c = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim(); for (const m of document.querySelectorAll('meta[name="theme-color"]')) m.content = c; };
+  set(); mq.addEventListener("change", set);
+})();
+
 // ---------- DETTATURA ----------
 let stopVoice = null;
 function setMic(on) {
