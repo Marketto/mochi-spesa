@@ -148,7 +148,7 @@
   "zone.amazon": "Primerjaj z Amazonom",
   "zone.saved": "Območje shranjeno",
   "ai.title": "Iskanje akcij (Claude API)",
-  "ai.hint": "Uporablja se za iskanje katalogov in cen. Ključ ostane samo na tem telefonu. Vsako iskanje ima majhen strošek na tvojem računu Anthropic.",
+  "ai.hint": "Neobvezno. Brez ključa Mochi uporablja brezplačne cene skupnosti; s ključem išče tudi v letakih in na Amazonu. Ključ ostane samo na tem telefonu, vsako iskanje pa ima majhen strošek na tvojem računu Anthropic.",
   "ai.key": "API ključ",
   "ai.model": "Model",
   "ai.saved": "Ključ shranjen na tem telefonu",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Štej police",
   "pantry.countTop": "Od zgoraj",
   "pantry.countBottom": "Od spodaj",
-  "new.lvdir": "V nastavitvah izbereš, ali se police štejejo od zgoraj ali od spodaj."
+  "new.lvdir": "V nastavitvah izbereš, ali se police štejejo od zgoraj ali od spodaj.",
+  "set.unsaved": "Neshranjene spremembe",
+  "set.saved": "Nastavitve shranjene",
+  "set.reverted": "Spremembe zavržene",
+  "free.seen": "{product}, prijavljeno {date}",
+  "free.credit": "Cene, ki jih je prijavila skupnost:",
+  "free.moreWithKey": "S ključem Claude Mochi išče tudi v današnjih letakih.",
+  "free.info": "Brezplačno iskanje: Mochi uporablja cene, ki jih je v tvoji okolici prijavila skupnost Open Food Facts. Teh je malo in niso vedno sveže; za aktualne letake dodaj ključ Claude.",
+  "free.flyers": "Išči letake na spletu:",
+  "free.flyerWord": "letak akcija",
+  "legal.p11": "Brez ključa Claude iskanje uporablja Open Prices (Open Food Facts), ki prejme koordinate okolice, zaokrožene na približno 1 km. Povezave »Išči letake« odprejo iskanje Google.",
+  "new.savebar": "Nastavitve: ena vrstica s Prekliči in Shrani.",
+  "new.free": "Brezplačno iskanje cen brez ključa, s cenami skupnosti Open Food Facts.",
+  "free.source": "Prijava"
 }

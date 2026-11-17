@@ -148,7 +148,7 @@
   "zone.amazon": "Qabbel ma' Amazon",
   "zone.saved": "Żona ssejvjata",
   "ai.title": "Tfittxija ta' offerti (Claude API)",
-  "ai.hint": "Tintuża biex tfittex fuljetti u prezzijiet. Iċ-ċavetta tibqa' biss fuq dan il-mowbajl. Kull tfittxija tiswa ftit fuq il-kont Anthropic tiegħek.",
+  "ai.hint": "Mhux obbligatorja. Mingħajr ċavetta Mochi juża prezzijiet b'xejn tal-komunità; biċ-ċavetta jfittex ukoll f'fuljetti u fuq Amazon. Iċ-ċavetta tibqa' biss fuq dan it-telefon u kull tfittxija għandha spiża żgħira fuq il-kont Anthropic tiegħek.",
   "ai.key": "Ċavetta API",
   "ai.model": "Mudell",
   "ai.saved": "Ċavetta ssejvjata fuq dan il-mowbajl",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Għodd il-livelli",
   "pantry.countTop": "Minn fuq",
   "pantry.countBottom": "Minn isfel",
-  "new.lvdir": "Fl-issettjar tagħżel jekk il-livelli jingħaddu minn fuq jew minn isfel."
+  "new.lvdir": "Fl-issettjar tagħżel jekk il-livelli jingħaddu minn fuq jew minn isfel.",
+  "set.unsaved": "Bidliet mhux salvati",
+  "set.saved": "Issettjar salvat",
+  "set.reverted": "Bidliet ikkanċellati",
+  "free.seen": "{product}, irrappurtat fl-{date}",
+  "free.credit": "Prezzijiet irrappurtati mill-komunità:",
+  "free.moreWithKey": "B'ċavetta ta' Claude, Mochi jfittex ukoll fil-fuljetti tal-lum.",
+  "free.info": "Tfittxija b'xejn: Mochi juża prezzijiet irrappurtati mill-komunità ta' Open Food Facts fiż-żona tiegħek. Huma ftit u mhux dejjem aġġornati; żid ċavetta ta' Claude għal fuljetti aġġornati.",
+  "free.flyers": "Fittex fuljetti fuq il-web:",
+  "free.flyerWord": "fuljett offerta",
+  "legal.p11": "Mingħajr ċavetta ta' Claude, it-tfittxija tuża Open Prices (Open Food Facts), li jirċievi l-koordinati taż-żona mqarrba għal madwar 1 km. Il-links “Fittex fuljetti” jiftħu tfittxija ta' Google.",
+  "new.savebar": "Issettjar: bar wieħed b'Ikkanċella u Salva.",
+  "new.free": "Tfittxija tal-prezzijiet b'xejn, mingħajr ċavetta, bil-prezzijiet tal-komunità Open Food Facts.",
+  "free.source": "Rapport"
 }

@@ -148,7 +148,7 @@
   "zone.amazon": "Sammenlign med Amazon",
   "zone.saved": "Område gemt",
   "ai.title": "Tilbudssøgning (Claude API)",
-  "ai.hint": "Bruges til at søge i tilbudsaviser og priser. Nøglen bliver kun på denne telefon. Hver søgning koster lidt på din Anthropic-konto.",
+  "ai.hint": "Valgfri. Uden nøgle bruger Mochi gratis priser fra fællesskabet; med nøgle søger den også i tilbudsaviser og på Amazon. Nøglen bliver kun på denne telefon, og hver søgning koster lidt på din Anthropic-konto.",
   "ai.key": "API-nøgle",
   "ai.model": "Model",
   "ai.saved": "Nøgle gemt på denne telefon",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Tæl hylder",
   "pantry.countTop": "Oppefra",
   "pantry.countBottom": "Nedefra",
-  "new.lvdir": "I indstillinger vælger du, om hylder tælles oppefra eller nedefra."
+  "new.lvdir": "I indstillinger vælger du, om hylder tælles oppefra eller nedefra.",
+  "set.unsaved": "Ikke-gemte ændringer",
+  "set.saved": "Indstillinger gemt",
+  "set.reverted": "Ændringer kasseret",
+  "free.seen": "{product}, indberettet {date}",
+  "free.credit": "Priser indberettet af fællesskabet:",
+  "free.moreWithKey": "Med en Claude-nøgle søger Mochi også i dagens tilbudsaviser.",
+  "free.info": "Gratis søgning: Mochi bruger priser, som Open Food Facts-fællesskabet har indberettet i dit område. De er få og ikke altid nye; tilføj en Claude-nøgle for aktuelle tilbudsaviser.",
+  "free.flyers": "Søg tilbudsaviser på nettet:",
+  "free.flyerWord": "tilbudsavis tilbud",
+  "legal.p11": "Uden Claude-nøgle bruger prissøgningen Open Prices (Open Food Facts), som modtager områdets koordinater afrundet til ca. 1 km. Linkene “Søg tilbudsaviser” åbner en Google-søgning.",
+  "new.savebar": "Indstillinger: én bjælke med Annullér og Gem.",
+  "new.free": "Gratis prissøgning uden nøgle, med priser fra Open Food Facts-fællesskabet.",
+  "free.source": "Indberetning"
 }

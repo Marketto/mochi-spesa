@@ -148,7 +148,7 @@
   "zone.amazon": "Compare with Amazon",
   "zone.saved": "Area saved",
   "ai.title": "Deal search (Claude API)",
-  "ai.hint": "Used to search flyers and prices. The key stays only on this phone. Each search has a small cost on your Anthropic account.",
+  "ai.hint": "Optional. Without a key Mochi uses free community prices; with a key it also searches flyers and Amazon. The key stays on this phone only and each search has a small cost on your Anthropic account.",
   "ai.key": "API key",
   "ai.model": "Model",
   "ai.saved": "Key saved on this phone",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Count levels",
   "pantry.countTop": "From the top",
   "pantry.countBottom": "From the bottom",
-  "new.lvdir": "In settings, choose whether levels are counted from the top or the bottom."
+  "new.lvdir": "In settings, choose whether levels are counted from the top or the bottom.",
+  "set.unsaved": "Unsaved changes",
+  "set.saved": "Settings saved",
+  "set.reverted": "Changes discarded",
+  "free.seen": "{product}, reported on {date}",
+  "free.credit": "Prices reported by the community:",
+  "free.moreWithKey": "With a Claude key Mochi also searches today's flyers.",
+  "free.info": "Free search: Mochi uses prices reported by the Open Food Facts community in your area. They're few and not always recent; add a Claude key for up-to-date flyers.",
+  "free.flyers": "Search flyers on the web:",
+  "free.flyerWord": "flyer deal",
+  "legal.p11": "Without a Claude key, price search uses Open Prices (Open Food Facts), which receives your area's coordinates rounded to about 1 km. “Search flyers” links open a Google search.",
+  "new.savebar": "Settings: one bar with Cancel and Save.",
+  "new.free": "Free price search, no key needed, with Open Food Facts community prices.",
+  "free.source": "Report"
 }

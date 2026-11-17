@@ -148,7 +148,7 @@
   "zone.amazon": "Comparar con Amazon",
   "zone.saved": "Zona guardada",
   "ai.title": "Búsqueda de ofertas (API de Claude)",
-  "ai.hint": "Sirve para buscar folletos y precios. La clave se queda solo en este teléfono. Cada búsqueda tiene un pequeño coste en tu cuenta de Anthropic.",
+  "ai.hint": "Opcional. Sin clave Mochi usa precios gratuitos de la comunidad; con clave busca también en folletos y Amazon. La clave solo se guarda en este móvil y cada búsqueda tiene un pequeño coste en tu cuenta de Anthropic.",
   "ai.key": "Clave API",
   "ai.model": "Modelo",
   "ai.saved": "Clave guardada en este teléfono",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Contar las baldas",
   "pantry.countTop": "Desde arriba",
   "pantry.countBottom": "Desde abajo",
-  "new.lvdir": "En ajustes eliges si las baldas se cuentan desde arriba o desde abajo."
+  "new.lvdir": "En ajustes eliges si las baldas se cuentan desde arriba o desde abajo.",
+  "set.unsaved": "Cambios sin guardar",
+  "set.saved": "Ajustes guardados",
+  "set.reverted": "Cambios descartados",
+  "free.seen": "{product}, visto el {date}",
+  "free.credit": "Precios aportados por la comunidad:",
+  "free.moreWithKey": "Con una clave de Claude Mochi también busca en los folletos de hoy.",
+  "free.info": "Búsqueda gratuita: Mochi usa precios aportados por la comunidad de Open Food Facts en tu zona. Son pocos y no siempre recientes; añade una clave de Claude para folletos actualizados.",
+  "free.flyers": "Buscar folletos en la web:",
+  "free.flyerWord": "folleto oferta",
+  "legal.p11": "Sin clave de Claude, la búsqueda usa Open Prices (Open Food Facts), que recibe las coordenadas de tu zona redondeadas a 1 km. Los enlaces “Buscar folletos” abren una búsqueda de Google.",
+  "new.savebar": "Ajustes: una sola barra con Cancelar y Guardar.",
+  "new.free": "Búsqueda de precios gratuita, sin clave, con precios de la comunidad Open Food Facts.",
+  "free.source": "Registro"
 }

@@ -148,7 +148,7 @@
   "zone.amazon": "Déan comparáid le Amazon",
   "zone.saved": "Ceantar sábháilte",
   "ai.title": "Cuardach tairiscintí (Claude API)",
-  "ai.hint": "Úsáidtear é chun bileoga agus praghsanna a chuardach. Fanann an eochair ar an bhfón seo amháin. Tá costas beag ar gach cuardach ar do chuntas Anthropic.",
+  "ai.hint": "Roghnach. Gan eochair úsáideann Mochi praghsanna saor in aisce ón bpobal; le heochair cuardaíonn sé bileoga agus Amazon freisin. Fanann an eochair ar an bhfón seo amháin agus bíonn costas beag ar gach cuardach ar do chuntas Anthropic.",
   "ai.key": "Eochair API",
   "ai.model": "Samhail",
   "ai.saved": "Eochair sábháilte ar an bhfón seo",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Comhair na leibhéil",
   "pantry.countTop": "Ón mbarr",
   "pantry.countBottom": "Ón mbun",
-  "new.lvdir": "Sna socruithe roghnaigh an gcomhairtear na leibhéil ón mbarr nó ón mbun."
+  "new.lvdir": "Sna socruithe roghnaigh an gcomhairtear na leibhéil ón mbarr nó ón mbun.",
+  "set.unsaved": "Athruithe nár sábháladh",
+  "set.saved": "Socruithe sábháilte",
+  "set.reverted": "Athruithe curtha ar ceal",
+  "free.seen": "{product}, tuairiscithe {date}",
+  "free.credit": "Praghsanna ón bpobal:",
+  "free.moreWithKey": "Le heochair Claude cuardaíonn Mochi bileoga an lae inniu freisin.",
+  "free.info": "Cuardach saor in aisce: úsáideann Mochi praghsanna a thuairiscigh pobal Open Food Facts i do cheantar. Is beag díobh atá ann agus ní bhíonn siad nua i gcónaí; cuir eochair Claude leis le haghaidh bileog cothrom le dáta.",
+  "free.flyers": "Cuardaigh bileoga ar an ngréasán:",
+  "free.flyerWord": "bileog tairiscint",
+  "legal.p11": "Gan eochair Claude, úsáideann an cuardach Open Prices (Open Food Facts), a fhaigheann comhordanáidí do cheantair slánaithe go ~1 km. Osclaíonn naisc “Cuardaigh bileoga” cuardach Google.",
+  "new.savebar": "Socruithe: barra amháin le Cealaigh agus Sábháil.",
+  "new.free": "Cuardach praghsanna saor in aisce gan eochair, le praghsanna phobal Open Food Facts.",
+  "free.source": "Tuairisc"
 }

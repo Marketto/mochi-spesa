@@ -148,7 +148,7 @@
   "zone.amazon": "Vergelijken met Amazon",
   "zone.saved": "Buurt opgeslagen",
   "ai.title": "Aanbiedingen zoeken (Claude API)",
-  "ai.hint": "Nodig om folders en prijzen te zoeken. De sleutel blijft alleen op deze telefoon. Elke zoekactie kost een klein bedrag op je Anthropic-account.",
+  "ai.hint": "Optioneel. Zonder sleutel gebruikt Mochi gratis community-prijzen; met sleutel zoekt hij ook in folders en op Amazon. De sleutel blijft alleen op deze telefoon en elke zoekopdracht kost een beetje op je Anthropic-account.",
   "ai.key": "API-sleutel",
   "ai.model": "Model",
   "ai.saved": "Sleutel opgeslagen op deze telefoon",
@@ -393,5 +393,18 @@
   "pantry.countLevels": "Planken tellen",
   "pantry.countTop": "Van boven",
   "pantry.countBottom": "Van onder",
-  "new.lvdir": "Kies in de instellingen of planken van boven of van onder worden geteld."
+  "new.lvdir": "Kies in de instellingen of planken van boven of van onder worden geteld.",
+  "set.unsaved": "Niet-opgeslagen wijzigingen",
+  "set.saved": "Instellingen opgeslagen",
+  "set.reverted": "Wijzigingen ongedaan gemaakt",
+  "free.seen": "{product}, gemeld op {date}",
+  "free.credit": "Prijzen gemeld door de community:",
+  "free.moreWithKey": "Met een Claude-sleutel zoekt Mochi ook in de folders van vandaag.",
+  "free.info": "Gratis zoeken: Mochi gebruikt prijzen die de Open Food Facts-community in jouw buurt meldde. Het zijn er weinig en niet altijd recent; voeg een Claude-sleutel toe voor actuele folders.",
+  "free.flyers": "Folders zoeken op het web:",
+  "free.flyerWord": "folder aanbieding",
+  "legal.p11": "Zonder Claude-sleutel gebruikt de prijszoeker Open Prices (Open Food Facts), dat de tot ca. 1 km afgeronde coördinaten van je buurt ontvangt. De links „Folders zoeken” openen een Google-zoekopdracht.",
+  "new.savebar": "Instellingen: één balk met Annuleren en Opslaan.",
+  "new.free": "Gratis prijzen zoeken, zonder sleutel, met prijzen van de Open Food Facts-community.",
+  "free.source": "Melding"
 }
