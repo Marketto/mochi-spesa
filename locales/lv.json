@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Līmeņi ar komatiem, piem. 1, 2, 3 vai Augšā, Apakšā. Pārdēvējot produkti pārvietojas līdzi.",
   "pantry.rackLevel": "{shelf}, līmenis {level}: {n} produkti",
   "pantry.noShelf": "Bez plaukta",
-  "new.racks": "Uzzīmēti plaukti ar līmeņiem: pieskaries līmenim, lai redzētu saturu. Jauns plauktu redaktors."
+  "new.racks": "Uzzīmēti plaukti ar līmeņiem: pieskaries līmenim, lai redzētu saturu. Jauns plauktu redaktors.",
+  "pantry.countLevels": "Līmeņu skaitīšana",
+  "pantry.countTop": "No augšas",
+  "pantry.countBottom": "No apakšas",
+  "new.lvdir": "Iestatījumos izvēlies, vai līmeņus skaitīt no augšas vai no apakšas."
 }

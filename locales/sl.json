@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Police ločene z vejico, npr. 1, 2, 3 ali Zgoraj, Spodaj. Ob preimenovanju se izdelki premaknejo z njo.",
   "pantry.rackLevel": "{shelf}, polica {level}: izdelkov {n}",
   "pantry.noShelf": "Brez regala",
-  "new.racks": "Narisani regali s policami: tapni polico za vsebino. Nov urejevalnik regalov."
+  "new.racks": "Narisani regali s policami: tapni polico za vsebino. Nov urejevalnik regalov.",
+  "pantry.countLevels": "Štej police",
+  "pantry.countTop": "Od zgoraj",
+  "pantry.countBottom": "Od spodaj",
+  "new.lvdir": "V nastavitvah izbereš, ali se police štejejo od zgoraj ali od spodaj."
 }

@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Hyllplan åtskilda med komma, t.ex. 1, 2, 3 eller Övre, Nedre. Byter du namn flyttar produkterna med.",
   "pantry.rackLevel": "{shelf}, hyllplan {level}: {n} produkter",
   "pantry.noShelf": "Utan hylla",
-  "new.racks": "Ritade hyllor med hyllplan: tryck på ett plan för att se vad som finns. Ny hylleditor."
+  "new.racks": "Ritade hyllor med hyllplan: tryck på ett plan för att se vad som finns. Ny hylleditor.",
+  "pantry.countLevels": "Räkna hyllplan",
+  "pantry.countTop": "Uppifrån",
+  "pantry.countBottom": "Nerifrån",
+  "new.lvdir": "I inställningarna väljer du om hyllplan räknas uppifrån eller nerifrån."
 }

@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Prateleiras separadas por vírgulas, ex. 1, 2, 3 ou Cima, Baixo. Se mudares o nome, os produtos acompanham.",
   "pantry.rackLevel": "{shelf}, prateleira {level}: {n} produtos",
   "pantry.noShelf": "Sem estante",
-  "new.racks": "Estantes desenhadas com prateleiras: toca numa prateleira para ver o que tem. Novo editor de estantes."
+  "new.racks": "Estantes desenhadas com prateleiras: toca numa prateleira para ver o que tem. Novo editor de estantes.",
+  "pantry.countLevels": "Contar prateleiras",
+  "pantry.countTop": "De cima",
+  "pantry.countBottom": "De baixo",
+  "new.lvdir": "Nas definições escolhes se as prateleiras se contam de cima ou de baixo."
 }

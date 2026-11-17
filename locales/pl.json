@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Półki oddzielone przecinkami, np. 1, 2, 3 lub Góra, Dół. Po zmianie nazwy produkty przenoszą się razem z nią.",
   "pantry.rackLevel": "{shelf}, półka {level}: produkty: {n}",
   "pantry.noShelf": "Bez regału",
-  "new.racks": "Narysowane regały z półkami: dotknij półki, by zobaczyć zawartość. Nowy edytor regałów."
+  "new.racks": "Narysowane regały z półkami: dotknij półki, by zobaczyć zawartość. Nowy edytor regałów.",
+  "pantry.countLevels": "Licz półki",
+  "pantry.countTop": "Od góry",
+  "pantry.countBottom": "Od dołu",
+  "new.lvdir": "W ustawieniach wybierz, czy półki liczyć od góry, czy od dołu."
 }

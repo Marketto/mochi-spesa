@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Polițe separate prin virgulă, ex. 1, 2, 3 sau Sus, Jos. Dacă redenumești, produsele se mută odată cu ele.",
   "pantry.rackLevel": "{shelf}, polița {level}: {n} produse",
   "pantry.noShelf": "Fără raft",
-  "new.racks": "Rafturi desenate cu polițe: atinge o poliță ca să vezi ce e pe ea. Editor nou de rafturi."
+  "new.racks": "Rafturi desenate cu polițe: atinge o poliță ca să vezi ce e pe ea. Editor nou de rafturi.",
+  "pantry.countLevels": "Numără polițele",
+  "pantry.countTop": "De sus",
+  "pantry.countBottom": "De jos",
+  "new.lvdir": "În setări alegi dacă polițele se numără de sus sau de jos."
 }

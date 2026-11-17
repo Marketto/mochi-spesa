@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "层名用逗号分隔，例如 1, 2, 3 或 上层, 下层。重命名时商品会一起移动。",
   "pantry.rackLevel": "{shelf}，第 {level} 层：{n} 件商品",
   "pantry.noShelf": "无货架",
-  "new.racks": "画出的货架和层：点一层即可查看里面的东西。新的货架编辑器。"
+  "new.racks": "画出的货架和层：点一层即可查看里面的东西。新的货架编辑器。",
+  "pantry.countLevels": "层的编号",
+  "pantry.countTop": "从上往下",
+  "pantry.countBottom": "从下往上",
+  "new.lvdir": "可在设置中选择层从上往下还是从下往上编号。"
 }

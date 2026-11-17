@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Tasot pilkuilla erotettuina, esim. 1, 2, 3 tai Ylä, Ala. Nimen muuttuessa tuotteet seuraavat.",
   "pantry.rackLevel": "{shelf}, taso {level}: {n} tuotetta",
   "pantry.noShelf": "Ei hyllyä",
-  "new.racks": "Piirretyt hyllyt tasoineen: napauta tasoa nähdäksesi sisällön. Uusi hyllyeditori."
+  "new.racks": "Piirretyt hyllyt tasoineen: napauta tasoa nähdäksesi sisällön. Uusi hyllyeditori.",
+  "pantry.countLevels": "Tasojen numerointi",
+  "pantry.countTop": "Ylhäältä",
+  "pantry.countBottom": "Alhaalta",
+  "new.lvdir": "Asetuksissa valitset, lasketaanko tasot ylhäältä vai alhaalta."
 }

@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Baldas separadas por comas, p. ej. 1, 2, 3 o Arriba, Abajo. Si renombras una estantería o balda, los productos la siguen.",
   "pantry.rackLevel": "{shelf}, balda {level}: {n} productos",
   "pantry.noShelf": "Sin estantería",
-  "new.racks": "Estanterías dibujadas con baldas: toca una balda para ver qué hay. Nuevo editor de estanterías."
+  "new.racks": "Estanterías dibujadas con baldas: toca una balda para ver qué hay. Nuevo editor de estanterías.",
+  "pantry.countLevels": "Contar las baldas",
+  "pantry.countTop": "Desde arriba",
+  "pantry.countBottom": "Desde abajo",
+  "new.lvdir": "En ajustes eliges si las baldas se cuentan desde arriba o desde abajo."
 }

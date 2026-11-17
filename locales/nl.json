@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Planken gescheiden door komma's, bv. 1, 2, 3 of Boven, Onder. Bij hernoemen verhuizen de producten mee.",
   "pantry.rackLevel": "{shelf}, plank {level}: {n} producten",
   "pantry.noShelf": "Zonder rek",
-  "new.racks": "Getekende rekken met planken: tik op een plank om te zien wat erop staat. Nieuwe rek-editor."
+  "new.racks": "Getekende rekken met planken: tik op een plank om te zien wat erop staat. Nieuwe rek-editor.",
+  "pantry.countLevels": "Planken tellen",
+  "pantry.countTop": "Van boven",
+  "pantry.countBottom": "Van onder",
+  "new.lvdir": "Kies in de instellingen of planken van boven of van onder worden geteld."
 }

@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Niveaux séparés par des virgules, ex. 1, 2, 3 ou Haut, Bas. Renommer une étagère ou un niveau déplace aussi ses produits.",
   "pantry.rackLevel": "{shelf}, niveau {level} : {n} produits",
   "pantry.noShelf": "Sans étagère",
-  "new.racks": "Étagères dessinées avec leurs niveaux : touche un niveau pour voir son contenu. Nouvel éditeur d'étagères."
+  "new.racks": "Étagères dessinées avec leurs niveaux : touche un niveau pour voir son contenu. Nouvel éditeur d'étagères.",
+  "pantry.countLevels": "Compter les niveaux",
+  "pantry.countTop": "Depuis le haut",
+  "pantry.countBottom": "Depuis le bas",
+  "new.lvdir": "Dans les réglages, choisis de compter les niveaux depuis le haut ou le bas."
 }

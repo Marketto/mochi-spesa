@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Police odvojene zarezom, npr. 1, 2, 3 ili Gore, Dolje. Kad preimenuješ, proizvodi idu s njom.",
   "pantry.rackLevel": "{shelf}, polica {level}: proizvoda {n}",
   "pantry.noShelf": "Bez regala",
-  "new.racks": "Nacrtani regali s policama: dodirni policu da vidiš što je na njoj. Novi uređivač regala."
+  "new.racks": "Nacrtani regali s policama: dodirni policu da vidiš što je na njoj. Novi uređivač regala.",
+  "pantry.countLevels": "Broji police",
+  "pantry.countTop": "Odozgo",
+  "pantry.countBottom": "Odozdo",
+  "new.lvdir": "U postavkama biraš broje li se police odozgo ili odozdo."
 }
