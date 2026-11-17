@@ -368,5 +368,14 @@
   "place.cantina": "Pagrabs",
   "new.pantry": "Jauna cilne Pieliekamais: vietas, plaukti un līmeņi, un pirkumu izkrāmēšana.",
   "new.swipe": "Pavelc, lai dzēstu (ar Atsaukt), un poga daudzumam.",
-  "new.compare": "“Kur ir lētāk?”: salīdzini veikalus savam sarakstam, ar iecienītajiem un izvairāmajiem."
+  "new.compare": "“Kur ir lētāk?”: salīdzini veikalus savam sarakstam, ar iecienītajiem un izvairāmajiem.",
+  "pantry.import": "Importēt no Invendo",
+  "pantry.importTitle": "Importēt pieliekamo",
+  "pantry.importText": "Atrasti {n} produkti {places} vietās. Vietas, plaukti un līmeņi tiek izveidoti automātiski.",
+  "pantry.importUpd": "{n} jau ir pieliekamajā: atjaunošu daudzumu un derīgumu.",
+  "pantry.importOk": "Importēt",
+  "pantry.importDone": "Importēti produkti: {n}",
+  "pantry.importErr": "Nevaru nolasīt failu. Eksportē no Invendo kā Excel (.xlsx) vai CSV.",
+  "pantry.expires": "derīgs līdz {date}",
+  "new.import": "Importē pieliekamo no Invendo (Excel vai CSV) ar vietām, plauktiem, līmeņiem un derīgumu."
 }

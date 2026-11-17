@@ -368,5 +368,14 @@
   "place.cantina": "Klet",
   "new.pantry": "Nov zavihek Shramba: mesta, regali in police ter pospravljanje nakupa.",
   "new.swipe": "Povleci za brisanje z Razveljavi in gumb za količine.",
-  "new.compare": "„Kje je najceneje?“: primerjaj trgovine za seznam, s priljubljenimi in izogibanimi."
+  "new.compare": "„Kje je najceneje?“: primerjaj trgovine za seznam, s priljubljenimi in izogibanimi.",
+  "pantry.import": "Uvozi iz Invendo",
+  "pantry.importTitle": "Uvozi shrambo",
+  "pantry.importText": "Najdenih {n} izdelkov na {places} mestih. Mesta, regali in police se ustvarijo sami.",
+  "pantry.importUpd": "{n} je že v shrambi: posodobim količino in rok uporabe.",
+  "pantry.importOk": "Uvozi",
+  "pantry.importDone": "Uvoženih izdelkov: {n}",
+  "pantry.importErr": "Datoteke ne morem prebrati. Izvozi iz Invendo kot Excel (.xlsx) ali CSV.",
+  "pantry.expires": "rok uporabe {date}",
+  "new.import": "Uvoz shrambe iz Invendo (Excel ali CSV) z mesti, regali, policami in roki uporabe."
 }

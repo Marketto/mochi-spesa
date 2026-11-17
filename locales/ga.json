@@ -368,5 +368,14 @@
   "place.cantina": "Stóras",
   "new.pantry": "Cluaisín nua Cófra bia: áiteanna, seilfeanna agus leibhéil, agus an siopadóireacht a chur i gcóir.",
   "new.swipe": "Svaidhpeáil chun scriosadh le Cealaigh, agus cnaipe do mhéideanna.",
-  "new.compare": "“Cá bhfuil sé is saoire?”: déan comparáid idir siopaí do do liosta, le roghanna agus siopaí le seachaint."
+  "new.compare": "“Cá bhfuil sé is saoire?”: déan comparáid idir siopaí do do liosta, le roghanna agus siopaí le seachaint.",
+  "pantry.import": "Iompórtáil ó Invendo",
+  "pantry.importTitle": "Iompórtáil an cófra",
+  "pantry.importText": "Aimsíodh {n} táirge in {places} áit. Cruthaítear áiteanna, seilfeanna agus leibhéil go huathoibríoch.",
+  "pantry.importUpd": "Tá {n} sa chófra cheana: nuashonrófar méid agus dáta éaga.",
+  "pantry.importOk": "Iompórtáil",
+  "pantry.importDone": "{n} táirge iompórtáilte",
+  "pantry.importErr": "Ní féidir an comhad a léamh. Easpórtáil ó Invendo mar Excel (.xlsx) nó CSV.",
+  "pantry.expires": "in éag {date}",
+  "new.import": "Iompórtáil do chófra ó Invendo (Excel nó CSV) le háiteanna, seilfeanna, leibhéil agus dátaí éaga."
 }

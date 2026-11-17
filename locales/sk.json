@@ -368,5 +368,14 @@
   "place.cantina": "Pivnica",
   "new.pantry": "Nová karta Špajza: miesta, regály a police a upratovanie nákupu.",
   "new.swipe": "Potiahnutím zmažeš (so Späť) a tlačidlo na množstvo.",
-  "new.compare": "„Kde je to najlacnejšie?“: porovnaj obchody pre svoj zoznam, s obľúbenými a vynechanými."
+  "new.compare": "„Kde je to najlacnejšie?“: porovnaj obchody pre svoj zoznam, s obľúbenými a vynechanými.",
+  "pantry.import": "Importovať z Invendo",
+  "pantry.importTitle": "Importovať špajzu",
+  "pantry.importText": "Našlo sa {n} produktov na {places} miestach. Miesta, regály a police sa vytvoria samy.",
+  "pantry.importUpd": "{n} už v špajze je: aktualizujem množstvo a trvanlivosť.",
+  "pantry.importOk": "Importovať",
+  "pantry.importDone": "Importované produkty: {n}",
+  "pantry.importErr": "Súbor sa nedá prečítať. Exportuj z Invendo ako Excel (.xlsx) alebo CSV.",
+  "pantry.expires": "spotrebujte do {date}",
+  "new.import": "Import špajze z Invendo (Excel alebo CSV) s miestami, regálmi, policami a trvanlivosťou."
 }

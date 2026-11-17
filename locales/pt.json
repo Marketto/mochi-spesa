@@ -368,5 +368,14 @@
   "place.cantina": "Arrecadação",
   "new.pantry": "Novo separador Despensa: locais, estantes e prateleiras, e arrumar as compras.",
   "new.swipe": "Deslizar para apagar com Anular, e um botão para quantidades.",
-  "new.compare": "“Onde fica mais barato?”: compara lojas para a tua lista, com favoritas e evitadas."
+  "new.compare": "“Onde fica mais barato?”: compara lojas para a tua lista, com favoritas e evitadas.",
+  "pantry.import": "Importar do Invendo",
+  "pantry.importTitle": "Importar despensa",
+  "pantry.importText": "Encontrei {n} produtos em {places} locais. Locais, estantes e prateleiras são criados automaticamente.",
+  "pantry.importUpd": "{n} já estão na despensa: atualizo quantidade e validade.",
+  "pantry.importOk": "Importar",
+  "pantry.importDone": "{n} produtos importados",
+  "pantry.importErr": "Não consigo ler o ficheiro. Exporta do Invendo em Excel (.xlsx) ou CSV.",
+  "pantry.expires": "validade {date}",
+  "new.import": "Importa a despensa do Invendo (Excel ou CSV), com locais, estantes, prateleiras e validades."
 }

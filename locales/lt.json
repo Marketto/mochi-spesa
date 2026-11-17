@@ -368,5 +368,14 @@
   "place.cantina": "Rūsys",
   "new.pantry": "Naujas skirtukas Sandėliukas: vietos, lentynos ir aukštai bei pirkinių sudėjimas.",
   "new.swipe": "Perbraukite norėdami ištrinti (su Atšaukti) ir mygtukas kiekiui.",
-  "new.compare": "„Kur pigiausia?“: palyginkite parduotuves sąrašui, su mėgstamomis ir vengtinomis."
+  "new.compare": "„Kur pigiausia?“: palyginkite parduotuves sąrašui, su mėgstamomis ir vengtinomis.",
+  "pantry.import": "Importuoti iš Invendo",
+  "pantry.importTitle": "Importuoti sandėliuką",
+  "pantry.importText": "Rasta {n} prekių {places} vietose. Vietos, lentynos ir aukštai sukuriami automatiškai.",
+  "pantry.importUpd": "{n} jau yra sandėliuke: atnaujinsiu kiekį ir galiojimą.",
+  "pantry.importOk": "Importuoti",
+  "pantry.importDone": "Importuota prekių: {n}",
+  "pantry.importErr": "Negaliu nuskaityti failo. Eksportuokite iš Invendo kaip Excel (.xlsx) arba CSV.",
+  "pantry.expires": "galioja iki {date}",
+  "new.import": "Importuokite sandėliuką iš Invendo (Excel arba CSV) su vietomis, lentynomis, aukštais ir galiojimu."
 }

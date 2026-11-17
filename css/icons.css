@@ -3,7 +3,7 @@
    Uso: <i class="mi mi-add" aria-hidden="true"></i> sempre con un testo o un aria-label sul controllo. */
 @font-face {
   font-family: "Mochi Icons";
-  src: url("../fonts/mochi-icons.woff2?v=5abac4f3") format("woff2");
+  src: url("../fonts/mochi-icons.woff2?v=7e38f54b") format("woff2");
   font-weight: normal; font-style: normal; font-display: block;
 }
 .mi {
@@ -51,46 +51,48 @@
 .mi-star::before { content: "\e026"; content: "\e026" / ""; } /* ottima offerta */
 .mi-down::before { content: "\e027"; content: "\e027" / ""; } /* più economico */
 .mi-warn::before { content: "\e028"; content: "\e028" / ""; } /* attenzione */
-.mi-info::before { content: "\e029"; content: "\e029" / ""; } /* informazione */
-.mi-heart::before { content: "\e02a"; content: "\e02a" / ""; } /* spuntato */
-.mi-heart-line::before { content: "\e02b"; content: "\e02b" / ""; } /* cuore */
-.mi-basket::before { content: "\e02c"; content: "\e02c" / ""; } /* lista vuota */
-.mi-percent::before { content: "\e02d"; content: "\e02d" / ""; } /* sconto */
-.mi-cat-clean::before { content: "\e02e"; content: "\e02e" / ""; } /* detersivi e casa */
-.mi-cat-body::before { content: "\e02f"; content: "\e02f" / ""; } /* igiene persona */
-.mi-cat-veg::before { content: "\e030"; content: "\e030" / ""; } /* frutta e verdura */
-.mi-cat-dairy::before { content: "\e031"; content: "\e031" / ""; } /* latte, uova e formaggi */
-.mi-cat-meat::before { content: "\e032"; content: "\e032" / ""; } /* carne e pesce */
-.mi-cat-bread::before { content: "\e033"; content: "\e033" / ""; } /* pane e forno */
-.mi-cat-frozen::before { content: "\e034"; content: "\e034" / ""; } /* surgelati */
-.mi-cat-drinks::before { content: "\e035"; content: "\e035" / ""; } /* bevande */
-.mi-cat-pantry::before { content: "\e036"; content: "\e036" / ""; } /* dispensa */
-.mi-cat-other::before { content: "\e037"; content: "\e037" / ""; } /* altro */
-.mi-lang::before { content: "\e038"; content: "\e038" / ""; } /* lingua */
-.mi-privacy::before { content: "\e039"; content: "\e039" / ""; } /* privacy */
-.mi-terms::before { content: "\e03a"; content: "\e03a" / ""; } /* condizioni d'uso */
-.mi-prev::before { content: "\e03b"; content: "\e03b" / ""; } /* indietro (si specchia in RTL) */
-.mi-next::before { content: "\e03c"; content: "\e03c" / ""; } /* avanti (si specchia in RTL) */
-.mi-gift::before { content: "\e03d"; content: "\e03d" / ""; } /* novità */
-.mi-wave::before { content: "\e03e"; content: "\e03e" / ""; } /* benvenuto */
-.mi-party::before { content: "\e03f"; content: "\e03f" / ""; } /* si parte */
-.mi-coins::before { content: "\e040"; content: "\e040" / ""; } /* valuta */
-.mi-install::before { content: "\e041"; content: "\e041" / ""; } /* installa l'app */
-.mi-share-ios::before { content: "\e042"; content: "\e042" / ""; } /* condividi (iPhone) */
-.mi-mic::before { content: "\e043"; content: "\e043" / ""; } /* detta a voce */
-.mi-share::before { content: "\e044"; content: "\e044" / ""; } /* condividi l'app */
-.mi-tab-pantry::before { content: "\e045"; content: "\e045" / ""; } /* dispensa */
-.mi-tab-pantry-on::before { content: "\e046"; content: "\e046" / ""; } /* dispensa attiva */
-.mi-store-room::before { content: "\e047"; content: "\e047" / ""; } /* magazzino / cantina */
-.mi-home::before { content: "\e048"; content: "\e048" / ""; } /* a casa / metti via */
-.mi-avoid::before { content: "\e049"; content: "\e049" / ""; } /* negozio da evitare */
-.mi-avoid-on::before { content: "\e04a"; content: "\e04a" / ""; } /* evitato */
-.mi-star-line::before { content: "\e04b"; content: "\e04b" / ""; } /* preferito (vuoto) */
-.mi-minus::before { content: "\e04c"; content: "\e04c" / ""; } /* meno */
-.mi-edit::before { content: "\e04d"; content: "\e04d" / ""; } /* modifica / quantità */
-.mi-undo::before { content: "\e04e"; content: "\e04e" / ""; } /* annulla */
-.mi-mic-on::before { content: "\e04f"; content: "\e04f" / ""; } /* sto ascoltando */
-.mi-mochi::before { content: "\e050"; content: "\e050" / ""; } /* Mochi */
+.mi-import::before { content: "\e029"; content: "\e029" / ""; } /* importa da file */
+.mi-expiry::before { content: "\e02a"; content: "\e02a" / ""; } /* scadenza */
+.mi-info::before { content: "\e02b"; content: "\e02b" / ""; } /* informazione */
+.mi-heart::before { content: "\e02c"; content: "\e02c" / ""; } /* spuntato */
+.mi-heart-line::before { content: "\e02d"; content: "\e02d" / ""; } /* cuore */
+.mi-basket::before { content: "\e02e"; content: "\e02e" / ""; } /* lista vuota */
+.mi-percent::before { content: "\e02f"; content: "\e02f" / ""; } /* sconto */
+.mi-cat-clean::before { content: "\e030"; content: "\e030" / ""; } /* detersivi e casa */
+.mi-cat-body::before { content: "\e031"; content: "\e031" / ""; } /* igiene persona */
+.mi-cat-veg::before { content: "\e032"; content: "\e032" / ""; } /* frutta e verdura */
+.mi-cat-dairy::before { content: "\e033"; content: "\e033" / ""; } /* latte, uova e formaggi */
+.mi-cat-meat::before { content: "\e034"; content: "\e034" / ""; } /* carne e pesce */
+.mi-cat-bread::before { content: "\e035"; content: "\e035" / ""; } /* pane e forno */
+.mi-cat-frozen::before { content: "\e036"; content: "\e036" / ""; } /* surgelati */
+.mi-cat-drinks::before { content: "\e037"; content: "\e037" / ""; } /* bevande */
+.mi-cat-pantry::before { content: "\e038"; content: "\e038" / ""; } /* dispensa */
+.mi-cat-other::before { content: "\e039"; content: "\e039" / ""; } /* altro */
+.mi-lang::before { content: "\e03a"; content: "\e03a" / ""; } /* lingua */
+.mi-privacy::before { content: "\e03b"; content: "\e03b" / ""; } /* privacy */
+.mi-terms::before { content: "\e03c"; content: "\e03c" / ""; } /* condizioni d'uso */
+.mi-prev::before { content: "\e03d"; content: "\e03d" / ""; } /* indietro (si specchia in RTL) */
+.mi-next::before { content: "\e03e"; content: "\e03e" / ""; } /* avanti (si specchia in RTL) */
+.mi-gift::before { content: "\e03f"; content: "\e03f" / ""; } /* novità */
+.mi-wave::before { content: "\e040"; content: "\e040" / ""; } /* benvenuto */
+.mi-party::before { content: "\e041"; content: "\e041" / ""; } /* si parte */
+.mi-coins::before { content: "\e042"; content: "\e042" / ""; } /* valuta */
+.mi-install::before { content: "\e043"; content: "\e043" / ""; } /* installa l'app */
+.mi-share-ios::before { content: "\e044"; content: "\e044" / ""; } /* condividi (iPhone) */
+.mi-mic::before { content: "\e045"; content: "\e045" / ""; } /* detta a voce */
+.mi-share::before { content: "\e046"; content: "\e046" / ""; } /* condividi l'app */
+.mi-tab-pantry::before { content: "\e047"; content: "\e047" / ""; } /* dispensa */
+.mi-tab-pantry-on::before { content: "\e048"; content: "\e048" / ""; } /* dispensa attiva */
+.mi-store-room::before { content: "\e049"; content: "\e049" / ""; } /* magazzino / cantina */
+.mi-home::before { content: "\e04a"; content: "\e04a" / ""; } /* a casa / metti via */
+.mi-avoid::before { content: "\e04b"; content: "\e04b" / ""; } /* negozio da evitare */
+.mi-avoid-on::before { content: "\e04c"; content: "\e04c" / ""; } /* evitato */
+.mi-star-line::before { content: "\e04d"; content: "\e04d" / ""; } /* preferito (vuoto) */
+.mi-minus::before { content: "\e04e"; content: "\e04e" / ""; } /* meno */
+.mi-edit::before { content: "\e04f"; content: "\e04f" / ""; } /* modifica / quantità */
+.mi-undo::before { content: "\e050"; content: "\e050" / ""; } /* annulla */
+.mi-mic-on::before { content: "\e051"; content: "\e051" / ""; } /* sto ascoltando */
+.mi-mochi::before { content: "\e052"; content: "\e052" / ""; } /* Mochi */
 :root {
   --mi-add: "\e001";
   --mi-delete: "\e002";
@@ -132,44 +134,46 @@
   --mi-star: "\e026";
   --mi-down: "\e027";
   --mi-warn: "\e028";
-  --mi-info: "\e029";
-  --mi-heart: "\e02a";
-  --mi-heart-line: "\e02b";
-  --mi-basket: "\e02c";
-  --mi-percent: "\e02d";
-  --mi-cat-clean: "\e02e";
-  --mi-cat-body: "\e02f";
-  --mi-cat-veg: "\e030";
-  --mi-cat-dairy: "\e031";
-  --mi-cat-meat: "\e032";
-  --mi-cat-bread: "\e033";
-  --mi-cat-frozen: "\e034";
-  --mi-cat-drinks: "\e035";
-  --mi-cat-pantry: "\e036";
-  --mi-cat-other: "\e037";
-  --mi-lang: "\e038";
-  --mi-privacy: "\e039";
-  --mi-terms: "\e03a";
-  --mi-prev: "\e03b";
-  --mi-next: "\e03c";
-  --mi-gift: "\e03d";
-  --mi-wave: "\e03e";
-  --mi-party: "\e03f";
-  --mi-coins: "\e040";
-  --mi-install: "\e041";
-  --mi-share-ios: "\e042";
-  --mi-mic: "\e043";
-  --mi-share: "\e044";
-  --mi-tab-pantry: "\e045";
-  --mi-tab-pantry-on: "\e046";
-  --mi-store-room: "\e047";
-  --mi-home: "\e048";
-  --mi-avoid: "\e049";
-  --mi-avoid-on: "\e04a";
-  --mi-star-line: "\e04b";
-  --mi-minus: "\e04c";
-  --mi-edit: "\e04d";
-  --mi-undo: "\e04e";
-  --mi-mic-on: "\e04f";
-  --mi-mochi: "\e050";
+  --mi-import: "\e029";
+  --mi-expiry: "\e02a";
+  --mi-info: "\e02b";
+  --mi-heart: "\e02c";
+  --mi-heart-line: "\e02d";
+  --mi-basket: "\e02e";
+  --mi-percent: "\e02f";
+  --mi-cat-clean: "\e030";
+  --mi-cat-body: "\e031";
+  --mi-cat-veg: "\e032";
+  --mi-cat-dairy: "\e033";
+  --mi-cat-meat: "\e034";
+  --mi-cat-bread: "\e035";
+  --mi-cat-frozen: "\e036";
+  --mi-cat-drinks: "\e037";
+  --mi-cat-pantry: "\e038";
+  --mi-cat-other: "\e039";
+  --mi-lang: "\e03a";
+  --mi-privacy: "\e03b";
+  --mi-terms: "\e03c";
+  --mi-prev: "\e03d";
+  --mi-next: "\e03e";
+  --mi-gift: "\e03f";
+  --mi-wave: "\e040";
+  --mi-party: "\e041";
+  --mi-coins: "\e042";
+  --mi-install: "\e043";
+  --mi-share-ios: "\e044";
+  --mi-mic: "\e045";
+  --mi-share: "\e046";
+  --mi-tab-pantry: "\e047";
+  --mi-tab-pantry-on: "\e048";
+  --mi-store-room: "\e049";
+  --mi-home: "\e04a";
+  --mi-avoid: "\e04b";
+  --mi-avoid-on: "\e04c";
+  --mi-star-line: "\e04d";
+  --mi-minus: "\e04e";
+  --mi-edit: "\e04f";
+  --mi-undo: "\e050";
+  --mi-mic-on: "\e051";
+  --mi-mochi: "\e052";
 }

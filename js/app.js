@@ -8,6 +8,7 @@ import * as ai from "./claude.js";
 import * as geo from "./geo.js";
 import * as voice from "./voice.js";
 import * as pantry from "./pantry.js";
+import * as importer from "./importer.js";
 
 // ---------- utilità ----------
 const $ = s => document.querySelector(s);
@@ -499,8 +500,10 @@ function renderPantry() {
   const box = $("#pantry");
   if (!items.length) { box.innerHTML = `<div class="card empty">${ic("tab-pantry", "big-emoji")}<p><strong>${esc(t("pantry.emptyTitle"))}</strong><br>${esc(t("pantry.emptyText"))}</p></div>`; return; }
   const byCat = document.querySelector('input[name="pgroup"]:checked')?.value === "cat";
+  const oggi = new Date().toISOString().slice(0, 10), presto = new Date(Date.now() + 30 * 864e5).toISOString().slice(0, 10);
+  const scad = d => d.scad ? `<span class="meta exp${d.scad < oggi ? " past" : d.scad <= presto ? " soon" : ""}">${ic("expiry")} ${esc(t("pantry.expires", { date: new Date(d.scad + "T12:00").toLocaleDateString(locale(), { dateStyle: "medium" }) }))}</span>` : "";
   const row = (d, showPlace) => `<li class="item pantry-item">
-    <div class="item-row"><span class="txt"><span class="n">${esc(d.nome)}</span>${showPlace ? `<span class="meta">${ic("store-room")} ${esc(pantry.placeLabel(d, state.luoghi, nameOf))}</span>` : ""}</span>
+    <div class="item-row"><span class="txt"><span class="n">${esc(d.nome)}</span>${showPlace ? `<span class="meta">${ic("store-room")} ${esc(pantry.placeLabel(d, state.luoghi, nameOf))}</span>` : ""}${scad(d)}</span>
     <button class="qty-btn" type="button" data-pedit="${esc(d.id)}" data-fk="pe${esc(d.id)}" aria-label="${esc(t("pantry.edit", { name: d.nome }))}">${d.qta ? esc(d.qta) : ic("edit")}</button>
     <button class="icon-btn" type="button" data-p2l="${esc(d.id)}" aria-label="${esc(t("pantry.toList", { name: d.nome }))}">${ic("list-add")}</button>
     <button class="icon-btn danger" type="button" data-pdel="${esc(d.id)}" aria-label="${esc(t("pantry.finished", { name: d.nome }))}">${ic("delete")}</button></div></li>`;
@@ -568,6 +571,30 @@ async function editPantryItem(id) {
 }
 
 // Organizza il magazzino: luoghi, scaffali e ripiani
+// importazione da Invendo (.xlsx / .csv)
+$("#pantry-import").addEventListener("click", () => $("#import-file").click());
+$("#import-file").addEventListener("change", async e => {
+  const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+  let prodotti;
+  try { prodotti = await importer.readFile(f); } catch { prodotti = []; }
+  const plan = prodotti.length ? importer.planImport(prodotti, state, nameOf, uid) : null;
+  if (!plan || !plan.n) { toast(t("pantry.importErr"), "warn"); return; }
+  const posti = new Set(prodotti.filter(p => p.qta !== "0").map(p => p.posto.filter(Boolean).join(" › ") || nameOf(state.luoghi.credenza))).size;
+  const { value } = await sheet({
+    title: t("pantry.importTitle"), icon: "import",
+    body: `<p>${esc(t("pantry.importText", { n: plan.n, places: posti }))}</p>${plan.upd.length ? `<p class="hint">${esc(t("pantry.importUpd", { n: plan.upd.length }))}</p>` : ""}`,
+    buttons: [{ value: "ok", label: t("pantry.importOk"), icon: "import", primary: true }, { value: "cancel", label: t("common.cancel"), icon: "close" }],
+  });
+  if (value !== "ok") return;
+  mutate((s, now) => {
+    for (const [id, l] of Object.entries(plan.luoghi)) s.luoghi[id] = { ...l, updatedAt: now };
+    for (const r of plan.add) { const id = uid(); s.dispensa[id] = { id, ...r, ts: now, updatedAt: now }; }
+    for (const { id, ...r } of plan.upd) if (s.dispensa[id]) s.dispensa[id] = { ...s.dispensa[id], ...r, updatedAt: now };
+    for (const id of plan.del) if (s.dispensa[id]) s.dispensa[id] = { ...s.dispensa[id], deleted: true, updatedAt: now };
+  });
+  toast(t("pantry.importDone", { n: plan.n }), "import"); mochi.mood("happy");
+});
+
 $("#places-edit").addEventListener("click", async () => {
   const ls = pantry.sortedPlaces(state.luoghi);
   const r = await sheet({

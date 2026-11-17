@@ -368,5 +368,14 @@
   "place.cantina": "Varasto",
   "new.pantry": "Uusi Ruokakomero-välilehti: paikat, hyllyt ja tasot sekä ostosten purku.",
   "new.swipe": "Pyyhkäise poistaaksesi (Kumoa mahdollinen) ja painike määrille.",
-  "new.compare": "”Missä halvinta?”: vertaa kauppoja listallesi, suosikeilla ja vältettävillä."
+  "new.compare": "”Missä halvinta?”: vertaa kauppoja listallesi, suosikeilla ja vältettävillä.",
+  "pantry.import": "Tuo Invendosta",
+  "pantry.importTitle": "Tuo ruokakomero",
+  "pantry.importText": "Löytyi {n} tuotetta {places} paikasta. Paikat, hyllyt ja tasot luodaan automaattisesti.",
+  "pantry.importUpd": "{n} on jo komerossa: päivitän määrän ja päiväyksen.",
+  "pantry.importOk": "Tuo",
+  "pantry.importDone": "{n} tuotetta tuotu",
+  "pantry.importErr": "Tiedostoa ei voi lukea. Vie Invendosta Excel- (.xlsx) tai CSV-muodossa.",
+  "pantry.expires": "parasta ennen {date}",
+  "new.import": "Tuo ruokakomero Invendosta (Excel tai CSV) paikkoineen, hyllyineen, tasoineen ja päiväyksineen."
 }

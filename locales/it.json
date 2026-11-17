@@ -368,5 +368,14 @@
   "place.cantina": "Cantina",
   "new.pantry": "Nuova scheda Dispensa: posti, scaffali e ripiani, e la spesa da mettere via.",
   "new.swipe": "Scorri per eliminare con Annulla, e un tasto per le quantità.",
-  "new.compare": "“Dove conviene?”: confronta i negozi per la tua lista, con negozi preferiti ed evitati."
+  "new.compare": "“Dove conviene?”: confronta i negozi per la tua lista, con negozi preferiti ed evitati.",
+  "pantry.import": "Importa da Invendo",
+  "pantry.importTitle": "Importa la dispensa",
+  "pantry.importText": "Ho trovato {n} prodotti in {places} posti. Posti, scaffali e ripiani vengono creati da soli.",
+  "pantry.importUpd": "{n} sono già in dispensa: aggiorno quantità e scadenza.",
+  "pantry.importOk": "Importa",
+  "pantry.importDone": "{n} prodotti importati",
+  "pantry.importErr": "Non riesco a leggere il file. Esporta da Invendo in Excel (.xlsx) o CSV.",
+  "pantry.expires": "scade il {date}",
+  "new.import": "Importa la dispensa da Invendo (Excel o CSV), con posti, scaffali, ripiani e scadenze."
 }

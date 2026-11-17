@@ -368,5 +368,14 @@
   "place.cantina": "Kælder",
   "new.pantry": "Ny fane Spisekammer: steder, reoler og hylder, og udpakning af indkøb.",
   "new.swipe": "Stryg for at slette med Fortryd, og en knap til mængder.",
-  "new.compare": "„Hvor er det billigst?“: sammenlign butikker til listen, med foretrukne og undgåede."
+  "new.compare": "„Hvor er det billigst?“: sammenlign butikker til listen, med foretrukne og undgåede.",
+  "pantry.import": "Importér fra Invendo",
+  "pantry.importTitle": "Importér spisekammer",
+  "pantry.importText": "Fandt {n} produkter på {places} steder. Steder, reoler og hylder oprettes automatisk.",
+  "pantry.importUpd": "{n} er allerede i spisekammeret: antal og holdbarhed opdateres.",
+  "pantry.importOk": "Importér",
+  "pantry.importDone": "{n} produkter importeret",
+  "pantry.importErr": "Kan ikke læse filen. Eksportér fra Invendo som Excel (.xlsx) eller CSV.",
+  "pantry.expires": "holdbar til {date}",
+  "new.import": "Importér spisekammeret fra Invendo (Excel eller CSV) med steder, reoler, hylder og datoer."
 }
