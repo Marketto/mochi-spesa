@@ -330,3 +330,19 @@ dialog.big-dlg { width: min(480px, 94vw); max-height: min(88vh, 760px); padding:
 .legal-body ul { margin: 0; padding-inline-start: 22px; display: grid; gap: 8px; }
 .news-head { text-align: center; font-size: 56px; color: var(--pink); animation: jump 1s var(--ease-bounce); }
 #news h3.ver { font-size: 15px; color: var(--muted); margin: 14px 0 4px; }
+
+/* ---------- avanzate e installazione ---------- */
+details.adv { margin-top: 10px; border-top: 2px dashed var(--line); padding-top: 6px; }
+details.adv summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; gap: 6px; font-weight: 700; color: var(--muted); list-style: none; }
+details.adv summary::-webkit-details-marker { display: none; }
+details.adv summary::after { content: "▾"; margin-inline-start: auto; transition: transform .25s; }
+details.adv[open] summary::after { transform: rotate(180deg); }
+.install-card { display: flex; gap: 12px; align-items: center; background: linear-gradient(135deg, var(--pink-soft), var(--lav-soft)); border-color: transparent; }
+.install-card .big-ic { flex: none; width: 52px; height: 52px; border-radius: 18px; display: grid; place-items: center; font-size: 28px; background: var(--card); color: var(--pink); animation: bob 2.6s ease-in-out infinite; }
+.install-card h2 { margin: 0; font-size: 17px; color: var(--ink); }
+.install-card p { margin: 2px 0 8px; font-size: 14px; }
+.install-card .row { gap: 8px; flex-wrap: wrap; }
+.install-card .btn { min-height: 44px; padding: 8px 16px; }
+.ios-share { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; background: var(--card); color: #007aff; vertical-align: middle; }
+.notice-card { background: var(--gold-soft); border-color: transparent; }
+.notice-card p { margin: 0 0 8px; font-weight: 700; }

@@ -83,6 +83,8 @@ const ICONS = {
   "wave": ["bold/hand-waving", "benvenuto"],
   "party": ["bold/confetti", "si parte"],
   "coins": ["bold/coins", "valuta"],
+  "install": ["bold/download-simple", "installa l'app"],
+  "share-ios": ["bold/export", "condividi (iPhone)"],
   // glifo originale
   "mochi": ["custom/mochi", "Mochi"],
 };

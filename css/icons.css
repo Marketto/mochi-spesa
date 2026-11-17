@@ -3,7 +3,7 @@
    Uso: <i class="mi mi-add" aria-hidden="true"></i> sempre con un testo o un aria-label sul controllo. */
 @font-face {
   font-family: "Mochi Icons";
-  src: url("../fonts/mochi-icons.woff2?v=928d9e32") format("woff2");
+  src: url("../fonts/mochi-icons.woff2?v=05cbbd3b") format("woff2");
   font-weight: normal; font-style: normal; font-display: block;
 }
 .mi {
@@ -75,7 +75,9 @@
 .mi-wave::before { content: "\e03e"; content: "\e03e" / ""; } /* benvenuto */
 .mi-party::before { content: "\e03f"; content: "\e03f" / ""; } /* si parte */
 .mi-coins::before { content: "\e040"; content: "\e040" / ""; } /* valuta */
-.mi-mochi::before { content: "\e041"; content: "\e041" / ""; } /* Mochi */
+.mi-install::before { content: "\e041"; content: "\e041" / ""; } /* installa l'app */
+.mi-share-ios::before { content: "\e042"; content: "\e042" / ""; } /* condividi (iPhone) */
+.mi-mochi::before { content: "\e043"; content: "\e043" / ""; } /* Mochi */
 :root {
   --mi-add: "\e001";
   --mi-delete: "\e002";
@@ -141,5 +143,7 @@
   --mi-wave: "\e03e";
   --mi-party: "\e03f";
   --mi-coins: "\e040";
-  --mi-mochi: "\e041";
+  --mi-install: "\e041";
+  --mi-share-ios: "\e042";
+  --mi-mochi: "\e043";
 }
