@@ -278,5 +278,13 @@
   "legal.p9": "Asukohta kasutatakse ainult siis, kui lubad seda brauseris, ja see ümardatakse ~1 km täpsuseni. Koduaadress ja selle koordinaadid salvestatakse ühistesse seadetesse; aadresside kohtadeks muutmiseks küsib rakendus OpenStreetMapilt (Nominatim), mis saab aadressi või koordinaadid.",
   "new.install": "Mochi pakub end avakuvale paigaldada.",
   "new.easyDbx": "Dropboxi ühendamine on nüüd üks puudutus: koode pole vaja.",
-  "new.geo": "Aadress ja asukoht: kodust eemal näitab Mochi pakkumisi seal, kus oled."
+  "new.geo": "Aadress ja asukoht: kodust eemal näitab Mochi pakkumisi seal, kus oled.",
+  "voice.start": "Dikteeri nimekiri",
+  "voice.stop": "Lõpeta dikteerimine",
+  "voice.listening": "Kuulan… ütle näiteks „piim, leib ja munad”",
+  "voice.heard": "Kuulsin: {text}. Lisamiseks puuduta +.",
+  "voice.denied": "Mikrofon pole lubatud.",
+  "voice.none": "Ma ei kuulnud midagi, proovi uuesti.",
+  "legal.p10": "Dikteerimine kasutab brauseri kõnetuvastust: Chrome'is töötleb heli Google, Safaris Apple. See käivitub ainult siis, kui puudutad mikrofoni.",
+  "new.voice": "Dikteeri ostunimekiri häälega, tasuta."
 }

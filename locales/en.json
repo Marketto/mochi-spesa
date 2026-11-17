@@ -278,5 +278,13 @@
   "legal.p9": "Location is used only if you allow it in the browser and is rounded to about 1 km. The home address and its coordinates are saved in the shared settings; to turn addresses into places the app asks OpenStreetMap (Nominatim), which receives the address or the coordinates.",
   "new.install": "Mochi offers to install itself on your home screen.",
   "new.easyDbx": "Connecting Dropbox now takes one tap: no codes to type.",
-  "new.geo": "Home address and location: away from home, Mochi offers deals where you are."
+  "new.geo": "Home address and location: away from home, Mochi offers deals where you are.",
+  "voice.start": "Dictate the list",
+  "voice.stop": "Stop dictation",
+  "voice.listening": "I'm listening… say for example “milk, bread and eggs”",
+  "voice.heard": "I heard: {text}. Tap + to add.",
+  "voice.denied": "Microphone not allowed.",
+  "voice.none": "I didn't hear anything, try again.",
+  "legal.p10": "Voice dictation uses the speech recognition built into your browser: on Chrome the audio is processed by Google, on Safari by Apple. It only starts when you tap the microphone.",
+  "new.voice": "Dictate your shopping list by voice, for free."
 }

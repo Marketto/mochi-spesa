@@ -278,5 +278,13 @@
   "legal.p9": "Platsen används bara om du tillåter det i webbläsaren och avrundas till cirka 1 km. Hemadressen och dess koordinater sparas i de delade inställningarna; för att göra om adresser till platser frågar appen OpenStreetMap (Nominatim), som får adressen eller koordinaterna.",
   "new.install": "Mochi erbjuder sig att installeras på hemskärmen.",
   "new.easyDbx": "Att ansluta Dropbox är nu ett tryck: inga koder.",
-  "new.geo": "Adress och plats: borta hemifrån visar Mochi erbjudanden där du är."
+  "new.geo": "Adress och plats: borta hemifrån visar Mochi erbjudanden där du är.",
+  "voice.start": "Diktera listan",
+  "voice.stop": "Stoppa dikteringen",
+  "voice.listening": "Jag lyssnar… säg till exempel ”mjölk, bröd och ägg”",
+  "voice.heard": "Jag hörde: {text}. Tryck på + för att lägga till.",
+  "voice.denied": "Mikrofonen är inte tillåten.",
+  "voice.none": "Jag hörde ingenting, försök igen.",
+  "legal.p10": "Dikteringen använder webbläsarens taligenkänning: i Chrome behandlas ljudet av Google, i Safari av Apple. Den startar bara när du trycker på mikrofonen.",
+  "new.voice": "Diktera inköpslistan med rösten, gratis."
 }

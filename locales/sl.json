@@ -278,5 +278,13 @@
   "legal.p9": "Lokacija se uporablja le, če jo dovoliš v brskalniku, in je zaokrožena na ~1 km. Domači naslov in njegove koordinate so shranjeni v skupnih nastavitvah; za pretvorbo naslovov v kraje aplikacija sprašuje OpenStreetMap (Nominatim), ki prejme naslov ali koordinate.",
   "new.install": "Mochi ti ponudi namestitev na začetni zaslon.",
   "new.easyDbx": "Povezava z Dropboxom je zdaj en tap: brez kod.",
-  "new.geo": "Naslov in lokacija: zdoma ti Mochi ponudi akcije tam, kjer si."
+  "new.geo": "Naslov in lokacija: zdoma ti Mochi ponudi akcije tam, kjer si.",
+  "voice.start": "Nareki seznam",
+  "voice.stop": "Ustavi narekovanje",
+  "voice.listening": "Poslušam… reci na primer „mleko, kruh in jajca“",
+  "voice.heard": "Razumela sem: {text}. Tapni + za dodajanje.",
+  "voice.denied": "Mikrofon ni dovoljen.",
+  "voice.none": "Nič nisem slišala, poskusi znova.",
+  "legal.p10": "Narekovanje uporablja prepoznavanje govora v brskalniku: v Chromu zvok obdela Google, v Safariju Apple. Začne se le, ko tapneš mikrofon.",
+  "new.voice": "Nareki nakupovalni seznam z glasom, brezplačno."
 }

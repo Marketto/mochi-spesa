@@ -278,5 +278,13 @@
   "legal.p9": "Locația e folosită doar dacă o permiți în browser și e rotunjită la ~1 km. Adresa de acasă și coordonatele ei sunt salvate în setările comune; ca să transforme adresele în locuri, aplicația întreabă OpenStreetMap (Nominatim), care primește adresa sau coordonatele.",
   "new.install": "Mochi îți propune să se instaleze pe ecranul principal.",
   "new.easyDbx": "Conectarea Dropbox e acum o atingere: fără coduri.",
-  "new.geo": "Adresă și locație: în afara casei, Mochi îți propune oferte unde ești."
+  "new.geo": "Adresă și locație: în afara casei, Mochi îți propune oferte unde ești.",
+  "voice.start": "Dictează lista",
+  "voice.stop": "Oprește dictarea",
+  "voice.listening": "Te ascult… spune de exemplu „lapte, pâine și ouă”",
+  "voice.heard": "Am înțeles: {text}. Atinge + pentru a adăuga.",
+  "voice.denied": "Microfonul nu e permis.",
+  "voice.none": "N-am auzit nimic, mai încearcă.",
+  "legal.p10": "Dictarea folosește recunoașterea vocală a browserului: în Chrome sunetul e procesat de Google, în Safari de Apple. Pornește doar când atingi microfonul.",
+  "new.voice": "Dictează lista de cumpărături cu vocea, gratuit."
 }

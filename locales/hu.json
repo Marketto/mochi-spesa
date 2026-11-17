@@ -278,5 +278,13 @@
   "legal.p9": "A helyzetet csak a böngészőben adott engedéllyel használjuk, kb. 1 km-re kerekítve. Az otthoni cím és koordinátái a közös beállításokban tárolódnak; a címek helyekké alakításához az app az OpenStreetMapet (Nominatim) kérdezi, amely megkapja a címet vagy a koordinátákat.",
   "new.install": "Mochi felajánlja, hogy felkerül a kezdőképernyőre.",
   "new.easyDbx": "A Dropbox csatlakoztatása most egyetlen koppintás: nincs kód.",
-  "new.geo": "Cím és helyzet: távol otthonról Mochi ott mutat akciókat, ahol vagy."
+  "new.geo": "Cím és helyzet: távol otthonról Mochi ott mutat akciókat, ahol vagy.",
+  "voice.start": "Lista diktálása",
+  "voice.stop": "Diktálás leállítása",
+  "voice.listening": "Figyelek… mondd például: „tej, kenyér és tojás”",
+  "voice.heard": "Ezt értettem: {text}. Koppints a + gombra a hozzáadáshoz.",
+  "voice.denied": "A mikrofon nincs engedélyezve.",
+  "voice.none": "Nem hallottam semmit, próbáld újra.",
+  "legal.p10": "A diktálás a böngésző beszédfelismerését használja: Chrome-ban a Google, Safariban az Apple dolgozza fel a hangot. Csak akkor indul, ha a mikrofonra koppintasz.",
+  "new.voice": "Diktáld be a bevásárlólistát hanggal, ingyen."
 }

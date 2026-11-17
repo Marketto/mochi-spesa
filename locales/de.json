@@ -278,5 +278,13 @@
   "legal.p9": "Der Standort wird nur genutzt, wenn du ihn im Browser erlaubst, und auf ca. 1 km gerundet. Die Wohnadresse und ihre Koordinaten werden in den geteilten Einstellungen gespeichert; um Adressen in Orte umzuwandeln, fragt die App OpenStreetMap (Nominatim), das die Adresse oder die Koordinaten erhält.",
   "new.install": "Mochi bietet an, sich auf dem Startbildschirm zu installieren.",
   "new.easyDbx": "Dropbox verbinden geht jetzt mit einem Tipp: keine Codes mehr.",
-  "new.geo": "Adresse und Standort: Unterwegs zeigt Mochi Angebote dort, wo du bist."
+  "new.geo": "Adresse und Standort: Unterwegs zeigt Mochi Angebote dort, wo du bist.",
+  "voice.start": "Liste diktieren",
+  "voice.stop": "Diktat beenden",
+  "voice.listening": "Ich höre zu… sag zum Beispiel „Milch, Brot und Eier“",
+  "voice.heard": "Verstanden: {text}. Tippe auf +, um hinzuzufügen.",
+  "voice.denied": "Mikrofon nicht erlaubt.",
+  "voice.none": "Ich habe nichts gehört, versuch es noch mal.",
+  "legal.p10": "Das Diktat nutzt die Spracherkennung des Browsers: In Chrome verarbeitet Google den Ton, in Safari Apple. Es startet nur, wenn du auf das Mikrofon tippst.",
+  "new.voice": "Diktiere deine Einkaufsliste per Stimme, kostenlos."
 }

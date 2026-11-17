@@ -278,5 +278,13 @@
   "legal.p9": "Lokalizacja jest używana tylko za Twoją zgodą w przeglądarce i zaokrąglana do ok. 1 km. Adres domu i jego współrzędne są zapisywane we wspólnych ustawieniach; aby zamieniać adresy na miejsca, aplikacja pyta OpenStreetMap (Nominatim), który otrzymuje adres lub współrzędne.",
   "new.install": "Mochi proponuje instalację na ekranie głównym.",
   "new.easyDbx": "Połączenie z Dropbox to teraz jedno dotknięcie: bez kodów.",
-  "new.geo": "Adres i lokalizacja: poza domem Mochi pokazuje promocje tam, gdzie jesteś."
+  "new.geo": "Adres i lokalizacja: poza domem Mochi pokazuje promocje tam, gdzie jesteś.",
+  "voice.start": "Podyktuj listę",
+  "voice.stop": "Zatrzymaj dyktowanie",
+  "voice.listening": "Słucham… powiedz np. „mleko, chleb i jajka”",
+  "voice.heard": "Zrozumiałam: {text}. Dotknij +, aby dodać.",
+  "voice.denied": "Brak dostępu do mikrofonu.",
+  "voice.none": "Nic nie usłyszałam, spróbuj ponownie.",
+  "legal.p10": "Dyktowanie korzysta z rozpoznawania mowy w przeglądarce: w Chrome dźwięk przetwarza Google, w Safari Apple. Startuje tylko po dotknięciu mikrofonu.",
+  "new.voice": "Dyktuj listę zakupów głosem, za darmo."
 }

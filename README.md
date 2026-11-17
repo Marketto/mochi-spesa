@@ -10,6 +10,7 @@ Lista della spesa **condivisa**, **kawaii** e **senza server**, con Mochi che ce
 - ⚖️ **È un buon affare?**: incolli un link Amazon o un prezzo. Ottieni subito il prezzo per unità e, se vuoi, un'analisi di qualità e prezzo.
 - 🌍 **29 lingue**: le 24 lingue ufficiali dell'UE più russo, cinese, giapponese, coreano e arabo (impaginazione da destra a sinistra). Rileva la lingua del telefono e si cambia dalle impostazioni.
 - 📍 **Posizione**: scrivi l'indirizzo di casa o usa la posizione del telefono. Se sei a più di 40 km da casa, Mochi ti chiede se cercare le offerte dove sei.
+- 🎙️ **Dettatura vocale gratuita**: tocca il microfono e di' “latte, pane e uova”. Usa il riconoscimento vocale del browser (Chrome su Android, Safari su iPhone).
 - 📲 **Proposta di installazione** sulla schermata Home (pulsante su Android, istruzioni su iPhone).
 - 👋 **Tour di benvenuto** al primo avvio, con **privacy e condizioni d'uso** da accettare, e la schermata **Novità** dopo ogni aggiornamento.
 - 📱 **Installabile** (PWA): “Aggiungi a schermata Home” su iPhone e Android.
@@ -107,6 +108,7 @@ js/mascot.js          Mochi (SVG) con espressioni e frasi
 js/store.js           unione senza conflitti (last-writer-wins per elemento + tombstone)
 js/dropbox.js         OAuth PKCE e file Dropbox dal browser
 js/claude.js          ricerca offerte e valutazioni con l'API di Claude
+js/voice.js           dettatura con il riconoscimento vocale del browser
 js/geo.js             posizione, distanza da casa, indirizzi con OpenStreetMap
 js/i18n.js            traduzioni, lingua RTL, font per lingua
 js/version.js         versione, novità e versione della policy

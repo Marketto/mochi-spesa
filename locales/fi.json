@@ -278,5 +278,13 @@
   "legal.p9": "Sijaintia käytetään vain, jos sallit sen selaimessa, ja se pyöristetään noin 1 km:iin. Kotiosoite ja sen koordinaatit tallennetaan yhteisiin asetuksiin; osoitteiden muuttamiseen paikoiksi sovellus kysyy OpenStreetMapilta (Nominatim), joka saa osoitteen tai koordinaatit.",
   "new.install": "Mochi tarjoutuu asentumaan aloitusnäyttöön.",
   "new.easyDbx": "Dropboxin yhdistäminen on nyt yksi napautus: ei koodeja.",
-  "new.geo": "Osoite ja sijainti: poissa kotoa Mochi näyttää tarjoukset siellä, missä olet."
+  "new.geo": "Osoite ja sijainti: poissa kotoa Mochi näyttää tarjoukset siellä, missä olet.",
+  "voice.start": "Sanele lista",
+  "voice.stop": "Lopeta sanelu",
+  "voice.listening": "Kuuntelen… sano esimerkiksi ”maito, leipä ja munat”",
+  "voice.heard": "Kuulin: {text}. Lisää napauttamalla +.",
+  "voice.denied": "Mikrofonia ei sallittu.",
+  "voice.none": "En kuullut mitään, yritä uudelleen.",
+  "legal.p10": "Sanelu käyttää selaimen puheentunnistusta: Chromessa äänen käsittelee Google, Safarissa Apple. Se alkaa vain, kun napautat mikrofonia.",
+  "new.voice": "Sanele ostoslista äänellä, ilmaiseksi."
 }

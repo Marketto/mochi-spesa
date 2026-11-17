@@ -278,5 +278,13 @@
   "legal.p9": "Vieta naudojama tik jums leidus naršyklėje ir suapvalinama iki ~1 km. Namų adresas ir jo koordinatės saugomi bendruose nustatymuose; kad adresus paverstų vietomis, programėlė kreipiasi į OpenStreetMap (Nominatim), kuris gauna adresą arba koordinates.",
   "new.install": "Moči siūlo įsidiegti pradžios ekrane.",
   "new.easyDbx": "Prijungti Dropbox dabar – vienas palietimas: jokių kodų.",
-  "new.geo": "Adresas ir vieta: ne namie Moči rodo akcijas ten, kur esate."
+  "new.geo": "Adresas ir vieta: ne namie Moči rodo akcijas ten, kur esate.",
+  "voice.start": "Padiktuoti sąrašą",
+  "voice.stop": "Sustabdyti diktavimą",
+  "voice.listening": "Klausau… pasakykite, pvz., „pienas, duona ir kiaušiniai“",
+  "voice.heard": "Supratau: {text}. Palieskite +, kad pridėtumėte.",
+  "voice.denied": "Mikrofonas neleidžiamas.",
+  "voice.none": "Nieko negirdėjau, bandykite dar kartą.",
+  "legal.p10": "Diktavimas naudoja naršyklės kalbos atpažinimą: „Chrome“ garsą apdoroja „Google“, „Safari“ – „Apple“. Jis prasideda tik palietus mikrofoną.",
+  "new.voice": "Diktuokite pirkinių sąrašą balsu, nemokamai."
 }

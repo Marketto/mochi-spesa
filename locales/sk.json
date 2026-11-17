@@ -278,5 +278,13 @@
   "legal.p9": "Poloha sa používa len s tvojím súhlasom v prehliadači a je zaokrúhlená na cca 1 km. Adresa domova a jej súradnice sa ukladajú do zdieľaných nastavení; na prevod adries na miesta sa aplikácia pýta OpenStreetMap (Nominatim), ktorý dostane adresu alebo súradnice.",
   "new.install": "Mochi ponúka inštaláciu na plochu.",
   "new.easyDbx": "Pripojenie Dropboxu je teraz jedno ťuknutie: žiadne kódy.",
-  "new.geo": "Adresa a poloha: mimo domova ti Mochi ponúkne akcie tam, kde si."
+  "new.geo": "Adresa a poloha: mimo domova ti Mochi ponúkne akcie tam, kde si.",
+  "voice.start": "Nadiktovať zoznam",
+  "voice.stop": "Zastaviť diktovanie",
+  "voice.listening": "Počúvam… povedz napríklad „mlieko, chlieb a vajcia“",
+  "voice.heard": "Rozumela som: {text}. Ťukni na + a pridaj.",
+  "voice.denied": "Mikrofón nie je povolený.",
+  "voice.none": "Nič som nepočula, skús znova.",
+  "legal.p10": "Diktovanie používa rozpoznávanie reči v prehliadači: v Chrome zvuk spracúva Google, v Safari Apple. Spustí sa len po ťuknutí na mikrofón.",
+  "new.voice": "Nadiktuj nákupný zoznam hlasom, zadarmo."
 }

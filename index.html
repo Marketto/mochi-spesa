@@ -48,8 +48,10 @@
     <form id="f-add" class="add card" autocomplete="off">
       <label for="add-nome" class="sr" data-i18n="list.addLabel"></label>
       <input id="add-nome" name="nome" data-i18n-attr="placeholder:list.addPh" enterkeyhint="done" maxlength="120">
+      <button class="btn ghost round mic" type="button" id="mic" hidden aria-pressed="false" data-i18n-attr="aria-label:voice.start"><i class="mi mi-mic" aria-hidden="true"></i></button>
       <button class="btn primary round" type="submit" data-i18n-attr="aria-label:list.addBtn"><i class="mi mi-add" aria-hidden="true"></i></button>
     </form>
+    <p class="hint voice-hint" id="voice-msg" aria-live="polite"></p>
     <div class="progress card" id="progress" hidden>
       <div class="pbar" role="progressbar" aria-labelledby="ptxt" aria-valuemin="0" id="pbar"><span id="pfill"></span></div>
       <p id="ptxt"></p>
