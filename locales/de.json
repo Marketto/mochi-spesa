@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Fächer durch Kommas getrennt, z. B. 1, 2, 3 oder Oben, Unten. Beim Umbenennen wandern die Produkte mit.",
   "pantry.rackLevel": "{shelf}, Fach {level}: {n} Produkte",
   "pantry.noShelf": "Ohne Regal",
-  "new.racks": "Gezeichnete Regale mit Fächern: tippe auf ein Fach, um den Inhalt zu sehen. Neuer Regal-Editor."
+  "new.racks": "Gezeichnete Regale mit Fächern: tippe auf ein Fach, um den Inhalt zu sehen. Neuer Regal-Editor.",
+  "pantry.countLevels": "Fächer zählen",
+  "pantry.countTop": "Von oben",
+  "pantry.countBottom": "Von unten",
+  "new.lvdir": "In den Einstellungen wählst du, ob Fächer von oben oder unten gezählt werden."
 }

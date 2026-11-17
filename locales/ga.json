@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Leibhéil scartha le camóga, m.sh. 1, 2, 3 nó Barr, Bun. Má athainmníonn tú, bogann na táirgí leo.",
   "pantry.rackLevel": "{shelf}, leibhéal {level}: {n} táirge",
   "pantry.noShelf": "Gan seilf",
-  "new.racks": "Seilfeanna líníochta le leibhéil: tapáil leibhéal chun a bhfuil air a fheiceáil. Eagarthóir nua seilfeanna."
+  "new.racks": "Seilfeanna líníochta le leibhéil: tapáil leibhéal chun a bhfuil air a fheiceáil. Eagarthóir nua seilfeanna.",
+  "pantry.countLevels": "Comhair na leibhéil",
+  "pantry.countTop": "Ón mbarr",
+  "pantry.countBottom": "Ón mbun",
+  "new.lvdir": "Sna socruithe roghnaigh an gcomhairtear na leibhéil ón mbarr nó ón mbun."
 }

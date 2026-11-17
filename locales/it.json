@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Ripiani separati da virgola, es. 1, 2, 3 oppure Alto, Basso. Se rinomini uno scaffale o un ripiano, i prodotti lo seguono.",
   "pantry.rackLevel": "{shelf}, ripiano {level}: {n} prodotti",
   "pantry.noShelf": "Senza scaffale",
-  "new.racks": "Scaffali disegnati con i ripiani: tocca un ripiano per vedere cosa c'è. Nuovo editor di scaffali e ripiani."
+  "new.racks": "Scaffali disegnati con i ripiani: tocca un ripiano per vedere cosa c'è. Nuovo editor di scaffali e ripiani.",
+  "pantry.countLevels": "Conta i ripiani",
+  "pantry.countTop": "Dall'alto",
+  "pantry.countBottom": "Dal basso",
+  "new.lvdir": "Nelle impostazioni scegli se contare i ripiani dall'alto o dal basso."
 }

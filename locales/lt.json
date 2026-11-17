@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Aukštai atskirti kableliais, pvz. 1, 2, 3 arba Viršus, Apačia. Pervadinus prekės keliauja kartu.",
   "pantry.rackLevel": "{shelf}, aukštas {level}: prekių {n}",
   "pantry.noShelf": "Be lentynos",
-  "new.racks": "Nupieštos lentynos su aukštais: palieskite aukštą, kad pamatytumėte turinį. Naujas lentynų redaktorius."
+  "new.racks": "Nupieštos lentynos su aukštais: palieskite aukštą, kad pamatytumėte turinį. Naujas lentynų redaktorius.",
+  "pantry.countLevels": "Aukštų skaičiavimas",
+  "pantry.countTop": "Iš viršaus",
+  "pantry.countBottom": "Iš apačios",
+  "new.lvdir": "Nustatymuose pasirinkite, ar aukštus skaičiuoti iš viršaus, ar iš apačios."
 }

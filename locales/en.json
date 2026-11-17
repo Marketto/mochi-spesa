@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Levels separated by commas, e.g. 1, 2, 3 or Top, Bottom. Renaming a shelf or level moves its products too.",
   "pantry.rackLevel": "{shelf}, level {level}: {n} products",
   "pantry.noShelf": "No shelf",
-  "new.racks": "Drawn shelves with levels: tap a level to see what's there. New shelf and level editor."
+  "new.racks": "Drawn shelves with levels: tap a level to see what's there. New shelf and level editor.",
+  "pantry.countLevels": "Count levels",
+  "pantry.countTop": "From the top",
+  "pantry.countBottom": "From the bottom",
+  "new.lvdir": "In settings, choose whether levels are counted from the top or the bottom."
 }

@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Tasandid komadega, nt 1, 2, 3 või Üleval, All. Ümbernimetamisel liiguvad tooted kaasa.",
   "pantry.rackLevel": "{shelf}, tasand {level}: {n} toodet",
   "pantry.noShelf": "Riiulita",
-  "new.racks": "Joonistatud riiulid tasanditega: puuduta tasandit, et näha sisu. Uus riiuliredaktor."
+  "new.racks": "Joonistatud riiulid tasanditega: puuduta tasandit, et näha sisu. Uus riiuliredaktor.",
+  "pantry.countLevels": "Tasandite loendus",
+  "pantry.countTop": "Ülevalt",
+  "pantry.countBottom": "Alt",
+  "new.lvdir": "Seadetes valid, kas tasandeid loetakse ülevalt või alt."
 }

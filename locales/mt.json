@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Livelli separati b'virgoli, eż. 1, 2, 3 jew Fuq, Isfel. Jekk tibdel l-isem, il-prodotti jimxu magħhom.",
   "pantry.rackLevel": "{shelf}, livell {level}: {n} prodotti",
   "pantry.noShelf": "Bla xkaffa",
-  "new.racks": "Xkafef imfassla bil-livelli: agħfas livell biex tara x'fih. Editur ġdid tal-ixkafef."
+  "new.racks": "Xkafef imfassla bil-livelli: agħfas livell biex tara x'fih. Editur ġdid tal-ixkafef.",
+  "pantry.countLevels": "Għodd il-livelli",
+  "pantry.countTop": "Minn fuq",
+  "pantry.countBottom": "Minn isfel",
+  "new.lvdir": "Fl-issettjar tagħżel jekk il-livelli jingħaddu minn fuq jew minn isfel."
 }

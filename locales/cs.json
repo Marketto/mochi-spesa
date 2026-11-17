@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Police oddělené čárkou, např. 1, 2, 3 nebo Nahoře, Dole. Při přejmenování se produkty přesunou s ní.",
   "pantry.rackLevel": "{shelf}, police {level}: produktů {n}",
   "pantry.noShelf": "Bez regálu",
-  "new.racks": "Nakreslené regály s policemi: klepni na polici a uvidíš obsah. Nový editor regálů."
+  "new.racks": "Nakreslené regály s policemi: klepni na polici a uvidíš obsah. Nový editor regálů.",
+  "pantry.countLevels": "Počítat police",
+  "pantry.countTop": "Shora",
+  "pantry.countBottom": "Zdola",
+  "new.lvdir": "V nastavení zvolíš, zda se police počítají shora, nebo zdola."
 }

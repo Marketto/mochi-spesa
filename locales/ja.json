@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "段はカンマ区切り（例：1, 2, 3 または 上, 下）。名前を変えると商品もいっしょに移動します。",
   "pantry.rackLevel": "{shelf}・{level} 段目：{n} 個",
   "pantry.noShelf": "棚なし",
-  "new.racks": "段つきの棚をイラストで表示：段をタップすると中身が見られます。新しい棚エディタ。"
+  "new.racks": "段つきの棚をイラストで表示：段をタップすると中身が見られます。新しい棚エディタ。",
+  "pantry.countLevels": "段の数え方",
+  "pantry.countTop": "上から",
+  "pantry.countBottom": "下から",
+  "new.lvdir": "設定で段を上から数えるか下から数えるか選べます。"
 }

@@ -516,11 +516,12 @@ function renderPantry() {
     for (const l of pantry.sortedPlaces(state.luoghi)) {
       const inL = items.filter(d => (state.luoghi[d.luogo] && !state.luoghi[d.luogo].deleted ? d.luogo : "credenza") === l.id);
       // scaffali definiti + quelli che compaiono solo nei prodotti
-      const racks = (l.scaffali || []).map(x => ({ nome: x.nome, ripiani: [...(x.ripiani || [])], basso: !!x.basso }));
+      const basso = state.settings.ripiani === "basso";
+      const racks = (l.scaffali || []).map(x => ({ nome: x.nome, ripiani: [...(x.ripiani || [])], basso }));
       for (const d of inL) {
         if (!d.scaffale) continue;
         let r = racks.find(x => pantry.norm(x.nome) === pantry.norm(d.scaffale));
-        if (!r) racks.push(r = { nome: d.scaffale, ripiani: [] });
+        if (!r) racks.push(r = { nome: d.scaffale, ripiani: [], basso });
         if (d.ripiano && !r.ripiani.some(x => pantry.norm(x) === pantry.norm(d.ripiano))) r.ripiani.push(d.ripiano);
       }
       if (!inL.length && !racks.length) continue;
@@ -643,7 +644,6 @@ function shelfBlock(lid, sh) {
       <output aria-live="polite">${r.length}</output>
       <button class="btn ghost round" type="button" data-lv="1" aria-label="${esc(t("pantry.levelMore"))}">${ic("add")}</button></div>
       <input id="${id}-r" name="sr-${esc(lid)}-${k}" value="${esc(r.join(", "))}" aria-describedby="lv-help" inputmode="text"></div>
-    <label class="check"><input type="checkbox" name="sb-${esc(lid)}-${k}"${sh.basso ? " checked" : ""}> ${esc(t("pantry.fromBottom"))}</label>
   </div>`;
 }
 $("#places-edit").addEventListener("click", async () => {
@@ -692,7 +692,6 @@ $("#places-edit").addEventListener("click", async () => {
         const m = key.match(/^sn-(.+)-(\d+)$/); if (!m || m[1] !== l.id) continue;
         const k = m[2], nome = String(val).trim(); if (!nome) continue;
         const sh = { nome, ripiani: pantry.splitLevels(f.get(`sr-${l.id}-${k}`)) };
-        if (f.get(`sb-${l.id}-${k}`)) sh.basso = true;
         scaffali.push(sh);
         const orig = String(f.get(`so-${l.id}-${k}`) || "");
         if (orig) renamers.push(pantry.shelfRenamer({ nome: orig, ripiani: JSON.parse(f.get(`sl-${l.id}-${k}`) || "[]") }, sh));
@@ -709,6 +708,12 @@ $("#places-edit").addEventListener("click", async () => {
   });
   toast(t("common.saved"), "store-room");
 });
+
+// verso di conteggio dei ripiani (condiviso)
+document.querySelectorAll('input[name="lvdir"]').forEach(r => r.addEventListener("change", () => {
+  mutate((s, now) => { s.settings = { ...s.settings, ripiani: r.value, updatedAt: now }; });
+  toast(t("common.saved"), "shelf");
+}));
 
 // ---------- DOVE CONVIENE? ----------
 const prefOf = (prodotto, negozio) => live(state.preferenze).find(p => pantry.sameProduct(p.prodotto, prodotto) && pantry.norm(p.negozio) === pantry.norm(negozio));
@@ -933,6 +938,7 @@ function fillSettings() {
   if (!BUILT_KEY && !c.appKey) $("#dbx-adv").open = true;
   const s = state.settings;
   $("#z-luogo").value = s.luogo || ""; $("#z-raggio").value = s.raggioKm || 5; $("#z-raggio-v").textContent = s.raggioKm || 5;
+  for (const r of document.querySelectorAll('input[name="lvdir"]')) r.checked = r.value === (s.ripiani === "basso" ? "basso" : "alto");
   $("#z-negozi").value = s.negozi || ""; $("#z-amz").checked = s.amazon !== false;
   let names; try { names = new Intl.DisplayNames([locale()], { type: "currency" }); } catch {}
   $("#z-valuta").innerHTML = CURRENCIES.map(c => `<option value="${c}">${esc(names ? names.of(c) : c)} (${c})</option>`).join("");
@@ -966,7 +972,7 @@ $("#f-zona").addEventListener("submit", async e => {
     if (g) coords = { lat: g.lat, lon: g.lon }; else $("#geo-msg").textContent = t("geo.geocodeFail");
   }
   mutate((s, now) => {
-    s.settings = { luogo, raggioKm: +$("#z-raggio").value, negozi: $("#z-negozi").value.trim(), amazon: $("#z-amz").checked, valuta: $("#z-valuta").value, ...coords, updatedAt: now };
+    s.settings = { ripiani: s.settings.ripiani, luogo, raggioKm: +$("#z-raggio").value, negozi: $("#z-negozi").value.trim(), amazon: $("#z-amz").checked, valuta: $("#z-valuta").value, ...coords, updatedAt: now };
   });
   toast(t("zone.saved"), "pin");
 });

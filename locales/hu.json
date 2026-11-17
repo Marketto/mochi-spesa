@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Szintek vesszővel elválasztva, pl. 1, 2, 3 vagy Fent, Lent. Átnevezéskor a termékek is vele mennek.",
   "pantry.rackLevel": "{shelf}, {level}. szint: {n} termék",
   "pantry.noShelf": "Polc nélkül",
-  "new.racks": "Megrajzolt polcok szintekkel: koppints egy szintre, hogy lásd, mi van rajta. Új polcszerkesztő."
+  "new.racks": "Megrajzolt polcok szintekkel: koppints egy szintre, hogy lásd, mi van rajta. Új polcszerkesztő.",
+  "pantry.countLevels": "Szintek számozása",
+  "pantry.countTop": "Felülről",
+  "pantry.countBottom": "Alulról",
+  "new.lvdir": "A beállításokban választhatod, hogy a szinteket felülről vagy alulról számozza."
 }

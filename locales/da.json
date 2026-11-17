@@ -389,5 +389,9 @@
   "pantry.levelsHelp": "Hylder adskilt med komma, fx 1, 2, 3 eller Øverst, Nederst. Omdøber du, flytter produkterne med.",
   "pantry.rackLevel": "{shelf}, hylde {level}: {n} produkter",
   "pantry.noShelf": "Uden reol",
-  "new.racks": "Tegnede reoler med hylder: tryk på en hylde for at se indholdet. Ny reol-editor."
+  "new.racks": "Tegnede reoler med hylder: tryk på en hylde for at se indholdet. Ny reol-editor.",
+  "pantry.countLevels": "Tæl hylder",
+  "pantry.countTop": "Oppefra",
+  "pantry.countBottom": "Nedefra",
+  "new.lvdir": "I indstillinger vælger du, om hylder tælles oppefra eller nedefra."
 }
