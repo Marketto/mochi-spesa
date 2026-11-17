@@ -87,6 +87,17 @@ const ICONS = {
   "share-ios": ["bold/export", "condividi (iPhone)"],
   "mic": ["bold/microphone", "detta a voce"],
   "share": ["bold/share-network", "condividi l'app"],
+  // dispensa
+  "tab-pantry": ["bold/warehouse", "dispensa"],
+  "tab-pantry-on": ["fill/warehouse-fill", "dispensa attiva"],
+  "store-room": ["bold/warehouse", "magazzino / cantina"],
+  "home": ["bold/house", "a casa / metti via"],
+  "avoid": ["bold/prohibit", "negozio da evitare"],
+  "avoid-on": ["fill/prohibit-fill", "evitato"],
+  "star-line": ["bold/star", "preferito (vuoto)"],
+  "minus": ["bold/minus", "meno"],
+  "edit": ["bold/pencil-simple", "modifica / quantità"],
+  "undo": ["bold/arrow-u-up-left", "annulla"],
   "mic-on": ["fill/microphone-fill", "sto ascoltando"],
   // glifo originale
   "mochi": ["custom/mochi", "Mochi"],

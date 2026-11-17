@@ -5,6 +5,9 @@ Lista della spesa **condivisa**, **kawaii** e **senza server**, con Mochi che ce
 <p align="center"><img src="icons/icon-512.png" width="160" alt="Mochi, un coniglietto-mochi tondo con grandi occhi lucidi"></p>
 
 - 📝 **Lista condivisa**: scrivi “2 kg mele” o “latte, pane, uova”. Mochi mette ogni prodotto nel reparto giusto.
+- ✅ **Spunta, scorri, quantità**: spunti quello che hai comprato, scorri di lato per eliminare (con “Annulla”) e usi un pulsante per la quantità.
+- 🥫 **Dispensa**: a casa Mochi ti chiede cosa hai messo in cantina o magazzino. Il resto va in credenza. Puoi organizzare i posti con nome, scaffali, ripiani e categorie. Se aggiungi alla lista qualcosa che hai già, Mochi ti avvisa: lo prendi dalla cantina (badge lilla) o lo togli dalla dispensa.
+- 🏪 **Dove conviene?**: per la lista scegli il negozio più economico di ogni prodotto. I preferiti ★ e i negozi da evitare ⦸ valgono anche per le ricerche successive.
 - ☁️ **Sincronizzata con Dropbox**: un file JSON in una cartella condivisa in famiglia. Funziona anche offline e le modifiche si uniscono da sole.
 - 🏷️ **Offerte vicino a casa**: scegli i prodotti da tenere d'occhio (detersivo lavatrice, ammorbidente…), la zona e il raggio. Mochi cerca nei volantini e confronta con Amazon il **prezzo per lavaggio, litro o kg**.
 - ⚖️ **È un buon affare?**: incolli un link Amazon o un prezzo. Ottieni subito il prezzo per unità e, se vuoi, un'analisi di qualità e prezzo.
@@ -110,6 +113,7 @@ js/store.js           unione senza conflitti (last-writer-wins per elemento + to
 js/dropbox.js         OAuth PKCE e file Dropbox dal browser
 js/claude.js          ricerca offerte e valutazioni con l'API di Claude
 js/voice.js           dettatura con il riconoscimento vocale del browser
+js/pantry.js          dispensa: posti, scaffali, ripiani, quantità
 js/geo.js             posizione, distanza da casa, indirizzi con OpenStreetMap
 js/i18n.js            traduzioni, lingua RTL, font per lingua
 js/version.js         versione, novità e versione della policy

@@ -84,3 +84,23 @@ Format:
 "qualita":"short, e.g. good – 4.5★ from 3,000 reviews","sintesi":"max 2 sentences","alternativa":"one sentence or empty string","fonti":["url"]}`;
   return ask(SYS(lingua), prompt, opts);
 }
+
+/** Dove conviene comprare ogni prodotto della lista: 2-4 negozi per prodotto, con prezzi verificati. */
+export async function confrontaPrezzi({ prodotti, luogo, raggioKm, negozi, valuta, lingua, preferiti, evitati }, opts) {
+  const oggi = new Date().toISOString().slice(0, 10);
+  const prompt = `Today is ${oggi}. Home area: ${luogo}. Radius: ${raggioKm} km. Usual shops: ${negozi || "none"}. Currency: ${valuta}.
+Shopping list (id, name, quantity): ${JSON.stringify(prodotti)}
+Favourite product/shop combinations (list them first when available): ${JSON.stringify(preferiti || [])}
+Combinations to AVOID (never propose them): ${JSON.stringify(evitati || [])}
+
+For each product find where to buy it at the best price within the radius: supermarkets, discount stores, drugstores,
+using current flyers, chain websites and online grocery prices of that country. Give 2 to 4 options per product, cheapest first,
+for a typical pack (state brand/size in "nota" if relevant). Mark "offerta": true for promotions valid today.
+unita must be one of: lavaggi, litri, kg, pezzi.
+
+Format:
+{"prodotti":[{"id":"same id as input","nome":"name","opzioni":[{"negozio":"shop name","prezzo":number,"prezzoUnit":number or null,
+"unita":"lavaggi|litri|kg|pezzi","offerta":true|false,"validoFino":"short local date" or null,"fonte":"url","nota":"max one short sentence or empty"}]}]}`;
+  const j = await ask(SYS(lingua), prompt, opts);
+  return Array.isArray(j.prodotti) ? j.prodotti : [];
+}

@@ -7,6 +7,7 @@ import * as dbx from "./dropbox.js";
 import * as ai from "./claude.js";
 import * as geo from "./geo.js";
 import * as voice from "./voice.js";
+import * as pantry from "./pantry.js";
 
 // ---------- utilità ----------
 const $ = s => document.querySelector(s);
@@ -61,10 +62,19 @@ function mutate(fn) { fn(state, Date.now()); save(); render(); scheduleSync(); }
 // ---------- mascotte, toast, effetti ----------
 const mochi = mountMochi($("#mascot"), $("#bubble"));
 let toastT;
-function toast(msg, icon = "heart") {
+function toast(msg, icon = "heart", action) {
+  const el = $("#toast");
   $("#toast-txt").textContent = msg; $("#toast-ic").className = "mi mi-" + icon;
-  $("#toast").classList.add("show");
-  clearTimeout(toastT); toastT = setTimeout(() => $("#toast").classList.remove("show"), 2600);
+  el.querySelector(".toast-act")?.remove();
+  el.classList.toggle("has-action", !!action);
+  if (action) {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "toast-act"; b.innerHTML = `${ic("undo")} ${esc(action.label)}`;
+    b.addEventListener("click", () => { action.run(); el.classList.remove("show"); }, { once: true });
+    el.appendChild(b);
+  }
+  el.classList.add("show");
+  clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove("show"), action ? 6000 : 2600);
 }
 const motionOk = () => { const a = me().anim; return a === "on" || (a !== "off" && !matchMedia("(prefers-reduced-motion: reduce)").matches); };
 function sparkles(el) {
@@ -137,6 +147,9 @@ function renderLista() {
     $("#ptxt").textContent = done === items.length ? t("list.allDone", { total: items.length }) : t("list.progress", { done, total: items.length });
   }
   $("#clear-done").hidden = !done;
+  $("#putaway").hidden = !items.some(i => i.fatto && !i.prendi);
+  $("#compare").hidden = !items.some(i => !i.fatto);
+  $("#swipe-hint").hidden = !items.length;
   if (!items.length) {
     $("#lista").innerHTML = `<div class="card empty">${ic("basket", "big-emoji")}<p><strong>${esc(t("list.emptyTitle"))}</strong><br>${esc(t("list.emptyText"))}</p></div>`;
     return;
@@ -151,11 +164,19 @@ function renderLista() {
     for (const it of g) {
       const chi = it.da && it.da !== me().nome ? it.da : "";
       const isNew = !seen.has(it.id); seen.add(it.id);
-      h += `<li class="item${it.fatto ? " done" : ""}${isNew ? " new" : ""}">
-        <label class="tick"><input type="checkbox" data-chk="${esc(it.id)}" data-fk="c${esc(it.id)}"${it.fatto ? " checked" : ""}>
-          <span class="txt"><span class="n">${esc(it.nome)}${it.qta ? ` <span class="q">· ${esc(it.qta)}</span>` : ""}</span>
+      const id = esc(it.id);
+      const prendi = it.prendi ? `<span class="badge store-badge">${ic("store-room")} ${esc(t("pantry.takeFrom", { place: it.prendi.label || placeName(it.prendi.luogo) }))}</span>` : "";
+      const neg = it.negozio ? `<span class="badge shop-badge">${ic("store")} ${esc(it.negozio)}${it.prezzo ? " · " + money(it.prezzo) : ""}</span>` : "";
+      h += `<li class="item${it.fatto ? " done" : ""}${isNew ? " new" : ""}${it.prendi ? " from-store" : ""}" data-id="${id}">
+        <div class="swipe-bg" aria-hidden="true">${ic("delete")}</div>
+        <div class="item-row">
+        <label class="tick"><input type="checkbox" data-chk="${id}" data-fk="c${id}"${it.fatto ? " checked" : ""}>
+          <span class="txt"><span class="n">${esc(it.nome)}</span>
+          ${prendi || neg ? `<span class="badges">${prendi}${neg}</span>` : ""}
           ${chi ? `<span class="meta">${esc(t("list.addedBy", { name: chi }))}</span>` : ""}${it.nota ? `<span class="meta">${esc(it.nota)}</span>` : ""}</span></label>
-        <button class="icon-btn danger" type="button" data-del="${esc(it.id)}" data-fk="d${esc(it.id)}" aria-label="${esc(t("list.delete", { name: it.nome }))}">${ic("delete")}</button></li>`;
+        <button class="qty-btn" type="button" data-qty="${id}" data-fk="q${id}" aria-label="${esc(t("list.qtyFor", { name: it.nome, qty: it.qta || "–" }))}">${it.qta ? esc(it.qta) : ic("edit")}</button>
+        <button class="icon-btn danger" type="button" data-del="${id}" data-fk="d${id}" aria-label="${esc(t("list.delete", { name: it.nome }))}">${ic("delete")}</button>
+        </div></li>`;
     }
     h += "</ul></div></section>";
   }
@@ -228,26 +249,23 @@ function renderValutazioni() {
 }
 
 function render() {
-  keepFocus(() => { renderLista(); renderMonitor(); renderOfferte(); renderValutazioni(); });
+  keepFocus(() => { renderLista(); renderMonitor(); renderOfferte(); renderValutazioni(); renderPantry(); renderPrefs(); });
   document.querySelectorAll(".cur-sym").forEach(el => el.textContent = curSymbol());
 }
 
 // ---------- LISTA: azioni ----------
-$("#f-add").addEventListener("submit", e => {
+$("#f-add").addEventListener("submit", async e => {
   e.preventDefault();
   const inp = $("#add-nome"), v = inp.value.trim();
   if (!v) { mochi.say(frase("vuoto")); inp.focus(); return; }
   const nuovi = v.split(/\s*[,;、，]\s*/).filter(Boolean).map(parseAdd);
-  mutate((s, now) => {
-    for (const { nome, qta } of nuovi) { const id = uid(); s.items[id] = { id, nome, qta, cat: catOf(nome), fatto: false, da: me().nome, nota: "", ts: now, updatedAt: now }; }
-  });
   inp.value = "";
-  mochi.mood("happy"); mochi.say(frase("aggiunto"));
-  toast(nuovi.length > 1 ? t("toast.addedN", { n: nuovi.length }) : t("toast.added", { name: nuovi[0].nome }), "add");
+  addToList(nuovi);
 });
 $("#lista").addEventListener("change", e => {
   const id = e.target.dataset.chk; if (!id) return;
   const checked = e.target.checked, it = state.items[id];
+  if (checked && it.prendi) { e.target.checked = false; takenFromStore(it); return; }
   mutate((s, now) => { s.items[id] = { ...s.items[id], fatto: checked, updatedAt: now }; });
   if (checked) {
     sparkles(document.querySelector(`[data-chk="${CSS.escape(id)}"]`));
@@ -255,14 +273,47 @@ $("#lista").addEventListener("change", e => {
     else { mochi.mood("happy"); mochi.say(frase("preso")); toast(t("toast.got", { name: it.nome }), "heart"); }
   } else toast(t("toast.back", { name: it.nome }), "tab-list");
 });
-$("#lista").addEventListener("click", e => {
-  const b = e.target.closest("[data-del]"); if (!b) return;
-  const id = b.dataset.del, nome = state.items[id]?.nome;
-  const li = b.closest("li"), next = (li.nextElementSibling || li.previousElementSibling)?.querySelector("input");
+function deleteItem(id, focusFrom) {
+  const prima = state.items[id]; if (!prima) return;
+  const li = focusFrom && focusFrom.closest("li"), next = li && (li.nextElementSibling || li.previousElementSibling)?.querySelector("input");
   mutate((s, now) => { s.items[id] = { ...s.items[id], deleted: true, updatedAt: now }; });
   (next && document.querySelector(`[data-fk="${CSS.escape(next.dataset.fk)}"]`) || $("#add-nome")).focus();
-  toast(t("toast.deleted", { name: nome }), "delete");
+  toast(t("toast.deleted", { name: prima.nome }), "delete", { label: t("common.undo"), run: () => {
+    mutate((s, now) => { s.items[id] = { ...prima, deleted: false, updatedAt: now }; });
+  } });
+}
+$("#lista").addEventListener("click", e => {
+  const b = e.target.closest("[data-del]");
+  if (b) { deleteItem(b.dataset.del, b); return; }
+  const q = e.target.closest("[data-qty]");
+  if (q) editQty(q.dataset.qty);
 });
+
+// Scorri di lato per eliminare (il tasto cestino resta per tastiera e screen reader)
+(function swipe() {
+  let sx = 0, sy = 0, row = null, li = null, dx = 0, attivo = false;
+  const list = $("#lista");
+  list.addEventListener("pointerdown", e => {
+    li = e.target.closest("li.item"); if (!li) return;
+    row = li.querySelector(".item-row"); sx = e.clientX; sy = e.clientY; dx = 0; attivo = false;
+  });
+  list.addEventListener("pointermove", e => {
+    if (!li) return;
+    const x = e.clientX - sx, y = e.clientY - sy;
+    if (!attivo) { if (Math.abs(x) > 12 && Math.abs(x) > Math.abs(y) * 1.5) { attivo = true; li.classList.add("swiping"); } else if (Math.abs(y) > 12) { li = null; return; } else return; }
+    dx = x; row.style.transform = `translateX(${dx}px)`; li.classList.toggle("armed", Math.abs(dx) > 100);
+  });
+  const fine = () => {
+    if (!li) return;
+    const id = li.dataset.id, del = attivo && Math.abs(dx) > 100;
+    li.classList.remove("swiping", "armed");
+    if (del) { row.style.transform = `translateX(${dx > 0 ? "" : "-"}110%)`; setTimeout(() => deleteItem(id), 160); }
+    else if (row) row.style.transform = "";
+    if (attivo) { const blocca = ev => { ev.preventDefault(); ev.stopPropagation(); }; li.addEventListener("click", blocca, { capture: true, once: true }); setTimeout(() => li && li.removeEventListener("click", blocca, { capture: true }), 50); }
+    li = null; row = null; attivo = false;
+  };
+  list.addEventListener("pointerup", fine); list.addEventListener("pointercancel", fine);
+})();
 $("#clear-done").addEventListener("click", async () => {
   const n = live(state.items).filter(i => i.fatto).length;
   if (!(await confirmDlg(t("list.clearConfirm", { n }), t("list.clearYes"), "clean"))) return;
@@ -296,6 +347,357 @@ $("#mic").addEventListener("click", () => {
   } catch { stopVoice = null; setMic(false); msg.textContent = t("voice.none"); }
 });
 $("#f-add").addEventListener("submit", () => { $("#voice-msg").textContent = ""; });
+
+// ---------- FINESTRA GENERICA ----------
+/** Apre #sheet con titolo, contenuto e bottoni [{value, label, icon, primary}]. Risolve con {value, form}. */
+function sheet({ title, icon, body, buttons, onOpen }) {
+  const d = $("#sheet");
+  $("#sheet-t").innerHTML = `${icon ? ic(icon) : ""} ${esc(title)}`;
+  $("#sheet-body").innerHTML = body || "";
+  $("#sheet-btns").innerHTML = buttons.map(b =>
+    `<button class="btn ${b.primary ? "primary" : "ghost"}" value="${esc(b.value)}">${b.icon ? ic(b.icon) + " " : ""}<span>${esc(b.label)}</span></button>`).join("");
+  d.returnValue = "";
+  if (onOpen) onOpen(d);
+  d.showModal();
+  (d.querySelector("#sheet-body input:not([type=hidden]), #sheet-body select, #sheet-body textarea") || d.querySelector("#sheet-btns .btn")).focus();
+  return new Promise(res => d.addEventListener("close", () => res({ value: d.returnValue, form: new FormData($("#sheet-form")) }), { once: true }));
+}
+
+// ---------- DISPENSA: nomi dei luoghi ----------
+const nameOf = l => l ? (l.nome || (["credenza", "cantina"].includes(l.id) ? t("place." + l.id) : l.id)) : "";
+const placeName = id => nameOf(state.luoghi[id]);
+const placeOpts = sel => pantry.placeOptions(state.luoghi, nameOf).map(o => `<option value="${esc(o.value)}"${o.value === sel ? " selected" : ""}>${esc(o.label)}</option>`).join("");
+const findInPantry = nome => live(state.dispensa).find(d => pantry.sameProduct(d.nome, nome));
+
+/** Aggiunge alla lista; se il prodotto c'è già in dispensa avvisa e chiede. */
+async function addToList(nuovi) {
+  let aggiunti = 0, ultimo = "";
+  for (const { nome, qta } of nuovi) {
+    const m = findInPantry(nome);
+    let prendi = null;
+    if (m) {
+      const where = pantry.placeLabel(m, state.luoghi, nameOf);
+      const r = await sheet({
+        title: t("pantry.haveTitle", { name: nome }), icon: "store-room",
+        body: `<p class="have">${esc(t("pantry.haveText", { name: m.nome, place: where, qty: m.qta || "–" }))}</p>`,
+        buttons: [{ value: "take", label: t("pantry.take"), icon: "store-room", primary: true },
+          { value: "none", label: t("pantry.notThere"), icon: "close" }, { value: "add", label: t("pantry.addAnyway"), icon: "add" }],
+      });
+      if (!r.value) continue;
+      if (r.value === "take") prendi = { dispId: m.id, luogo: m.luogo, label: where };
+      if (r.value === "none") { mutate((s, now) => { s.dispensa[m.id] = { ...s.dispensa[m.id], deleted: true, updatedAt: now }; }); toast(t("pantry.removed", { name: m.nome, place: where }), "store-room"); }
+    }
+    mutate((s, now) => { const id = uid(); s.items[id] = { id, nome, qta, cat: catOf(nome), fatto: false, da: me().nome, nota: "", prendi, ts: now, updatedAt: now }; });
+    aggiunti++; ultimo = nome;
+  }
+  if (!aggiunti) return;
+  mochi.mood("happy"); mochi.say(frase("aggiunto"));
+  toast(aggiunti > 1 ? t("toast.addedN", { n: aggiunti }) : t("toast.added", { name: ultimo }), "add");
+  $("#add-nome").focus();
+}
+
+/** Spunta di un prodotto segnato "da prendere in cantina". */
+async function takenFromStore(it) {
+  const place = it.prendi.label || placeName(it.prendi.luogo);
+  const r = await sheet({
+    title: t("pantry.takenTitle", { name: it.nome }), icon: "store-room",
+    body: `<p>${esc(t("pantry.takenText", { place }))}</p>`,
+    buttons: [{ value: "yes", label: t("pantry.takenYes", { place }), icon: "store-room", primary: true },
+      { value: "bought", label: t("pantry.takenBought"), icon: "basket" }, { value: "", label: t("common.cancel"), icon: "close" }],
+  });
+  if (r.value === "yes") {
+    mutate((s, now) => {
+      s.items[it.id] = { ...s.items[it.id], deleted: true, updatedAt: now };
+      const d = s.dispensa[it.prendi.dispId]; if (d) s.dispensa[d.id] = { ...d, deleted: true, updatedAt: now };
+    });
+    sparkles($("#add-nome")); mochi.mood("happy"); toast(t("pantry.tookFrom", { name: it.nome, place }), "store-room");
+  } else if (r.value === "bought") {
+    mutate((s, now) => { s.items[it.id] = { ...s.items[it.id], fatto: true, prendi: null, updatedAt: now }; });
+    mochi.mood("happy"); mochi.say(frase("preso"));
+  }
+}
+
+/** Tasto quantità sulla voce della lista. */
+async function editQty(id) {
+  const it = state.items[id]; if (!it) return;
+  const r = await sheet({
+    title: t("list.qtyTitle", { name: it.nome }), icon: "edit",
+    body: `<label for="sq">${esc(t("list.qty"))}</label>
+      <div class="stepper"><button class="btn ghost round" type="button" data-step="-1" aria-label="${esc(t("list.less"))}">${ic("minus")}</button>
+      <input id="sq" name="qta" value="${esc(it.qta || "")}" placeholder="1" inputmode="text" maxlength="30">
+      <button class="btn ghost round" type="button" data-step="1" aria-label="${esc(t("list.more"))}">${ic("add")}</button></div>
+      <div class="chips quick">${["1", "2", "3", "6", "500 g", "1 kg", "1 l"].map(q => `<button class="chip-btn" type="button" data-set="${q}">${q}</button>`).join("")}</div>`,
+    buttons: [{ value: "ok", label: t("common.save"), icon: "save", primary: true }, { value: "", label: t("common.cancel"), icon: "close" }],
+    onOpen: d => {
+      d.querySelectorAll("[data-step]").forEach(b => b.onclick = () => { const i = d.querySelector("#sq"); i.value = pantry.stepQty(i.value, +b.dataset.step); });
+      d.querySelectorAll("[data-set]").forEach(b => b.onclick = () => { d.querySelector("#sq").value = b.dataset.set; });
+    },
+  });
+  if (r.value !== "ok") return;
+  const qta = String(r.form.get("qta") || "").trim();
+  mutate((s, now) => { s.items[id] = { ...s.items[id], qta, updatedAt: now }; });
+  document.querySelector(`[data-fk="q${CSS.escape(id)}"]`)?.focus();
+}
+
+// ---------- METTI VIA LA SPESA ----------
+const lastPlace = nome => { const m = findInPantry(nome); return m ? pantry.placeValue(m.luogo, m.scaffale, m.ripiano) : pantry.placeValue("credenza"); };
+async function putAway() {
+  const da = live(state.items).filter(i => i.fatto && !i.prendi);
+  if (!da.length) return;
+  const r = await sheet({
+    title: t("pantry.putAwayTitle"), icon: "home",
+    body: `<p class="hint">${esc(t("pantry.putAwayHint", { base: placeName("credenza") }))}</p>
+      <ul class="putaway">${da.map(i => `<li><label for="pw-${esc(i.id)}"><span class="n">${esc(i.nome)}</span>${i.qta ? ` <span class="q">· ${esc(i.qta)}</span>` : ""}</label>
+      <select id="pw-${esc(i.id)}" name="${esc(i.id)}">${placeOpts(lastPlace(i.nome))}</select></li>`).join("")}</ul>`,
+    buttons: [{ value: "ok", label: t("pantry.putAwayOk"), icon: "home", primary: true }, { value: "", label: t("common.cancel"), icon: "close" }],
+  });
+  if (r.value !== "ok") return;
+  mutate((s, now) => {
+    for (const i of da) {
+      const p = pantry.parsePlace(r.form.get(i.id));
+      const ex = live(s.dispensa).find(d => pantry.sameProduct(d.nome, i.nome) && d.luogo === p.luogo && (d.scaffale || "") === p.scaffale && (d.ripiano || "") === p.ripiano);
+      if (ex) s.dispensa[ex.id] = { ...ex, qta: pantry.addQty(ex.qta, i.qta), updatedAt: now };
+      else { const id = uid(); s.dispensa[id] = { id, nome: i.nome, qta: i.qta || "", cat: catId(i.cat), ...p, ts: now, updatedAt: now }; }
+      s.items[i.id] = { ...s.items[i.id], deleted: true, updatedAt: now };
+    }
+  });
+  homeAsked = true; $("#home-card").innerHTML = "";
+  confetti(); mochi.mood("happy", 2500); mochi.say(frase("pulito"));
+  toast(t("pantry.putAwayDone", { n: da.length }), "home");
+}
+$("#putaway").addEventListener("click", putAway);
+
+// A casa con prodotti spuntati? Propone di metterli via (senza chiedere permessi nuovi).
+let homeAsked = false;
+async function checkHome() {
+  if (homeAsked || !home() || !live(state.items).some(i => i.fatto && !i.prendi)) return;
+  if ((await geo.permission()) !== "granted") return;
+  let pos; try { pos = await geo.here({ timeout: 8000 }); } catch { return; }
+  if (geo.distKm(home(), pos) > 1.5) return;
+  $("#home-card").innerHTML = `<div class="card notice-card" role="region" aria-labelledby="home-t">
+    <p id="home-t">${ic("home")} ${esc(t("pantry.atHome"))}</p>
+    <div class="row gap"><button class="btn primary" type="button" id="home-yes">${ic("home")} ${esc(t("pantry.putAway"))}</button>
+    <button class="btn ghost" type="button" id="home-no">${esc(t("install.later"))}</button></div></div>`;
+  $("#home-yes").onclick = putAway;
+  $("#home-no").onclick = () => { homeAsked = true; $("#home-card").innerHTML = ""; };
+  mochi.mood("wow"); mochi.say(frase("novita"));
+}
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") checkHome(); });
+
+// ---------- SCHEDA DISPENSA ----------
+function renderPantry() {
+  const sel = $("#pa-posto"), keep = sel.value || pantry.placeValue("credenza");
+  sel.innerHTML = placeOpts(keep);
+  const items = live(state.dispensa);
+  const box = $("#pantry");
+  if (!items.length) { box.innerHTML = `<div class="card empty">${ic("tab-pantry", "big-emoji")}<p><strong>${esc(t("pantry.emptyTitle"))}</strong><br>${esc(t("pantry.emptyText"))}</p></div>`; return; }
+  const byCat = document.querySelector('input[name="pgroup"]:checked')?.value === "cat";
+  const row = (d, showPlace) => `<li class="item pantry-item">
+    <div class="item-row"><span class="txt"><span class="n">${esc(d.nome)}</span>${showPlace ? `<span class="meta">${ic("store-room")} ${esc(pantry.placeLabel(d, state.luoghi, nameOf))}</span>` : ""}</span>
+    <button class="qty-btn" type="button" data-pedit="${esc(d.id)}" data-fk="pe${esc(d.id)}" aria-label="${esc(t("pantry.edit", { name: d.nome }))}">${d.qta ? esc(d.qta) : ic("edit")}</button>
+    <button class="icon-btn" type="button" data-p2l="${esc(d.id)}" aria-label="${esc(t("pantry.toList", { name: d.nome }))}">${ic("list-add")}</button>
+    <button class="icon-btn danger" type="button" data-pdel="${esc(d.id)}" aria-label="${esc(t("pantry.finished", { name: d.nome }))}">${ic("delete")}</button></div></li>`;
+  let h = "";
+  if (byCat) {
+    const g = {}; for (const d of items) (g[catId(d.cat)] ||= []).push(d);
+    for (const c of ORDER) if (g[c]) h += `<section class="group" aria-labelledby="pc-${c}"><h2 id="pc-${c}">${ic(iconOf(c), "em")}${esc(t("cat." + c))}</h2><div class="card"><ul class="items">${g[c].sort((a, b) => a.nome.localeCompare(b.nome)).map(d => row(d, true)).join("")}</ul></div></section>`;
+  } else {
+    for (const l of pantry.sortedPlaces(state.luoghi)) {
+      const inL = items.filter(d => (state.luoghi[d.luogo] && !state.luoghi[d.luogo].deleted ? d.luogo : "credenza") === l.id);
+      if (!inL.length) continue;
+      const sub = {}; for (const d of inL) (sub[[d.scaffale || "", d.ripiano || ""].join("|")] ||= []).push(d);
+      const keys = Object.keys(sub).sort((a, b) => (a === "|") - (b === "|") || a.localeCompare(b));
+      h += `<section class="group" aria-labelledby="pl-${esc(l.id)}"><h2 id="pl-${esc(l.id)}">${ic(l.base ? "cat-pantry" : "store-room", "em")}${esc(nameOf(l))} <small>· ${inL.length}</small></h2><div class="card">`;
+      for (const k of keys) {
+        const [sc, ri] = k.split("|");
+        if (sc) h += `<h3 class="shelf">${esc([sc, ri].filter(Boolean).join(" › "))}</h3>`;
+        h += `<ul class="items">${sub[k].sort((a, b) => a.nome.localeCompare(b.nome)).map(d => row(d, false)).join("")}</ul>`;
+      }
+      h += `</div></section>`;
+    }
+  }
+  box.innerHTML = h;
+}
+document.querySelectorAll('input[name="pgroup"]').forEach(r => r.addEventListener("change", renderPantry));
+$("#f-pantry").addEventListener("submit", e => {
+  e.preventDefault();
+  const v = $("#pa-nome").value.trim(); if (!v) return $("#pa-nome").focus();
+  const p = pantry.parsePlace($("#pa-posto").value);
+  const nuovi = v.split(/\s*[,;、，]\s*/).filter(Boolean).map(parseAdd);
+  mutate((s, now) => { for (const { nome, qta } of nuovi) { const id = uid(); s.dispensa[id] = { id, nome, qta, cat: catOf(nome), ...p, ts: now, updatedAt: now }; } });
+  $("#pa-nome").value = ""; $("#pa-nome").focus();
+  toast(t("pantry.added", { n: nuovi.length, place: pantry.placeLabel(p, state.luoghi, nameOf) }), "store-room"); mochi.mood("happy");
+});
+$("#pantry").addEventListener("click", async e => {
+  const del = e.target.closest("[data-pdel]"), tl = e.target.closest("[data-p2l]"), ed = e.target.closest("[data-pedit]");
+  if (del) {
+    const prima = state.dispensa[del.dataset.pdel];
+    mutate((s, now) => { s.dispensa[prima.id] = { ...prima, deleted: true, updatedAt: now }; });
+    toast(t("pantry.gone", { name: prima.nome }), "delete", { label: t("common.undo"), run: () => mutate((s, now) => { s.dispensa[prima.id] = { ...prima, deleted: false, updatedAt: now }; }) });
+    $("#pa-nome").focus();
+  } else if (tl) {
+    const d = state.dispensa[tl.dataset.p2l];
+    mutate((s, now) => { const id = uid(); s.items[id] = { id, nome: d.nome, qta: "", cat: catId(d.cat), fatto: false, da: me().nome, nota: "", ts: now, updatedAt: now }; });
+    sparkles(tl); toast(t("toast.added", { name: d.nome }), "list-add");
+  } else if (ed) editPantryItem(ed.dataset.pedit);
+});
+async function editPantryItem(id) {
+  const d = state.dispensa[id]; if (!d) return;
+  const r = await sheet({
+    title: t("pantry.edit", { name: d.nome }), icon: "edit",
+    body: `<label for="pe-n">${esc(t("pantry.name"))}</label><input id="pe-n" name="nome" value="${esc(d.nome)}" maxlength="120">
+      <label for="pe-q">${esc(t("list.qty"))}</label>
+      <div class="stepper"><button class="btn ghost round" type="button" data-step="-1" aria-label="${esc(t("list.less"))}">${ic("minus")}</button>
+      <input id="pe-q" name="qta" value="${esc(d.qta || "")}" maxlength="30"><button class="btn ghost round" type="button" data-step="1" aria-label="${esc(t("list.more"))}">${ic("add")}</button></div>
+      <label for="pe-p">${esc(t("pantry.place"))}</label><select id="pe-p" name="posto">${placeOpts(pantry.placeValue(d.luogo, d.scaffale, d.ripiano))}</select>
+      <label for="pe-c">${esc(t("pantry.category"))}</label><select id="pe-c" name="cat">${ORDER.map(c => `<option value="${c}"${catId(d.cat) === c ? " selected" : ""}>${esc(t("cat." + c))}</option>`).join("")}</select>`,
+    buttons: [{ value: "ok", label: t("common.save"), icon: "save", primary: true }, { value: "", label: t("common.cancel"), icon: "close" }],
+    onOpen: dl => dl.querySelectorAll("[data-step]").forEach(b => b.onclick = () => { const i = dl.querySelector("#pe-q"); i.value = pantry.stepQty(i.value, +b.dataset.step); }),
+  });
+  if (r.value !== "ok") return;
+  const p = pantry.parsePlace(r.form.get("posto"));
+  mutate((s, now) => { s.dispensa[id] = { ...s.dispensa[id], nome: String(r.form.get("nome") || d.nome).trim() || d.nome, qta: String(r.form.get("qta") || "").trim(), cat: r.form.get("cat"), ...p, updatedAt: now }; });
+  toast(t("common.saved"), "save");
+}
+
+// Organizza il magazzino: luoghi, scaffali e ripiani
+$("#places-edit").addEventListener("click", async () => {
+  const ls = pantry.sortedPlaces(state.luoghi);
+  const r = await sheet({
+    title: t("pantry.organize"), icon: "store-room",
+    body: `<p class="hint">${esc(t("pantry.organizeHint"))}</p>${ls.map(l => `<fieldset class="place-edit"><legend>${ic(l.base ? "cat-pantry" : "store-room")} ${esc(nameOf(l))}</legend>
+      <label for="pn-${esc(l.id)}">${esc(t("pantry.placeName"))}</label><input id="pn-${esc(l.id)}" name="n-${esc(l.id)}" value="${esc(nameOf(l))}" maxlength="40">
+      <label for="ps-${esc(l.id)}">${esc(t("pantry.shelves"))}</label><textarea id="ps-${esc(l.id)}" name="s-${esc(l.id)}" rows="3" placeholder="${esc(t("pantry.shelvesPh"))}" aria-describedby="sh-h">${esc(pantry.shelvesToText(l.scaffali))}</textarea>
+      ${l.base ? "" : `<label class="check"><input type="checkbox" name="x-${esc(l.id)}"> ${esc(t("pantry.removePlace"))}</label>`}</fieldset>`).join("")}
+      <p class="hint" id="sh-h">${esc(t("pantry.shelvesHelp"))}</p>
+      <label for="pn-new">${ic("add")} ${esc(t("pantry.newPlace"))}</label><input id="pn-new" name="new" placeholder="${esc(t("pantry.newPlacePh"))}" maxlength="40">`,
+    buttons: [{ value: "ok", label: t("common.save"), icon: "save", primary: true }, { value: "", label: t("common.cancel"), icon: "close" }],
+  });
+  if (r.value !== "ok") return;
+  mutate((s, now) => {
+    for (const l of ls) {
+      if (r.form.get("x-" + l.id)) {
+        s.luoghi[l.id] = { ...l, deleted: true, updatedAt: now };
+        for (const d of live(s.dispensa)) if (d.luogo === l.id) s.dispensa[d.id] = { ...d, luogo: "credenza", scaffale: "", ripiano: "", updatedAt: now };
+        continue;
+      }
+      const nome = String(r.form.get("n-" + l.id) || "").trim();
+      s.luoghi[l.id] = { ...l, nome: nome === nameOf(l) && !l.nome ? "" : nome, scaffali: pantry.parseShelves(r.form.get("s-" + l.id)), updatedAt: now };
+    }
+    const nuovo = String(r.form.get("new") || "").trim();
+    if (nuovo) { const id = uid(); s.luoghi[id] = { id, nome: nuovo, ordine: ls.length, scaffali: [], updatedAt: now }; }
+  });
+  toast(t("common.saved"), "store-room");
+});
+
+// ---------- DOVE CONVIENE? ----------
+const prefOf = (prodotto, negozio) => live(state.preferenze).find(p => pantry.sameProduct(p.prodotto, prodotto) && pantry.norm(p.negozio) === pantry.norm(negozio));
+function togglePref(prodotto, negozio, tipo) {
+  const p = prefOf(prodotto, negozio);
+  mutate((s, now) => {
+    if (p && p.tipo === tipo) s.preferenze[p.id] = { ...p, deleted: true, updatedAt: now };
+    else { const id = p ? p.id : uid(); s.preferenze[id] = { id, prodotto, negozio, tipo, updatedAt: now }; }
+  });
+}
+function compareBody() {
+  const items = live(state.items).filter(i => !i.fatto);
+  const res = state.confronto.prodotti || [];
+  let tot = 0, h = "";
+  for (const it of items) {
+    const r = res.find(x => x.id === it.id) || res.find(x => pantry.sameProduct(x.nome || "", it.nome));
+    let ops = (r && Array.isArray(r.opzioni) ? r.opzioni : []).filter(o => o && o.negozio && typeof o.prezzo === "number");
+    const evitati = ops.filter(o => prefOf(it.nome, o.negozio)?.tipo === "evita");
+    ops = ops.filter(o => !evitati.includes(o)).sort((a, b) => (prefOf(it.nome, b.negozio)?.tipo === "preferito") - (prefOf(it.nome, a.negozio)?.tipo === "preferito") || a.prezzo - b.prezzo);
+    const sel = $("#sheet-body").querySelector(`input[name="${CSS.escape(it.id)}"]:checked`)?.value
+      ?? (ops.findIndex(o => it.negozio && pantry.norm(o.negozio) === pantry.norm(it.negozio)) >= 0 ? String(ops.findIndex(o => pantry.norm(o.negozio) === pantry.norm(it.negozio))) : ops.length ? "0" : "");
+    const chosen = ops[+sel]; if (chosen) tot += chosen.prezzo;
+    h += `<fieldset class="cmp-item"><legend>${esc(it.nome)}${it.qta ? ` <span class="q">· ${esc(it.qta)}</span>` : ""}</legend>`;
+    if (!ops.length) h += `<p class="hint">${esc(t("cmp.noData"))}</p>`;
+    ops.forEach((o, i) => {
+      const pf = prefOf(it.nome, o.negozio)?.tipo === "preferito";
+      const src = safeUrl(o.fonte);
+      h += `<div class="cmp-opt${pf ? " fav" : ""}"><label><input type="radio" name="${esc(it.id)}" value="${i}" data-price="${o.prezzo}"${String(i) === sel ? " checked" : ""}>
+        <span class="txt"><span class="n">${pf ? ic("star") + " " : ""}${esc(o.negozio)}</span>
+        <span class="meta">${money(o.prezzo)}${o.prezzoUnit ? " · " + esc(perUnit(o.prezzoUnit, o.unita)) : ""}${o.offerta ? ` · <strong>${esc(t("cmp.deal"))}</strong>` : ""}${o.validoFino ? " · " + esc(t("deals.until", { date: o.validoFino })) : ""}</span></span></label>
+        ${src ? `<a class="icon-btn" href="${esc(src)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(t("deals.flyer"))} ${esc(o.negozio)} ${esc(t("a11y.newTab"))}">${ic("external")}</a>` : ""}
+        <button class="icon-btn" type="button" data-fav="${esc(it.id)}|${esc(o.negozio)}" aria-pressed="${pf}" aria-label="${esc(t("pref.fav", { product: it.nome, store: o.negozio }))}">${ic(pf ? "star" : "star-line")}</button>
+        <button class="icon-btn danger" type="button" data-avoid="${esc(it.id)}|${esc(o.negozio)}" aria-label="${esc(t("pref.avoid", { product: it.nome, store: o.negozio }))}">${ic("avoid")}</button></div>`;
+    });
+    if (evitati.length) h += `<p class="hint">${ic("avoid")} ${esc(t("cmp.hidden", { n: evitati.length, stores: evitati.map(o => o.negozio).join(", ") }))}</p>`;
+    h += `</fieldset>`;
+  }
+  h += `<p class="cmp-total" aria-live="polite">${esc(t("cmp.total", { total: money(tot) }))}</p>
+    <p class="hint">${esc(t("cmp.when", { when: state.confronto.updatedAt ? quando(state.confronto.updatedAt) : "–" }))}</p>`;
+  return h;
+}
+$("#sheet-body").addEventListener("click", e => {
+  const b = e.target.closest("[data-fav], [data-avoid]"); if (!b) return;
+  const [id, negozio] = (b.dataset.fav || b.dataset.avoid).split("|");
+  const it = state.items[id]; if (!it) return;
+  togglePref(it.nome, negozio, b.dataset.fav ? "preferito" : "evita");
+  $("#sheet-body").innerHTML = compareBody();
+  $("#sheet-body").querySelector(`[data-${b.dataset.fav ? "fav" : "avoid"}="${CSS.escape(id + "|" + negozio)}"]`)?.focus();
+});
+$("#sheet-body").addEventListener("change", e => {
+  if (!e.target.matches('.cmp-item input[type="radio"]')) return;
+  const tot = [...$("#sheet-body").querySelectorAll('.cmp-item input[type="radio"]:checked')].reduce((n, r) => n + (+r.dataset.price || 0), 0);
+  const el = $("#sheet-body").querySelector(".cmp-total"); if (el) el.textContent = t("cmp.total", { total: money(tot) });
+});
+async function openCompare() {
+  const r = await sheet({
+    title: t("cmp.title"), icon: "store", body: compareBody(),
+    buttons: [{ value: "ok", label: t("cmp.apply"), icon: "ok", primary: true }, { value: "again", label: t("cmp.again"), icon: "refresh" }, { value: "", label: t("common.close"), icon: "close" }],
+  });
+  if (r.value === "again") return runCompare();
+  if (r.value !== "ok") return;
+  const res = state.confronto.prodotti || [];
+  mutate((s, now) => {
+    for (const it of live(s.items).filter(i => !i.fatto)) {
+      const v = r.form.get(it.id); if (v == null) continue;
+      const rr = res.find(x => x.id === it.id) || res.find(x => pantry.sameProduct(x.nome || "", it.nome));
+      let ops = (rr && rr.opzioni || []).filter(o => o && o.negozio && typeof o.prezzo === "number" && prefOf(it.nome, o.negozio)?.tipo !== "evita")
+        .sort((a, b) => (prefOf(it.nome, b.negozio)?.tipo === "preferito") - (prefOf(it.nome, a.negozio)?.tipo === "preferito") || a.prezzo - b.prezzo);
+      const o = ops[+v]; if (o) s.items[it.id] = { ...it, negozio: o.negozio, prezzo: o.prezzo, updatedAt: now };
+    }
+  });
+  toast(t("cmp.applied"), "store"); mochi.mood("happy");
+}
+async function runCompare() {
+  const s0 = state.settings, btn = $("#compare");
+  if (!ai.getCfg().key) { toast(t("deals.needKey"), "key"); return; }
+  if (!s0.luogo) { toast(t("geo.ask"), "pin"); selectTab($("#t-imp")); $("#z-luogo").focus(); return; }
+  const prodotti = live(state.items).filter(i => !i.fatto).slice(0, 25).map(i => ({ id: i.id, nome: i.nome, qta: i.qta || "" }));
+  btn.classList.add("loading"); btn.setAttribute("aria-busy", "true"); mochi.mood("wow", 0); mochi.say(frase("cerco"), 90000);
+  toast(t("cmp.searching"), "search");
+  try {
+    const a0 = away();
+    const luogo = a0 ? `${a0.nome} (lat ${a0.lat}, lon ${a0.lon})` : s0.lat != null ? `${s0.luogo} (lat ${s0.lat}, lon ${s0.lon})` : s0.luogo;
+    const prefs = live(state.preferenze);
+    const res = await ai.confrontaPrezzi({ prodotti, luogo, raggioKm: s0.raggioKm, negozi: s0.negozi, valuta: currency(), lingua: langName(),
+      preferiti: prefs.filter(p => p.tipo === "preferito").map(p => ({ prodotto: p.prodotto, negozio: p.negozio })),
+      evitati: prefs.filter(p => p.tipo === "evita").map(p => ({ prodotto: p.prodotto, negozio: p.negozio })) });
+    mutate((s, now) => { s.confronto = { prodotti: res, updatedAt: now }; });
+    mochi.mood("happy", 2000); mochi.say(frase("offerta"));
+    openCompare();
+  } catch (err) { toast(err.message, "warn"); mochi.mood("sleepy", 2000); mochi.say(frase("errore")); }
+  finally { btn.classList.remove("loading"); btn.removeAttribute("aria-busy"); }
+}
+$("#compare").addEventListener("click", () => state.confronto.updatedAt && Date.now() - state.confronto.updatedAt < 6 * 3600e3 &&
+  live(state.items).filter(i => !i.fatto).every(i => (state.confronto.prodotti || []).some(x => x.id === i.id)) ? openCompare() : runCompare());
+
+// Preferenze nelle impostazioni
+function renderPrefs() {
+  const ps = live(state.preferenze).sort((a, b) => a.tipo.localeCompare(b.tipo) || a.prodotto.localeCompare(b.prodotto));
+  $("#pref-list").innerHTML = ps.length ? ps.map(p => `<li class="chip ${p.tipo === "evita" ? "avoid" : "fav"}">${ic(p.tipo === "evita" ? "avoid" : "star")}
+    <span>${esc(t(p.tipo === "evita" ? "pref.lineAvoid" : "pref.lineFav", { product: p.prodotto, store: p.negozio }))}</span>
+    <button class="icon-btn" type="button" data-prdel="${esc(p.id)}" aria-label="${esc(t("pref.remove"))}">${ic("close")}</button></li>`).join("")
+    : `<li class="hint">${esc(t("pref.empty"))}</li>`;
+}
+$("#pref-list").addEventListener("click", e => {
+  const b = e.target.closest("[data-prdel]"); if (!b) return;
+  mutate((s, now) => { s.preferenze[b.dataset.prdel] = { ...s.preferenze[b.dataset.prdel], deleted: true, updatedAt: now }; });
+  toast(t("pref.removed"), "close");
+});
 
 // ---------- MONITOR / OFFERTE ----------
 $("#mon-nome").addEventListener("input", e => {
@@ -751,6 +1153,7 @@ $("#wiz-next").addEventListener("click", () => {
   selectTab(tabs.find(x => "#" + x.id.slice(2) === location.hash) || tabs[0], false);
   syncSet(dbx.isConnected() ? "busy" : "local", dbx.isConnected() ? "sync.busy" : "sync.local");
   sync();
+  setTimeout(checkHome, 1500);
 
   // Primo avvio → wizard. Policy cambiata → riaccettazione. Aggiornamento → novità.
   const seenV = lsGet("mochi.seen", null) || (hadState ? "1.0.0" : null);

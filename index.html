@@ -60,8 +60,34 @@
       <div class="pbar" role="progressbar" aria-labelledby="ptxt" aria-valuemin="0" id="pbar"><span id="pfill"></span></div>
       <p id="ptxt"></p>
     </div>
+    <div id="home-card"></div>
     <div id="lista"></div>
-    <div class="center"><button class="btn ghost" id="clear-done" type="button" hidden><i class="mi mi-clean" aria-hidden="true"></i> <span data-i18n="list.clear"></span></button></div>
+    <div class="list-actions">
+      <button class="btn primary" id="putaway" type="button" hidden><i class="mi mi-home" aria-hidden="true"></i> <span data-i18n="pantry.putAway"></span></button>
+      <button class="btn ghost" id="compare" type="button" hidden><i class="mi mi-store" aria-hidden="true"></i> <span data-i18n="cmp.open"></span></button>
+      <button class="btn ghost" id="clear-done" type="button" hidden><i class="mi mi-clean" aria-hidden="true"></i> <span data-i18n="list.clear"></span></button>
+    </div>
+    <p class="hint center swipe-hint" id="swipe-hint" hidden><span data-i18n="list.swipeHint"></span></p>
+  </section>
+
+  <!-- DISPENSA -->
+  <section id="p-dispensa" role="tabpanel" aria-labelledby="t-dispensa" class="panel" hidden>
+    <form id="f-pantry" class="card pantry-add" autocomplete="off">
+      <label for="pa-nome" class="sr" data-i18n="pantry.addLabel"></label>
+      <input id="pa-nome" data-i18n-attr="placeholder:pantry.addPh" maxlength="120">
+      <label for="pa-posto" class="sr" data-i18n="pantry.place"></label>
+      <select id="pa-posto"></select>
+      <button class="btn primary round" type="submit" data-i18n-attr="aria-label:pantry.addBtn"><i class="mi mi-add" aria-hidden="true"></i></button>
+    </form>
+    <div class="row wrap gap pantry-tools">
+      <fieldset class="seg compact">
+        <legend data-i18n="pantry.groupBy"></legend>
+        <label><input type="radio" name="pgroup" value="posto" checked> <i class="mi mi-store-room" aria-hidden="true"></i> <span data-i18n="pantry.byPlace"></span></label>
+        <label><input type="radio" name="pgroup" value="cat"> <i class="mi mi-cat-pantry" aria-hidden="true"></i> <span data-i18n="pantry.byCat"></span></label>
+      </fieldset>
+      <button class="btn ghost" type="button" id="places-edit"><i class="mi mi-tab-settings" aria-hidden="true"></i> <span data-i18n="pantry.organize"></span></button>
+    </div>
+    <div id="pantry"></div>
   </section>
 
   <!-- OFFERTE -->
@@ -167,6 +193,12 @@
       <button class="btn primary" type="submit"><i class="mi mi-save" aria-hidden="true"></i> <span data-i18n="common.save"></span></button>
     </form>
 
+    <section class="card" aria-labelledby="pref-t">
+      <h2 class="in" id="pref-t"><i class="mi mi-star" aria-hidden="true"></i> <span data-i18n="pref.title"></span> <small data-i18n="zone.shared"></small></h2>
+      <p class="hint" data-i18n="pref.hint"></p>
+      <ul class="pref-list" id="pref-list"></ul>
+    </section>
+
     <form class="card" id="f-ai">
       <h2 class="in"><i class="mi mi-key" aria-hidden="true"></i> <span data-i18n="ai.title"></span></h2>
       <p class="hint" data-i18n="ai.hint"></p>
@@ -194,6 +226,7 @@
 <nav class="tabbar" data-i18n-attr="aria-label:a11y.nav">
   <div role="tablist" data-i18n-attr="aria-label:a11y.nav">
     <button role="tab" id="t-lista" aria-controls="p-lista" aria-selected="true"><i class="mi mi-tab-list" aria-hidden="true"></i><span data-i18n="tab.list"></span></button>
+    <button role="tab" id="t-dispensa" aria-controls="p-dispensa" aria-selected="false" tabindex="-1"><i class="mi mi-tab-pantry" aria-hidden="true"></i><span data-i18n="tab.pantry"></span></button>
     <button role="tab" id="t-offerte" aria-controls="p-offerte" aria-selected="false" tabindex="-1"><i class="mi mi-tab-deals" aria-hidden="true"></i><span data-i18n="tab.deals"></span></button>
     <button role="tab" id="t-valuta" aria-controls="p-valuta" aria-selected="false" tabindex="-1"><i class="mi mi-tab-rate" aria-hidden="true"></i><span data-i18n="tab.rate"></span></button>
     <button role="tab" id="t-imp" aria-controls="p-imp" aria-selected="false" tabindex="-1"><i class="mi mi-tab-settings" aria-hidden="true"></i><span data-i18n="tab.settings"></span></button>
@@ -208,6 +241,15 @@
       <button class="btn ghost" value="no"><i class="mi mi-close" aria-hidden="true"></i> <span data-i18n="common.cancel"></span></button>
       <button class="btn primary" value="si"><i class="mi mi-ok" id="dlg-ic" aria-hidden="true"></i> <span id="dlg-ok"></span></button>
     </div>
+  </form>
+</dialog>
+
+<!-- Finestra generica (quantità, scelte, metti via, confronto, luoghi) -->
+<dialog id="sheet" class="big-dlg" aria-labelledby="sheet-t">
+  <form method="dialog" id="sheet-form">
+    <h2 class="wiz-h" id="sheet-t"></h2>
+    <div id="sheet-body"></div>
+    <div class="row gap end wrap sheet-btns" id="sheet-btns"></div>
   </form>
 </dialog>
 

@@ -4,7 +4,7 @@
 // così non ricompaiono quando l'altro telefono sincronizza.
 
 export const TOMBSTONE_MS = 30 * 24 * 3600 * 1000;
-const MAPS = ["items", "monitor", "valutazioni"];
+const MAPS = ["items", "monitor", "valutazioni", "dispensa", "luoghi", "preferenze"];
 
 export function emptyState() {
   return {
@@ -15,6 +15,14 @@ export function emptyState() {
       "ammorbidente": { id: "ammorbidente", nome: "Ammorbidente", unita: "lavaggi", updatedAt: 1 },
     },
     valutazioni: {},
+    // Dispensa: luoghi (nome vuoto = nome tradotto di default), con scaffali e ripiani
+    dispensa: {},
+    luoghi: {
+      credenza: { id: "credenza", nome: "", base: true, ordine: 0, scaffali: [], updatedAt: 1 },
+      cantina: { id: "cantina", nome: "", ordine: 1, scaffali: [], updatedAt: 1 },
+    },
+    preferenze: {}, // { id, prodotto, negozio, tipo: "preferito" | "evita" }
+    confronto: { prodotti: [], updatedAt: 0 },
     offerte: { list: [], updatedAt: 0 },
     settings: { luogo: "", raggioKm: 5, negozi: "", amazon: true, updatedAt: 0 },
   };
@@ -39,6 +47,7 @@ export function merge(local, remote, now = Date.now()) {
   const out = { schema: 1 };
   for (const k of MAPS) out[k] = mergeMap(local[k], remote[k], now);
   out.offerte = newer(local.offerte, remote.offerte) || { list: [], updatedAt: 0 };
+  out.confronto = newer(local.confronto, remote.confronto) || { prodotti: [], updatedAt: 0 };
   out.settings = newer(local.settings, remote.settings) || emptyState().settings;
   return out;
 }
@@ -49,6 +58,8 @@ export function normalize(s) {
   return {
     schema: 1,
     items: obj(s.items), monitor: s.monitor ? obj(s.monitor) : e.monitor, valutazioni: obj(s.valutazioni),
+    dispensa: obj(s.dispensa), luoghi: s.luoghi && Object.keys(s.luoghi).length ? obj(s.luoghi) : e.luoghi, preferenze: obj(s.preferenze),
+    confronto: s.confronto && Array.isArray(s.confronto.prodotti) ? s.confronto : e.confronto,
     offerte: s.offerte && Array.isArray(s.offerte.list) ? s.offerte : e.offerte,
     settings: { ...e.settings, ...(s.settings || {}) },
   };
