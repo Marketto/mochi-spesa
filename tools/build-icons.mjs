@@ -57,6 +57,8 @@ const ICONS = {
   "star": ["fill/star-fill", "ottima offerta"],
   "down": ["bold/trend-down", "più economico"],
   "warn": ["bold/warning-circle", "attenzione"],
+  "import": ["bold/tray-arrow-down", "importa da file"],
+  "expiry": ["bold/hourglass-medium", "scadenza"],
   "info": ["bold/info", "informazione"],
   "heart": ["fill/heart-fill", "spuntato"],
   "heart-line": ["bold/heart", "cuore"],

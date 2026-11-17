@@ -368,5 +368,14 @@
   "place.cantina": "Keller",
   "new.pantry": "Neuer Tab Vorrat: Orte, Regale und Fächer, und Einkauf einräumen.",
   "new.swipe": "Wischen zum Löschen mit Rückgängig, und ein Knopf für Mengen.",
-  "new.compare": "„Wo ist es am günstigsten?“: Läden für deine Liste vergleichen, mit Lieblings- und gemiedenen Läden."
+  "new.compare": "„Wo ist es am günstigsten?“: Läden für deine Liste vergleichen, mit Lieblings- und gemiedenen Läden.",
+  "pantry.import": "Aus Invendo importieren",
+  "pantry.importTitle": "Vorrat importieren",
+  "pantry.importText": "{n} Produkte an {places} Orten gefunden. Orte, Regale und Fächer werden automatisch angelegt.",
+  "pantry.importUpd": "{n} sind schon im Vorrat: Menge und Ablaufdatum werden aktualisiert.",
+  "pantry.importOk": "Importieren",
+  "pantry.importDone": "{n} Produkte importiert",
+  "pantry.importErr": "Datei nicht lesbar. Exportiere aus Invendo als Excel (.xlsx) oder CSV.",
+  "pantry.expires": "läuft ab am {date}",
+  "new.import": "Vorrat aus Invendo importieren (Excel oder CSV), mit Orten, Regalen, Fächern und Ablaufdaten."
 }

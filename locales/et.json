@@ -368,5 +368,14 @@
   "place.cantina": "Panipaik",
   "new.pantry": "Uus vahekaart Sahver: kohad, riiulid ja tasandid ning ostude lahtipakkimine.",
   "new.swipe": "Lükka kustutamiseks (koos tagasivõtmisega) ja nupp koguste jaoks.",
-  "new.compare": "„Kus on kõige odavam?”: võrdle poode oma nimekirjale, lemmik- ja välditavate poodidega."
+  "new.compare": "„Kus on kõige odavam?”: võrdle poode oma nimekirjale, lemmik- ja välditavate poodidega.",
+  "pantry.import": "Impordi Invendost",
+  "pantry.importTitle": "Impordi sahver",
+  "pantry.importText": "Leidsin {n} toodet {places} kohas. Kohad, riiulid ja tasandid luuakse ise.",
+  "pantry.importUpd": "{n} on juba sahvris: uuendan kogust ja säilivust.",
+  "pantry.importOk": "Impordi",
+  "pantry.importDone": "Imporditud tooteid: {n}",
+  "pantry.importErr": "Faili ei saa lugeda. Ekspordi Invendost Excelina (.xlsx) või CSV-na.",
+  "pantry.expires": "parim enne {date}",
+  "new.import": "Impordi sahver Invendost (Excel või CSV) kohtade, riiulite, tasandite ja kuupäevadega."
 }

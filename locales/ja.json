@@ -368,5 +368,14 @@
   "place.cantina": "物置",
   "new.pantry": "新しい「ストック」タブ：場所・棚・段と、買ったもののしまい込み。",
   "new.swipe": "スワイプで削除（元に戻せる）と数量ボタン。",
-  "new.compare": "「どこが一番安い？」：リストのお店を比較。お気に入り・避けたいお店も。"
+  "new.compare": "「どこが一番安い？」：リストのお店を比較。お気に入り・避けたいお店も。",
+  "pantry.import": "Invendo から読み込む",
+  "pantry.importTitle": "ストックを読み込む",
+  "pantry.importText": "{places} か所で {n} 個の商品が見つかりました。場所・棚・段は自動で作られます。",
+  "pantry.importUpd": "{n} 個はすでにストックにあります：数量と期限を更新します。",
+  "pantry.importOk": "読み込む",
+  "pantry.importDone": "{n} 個読み込みました",
+  "pantry.importErr": "ファイルを読めません。Invendo から Excel（.xlsx）か CSV で書き出してね。",
+  "pantry.expires": "期限 {date}",
+  "new.import": "Invendo からストックを読み込み（Excel・CSV）。場所・棚・段・期限つき。"
 }

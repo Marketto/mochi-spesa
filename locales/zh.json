@@ -368,5 +368,14 @@
   "place.cantina": "储藏室",
   "new.pantry": "新增“储物”页：位置、货架和层，以及把买的东西收好。",
   "new.swipe": "滑动删除（可撤销），并新增数量按钮。",
-  "new.compare": "“哪里最便宜？”：为清单比较商店，支持偏好和回避的商店。"
+  "new.compare": "“哪里最便宜？”：为清单比较商店，支持偏好和回避的商店。",
+  "pantry.import": "从 Invendo 导入",
+  "pantry.importTitle": "导入储物",
+  "pantry.importText": "在 {places} 个位置找到 {n} 件商品。位置、货架和层会自动创建。",
+  "pantry.importUpd": "{n} 件已在储物中：将更新数量和保质期。",
+  "pantry.importOk": "导入",
+  "pantry.importDone": "已导入 {n} 件商品",
+  "pantry.importErr": "无法读取文件。请从 Invendo 导出为 Excel（.xlsx）或 CSV。",
+  "pantry.expires": "{date} 到期",
+  "new.import": "从 Invendo 导入储物（Excel 或 CSV），包括位置、货架、层和保质期。"
 }

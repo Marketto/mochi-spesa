@@ -368,5 +368,14 @@
   "place.cantina": "Podrum",
   "new.pantry": "Nova kartica Smočnica: mjesta, police i razine te spremanje kupovine.",
   "new.swipe": "Povuci za brisanje uz Poništi i gumb za količine.",
-  "new.compare": "„Gdje je najjeftinije?”: usporedi trgovine za popis, s omiljenima i izbjegavanima."
+  "new.compare": "„Gdje je najjeftinije?”: usporedi trgovine za popis, s omiljenima i izbjegavanima.",
+  "pantry.import": "Uvezi iz Invendo",
+  "pantry.importTitle": "Uvezi smočnicu",
+  "pantry.importText": "Pronađeno {n} proizvoda na {places} mjesta. Mjesta, regali i police stvaraju se sami.",
+  "pantry.importUpd": "{n} je već u smočnici: ažuriram količinu i rok trajanja.",
+  "pantry.importOk": "Uvezi",
+  "pantry.importDone": "Uvezeno proizvoda: {n}",
+  "pantry.importErr": "Ne mogu pročitati datoteku. Izvezi iz Invendo kao Excel (.xlsx) ili CSV.",
+  "pantry.expires": "rok {date}",
+  "new.import": "Uvoz smočnice iz Invendo (Excel ili CSV) s mjestima, regalima, policama i rokovima."
 }

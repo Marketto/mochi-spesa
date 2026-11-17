@@ -368,5 +368,14 @@
   "place.cantina": "창고",
   "new.pantry": "새 팬트리 탭: 장소·선반·칸, 산 물건 정리하기.",
   "new.swipe": "밀어서 삭제(되돌리기 가능)와 수량 버튼.",
-  "new.compare": "“어디가 제일 쌀까?”: 목록의 매장을 비교, 선호·제외 매장까지."
+  "new.compare": "“어디가 제일 쌀까?”: 목록의 매장을 비교, 선호·제외 매장까지.",
+  "pantry.import": "Invendo에서 가져오기",
+  "pantry.importTitle": "팬트리 가져오기",
+  "pantry.importText": "{places}곳에서 상품 {n}개를 찾았어요. 장소·선반·칸은 자동으로 만들어져요.",
+  "pantry.importUpd": "{n}개는 이미 팬트리에 있어요: 수량과 유통기한을 업데이트해요.",
+  "pantry.importOk": "가져오기",
+  "pantry.importDone": "상품 {n}개를 가져왔어요",
+  "pantry.importErr": "파일을 읽을 수 없어요. Invendo에서 Excel(.xlsx)이나 CSV로 내보내 주세요.",
+  "pantry.expires": "{date}까지",
+  "new.import": "Invendo에서 팬트리 가져오기(Excel 또는 CSV): 장소·선반·칸·유통기한 포함."
 }

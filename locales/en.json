@@ -368,5 +368,14 @@
   "place.cantina": "Storeroom",
   "new.pantry": "New Pantry tab: places, shelves and levels, and putting the shopping away.",
   "new.swipe": "Swipe to delete with Undo, and a button for quantities.",
-  "new.compare": "“Where is it cheapest?”: compare shops for your list, with favourite and avoided shops."
+  "new.compare": "“Where is it cheapest?”: compare shops for your list, with favourite and avoided shops.",
+  "pantry.import": "Import from Invendo",
+  "pantry.importTitle": "Import pantry",
+  "pantry.importText": "Found {n} products in {places} places. Places, shelves and levels are created automatically.",
+  "pantry.importUpd": "{n} are already in the pantry: quantity and expiry will be updated.",
+  "pantry.importOk": "Import",
+  "pantry.importDone": "{n} products imported",
+  "pantry.importErr": "Can't read the file. Export from Invendo as Excel (.xlsx) or CSV.",
+  "pantry.expires": "expires {date}",
+  "new.import": "Import your pantry from Invendo (Excel or CSV), with places, shelves, levels and expiry dates."
 }

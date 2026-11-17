@@ -426,3 +426,10 @@ textarea:focus { border-color: var(--pink); box-shadow: 0 0 0 4px var(--pink-sof
 .pref-list .chip.fav { background: var(--gold-soft); }
 .pref-list .chip.avoid { background: var(--warn-soft); }
 .pref-list .chip > .mi { margin-inline-end: 6px; }
+
+/* scadenze in dispensa */
+.pantry-item .exp.soon { color: var(--ink); }
+.pantry-item .exp.soon .mi { color: var(--gold); }
+.pantry-item .exp.past { color: var(--warn-ink, #a3341c); font-weight: 700; }
+@media (prefers-color-scheme: dark) { .pantry-item .exp.past { color: var(--warn); } }
+#pantry-import { margin-top: 8px; }

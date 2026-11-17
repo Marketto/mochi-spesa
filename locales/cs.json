@@ -368,5 +368,14 @@
   "place.cantina": "Sklep",
   "new.pantry": "Nová karta Spíž: místa, regály a police a uklízení nákupu.",
   "new.swipe": "Přetažením smažeš (se Zpět) a tlačítko pro množství.",
-  "new.compare": "„Kde je to nejlevnější?“: porovnej obchody pro svůj seznam, s oblíbenými a vynechanými."
+  "new.compare": "„Kde je to nejlevnější?“: porovnej obchody pro svůj seznam, s oblíbenými a vynechanými.",
+  "pantry.import": "Importovat z Invendo",
+  "pantry.importTitle": "Importovat spíž",
+  "pantry.importText": "Nalezeno {n} produktů na {places} místech. Místa, regály a police se vytvoří samy.",
+  "pantry.importUpd": "{n} už ve spíži je: aktualizuji množství a trvanlivost.",
+  "pantry.importOk": "Importovat",
+  "pantry.importDone": "Importováno produktů: {n}",
+  "pantry.importErr": "Soubor nelze přečíst. Exportuj z Invendo jako Excel (.xlsx) nebo CSV.",
+  "pantry.expires": "spotřebujte do {date}",
+  "new.import": "Import spíže z Invendo (Excel nebo CSV) s místy, regály, policemi a trvanlivostí."
 }

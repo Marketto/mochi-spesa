@@ -368,5 +368,14 @@
   "place.cantina": "Pivniță",
   "new.pantry": "Filă nouă Cămară: locuri, rafturi și polițe, plus pusul cumpărăturilor la loc.",
   "new.swipe": "Glisează pentru ștergere cu Anulează, și un buton pentru cantități.",
-  "new.compare": "„Unde e mai ieftin?”: compară magazinele pentru listă, cu preferate și evitate."
+  "new.compare": "„Unde e mai ieftin?”: compară magazinele pentru listă, cu preferate și evitate.",
+  "pantry.import": "Importă din Invendo",
+  "pantry.importTitle": "Importă cămara",
+  "pantry.importText": "Am găsit {n} produse în {places} locuri. Locurile, rafturile și polițele se creează singure.",
+  "pantry.importUpd": "{n} sunt deja în cămară: actualizez cantitatea și expirarea.",
+  "pantry.importOk": "Importă",
+  "pantry.importDone": "{n} produse importate",
+  "pantry.importErr": "Nu pot citi fișierul. Exportă din Invendo în Excel (.xlsx) sau CSV.",
+  "pantry.expires": "expiră pe {date}",
+  "new.import": "Importă cămara din Invendo (Excel sau CSV), cu locuri, rafturi, polițe și date de expirare."
 }

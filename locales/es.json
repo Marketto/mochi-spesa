@@ -368,5 +368,14 @@
   "place.cantina": "Trastero",
   "new.pantry": "Nueva pestaña Despensa: lugares, estanterías y baldas, y guardar la compra.",
   "new.swipe": "Desliza para borrar con Deshacer, y un botón para las cantidades.",
-  "new.compare": "“¿Dónde sale más barato?”: compara tiendas para tu lista, con favoritas y evitadas."
+  "new.compare": "“¿Dónde sale más barato?”: compara tiendas para tu lista, con favoritas y evitadas.",
+  "pantry.import": "Importar de Invendo",
+  "pantry.importTitle": "Importar despensa",
+  "pantry.importText": "He encontrado {n} productos en {places} lugares. Lugares, estanterías y baldas se crean solos.",
+  "pantry.importUpd": "{n} ya están en la despensa: actualizo cantidad y caducidad.",
+  "pantry.importOk": "Importar",
+  "pantry.importDone": "{n} productos importados",
+  "pantry.importErr": "No puedo leer el archivo. Exporta desde Invendo en Excel (.xlsx) o CSV.",
+  "pantry.expires": "caduca el {date}",
+  "new.import": "Importa la despensa desde Invendo (Excel o CSV), con lugares, estanterías, baldas y caducidades."
 }

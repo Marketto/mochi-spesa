@@ -368,5 +368,14 @@
   "place.cantina": "Pince",
   "new.pantry": "Új Kamra fül: helyek, polcok és szintek, és a bevásárlás elpakolása.",
   "new.swipe": "Húzással törlés Visszavonással, és gomb a mennyiséghez.",
-  "new.compare": "„Hol a legolcsóbb?”: boltok összevetése a listádhoz, kedvencekkel és kerülendőkkel."
+  "new.compare": "„Hol a legolcsóbb?”: boltok összevetése a listádhoz, kedvencekkel és kerülendőkkel.",
+  "pantry.import": "Importálás Invendóból",
+  "pantry.importTitle": "Kamra importálása",
+  "pantry.importText": "{n} termék {places} helyen. A helyek, polcok és szintek maguktól létrejönnek.",
+  "pantry.importUpd": "{n} már a kamrában van: frissítem a mennyiséget és a lejáratot.",
+  "pantry.importOk": "Importálás",
+  "pantry.importDone": "{n} termék importálva",
+  "pantry.importErr": "Nem tudom beolvasni a fájlt. Exportáld az Invendóból Excelbe (.xlsx) vagy CSV-be.",
+  "pantry.expires": "lejár: {date}",
+  "new.import": "Kamra importálása Invendóból (Excel vagy CSV) helyekkel, polcokkal, szintekkel és lejárattal."
 }

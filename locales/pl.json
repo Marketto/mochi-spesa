@@ -368,5 +368,14 @@
   "place.cantina": "Piwnica",
   "new.pantry": "Nowa karta Spiżarnia: miejsca, regały i półki oraz rozpakowywanie zakupów.",
   "new.swipe": "Przesuń, aby usunąć z Cofnij, i przycisk ilości.",
-  "new.compare": "„Gdzie najtaniej?”: porównaj sklepy dla listy, z ulubionymi i omijanymi."
+  "new.compare": "„Gdzie najtaniej?”: porównaj sklepy dla listy, z ulubionymi i omijanymi.",
+  "pantry.import": "Importuj z Invendo",
+  "pantry.importTitle": "Importuj spiżarnię",
+  "pantry.importText": "Znaleziono {n} produktów w {places} miejscach. Miejsca, regały i półki tworzą się same.",
+  "pantry.importUpd": "{n} jest już w spiżarni: zaktualizuję ilość i datę ważności.",
+  "pantry.importOk": "Importuj",
+  "pantry.importDone": "Zaimportowano produkty: {n}",
+  "pantry.importErr": "Nie mogę odczytać pliku. Wyeksportuj z Invendo jako Excel (.xlsx) lub CSV.",
+  "pantry.expires": "ważne do {date}",
+  "new.import": "Import spiżarni z Invendo (Excel lub CSV) z miejscami, regałami, półkami i datami ważności."
 }

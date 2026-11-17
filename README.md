@@ -7,6 +7,7 @@ Lista della spesa **condivisa**, **kawaii** e **senza server**, con Mochi che ce
 - 📝 **Lista condivisa**: scrivi “2 kg mele” o “latte, pane, uova”. Mochi mette ogni prodotto nel reparto giusto.
 - ✅ **Spunta, scorri, quantità**: spunti quello che hai comprato, scorri di lato per eliminare (con “Annulla”) e usi un pulsante per la quantità.
 - 🥫 **Dispensa**: a casa Mochi ti chiede cosa hai messo in cantina o magazzino. Il resto va in credenza. Puoi organizzare i posti con nome, scaffali, ripiani e categorie. Se aggiungi alla lista qualcosa che hai già, Mochi ti avvisa: lo prendi dalla cantina (badge lilla) o lo togli dalla dispensa.
+- 📥 **Importa da Invendo**: carichi l'export Excel (.xlsx) o CSV. “Cantina | Angolo | 3” diventa posto › scaffale › ripiano, con quantità, categorie e scadenze. Se reimporti, i prodotti vengono aggiornati e non duplicati. Quelli a quantità 0 vengono tolti.
 - 🏪 **Dove conviene?**: per la lista scegli il negozio più economico di ogni prodotto. I preferiti ★ e i negozi da evitare ⦸ valgono anche per le ricerche successive.
 - ☁️ **Sincronizzata con Dropbox**: un file JSON in una cartella condivisa in famiglia. Funziona anche offline e le modifiche si uniscono da sole.
 - 🏷️ **Offerte vicino a casa**: scegli i prodotti da tenere d'occhio (detersivo lavatrice, ammorbidente…), la zona e il raggio. Mochi cerca nei volantini e confronta con Amazon il **prezzo per lavaggio, litro o kg**.
@@ -114,6 +115,7 @@ js/dropbox.js         OAuth PKCE e file Dropbox dal browser
 js/claude.js          ricerca offerte e valutazioni con l'API di Claude
 js/voice.js           dettatura con il riconoscimento vocale del browser
 js/pantry.js          dispensa: posti, scaffali, ripiani, quantità
+js/importer.js        importazione da Invendo (.xlsx/.csv) senza librerie
 js/geo.js             posizione, distanza da casa, indirizzi con OpenStreetMap
 js/i18n.js            traduzioni, lingua RTL, font per lingua
 js/version.js         versione, novità e versione della policy

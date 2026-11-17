@@ -368,5 +368,14 @@
   "place.cantina": "Maħżen",
   "new.pantry": "Tab ġdida Kexxun: postijiet, ixkafef u livelli, u tpoġġija tax-xiri.",
   "new.swipe": "Kaxkar biex tħassar b'Ikkanċella, u buttuna għall-kwantitajiet.",
-  "new.compare": "“Fejn hu orħos?”: qabbel il-ħwienet għal-lista tiegħek, b'favoriti u evitati."
+  "new.compare": "“Fejn hu orħos?”: qabbel il-ħwienet għal-lista tiegħek, b'favoriti u evitati.",
+  "pantry.import": "Importa minn Invendo",
+  "pantry.importTitle": "Importa l-kexxun",
+  "pantry.importText": "Sibt {n} prodott f'{places} postijiet. Il-postijiet, l-ixkafef u l-livelli jinħolqu waħedhom.",
+  "pantry.importUpd": "{n} diġà fil-kexxun: naġġorna l-kwantità u l-iskadenza.",
+  "pantry.importOk": "Importa",
+  "pantry.importDone": "{n} prodotti importati",
+  "pantry.importErr": "Ma nistax naqra l-fajl. Esporta minn Invendo bħala Excel (.xlsx) jew CSV.",
+  "pantry.expires": "jiskadi {date}",
+  "new.import": "Importa l-kexxun minn Invendo (Excel jew CSV), b'postijiet, ixkafef, livelli u skadenzi."
 }

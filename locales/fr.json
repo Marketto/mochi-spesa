@@ -368,5 +368,14 @@
   "place.cantina": "Cellier",
   "new.pantry": "Nouvel onglet Garde-manger : emplacements, étagères et niveaux, et rangement des courses.",
   "new.swipe": "Glisser pour supprimer avec Annuler, et un bouton pour les quantités.",
-  "new.compare": "« Où est-ce moins cher ? » : compare les magasins pour ta liste, avec préférés et évités."
+  "new.compare": "« Où est-ce moins cher ? » : compare les magasins pour ta liste, avec préférés et évités.",
+  "pantry.import": "Importer depuis Invendo",
+  "pantry.importTitle": "Importer le garde-manger",
+  "pantry.importText": "{n} produits trouvés dans {places} lieux. Lieux, étagères et niveaux sont créés automatiquement.",
+  "pantry.importUpd": "{n} sont déjà dans le garde-manger : quantité et date mises à jour.",
+  "pantry.importOk": "Importer",
+  "pantry.importDone": "{n} produits importés",
+  "pantry.importErr": "Impossible de lire le fichier. Exporte depuis Invendo en Excel (.xlsx) ou CSV.",
+  "pantry.expires": "expire le {date}",
+  "new.import": "Importe ton garde-manger depuis Invendo (Excel ou CSV), avec lieux, étagères, niveaux et dates."
 }

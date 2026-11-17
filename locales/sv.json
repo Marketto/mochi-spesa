@@ -368,5 +368,14 @@
   "place.cantina": "Förråd",
   "new.pantry": "Ny flik Skafferi: platser, hyllor och nivåer, och uppackning av handlingen.",
   "new.swipe": "Svep för att radera med Ångra, och en knapp för mängder.",
-  "new.compare": "”Var är det billigast?”: jämför butiker för listan, med favoriter och undvikna."
+  "new.compare": "”Var är det billigast?”: jämför butiker för listan, med favoriter och undvikna.",
+  "pantry.import": "Importera från Invendo",
+  "pantry.importTitle": "Importera skafferi",
+  "pantry.importText": "Hittade {n} produkter på {places} platser. Platser, hyllor och nivåer skapas automatiskt.",
+  "pantry.importUpd": "{n} finns redan i skafferiet: antal och bäst före uppdateras.",
+  "pantry.importOk": "Importera",
+  "pantry.importDone": "{n} produkter importerade",
+  "pantry.importErr": "Kan inte läsa filen. Exportera från Invendo som Excel (.xlsx) eller CSV.",
+  "pantry.expires": "bäst före {date}",
+  "new.import": "Importera skafferiet från Invendo (Excel eller CSV) med platser, hyllor, nivåer och datum."
 }

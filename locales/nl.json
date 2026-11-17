@@ -368,5 +368,14 @@
   "place.cantina": "Berging",
   "new.pantry": "Nieuw tabblad Voorraad: plekken, kasten en planken, en boodschappen opruimen.",
   "new.swipe": "Vegen om te verwijderen met Ongedaan maken, en een knop voor hoeveelheden.",
-  "new.compare": "“Waar is het goedkoopst?”: vergelijk winkels voor je lijst, met favoriete en vermeden winkels."
+  "new.compare": "“Waar is het goedkoopst?”: vergelijk winkels voor je lijst, met favoriete en vermeden winkels.",
+  "pantry.import": "Importeren uit Invendo",
+  "pantry.importTitle": "Voorraad importeren",
+  "pantry.importText": "{n} producten gevonden op {places} plekken. Plekken, rekken en planken worden automatisch aangemaakt.",
+  "pantry.importUpd": "{n} staan al in de voorraad: aantal en houdbaarheid worden bijgewerkt.",
+  "pantry.importOk": "Importeren",
+  "pantry.importDone": "{n} producten geïmporteerd",
+  "pantry.importErr": "Kan het bestand niet lezen. Exporteer uit Invendo als Excel (.xlsx) of CSV.",
+  "pantry.expires": "houdbaar tot {date}",
+  "new.import": "Importeer je voorraad uit Invendo (Excel of CSV), met plekken, rekken, planken en houdbaarheid."
 }
