@@ -278,5 +278,13 @@
   "legal.p9": "Je locatie wordt alleen gebruikt als je dat in de browser toestaat en wordt afgerond op ~1 km. Het thuisadres en de coördinaten worden in de gedeelde instellingen bewaard; om adressen in plaatsen om te zetten, raadpleegt de app OpenStreetMap (Nominatim), dat het adres of de coördinaten ontvangt.",
   "new.install": "Mochi biedt aan zich op je beginscherm te installeren.",
   "new.easyDbx": "Dropbox koppelen is nu één tik: geen codes meer.",
-  "new.geo": "Adres en locatie: onderweg toont Mochi aanbiedingen waar je bent."
+  "new.geo": "Adres en locatie: onderweg toont Mochi aanbiedingen waar je bent.",
+  "voice.start": "Lijst dicteren",
+  "voice.stop": "Dicteren stoppen",
+  "voice.listening": "Ik luister… zeg bijvoorbeeld “melk, brood en eieren”",
+  "voice.heard": "Ik hoorde: {text}. Tik op + om toe te voegen.",
+  "voice.denied": "Microfoon niet toegestaan.",
+  "voice.none": "Ik hoorde niets, probeer het opnieuw.",
+  "legal.p10": "Dicteren gebruikt de spraakherkenning van je browser: in Chrome verwerkt Google het geluid, in Safari Apple. Het start alleen als je op de microfoon tikt.",
+  "new.voice": "Dicteer je boodschappenlijst met je stem, gratis."
 }

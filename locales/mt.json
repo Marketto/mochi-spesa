@@ -278,5 +278,13 @@
   "legal.p9": "Il-pożizzjoni tintuża biss jekk tippermettiha fil-browser u hija arrotondata għal ~1 km. L-indirizz tad-dar u l-koordinati tiegħu jiġu ssejvjati fis-settings maqsuma; biex tibdel indirizzi f'postijiet, l-app tistaqsi lil OpenStreetMap (Nominatim), li jirċievi l-indirizz jew il-koordinati.",
   "new.install": "Mochi joffri li jinstalla ruħu fuq l-iskrin ewlieni.",
   "new.easyDbx": "Tqabbad Dropbox issa hija għafsa waħda: l-ebda kodiċi.",
-  "new.geo": "Indirizz u pożizzjoni: barra mid-dar Mochi juri offerti fejn tinsab."
+  "new.geo": "Indirizz u pożizzjoni: barra mid-dar Mochi juri offerti fejn tinsab.",
+  "voice.start": "Iddetta l-lista",
+  "voice.stop": "Waqqaf id-dettatura",
+  "voice.listening": "Qed nisma'… għid pereżempju “ħalib, ħobż u bajd”",
+  "voice.heard": "Fhimt: {text}. Agħfas + biex iżżid.",
+  "voice.denied": "Il-mikrofonu mhux permess.",
+  "voice.none": "Ma smajt xejn, erġa' pprova.",
+  "legal.p10": "Id-dettatura tuża r-rikonoxximent tal-vuċi tal-browser: fuq Chrome l-awdjo jipproċessah Google, fuq Safari Apple. Tibda biss meta tagħfas il-mikrofonu.",
+  "new.voice": "Iddetta l-lista tax-xiri bil-vuċi, b'xejn."
 }

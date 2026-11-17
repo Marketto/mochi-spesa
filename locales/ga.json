@@ -278,5 +278,13 @@
   "legal.p9": "Ní úsáidtear an suíomh ach má cheadaíonn tú sa bhrabhsálaí é, agus déantar é a shlánú go ~1 km. Sábháiltear an seoladh baile agus a chomhordanáidí sna socruithe roinnte; chun seoltaí a athrú ina n-áiteanna, fiafraíonn an aip de OpenStreetMap (Nominatim), a fhaigheann an seoladh nó na comhordanáidí.",
   "new.install": "Tairgeann Mochi í féin a shuiteáil ar an scáileán baile.",
   "new.easyDbx": "Tapáil amháin anois chun Dropbox a cheangal: gan chóid.",
-  "new.geo": "Seoladh agus suíomh: ar shiúl ón mbaile, taispeánann Mochi tairiscintí san áit ina bhfuil tú."
+  "new.geo": "Seoladh agus suíomh: ar shiúl ón mbaile, taispeánann Mochi tairiscintí san áit ina bhfuil tú.",
+  "voice.start": "Deachtaigh an liosta",
+  "voice.stop": "Stop an deachtú",
+  "voice.listening": "Táim ag éisteacht… abair mar shampla “bainne, arán agus uibheacha”",
+  "voice.heard": "Chuala mé: {text}. Tapáil + chun é a chur leis.",
+  "voice.denied": "Níl cead ag an micreafón.",
+  "voice.none": "Níor chuala mé faic, bain triail eile as.",
+  "legal.p10": "Úsáideann an deachtú aithint cainte an bhrabhsálaí: in Chrome próiseálann Google an fhuaim, in Safari Apple. Ní thosaíonn sé ach nuair a thapálann tú an micreafón.",
+  "new.voice": "Deachtaigh do liosta siopadóireachta le do ghlór, saor in aisce."
 }

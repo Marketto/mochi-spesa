@@ -346,3 +346,11 @@ details.adv[open] summary::after { transform: rotate(180deg); }
 .ios-share { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; background: var(--card); color: #007aff; vertical-align: middle; }
 .notice-card { background: var(--gold-soft); border-color: transparent; }
 .notice-card p { margin: 0 0 8px; font-weight: 700; }
+
+/* ---------- dettatura ---------- */
+.btn.mic { width: 52px; min-width: 52px; height: 52px; padding: 0; color: var(--pink); }
+.btn.mic[aria-pressed="true"] { background: var(--pink); color: var(--on-pink); border-color: var(--pink); animation: mic-pulse 1.2s ease-in-out infinite; }
+.btn.mic[aria-pressed="true"] .mi-mic::before { content: var(--mi-mic-on); content: var(--mi-mic-on) / ""; }
+@keyframes mic-pulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--pink) 45%, transparent); } 50% { box-shadow: 0 0 0 12px transparent; } }
+.voice-hint { margin: -4px 8px 6px; min-height: 0; }
+.voice-hint:empty { display: none; }

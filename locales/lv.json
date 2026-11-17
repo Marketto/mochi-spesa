@@ -278,5 +278,13 @@
   "legal.p9": "Atrašanās vieta tiek izmantota tikai ar tavu atļauju pārlūkā un noapaļota līdz ~1 km. Mājas adrese un tās koordinātas tiek saglabātas kopīgajos iestatījumos; lai adreses pārvērstu vietās, lietotne vaicā OpenStreetMap (Nominatim), kas saņem adresi vai koordinātas.",
   "new.install": "Moči piedāvā instalēties sākuma ekrānā.",
   "new.easyDbx": "Dropbox savienošana tagad ir viens pieskāriens: bez kodiem.",
-  "new.geo": "Adrese un vieta: prom no mājām Moči piedāvā akcijas tur, kur esi."
+  "new.geo": "Adrese un vieta: prom no mājām Moči piedāvā akcijas tur, kur esi.",
+  "voice.start": "Diktēt sarakstu",
+  "voice.stop": "Apturēt diktēšanu",
+  "voice.listening": "Klausos… saki, piemēram, “piens, maize un olas”",
+  "voice.heard": "Sapratu: {text}. Pieskaries +, lai pievienotu.",
+  "voice.denied": "Mikrofons nav atļauts.",
+  "voice.none": "Neko nedzirdēju, mēģini vēlreiz.",
+  "legal.p10": "Diktēšana izmanto pārlūka runas atpazīšanu: Chrome skaņu apstrādā Google, Safari – Apple. Tā sākas tikai, kad pieskaries mikrofonam.",
+  "new.voice": "Diktē iepirkumu sarakstu ar balsi, bez maksas."
 }

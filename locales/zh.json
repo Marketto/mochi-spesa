@@ -278,5 +278,13 @@
   "legal.p9": "只有在你于浏览器中允许时才会使用位置，并精确到约 1 公里。家庭地址及其坐标保存在共享设置中；为了将地址转换为地点，应用会查询 OpenStreetMap（Nominatim），它会收到地址或坐标。",
   "new.install": "麻糬会提示你把它安装到主屏幕。",
   "new.easyDbx": "连接 Dropbox 只需一点：无需输入代码。",
-  "new.geo": "家庭地址与位置：不在家时，麻糬会推荐你所在地的优惠。"
+  "new.geo": "家庭地址与位置：不在家时，麻糬会推荐你所在地的优惠。",
+  "voice.start": "语音输入清单",
+  "voice.stop": "停止语音输入",
+  "voice.listening": "我在听… 比如说“牛奶、面包和鸡蛋”",
+  "voice.heard": "我听到了：{text}。点 + 添加。",
+  "voice.denied": "麦克风未获允许。",
+  "voice.none": "没有听到声音，请再试一次。",
+  "legal.p10": "语音输入使用浏览器自带的语音识别：在 Chrome 中由 Google 处理音频，在 Safari 中由 Apple 处理。只有点按麦克风时才会开始。",
+  "new.voice": "免费用语音口述购物清单。"
 }

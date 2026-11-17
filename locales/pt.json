@@ -278,5 +278,13 @@
   "legal.p9": "A localização só é usada se a permitires no navegador e é arredondada a ~1 km. A morada de casa e as suas coordenadas ficam nas definições partilhadas; para converter moradas em locais, a app consulta o OpenStreetMap (Nominatim), que recebe a morada ou as coordenadas.",
   "new.install": "A Mochi propõe instalar-se no ecrã principal.",
   "new.easyDbx": "Ligar o Dropbox agora é um toque: sem códigos.",
-  "new.geo": "Morada e localização: fora de casa, a Mochi propõe promoções onde estiveres."
+  "new.geo": "Morada e localização: fora de casa, a Mochi propõe promoções onde estiveres.",
+  "voice.start": "Ditar a lista",
+  "voice.stop": "Parar o ditado",
+  "voice.listening": "Estou a ouvir… diz por exemplo “leite, pão e ovos”",
+  "voice.heard": "Percebi: {text}. Toca em + para adicionar.",
+  "voice.denied": "Microfone não permitido.",
+  "voice.none": "Não ouvi nada, tenta de novo.",
+  "legal.p10": "O ditado usa o reconhecimento de voz do navegador: no Chrome o áudio é processado pela Google, no Safari pela Apple. Só começa quando tocas no microfone.",
+  "new.voice": "Dita a lista de compras por voz, grátis."
 }

@@ -278,5 +278,13 @@
   "legal.p9": "La ubicación solo se usa si la permites en el navegador y se redondea a ~1 km. La dirección de casa y sus coordenadas se guardan en los ajustes compartidos; para convertir direcciones en lugares, la app consulta OpenStreetMap (Nominatim), que recibe la dirección o las coordenadas.",
   "new.install": "Mochi te propone instalarse en la pantalla de inicio.",
   "new.easyDbx": "Conectar Dropbox ahora es un toque: sin códigos.",
-  "new.geo": "Dirección de casa y ubicación: fuera de casa, Mochi te propone ofertas donde estés."
+  "new.geo": "Dirección de casa y ubicación: fuera de casa, Mochi te propone ofertas donde estés.",
+  "voice.start": "Dictar la lista",
+  "voice.stop": "Parar el dictado",
+  "voice.listening": "Te escucho… di por ejemplo “leche, pan y huevos”",
+  "voice.heard": "He entendido: {text}. Toca + para añadir.",
+  "voice.denied": "Micrófono no permitido.",
+  "voice.none": "No he oído nada, inténtalo de nuevo.",
+  "legal.p10": "El dictado usa el reconocimiento de voz del navegador: en Chrome el audio lo procesa Google y en Safari, Apple. Solo empieza cuando tocas el micrófono.",
+  "new.voice": "Dicta la lista de la compra con la voz, gratis."
 }

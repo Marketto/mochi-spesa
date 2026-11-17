@@ -278,5 +278,13 @@
   "legal.p9": "La posizione è usata solo se la consenti nel browser ed è arrotondata a circa 1 km. L'indirizzo di casa e le sue coordinate sono salvati nelle impostazioni condivise; per trasformare indirizzi in luoghi l'app interroga OpenStreetMap (Nominatim), che riceve l'indirizzo o le coordinate.",
   "new.install": "Mochi ti propone di installarsi nella schermata Home.",
   "new.easyDbx": "Collegare Dropbox ora è un tocco: niente codici da inserire.",
-  "new.geo": "Indirizzo di casa e posizione: fuori casa Mochi ti propone le offerte dove sei."
+  "new.geo": "Indirizzo di casa e posizione: fuori casa Mochi ti propone le offerte dove sei.",
+  "voice.start": "Detta la lista",
+  "voice.stop": "Ferma la dettatura",
+  "voice.listening": "Ti ascolto… di' ad esempio “latte, pane e uova”",
+  "voice.heard": "Ho capito: {text}. Tocca + per aggiungere.",
+  "voice.denied": "Microfono non consentito.",
+  "voice.none": "Non ho sentito niente, riprova.",
+  "legal.p10": "La dettatura usa il riconoscimento vocale del browser: su Chrome l'audio è elaborato da Google, su Safari da Apple. Parte solo quando tocchi il microfono.",
+  "new.voice": "Detta la lista della spesa a voce, gratis."
 }

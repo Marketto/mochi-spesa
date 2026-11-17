@@ -4,13 +4,14 @@
 // Se cambiano privacy o condizioni d'uso, alza anche POLICY_VERSION: verrà chiesta di nuovo l'accettazione.
 
 export const APP_VERSION = "1.2.0";
-export const POLICY_VERSION = "2026-11-17b";
+export const POLICY_VERSION = "2026-11-17c";
 
 export const CHANGELOG = [
   { v: "1.2.0", items: [
     ["install", "new.install"],
     ["connect", "new.easyDbx"],
     ["pin", "new.geo"],
+    ["mic", "new.voice"],
   ] },
   { v: "1.1.0", items: [
     ["lang", "new.lang"],

@@ -278,5 +278,13 @@
   "legal.p9": "Lokacija se koristi samo ako je dopustiš u pregledniku i zaokružena je na ~1 km. Kućna adresa i njezine koordinate spremaju se u zajedničke postavke; za pretvaranje adresa u mjesta aplikacija pita OpenStreetMap (Nominatim), koji prima adresu ili koordinate.",
   "new.install": "Mochi nudi instalaciju na početni zaslon.",
   "new.easyDbx": "Povezivanje Dropboxa sada je jedan dodir: bez kodova.",
-  "new.geo": "Adresa i lokacija: izvan kuće Mochi nudi akcije tamo gdje jesi."
+  "new.geo": "Adresa i lokacija: izvan kuće Mochi nudi akcije tamo gdje jesi.",
+  "voice.start": "Izdiktiraj popis",
+  "voice.stop": "Zaustavi diktiranje",
+  "voice.listening": "Slušam… reci npr. „mlijeko, kruh i jaja”",
+  "voice.heard": "Razumjela sam: {text}. Dodirni + za dodavanje.",
+  "voice.denied": "Mikrofon nije dopušten.",
+  "voice.none": "Ništa nisam čula, pokušaj ponovno.",
+  "legal.p10": "Diktiranje koristi prepoznavanje govora u pregledniku: u Chromeu zvuk obrađuje Google, u Safariju Apple. Pokreće se samo kad dodirneš mikrofon.",
+  "new.voice": "Izdiktiraj popis za kupovinu glasom, besplatno."
 }

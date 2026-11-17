@@ -6,6 +6,7 @@ import { APP_VERSION, POLICY_VERSION, CHANGELOG, novitaDopo } from "./version.js
 import * as dbx from "./dropbox.js";
 import * as ai from "./claude.js";
 import * as geo from "./geo.js";
+import * as voice from "./voice.js";
 
 // ---------- utilità ----------
 const $ = s => document.querySelector(s);
@@ -269,6 +270,33 @@ $("#clear-done").addEventListener("click", async () => {
   $("#add-nome").focus(); mochi.mood("happy"); mochi.say(frase("pulito")); toast(t("toast.cleared"), "clean");
 });
 
+// ---------- DETTATURA ----------
+let stopVoice = null;
+function setMic(on) {
+  const b = $("#mic");
+  b.setAttribute("aria-pressed", on); b.setAttribute("aria-label", t(on ? "voice.stop" : "voice.start"));
+}
+$("#mic").hidden = !voice.supported();
+$("#mic").addEventListener("click", () => {
+  if (stopVoice) { stopVoice(); return; }
+  const msg = $("#voice-msg"), inp = $("#add-nome");
+  setMic(true); msg.textContent = t("voice.listening"); mochi.mood("wow", 0); mochi.say(frase("guardo"), 8000);
+  try {
+    stopVoice = voice.listen(locale(), {
+      onText: (txt, fine) => {
+        if (!fine) { inp.value = txt; return; }
+        if (!txt) { msg.textContent = t("voice.none"); return; }
+        const lista = voice.toList(txt, lang());
+        inp.value = lista; msg.textContent = t("voice.heard", { text: lista });
+        mochi.mood("happy"); inp.focus();
+      },
+      onEnd: () => { stopVoice = null; setMic(false); },
+      onError: err => { msg.textContent = t(err === "not-allowed" || err === "service-not-allowed" ? "voice.denied" : "voice.none"); },
+    });
+  } catch { stopVoice = null; setMic(false); msg.textContent = t("voice.none"); }
+});
+$("#f-add").addEventListener("submit", () => { $("#voice-msg").textContent = ""; });
+
 // ---------- MONITOR / OFFERTE ----------
 $("#mon-nome").addEventListener("input", e => {
   const v = e.target.value;
@@ -396,7 +424,7 @@ $("#z-raggio").addEventListener("input", e => $("#z-raggio-v").textContent = e.t
 async function changeLang(code) {
   setMe({ lang: code });
   await setLang(code);
-  fillSettings(); renderOnboard(); render(); syncSet(syncKind, syncKey, syncVars);
+  fillSettings(); renderOnboard(); render(); syncSet(syncKind, syncKey, syncVars); setMic(!!stopVoice);
 }
 $("#me-lang").addEventListener("change", async e => { await changeLang(e.target.value); toast(t("lang.changed"), "lang"); $("#me-lang").focus(); });
 $("#f-me").addEventListener("submit", e => {
@@ -594,7 +622,7 @@ function legalHtml() {
   const sec = (icon, title, prefix, n) => `<h3>${ic(icon)} ${esc(t(title))}</h3><ul>${
     Array.from({ length: n }, (_, i) => `<li>${esc(t(`${prefix}${i + 1}`))}</li>`).join("")}</ul>`;
   return `<p class="hint">${esc(t("legal.updated", { date: new Date(POLICY_VERSION).toLocaleDateString(locale(), { dateStyle: "long" }) }))}</p>
-    ${sec("privacy", "legal.privacyTitle", "legal.p", 9)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
+    ${sec("privacy", "legal.privacyTitle", "legal.p", 10)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
 }
 function openLegal() { $("#legal-body").innerHTML = legalHtml(); $("#legal").showModal(); }
 
