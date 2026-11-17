@@ -1,7 +1,7 @@
 // Service worker: l'app funziona anche offline (al supermercato senza campo!).
-const CACHE = "mochi-spesa-v1";
+const CACHE = "mochi-spesa-v2";
 const SHELL = [
-  "./", "index.html", "css/style.css", "manifest.webmanifest",
+  "./", "index.html", "css/style.css", "css/icons.css", "fonts/mochi-icons.woff2", "manifest.webmanifest",
   "js/app.js", "js/mascot.js", "js/store.js", "js/categories.js", "js/dropbox.js", "js/claude.js",
   "icons/icon.svg", "icons/icon-192.png", "icons/icon-512.png",
 ];

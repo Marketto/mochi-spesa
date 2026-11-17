@@ -1,0 +1,16 @@
+{
+  "name": "mochi-spesa",
+  "private": true,
+  "type": "module",
+  "description": "Lista della spesa condivisa kawaii",
+  "scripts": {
+    "icons": "node tools/build-icons.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "@phosphor-icons/core": "2.1.1",
+    "svg2ttf": "6.1.0",
+    "svgicons2svgfont": "16.0.0",
+    "wawoff2": "2.0.1"
+  }
+}

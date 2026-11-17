@@ -52,15 +52,29 @@ Senza server, la ricerca web la fa l'**API di Claude** chiamata direttamente dal
 
 I prezzi arrivano da fonti web (volantini, siti delle catene, Amazon) e possono cambiare: per sicurezza controlla il link “Volantino” prima di andare.
 
+## 🎀 Icone: font “Mochi Icons”
+
+Tutti i pulsanti e le azioni hanno un'icona che dice cosa fanno: il cestino elimina, la scopa toglie i presi, il binocolo tiene d'occhio un prodotto e così via. Le icone sono un **font** fatto apposta per l'app (`fonts/mochi-icons.woff2`, circa 8 KB):
+
+- base **[Phosphor Icons](https://phosphoricons.com)** (licenza MIT, vedi `fonts/LICENSE-phosphor.txt`), peso *bold* dalle forme morbide, con le varianti *fill* per la scheda attiva;
+- un glifo **originale di Mochi**, usato per “Chiedi a Mochi”, per i coriandoli e per le scintille;
+- anteprima di tutte le icone in `fonts/anteprima.html`.
+
+Uso: `<i class="mi mi-delete" aria-hidden="true"></i>`, sempre insieme a un testo o a un `aria-label` sul pulsante. Per aggiungere o cambiare icone modifica la mappa in `tools/build-icons.mjs` e lancia:
+
+```bash
+npm install && npm run icons
+```
+
 ## 🛠️ Sviluppo
 
 ```bash
 cp config.example.js config.local.js   # facoltativo: precompila l'app key in locale
 python3 -m http.server 8000            # poi apri http://localhost:8000
-node --test tests/*.test.mjs           # test dell'unione tra telefoni
+npm test                               # test dell'unione tra telefoni
 ```
 
-Nessuna dipendenza e nessun build: HTML, CSS e moduli JavaScript.
+L'app non ha dipendenze né build: HTML, CSS e moduli JavaScript. `npm` serve solo per rigenerare il font delle icone.
 
 ```
 index.html            struttura e accessibilità (landmark, tab ARIA, dialog)
@@ -70,9 +84,12 @@ js/mascot.js          Mochi (SVG) con espressioni e frasi
 js/store.js           unione senza conflitti (last-writer-wins per elemento + tombstone)
 js/dropbox.js         OAuth PKCE e file Dropbox dal browser
 js/claude.js          ricerca offerte e valutazioni con l'API di Claude
+css/icons.css         classi delle icone (generato)
+fonts/                font Mochi Icons, anteprima e licenza Phosphor
+tools/build-icons.mjs costruisce il font da Phosphor + glifo Mochi
 sw.js                 funzionamento offline
 ```
 
 ## Licenza
 
-MIT. Mochi è un personaggio originale di questo progetto.
+MIT. Mochi è un personaggio originale di questo progetto. Le icone derivano da Phosphor Icons (MIT).

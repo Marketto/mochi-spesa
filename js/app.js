@@ -1,5 +1,5 @@
 import { mountMochi, frase } from "./mascot.js";
-import { catOf, emojiOf, ORDER, parseAdd } from "./categories.js";
+import { catOf, iconOf, ORDER, parseAdd } from "./categories.js";
 import { emptyState, merge, normalize, same, live, uid } from "./store.js";
 import * as dbx from "./dropbox.js";
 import * as ai from "./claude.js";
@@ -39,8 +39,8 @@ function mutate(fn) {
 // ---------- mascotte, toast, effetti ----------
 const mochi = mountMochi($("#mascot"), $("#bubble"));
 let toastT;
-function toast(msg) {
-  const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+function toast(msg, icon = "heart") {
+  const t = $("#toast"); $("#toast-txt").textContent = msg; $("#toast-ic").className = "mi mi-" + icon; t.classList.add("show");
   clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 2600);
 }
 const motionOk = () => {
@@ -50,10 +50,10 @@ const motionOk = () => {
 function sparkles(el) {
   if (!motionOk() || !el) return;
   const r = el.getBoundingClientRect(), fx = $("#fx");
-  const sym = ["✦", "♡", "✿", "✧", "❀"];
+  const sym = ["magic", "heart", "star", "heart-line", "mochi"];
   for (let i = 0; i < 8; i++) {
     const s = document.createElement("span");
-    s.className = "spark"; s.textContent = sym[i % sym.length];
+    s.className = "spark mi mi-" + sym[i % sym.length];
     const a = (Math.PI * 2 * i) / 8, d = 34 + Math.random() * 18;
     s.style.cssText = `left:${r.left + r.width / 2 - 8}px;top:${r.top + r.height / 2 - 10}px;--dx:${Math.cos(a) * d}px;--dy:${Math.sin(a) * d}px;--rot:${Math.random() * 180}deg;color:${["#ff7eb3", "#b08cff", "#6fcf97", "#ffc94d"][i % 4]}`;
     fx.appendChild(s); setTimeout(() => s.remove(), 900);
@@ -61,16 +61,16 @@ function sparkles(el) {
 }
 function confetti() {
   if (!motionOk()) return;
-  const fx = $("#fx"), sym = ["🌸", "💖", "✨", "🍡", "⭐", "🎀", "🍓"];
+  const fx = $("#fx"), sym = ["heart", "star", "magic", "mochi", "heart-line"], col = ["#ff7eb3", "#b08cff", "#6fcf97", "#ffc94d", "#ff9cc5"];
   for (let i = 0; i < 36; i++) {
     const c = document.createElement("span");
-    c.className = "confetti"; c.textContent = sym[i % sym.length];
-    c.style.cssText = `left:${Math.random() * 100}vw;--t:${2 + Math.random() * 1.8}s;--dx:${(Math.random() - .5) * 120}px;--rot:${(Math.random() - .5) * 720}deg;animation-delay:${Math.random() * .5}s`;
+    c.className = "confetti mi mi-" + sym[i % sym.length];
+    c.style.cssText = `color:${col[i % col.length]};font-size:${18 + Math.random() * 14}px;left:${Math.random() * 100}vw;--t:${2 + Math.random() * 1.8}s;--dx:${(Math.random() - .5) * 120}px;--rot:${(Math.random() - .5) * 720}deg;animation-delay:${Math.random() * .5}s`;
     fx.appendChild(c); setTimeout(() => c.remove(), 4500);
   }
 }
-function confirmDlg(testo, ok = "Sì") {
-  const d = $("#dlg"); $("#dlg-t").textContent = testo; $("#dlg-ok").textContent = ok;
+function confirmDlg(testo, ok = "Sì", icon = "ok") {
+  const d = $("#dlg"); $("#dlg-t").textContent = testo; $("#dlg-ok").textContent = ok; $("#dlg-ic").className = "mi mi-" + icon;
   d.returnValue = ""; d.showModal();
   return new Promise(res => d.addEventListener("close", () => res(d.returnValue === "si"), { once: true }));
 }
@@ -121,7 +121,7 @@ function renderLista() {
   $("#clear-done").hidden = !done;
 
   if (!items.length) {
-    $("#lista").innerHTML = `<div class="card empty"><span class="big-emoji" aria-hidden="true">🍙</span>
+    $("#lista").innerHTML = `<div class="card empty"><i class="mi mi-basket big-emoji" aria-hidden="true"></i>
       <p><strong>La lista è vuota.</strong><br>Scrivi qui sopra cosa serve, Mochi lo mette nel reparto giusto.</p></div>`;
     return;
   }
@@ -132,7 +132,7 @@ function renderLista() {
     const g = groups[c]; if (!g) continue;
     g.sort((a, b) => (a.fatto - b.fatto) || (a.ts || 0) - (b.ts || 0));
     const gid = "g-" + c.replace(/\W+/g, "");
-    h += `<section class="group" aria-labelledby="${gid}"><h2 id="${gid}"><span class="em" aria-hidden="true">${emojiOf(c)}</span>${esc(c)}</h2>
+    h += `<section class="group" aria-labelledby="${gid}"><h2 id="${gid}"><i class="mi mi-${iconOf(c)} em" aria-hidden="true"></i>${esc(c)}</h2>
       <div class="card"><ul class="items">`;
     for (const it of g) {
       const chi = it.da && it.da !== me().nome ? it.da : "";
@@ -141,7 +141,7 @@ function renderLista() {
         <label class="tick"><input type="checkbox" data-chk="${esc(it.id)}" data-fk="c${esc(it.id)}"${it.fatto ? " checked" : ""}>
           <span class="txt"><span class="n">${esc(it.nome)}${it.qta ? ` <span class="q">· ${esc(it.qta)}</span>` : ""}</span>
           ${chi ? `<span class="meta">aggiunto da ${esc(chi)}</span>` : ""}${it.nota ? `<span class="meta">${esc(it.nota)}</span>` : ""}</span></label>
-        <button class="icon-btn" type="button" data-del="${esc(it.id)}" data-fk="d${esc(it.id)}" aria-label="Elimina ${esc(it.nome)}"><span aria-hidden="true">✕</span></button></li>`;
+        <button class="icon-btn danger" type="button" data-del="${esc(it.id)}" data-fk="d${esc(it.id)}" aria-label="Elimina ${esc(it.nome)}"><i class="mi mi-delete" aria-hidden="true"></i></button></li>`;
     }
     h += "</ul></div></section>";
   }
@@ -152,38 +152,39 @@ function renderMonitor() {
   const m = live(state.monitor).sort((a, b) => a.nome.localeCompare(b.nome));
   $("#monitor").innerHTML = m.length ? m.map(x =>
     `<li class="chip">${esc(x.nome)}<small>per ${esc(UNIT1[x.unita] || x.unita)}</small>
-      <button class="icon-btn" type="button" data-mdel="${esc(x.id)}" aria-label="Smetti di monitorare ${esc(x.nome)}"><span aria-hidden="true">✕</span></button></li>`).join("")
+      <button class="icon-btn" type="button" data-mdel="${esc(x.id)}" aria-label="Smetti di monitorare ${esc(x.nome)}"><i class="mi mi-unwatch" aria-hidden="true"></i></button></li>`).join("")
     : `<li class="hint">Nessun prodotto. Prova con “detersivo lavatrice”.</li>`;
 }
 
-const VOTO = { ottima: ["Ottima offerta", "gold"], buona: ["Buona", ""], normale: ["Nella media", "warn"] };
+const VOTO = { ottima: ["Ottima offerta", "gold", "star"], buona: ["Buona", "", "down"], normale: ["Nella media", "warn", "info"] };
 function renderOfferte() {
   const s = state.settings, o = state.offerte;
   const key = !!ai.getCfg().key;
-  $("#off-info").textContent = !s.luogo ? "Prima imposta la zona di casa in ⚙️ Impostazioni."
-    : !key ? "Per cercare serve la chiave API di Claude (⚙️ Impostazioni)."
-    : o.updatedAt ? `Ultima ricerca: ${quando(o.updatedAt)} · entro ${s.raggioKm} km da ${s.luogo}` : "Tocca il bottone per la prima ricerca.";
+  const GEAR = '<i class="mi mi-tab-settings" aria-hidden="true"></i>';
+  $("#off-info").innerHTML = !s.luogo ? `${GEAR} Prima imposta la zona di casa in Impostazioni.`
+    : !key ? `${GEAR} Per cercare serve la chiave API di Claude (Impostazioni).`
+    : o.updatedAt ? `<i class="mi mi-pin" aria-hidden="true"></i> Ultima ricerca: ${quando(o.updatedAt)} · entro ${esc(s.raggioKm)} km da ${esc(s.luogo)}` : `<i class="mi mi-info" aria-hidden="true"></i> Tocca il bottone per la prima ricerca.`;
   $("#cerca").disabled = !s.luogo || !key || !live(state.monitor).length;
 
-  if (!o.list.length) { $("#offerte").innerHTML = `<div class="card empty"><span class="big-emoji" aria-hidden="true">🏷️</span><p>Nessuna offerta per ora.</p></div>`; return; }
+  if (!o.list.length) { $("#offerte").innerHTML = `<div class="card empty"><i class="mi mi-percent big-emoji" aria-hidden="true"></i><p>Nessuna offerta per ora.</p></div>`; return; }
   const list = [...o.list].sort((a, b) => (a.categoria || a.prodotto).localeCompare(b.categoria || b.prodotto) || (a.prezzoUnit ?? 1e9) - (b.prezzoUnit ?? 1e9));
   $("#offerte").innerHTML = list.map((x, i) => {
     const v = VOTO[x.voto], u = UNIT1[x.unita] || x.unita || "", az = x.amazon || null;
     let diff = "";
     if (az && az.prezzoUnit > 0 && x.prezzoUnit > 0) {
       const p = Math.round((x.prezzoUnit / az.prezzoUnit - 1) * 100);
-      diff = p < 0 ? `<strong>${-p}% in meno di Amazon</strong>` : p > 0 ? `${p}% in più di Amazon` : "come Amazon";
+      diff = p < 0 ? `<strong><i class="mi mi-down" aria-hidden="true"></i> ${-p}% in meno di Amazon</strong>` : p > 0 ? `${p}% in più di Amazon` : "come Amazon";
     }
     const src = safeUrl(x.fonte), azu = az && safeUrl(az.url);
     return `<article class="card offer${x.voto === "ottima" ? " top-deal" : ""}" aria-labelledby="of${i}">
       <div class="head"><div><h3 id="of${i}">${esc(x.prodotto)}</h3>
-        <div class="where">${esc(x.negozio || "")}${x.distanzaKm != null ? ` · ${esc(x.distanzaKm)} km` : ""}${x.validoFino ? ` · fino al ${esc(x.validoFino)}` : ""}</div></div>
+        <div class="where"><i class="mi mi-store" aria-hidden="true"></i> ${esc(x.negozio || "")}${x.distanzaKm != null ? ` · ${esc(x.distanzaKm)} km` : ""}${x.validoFino ? ` · fino al ${esc(x.validoFino)}` : ""}</div></div>
         <div class="price">${eur(x.prezzo)}<small>${x.quantita ? esc(x.quantita) + " " + esc(x.unita || "") : ""}</small></div></div>
-      <div class="badges">${v ? `<span class="badge ${v[1]}">${v[0]}</span>` : ""}${x.prezzoUnit ? `<span class="unit">${eur3(x.prezzoUnit)} al ${esc(u)}</span>` : ""}</div>
-      ${az ? `<p class="cmp">Amazon: ${eur(az.prezzo)}${az.prezzoUnit ? ` (${eur3(az.prezzoUnit)} al ${esc(u)})` : ""}${diff ? " · " + diff : ""}${azu ? ` · <a href="${esc(azu)}" target="_blank" rel="noopener noreferrer">vedi su Amazon<span class="sr"> (si apre in una nuova scheda)</span></a>` : ""}</p>` : ""}
+      <div class="badges">${v ? `<span class="badge ${v[1]}"><i class="mi mi-${v[2]}" aria-hidden="true"></i> ${v[0]}</span>` : ""}${x.prezzoUnit ? `<span class="unit">${eur3(x.prezzoUnit)} al ${esc(u)}</span>` : ""}</div>
+      ${az ? `<p class="cmp">Amazon: ${eur(az.prezzo)}${az.prezzoUnit ? ` (${eur3(az.prezzoUnit)} al ${esc(u)})` : ""}${diff ? " · " + diff : ""}${azu ? ` · <a href="${esc(azu)}" target="_blank" rel="noopener noreferrer"><i class="mi mi-external" aria-hidden="true"></i>vedi su Amazon<span class="sr"> (si apre in una nuova scheda)</span></a>` : ""}</p>` : ""}
       ${x.nota ? `<p class="hint">${esc(x.nota)}</p>` : ""}
-      <div class="foot">${src ? `<a href="${esc(src)}" target="_blank" rel="noopener noreferrer">Volantino<span class="sr"> di ${esc(x.negozio)} (nuova scheda)</span></a>` : "<span></span>"}
-        <button class="btn ghost" type="button" data-addoff="${i}" data-fk="o${i}">＋ Lista</button></div>
+      <div class="foot">${src ? `<a href="${esc(src)}" target="_blank" rel="noopener noreferrer"><i class="mi mi-flyer" aria-hidden="true"></i>Volantino<span class="sr"> di ${esc(x.negozio)} (nuova scheda)</span></a>` : "<span></span>"}
+        <button class="btn ghost" type="button" data-addoff="${i}" data-fk="o${i}"><i class="mi mi-list-add" aria-hidden="true"></i> Lista</button></div>
     </article>`;
   }).join("");
   renderOfferte.sorted = list;
@@ -194,15 +195,15 @@ function renderValutazioni() {
   if (!list.length) { $("#valutazioni").innerHTML = `<p class="hint">Le valutazioni che chiedi a Mochi restano qui, visibili anche a casa.</p>`; return; }
   $("#valutazioni").innerHTML = list.map(v => {
     const e = v.esito || {}, link = safeUrl(v.testo);
-    const b = e.voto === "conveniente" ? `<span class="badge gold">Conveniente</span>` : e.voto === "caro" ? `<span class="badge warn">Caro</span>` : e.voto ? `<span class="badge">Nella media</span>` : "";
+    const b = e.voto === "conveniente" ? `<span class="badge gold"><i class="mi mi-star" aria-hidden="true"></i> Conveniente</span>` : e.voto === "caro" ? `<span class="badge warn"><i class="mi mi-warn" aria-hidden="true"></i> Caro</span>` : e.voto ? `<span class="badge"><i class="mi mi-info" aria-hidden="true"></i> Nella media</span>` : "";
     return `<article class="card"><div class="row" style="align-items:flex-start;justify-content:space-between">
       <div style="min-width:0"><h3 style="margin:0;font-size:17px">${esc(e.prodotto || v.testo)}</h3>
-      <p class="hint" style="margin:2px 0">${v.prezzo ? eur(v.prezzo) : ""}${v.quantita ? ` · ${esc(v.quantita)} ${esc(v.unita)}` : ""} · ${quando(v.ts)}${link ? ` · <a href="${esc(link)}" target="_blank" rel="noopener noreferrer">link<span class="sr"> al prodotto (nuova scheda)</span></a>` : ""}</p></div>
-      <button class="icon-btn" type="button" data-vdel="${esc(v.id)}" aria-label="Elimina valutazione"><span aria-hidden="true">✕</span></button></div>
+      <p class="hint" style="margin:2px 0">${v.prezzo ? eur(v.prezzo) : ""}${v.quantita ? ` · ${esc(v.quantita)} ${esc(v.unita)}` : ""} · ${quando(v.ts)}${link ? ` · <a href="${esc(link)}" target="_blank" rel="noopener noreferrer"><i class="mi mi-external" aria-hidden="true"></i>link<span class="sr"> al prodotto (nuova scheda)</span></a>` : ""}</p></div>
+      <button class="icon-btn danger" type="button" data-vdel="${esc(v.id)}" aria-label="Elimina valutazione"><i class="mi mi-delete" aria-hidden="true"></i></button></div>
       <div class="badges">${b}${e.prezzoUnit ? `<span class="unit">${eur3(e.prezzoUnit)} al ${esc(UNIT1[e.unita] || e.unita || "")}</span>` : ""}</div>
       ${e.qualita ? `<p style="margin:8px 0 0"><strong>Qualità:</strong> ${esc(e.qualita)}</p>` : ""}
       ${e.sintesi ? `<p style="margin:6px 0 0">${esc(e.sintesi)}</p>` : ""}
-      ${e.alternativa ? `<p class="cmp">💡 ${esc(e.alternativa)}</p>` : ""}</article>`;
+      ${e.alternativa ? `<p class="cmp"><i class="mi mi-info" aria-hidden="true"></i> ${esc(e.alternativa)}</p>` : ""}</article>`;
   }).join("");
 }
 
@@ -225,7 +226,7 @@ $("#f-add").addEventListener("submit", e => {
   });
   inp.value = "";
   mochi.mood("happy"); mochi.say(frase("aggiunto"));
-  toast(nuovi.length > 1 ? `${nuovi.length} prodotti aggiunti` : `${nuovi[0].nome} aggiunto`);
+  toast(nuovi.length > 1 ? `${nuovi.length} prodotti aggiunti` : `${nuovi[0].nome} aggiunto`, "add");
 });
 
 $("#lista").addEventListener("change", e => {
@@ -235,9 +236,9 @@ $("#lista").addEventListener("change", e => {
   if (checked) {
     sparkles(document.querySelector(`[data-chk="${CSS.escape(id)}"]`));
     const rest = live(state.items).filter(i => !i.fatto).length;
-    if (!rest) { mochi.mood("happy", 3000); mochi.say(frase("finito"), 3500); confetti(); toast("Spesa completata! 🎉"); }
-    else { mochi.mood("happy"); mochi.say(frase("preso")); toast(`${it.nome} preso`); }
-  } else toast(`${it.nome} rimesso in lista`);
+    if (!rest) { mochi.mood("happy", 3000); mochi.say(frase("finito"), 3500); confetti(); toast("Spesa completata!", "mochi"); }
+    else { mochi.mood("happy"); mochi.say(frase("preso")); toast(`${it.nome} preso`, "heart"); }
+  } else toast(`${it.nome} rimesso in lista`, "tab-list");
 });
 
 $("#lista").addEventListener("click", e => {
@@ -247,15 +248,15 @@ $("#lista").addEventListener("click", e => {
   const li = b.closest("li"), next = (li.nextElementSibling || li.previousElementSibling)?.querySelector("input");
   mutate((s, now) => { s.items[id] = { ...s.items[id], deleted: true, updatedAt: now }; });
   (next && document.querySelector(`[data-fk="${CSS.escape(next.dataset.fk)}"]`) || $("#add-nome")).focus();
-  toast(`${nome} eliminato`);
+  toast(`${nome} eliminato`, "delete");
 });
 
 $("#clear-done").addEventListener("click", async () => {
   const n = live(state.items).filter(i => i.fatto).length;
-  if (!(await confirmDlg(`Togliere ${n} ${n === 1 ? "prodotto preso" : "prodotti presi"} dalla lista?`, "Sì, togli"))) return;
+  if (!(await confirmDlg(`Togliere ${n} ${n === 1 ? "prodotto preso" : "prodotti presi"} dalla lista?`, "Sì, togli", "clean"))) return;
   mutate((s, now) => { for (const i of live(s.items)) if (i.fatto) s.items[i.id] = { ...i, deleted: true, updatedAt: now }; });
   $("#add-nome").focus();
-  mochi.mood("happy"); mochi.say("Tutto in ordine ✿"); toast("Lista pulita");
+  mochi.mood("happy"); mochi.say("Tutto in ordine ✿"); toast("Lista pulita", "clean");
 });
 
 // ---------- MONITOR / OFFERTE ----------
@@ -268,13 +269,13 @@ $("#f-mon").addEventListener("submit", e => {
   e.preventDefault();
   const nome = $("#mon-nome").value.trim(); if (!nome) return $("#mon-nome").focus();
   mutate((s, now) => { const id = uid(); s.monitor[id] = { id, nome, unita: $("#mon-unita").value, updatedAt: now }; });
-  $("#mon-nome").value = ""; toast(`Tengo d'occhio: ${nome}`); mochi.mood("wow"); mochi.say("Ci penso io! 👀");
+  $("#mon-nome").value = ""; toast(`Tengo d'occhio: ${nome}`, "watch"); mochi.mood("wow"); mochi.say("Ci penso io! 👀");
 });
 $("#monitor").addEventListener("click", e => {
   const b = e.target.closest("[data-mdel]"); if (!b) return;
   const id = b.dataset.mdel, nome = state.monitor[id]?.nome;
   mutate((s, now) => { s.monitor[id] = { ...s.monitor[id], deleted: true, updatedAt: now }; });
-  $("#mon-nome").focus(); toast(`${nome} rimosso`);
+  $("#mon-nome").focus(); toast(`${nome} rimosso`, "unwatch");
 });
 $("#offerte").addEventListener("click", e => {
   const b = e.target.closest("[data-addoff]"); if (!b) return;
@@ -284,7 +285,7 @@ $("#offerte").addEventListener("click", e => {
     s.items[id] = { id, nome: x.prodotto, qta: "", cat: catOf(x.categoria || x.prodotto), fatto: false, da: me().nome,
       nota: `Offerta ${x.negozio || ""} ${eur(x.prezzo)}${x.validoFino ? " fino al " + x.validoFino : ""}`.trim(), ts: now, updatedAt: now };
   });
-  sparkles(b); toast("Aggiunto alla lista"); mochi.mood("happy"); mochi.say(frase("aggiunto"));
+  sparkles(b); toast("Aggiunto alla lista", "list-add"); mochi.mood("happy"); mochi.say(frase("aggiunto"));
 });
 
 let searching = null;
@@ -300,7 +301,7 @@ $("#cerca").addEventListener("click", async () => {
     mutate((st, now) => { st.offerte = { list: offerte, updatedAt: now }; });
     const top = offerte.filter(o => o.voto === "ottima").length;
     mochi.mood("happy", 2500); mochi.say(offerte.length ? frase("offerta") : "Niente di speciale oggi (´・ω・`)");
-    toast(offerte.length ? `${offerte.length} offerte trovate${top ? `, ${top} ottime ★` : ""}` : "Nessuna offerta trovata");
+    toast(offerte.length ? `${offerte.length} offerte trovate${top ? `, ${top} ottime` : ""}` : "Nessuna offerta trovata", top ? "star" : "search");
     if (top) confetti();
   } catch (err) {
     mochi.mood("sleepy", 2500); mochi.say(frase("errore"));
@@ -322,8 +323,8 @@ $("#val-calc").addEventListener("click", () => {
   let h = `<div class="result"><div class="bigv">${eur3(pu)}</div><div class="unit">al ${UNIT1[unita]}</div>`;
   if (best) {
     const p = Math.round((pu / best.prezzoUnit - 1) * 100);
-    h += p <= 0 ? `<p><span class="badge gold">Conveniente</span> Costa ${p < 0 ? -p + "% in meno" : "uguale"} rispetto alla migliore offerta vicino a casa (${esc(best.negozio)}).</p>`
-                : `<p><span class="badge warn">Si trova a meno</span> Da ${esc(best.negozio)} costa ${eur3(best.prezzoUnit)} al ${UNIT1[unita]} (${p}% in meno).</p>`;
+    h += p <= 0 ? `<p><span class="badge gold"><i class="mi mi-star" aria-hidden="true"></i> Conveniente</span> Costa ${p < 0 ? -p + "% in meno" : "uguale"} rispetto alla migliore offerta vicino a casa (${esc(best.negozio)}).</p>`
+                : `<p><span class="badge warn"><i class="mi mi-warn" aria-hidden="true"></i> Si trova a meno</span> Da ${esc(best.negozio)} costa ${eur3(best.prezzoUnit)} al ${UNIT1[unita]} (${p}% in meno).</p>`;
   } else h += `<p class="hint">Non ho offerte simili salvate per confrontarlo. Prova “Chiedi a Mochi”.</p>`;
   out.innerHTML = h + "</div>";
   mochi.mood(best && pu <= best.prezzoUnit ? "happy" : "wow");
@@ -332,14 +333,14 @@ $("#f-val").addEventListener("submit", async e => {
   e.preventDefault();
   const v = readVal(), btn = $("#val-ask"), out = $("#val-out");
   if (!v.testo) { out.innerHTML = `<p class="hint">Scrivi il nome del prodotto o incolla il link.</p>`; $("#val-testo").focus(); return; }
-  if (!ai.getCfg().key) { out.innerHTML = `<p class="hint">Serve la chiave API di Claude: la trovi in ⚙️ Impostazioni.</p>`; return; }
+  if (!ai.getCfg().key) { out.innerHTML = `<p class="hint"><i class="mi mi-key" aria-hidden="true"></i> Serve la chiave API di Claude: la trovi in Impostazioni.</p>`; return; }
   btn.classList.add("loading"); btn.setAttribute("aria-busy", "true"); btn.disabled = true;
   out.innerHTML = `<p class="hint">Mochi sta controllando prezzi e recensioni…</p>`;
   mochi.mood("wow", 0); mochi.say("Fammi vedere… 🧐", 60000);
   try {
     const esito = await ai.valuta({ ...v, offerte: state.offerte.list });
     mutate((s, now) => { const id = uid(); s.valutazioni[id] = { id, ...v, esito, da: me().nome, ts: now, updatedAt: now }; });
-    out.innerHTML = `<p class="hint">✓ Fatto! Il risultato è qui sotto.</p>`;
+    out.innerHTML = `<p class="hint"><i class="mi mi-ok" aria-hidden="true"></i> Fatto! Il risultato è qui sotto.</p>`;
     mochi.mood(esito.voto === "conveniente" ? "happy" : "wow", 2500);
     mochi.say(esito.voto === "conveniente" ? "Buon affare! 💕" : esito.voto === "caro" ? "Mmh, si trova a meno…" : "Nella media ✿");
     document.querySelector("#valutazioni article")?.scrollIntoView({ behavior: motionOk() ? "smooth" : "auto", block: "nearest" });
@@ -350,7 +351,7 @@ $("#f-val").addEventListener("submit", async e => {
 $("#valutazioni").addEventListener("click", e => {
   const b = e.target.closest("[data-vdel]"); if (!b) return;
   mutate((s, now) => { s.valutazioni[b.dataset.vdel] = { ...s.valutazioni[b.dataset.vdel], deleted: true, updatedAt: now }; });
-  $("#val-testo").focus(); toast("Valutazione eliminata");
+  $("#val-testo").focus(); toast("Valutazione eliminata", "delete");
 });
 
 // ---------- IMPOSTAZIONI ----------
@@ -362,23 +363,23 @@ function fillSettings() {
   $("#z-luogo").value = s.luogo || ""; $("#z-raggio").value = s.raggioKm || 5; $("#z-raggio-v").textContent = s.raggioKm || 5;
   $("#z-negozi").value = s.negozi || ""; $("#z-amz").checked = s.amazon !== false;
   const a = ai.getCfg(); $("#ai-key").value = a.key || ""; $("#ai-model").value = a.model || ai.DEFAULT_MODEL;
-  $("#dbx-off").hidden = !dbx.isConnected(); $("#dbx-go").textContent = dbx.isConnected() ? "Ricollega Dropbox" : "Collega Dropbox";
+  $("#dbx-off").hidden = !dbx.isConnected(); $("#dbx-go span").textContent = dbx.isConnected() ? "Ricollega Dropbox" : "Collega Dropbox";
 }
 $("#z-raggio").addEventListener("input", e => $("#z-raggio-v").textContent = e.target.value);
 $("#f-me").addEventListener("submit", e => {
   e.preventDefault();
   lsSet("mochi.me", { nome: $("#me-nome").value.trim(), anim: document.querySelector('input[name="anim"]:checked')?.value || "auto" });
-  applyAnim(); render(); toast("Salvato ✓"); mochi.mood("happy"); mochi.say($("#me-nome").value.trim() ? `Piacere, ${$("#me-nome").value.trim()}! ♡` : "Salvato ✿");
+  applyAnim(); render(); toast("Salvato", "save"); mochi.mood("happy"); mochi.say($("#me-nome").value.trim() ? `Piacere, ${$("#me-nome").value.trim()}! ♡` : "Salvato ✿");
 });
 $("#f-zona").addEventListener("submit", e => {
   e.preventDefault();
   mutate((s, now) => { s.settings = { luogo: $("#z-luogo").value.trim(), raggioKm: +$("#z-raggio").value, negozi: $("#z-negozi").value.trim(), amazon: $("#z-amz").checked, updatedAt: now }; });
-  toast("Zona salvata ✓");
+  toast("Zona salvata", "pin");
 });
 $("#f-ai").addEventListener("submit", e => {
   e.preventDefault();
   ai.setCfg({ key: $("#ai-key").value.trim(), model: $("#ai-model").value.trim() || ai.DEFAULT_MODEL });
-  renderOfferte(); toast("Chiave salvata su questo telefono ✓");
+  renderOfferte(); toast("Chiave salvata su questo telefono", "key");
 });
 $("#f-dbx").addEventListener("submit", async e => {
   e.preventDefault();
@@ -389,8 +390,8 @@ $("#f-dbx").addEventListener("submit", async e => {
   await dbx.startAuth(appKey);
 });
 $("#dbx-off").addEventListener("click", async () => {
-  if (!(await confirmDlg("Scollegare Dropbox da questo telefono? La lista resta salvata qui.", "Scollega"))) return;
-  dbx.disconnect(); fillSettings(); setSync("local"); toast("Dropbox scollegato");
+  if (!(await confirmDlg("Scollegare Dropbox da questo telefono? La lista resta salvata qui.", "Scollega", "disconnect"))) return;
+  dbx.disconnect(); fillSettings(); setSync("local"); toast("Dropbox scollegato", "disconnect");
 });
 $("#dbx-share").addEventListener("click", async () => {
   const c = { k: $("#dbx-key").value.trim(), p: normPath($("#dbx-path").value) };
@@ -407,6 +408,7 @@ let rev = lsGet("mochi.rev", null), syncing = false, syncAgain = false, syncT;
 function setSync(kind, txt) {
   const b = $("#sync");
   b.className = "sync " + ({ ok: "ok", busy: "busy", err: "err" }[kind] || "");
+  $("#sync-ic").className = "mi mi-" + ({ ok: "cloud-ok", busy: "cloud-up", err: "cloud-off" }[kind] || "phone");
   $("#sync-txt").textContent = txt || ({ local: "Solo su questo telefono", busy: "Sincronizzo…", ok: "Sincronizzato" }[kind] || "");
   b.setAttribute("aria-label", ($("#sync-txt").textContent) + (dbx.isConnected() ? ". Tocca per sincronizzare ora" : ". Tocca per collegare Dropbox"));
 }
@@ -432,7 +434,7 @@ async function sync() {
       if (!same(before, state)) {
         const nuovi = live(state.items).filter(i => !seen.has(i.id) && i.da && i.da !== me().nome);
         render();
-        if (nuovi.length) { toast(`${nuovi[0].da} ha aggiunto ${nuovi.length === 1 ? nuovi[0].nome : nuovi.length + " prodotti"}`); mochi.mood("wow"); mochi.say("Novità in lista! 💌"); }
+        if (nuovi.length) { toast(`${nuovi[0].da} ha aggiunto ${nuovi.length === 1 ? nuovi[0].nome : nuovi.length + " prodotti"}`, "send-love"); mochi.mood("wow"); mochi.say("Novità in lista! 💌"); }
       }
       setSync("ok", "Sincronizzato " + new Date().toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" }));
       break;
@@ -457,9 +459,9 @@ addEventListener("offline", () => setSync("err", "Offline: salvo qui"));
 // ---------- onboarding ----------
 function renderOnboard() {
   $("#onboard").innerHTML = dbx.isConnected() ? "" :
-    `<div class="card"><h2 class="in">Ciao! Sono Mochi ♡</h2>
+    `<div class="card"><h2 class="in"><i class="mi mi-mochi" aria-hidden="true"></i> Ciao! Sono Mochi</h2>
      <p style="margin:0 0 10px">La lista funziona già su questo telefono. Per condividerla con tua moglie collega Dropbox.</p>
-     <button class="btn primary" type="button" id="go-dbx">☁️ Collega Dropbox</button></div>`;
+     <button class="btn primary" type="button" id="go-dbx"><i class="mi mi-connect" aria-hidden="true"></i> Collega Dropbox</button></div>`;
   $("#go-dbx")?.addEventListener("click", () => { selectTab($("#t-imp")); $("#dbx-key").focus(); });
 }
 
@@ -469,11 +471,11 @@ function renderOnboard() {
   // link di configurazione condiviso: #setup=…
   const m = location.hash.match(/^#setup=(.+)$/);
   if (m) {
-    try { const c = JSON.parse(decodeURIComponent(escape(atob(m[1])))); lsSet(DBX_CFG_KEY, { appKey: String(c.k || ""), path: normPath(c.p) }); toast("Configurazione ricevuta ♡ Ora collega Dropbox"); } catch {}
+    try { const c = JSON.parse(decodeURIComponent(escape(atob(m[1])))); lsSet(DBX_CFG_KEY, { appKey: String(c.k || ""), path: normPath(c.p) }); toast("Configurazione ricevuta: ora collega Dropbox", "send-love"); } catch {}
     history.replaceState(null, "", dbx.redirectUri() + "#imp");
   }
-  try { if (await dbx.handleRedirect()) { toast("Dropbox collegato! ☁️"); mochi.mood("happy", 2500); mochi.say("Ora siamo connessi ♡"); } }
-  catch (e) { toast(e.message); }
+  try { if (await dbx.handleRedirect()) { toast("Dropbox collegato!", "cloud-ok"); mochi.mood("happy", 2500); mochi.say("Ora siamo connessi ♡"); } }
+  catch (e) { toast(e.message, "warn"); }
 
   fillSettings(); renderOnboard(); render();
   const start = tabs.find(t => "#" + t.id.slice(2) === location.hash) || tabs[0];
