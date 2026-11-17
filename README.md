@@ -7,6 +7,7 @@ Lista della spesa **condivisa**, **kawaii** e **senza server**, con Mochi che ce
 - 📝 **Lista condivisa**: scrivi “2 kg mele” o “latte, pane, uova”. Mochi mette ogni prodotto nel reparto giusto.
 - ✅ **Spunta, scorri, quantità**: spunti quello che hai comprato, scorri di lato per eliminare (con “Annulla”) e usi un pulsante per la quantità.
 - 🥫 **Dispensa**: a casa Mochi ti chiede cosa hai messo in cantina o magazzino. Il resto va in credenza. Puoi organizzare i posti con nome, scaffali, ripiani e categorie. Se aggiungi alla lista qualcosa che hai già, Mochi ti avvisa: lo prendi dalla cantina (badge lilla) o lo togli dalla dispensa.
+- 🗄️ **Scaffali disegnati**: ogni posto mostra i suoi scaffali con i ripiani, il numero di prodotti e le categorie. Tocchi un ripiano e vai ai suoi prodotti. L'editor ha un pulsante +/− per i ripiani e l'opzione “il ripiano 1 è in basso”. Se rinomini scaffali o ripiani, i prodotti li seguono.
 - 📥 **Importa da Invendo**: carichi l'export Excel (.xlsx) o CSV. “Cantina | Angolo | 3” diventa posto › scaffale › ripiano, con quantità, categorie e scadenze. Se reimporti, i prodotti vengono aggiornati e non duplicati. Quelli a quantità 0 vengono tolti.
 - 🏪 **Dove conviene?**: per la lista scegli il negozio più economico di ogni prodotto. I preferiti ★ e i negozi da evitare ⦸ valgono anche per le ricerche successive.
 - ☁️ **Sincronizzata con Dropbox**: un file JSON in una cartella condivisa in famiglia. Funziona anche offline e le modifiche si uniscono da sole.

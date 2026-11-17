@@ -377,5 +377,17 @@
   "pantry.importDone": "{n} Produkte importiert",
   "pantry.importErr": "Datei nicht lesbar. Exportiere aus Invendo als Excel (.xlsx) oder CSV.",
   "pantry.expires": "läuft ab am {date}",
-  "new.import": "Vorrat aus Invendo importieren (Excel oder CSV), mit Orten, Regalen, Fächern und Ablaufdaten."
+  "new.import": "Vorrat aus Invendo importieren (Excel oder CSV), mit Orten, Regalen, Fächern und Ablaufdaten.",
+  "pantry.addShelf": "Regal hinzufügen",
+  "pantry.shelfName": "Regalname",
+  "pantry.levels": "Fächer",
+  "pantry.levelLess": "Ein Fach weniger",
+  "pantry.levelMore": "Ein Fach mehr",
+  "pantry.fromBottom": "Fach 1 ist unten",
+  "pantry.removeShelf": "Regal {name} löschen",
+  "pantry.newShelf": "Regal {n}",
+  "pantry.levelsHelp": "Fächer durch Kommas getrennt, z. B. 1, 2, 3 oder Oben, Unten. Beim Umbenennen wandern die Produkte mit.",
+  "pantry.rackLevel": "{shelf}, Fach {level}: {n} Produkte",
+  "pantry.noShelf": "Ohne Regal",
+  "new.racks": "Gezeichnete Regale mit Fächern: tippe auf ein Fach, um den Inhalt zu sehen. Neuer Regal-Editor."
 }

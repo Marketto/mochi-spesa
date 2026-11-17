@@ -377,5 +377,17 @@
   "pantry.importDone": "{n} produkter importeret",
   "pantry.importErr": "Kan ikke læse filen. Eksportér fra Invendo som Excel (.xlsx) eller CSV.",
   "pantry.expires": "holdbar til {date}",
-  "new.import": "Importér spisekammeret fra Invendo (Excel eller CSV) med steder, reoler, hylder og datoer."
+  "new.import": "Importér spisekammeret fra Invendo (Excel eller CSV) med steder, reoler, hylder og datoer.",
+  "pantry.addShelf": "Tilføj reol",
+  "pantry.shelfName": "Reolens navn",
+  "pantry.levels": "Hylder",
+  "pantry.levelLess": "En hylde mindre",
+  "pantry.levelMore": "En hylde mere",
+  "pantry.fromBottom": "Hylde 1 er nederst",
+  "pantry.removeShelf": "Slet reol {name}",
+  "pantry.newShelf": "Reol {n}",
+  "pantry.levelsHelp": "Hylder adskilt med komma, fx 1, 2, 3 eller Øverst, Nederst. Omdøber du, flytter produkterne med.",
+  "pantry.rackLevel": "{shelf}, hylde {level}: {n} produkter",
+  "pantry.noShelf": "Uden reol",
+  "new.racks": "Tegnede reoler med hylder: tryk på en hylde for at se indholdet. Ny reol-editor."
 }

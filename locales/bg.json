@@ -377,5 +377,17 @@
   "pantry.importDone": "Внесени продукти: {n}",
   "pantry.importErr": "Не мога да прочета файла. Експортирай от Invendo като Excel (.xlsx) или CSV.",
   "pantry.expires": "годен до {date}",
-  "new.import": "Внос на килера от Invendo (Excel или CSV) с места, стелажи, рафтове и срокове."
+  "new.import": "Внос на килера от Invendo (Excel или CSV) с места, стелажи, рафтове и срокове.",
+  "pantry.addShelf": "Добави стелаж",
+  "pantry.shelfName": "Име на стелажа",
+  "pantry.levels": "Рафтове",
+  "pantry.levelLess": "Един рафт по-малко",
+  "pantry.levelMore": "Един рафт повече",
+  "pantry.fromBottom": "Рафт 1 е най-долу",
+  "pantry.removeShelf": "Изтрий стелаж {name}",
+  "pantry.newShelf": "Стелаж {n}",
+  "pantry.levelsHelp": "Рафтове, разделени със запетая, напр. 1, 2, 3 или Горе, Долу. При преименуване продуктите се местят с тях.",
+  "pantry.rackLevel": "{shelf}, рафт {level}: {n} продукта",
+  "pantry.noShelf": "Без стелаж",
+  "new.racks": "Нарисувани стелажи с рафтове: докосни рафт, за да видиш какво има. Нов редактор на стелажи."
 }

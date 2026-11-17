@@ -377,5 +377,17 @@
   "pantry.importDone": "{n} produse importate",
   "pantry.importErr": "Nu pot citi fișierul. Exportă din Invendo în Excel (.xlsx) sau CSV.",
   "pantry.expires": "expiră pe {date}",
-  "new.import": "Importă cămara din Invendo (Excel sau CSV), cu locuri, rafturi, polițe și date de expirare."
+  "new.import": "Importă cămara din Invendo (Excel sau CSV), cu locuri, rafturi, polițe și date de expirare.",
+  "pantry.addShelf": "Adaugă raft",
+  "pantry.shelfName": "Numele raftului",
+  "pantry.levels": "Polițe",
+  "pantry.levelLess": "O poliță în minus",
+  "pantry.levelMore": "O poliță în plus",
+  "pantry.fromBottom": "Polița 1 e jos",
+  "pantry.removeShelf": "Șterge raftul {name}",
+  "pantry.newShelf": "Raft {n}",
+  "pantry.levelsHelp": "Polițe separate prin virgulă, ex. 1, 2, 3 sau Sus, Jos. Dacă redenumești, produsele se mută odată cu ele.",
+  "pantry.rackLevel": "{shelf}, polița {level}: {n} produse",
+  "pantry.noShelf": "Fără raft",
+  "new.racks": "Rafturi desenate cu polițe: atinge o poliță ca să vezi ce e pe ea. Editor nou de rafturi."
 }

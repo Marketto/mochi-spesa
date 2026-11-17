@@ -377,5 +377,17 @@
   "pantry.importDone": "{n} tuotetta tuotu",
   "pantry.importErr": "Tiedostoa ei voi lukea. Vie Invendosta Excel- (.xlsx) tai CSV-muodossa.",
   "pantry.expires": "parasta ennen {date}",
-  "new.import": "Tuo ruokakomero Invendosta (Excel tai CSV) paikkoineen, hyllyineen, tasoineen ja päiväyksineen."
+  "new.import": "Tuo ruokakomero Invendosta (Excel tai CSV) paikkoineen, hyllyineen, tasoineen ja päiväyksineen.",
+  "pantry.addShelf": "Lisää hylly",
+  "pantry.shelfName": "Hyllyn nimi",
+  "pantry.levels": "Tasot",
+  "pantry.levelLess": "Yksi taso vähemmän",
+  "pantry.levelMore": "Yksi taso lisää",
+  "pantry.fromBottom": "Taso 1 on alimpana",
+  "pantry.removeShelf": "Poista hylly {name}",
+  "pantry.newShelf": "Hylly {n}",
+  "pantry.levelsHelp": "Tasot pilkuilla erotettuina, esim. 1, 2, 3 tai Ylä, Ala. Nimen muuttuessa tuotteet seuraavat.",
+  "pantry.rackLevel": "{shelf}, taso {level}: {n} tuotetta",
+  "pantry.noShelf": "Ei hyllyä",
+  "new.racks": "Piirretyt hyllyt tasoineen: napauta tasoa nähdäksesi sisällön. Uusi hyllyeditori."
 }

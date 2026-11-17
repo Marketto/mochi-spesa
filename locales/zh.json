@@ -377,5 +377,17 @@
   "pantry.importDone": "已导入 {n} 件商品",
   "pantry.importErr": "无法读取文件。请从 Invendo 导出为 Excel（.xlsx）或 CSV。",
   "pantry.expires": "{date} 到期",
-  "new.import": "从 Invendo 导入储物（Excel 或 CSV），包括位置、货架、层和保质期。"
+  "new.import": "从 Invendo 导入储物（Excel 或 CSV），包括位置、货架、层和保质期。",
+  "pantry.addShelf": "添加货架",
+  "pantry.shelfName": "货架名称",
+  "pantry.levels": "层",
+  "pantry.levelLess": "减少一层",
+  "pantry.levelMore": "增加一层",
+  "pantry.fromBottom": "第 1 层在最下面",
+  "pantry.removeShelf": "删除货架 {name}",
+  "pantry.newShelf": "货架 {n}",
+  "pantry.levelsHelp": "层名用逗号分隔，例如 1, 2, 3 或 上层, 下层。重命名时商品会一起移动。",
+  "pantry.rackLevel": "{shelf}，第 {level} 层：{n} 件商品",
+  "pantry.noShelf": "无货架",
+  "new.racks": "画出的货架和层：点一层即可查看里面的东西。新的货架编辑器。"
 }

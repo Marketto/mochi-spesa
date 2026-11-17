@@ -377,5 +377,17 @@
   "pantry.importDone": "Uvezeno proizvoda: {n}",
   "pantry.importErr": "Ne mogu pročitati datoteku. Izvezi iz Invendo kao Excel (.xlsx) ili CSV.",
   "pantry.expires": "rok {date}",
-  "new.import": "Uvoz smočnice iz Invendo (Excel ili CSV) s mjestima, regalima, policama i rokovima."
+  "new.import": "Uvoz smočnice iz Invendo (Excel ili CSV) s mjestima, regalima, policama i rokovima.",
+  "pantry.addShelf": "Dodaj regal",
+  "pantry.shelfName": "Naziv regala",
+  "pantry.levels": "Police",
+  "pantry.levelLess": "Jedna polica manje",
+  "pantry.levelMore": "Jedna polica više",
+  "pantry.fromBottom": "Polica 1 je dolje",
+  "pantry.removeShelf": "Obriši regal {name}",
+  "pantry.newShelf": "Regal {n}",
+  "pantry.levelsHelp": "Police odvojene zarezom, npr. 1, 2, 3 ili Gore, Dolje. Kad preimenuješ, proizvodi idu s njom.",
+  "pantry.rackLevel": "{shelf}, polica {level}: proizvoda {n}",
+  "pantry.noShelf": "Bez regala",
+  "new.racks": "Nacrtani regali s policama: dodirni policu da vidiš što je na njoj. Novi uređivač regala."
 }

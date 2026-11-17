@@ -377,5 +377,17 @@
   "pantry.importDone": "Importuota prekių: {n}",
   "pantry.importErr": "Negaliu nuskaityti failo. Eksportuokite iš Invendo kaip Excel (.xlsx) arba CSV.",
   "pantry.expires": "galioja iki {date}",
-  "new.import": "Importuokite sandėliuką iš Invendo (Excel arba CSV) su vietomis, lentynomis, aukštais ir galiojimu."
+  "new.import": "Importuokite sandėliuką iš Invendo (Excel arba CSV) su vietomis, lentynomis, aukštais ir galiojimu.",
+  "pantry.addShelf": "Pridėti lentyną",
+  "pantry.shelfName": "Lentynos pavadinimas",
+  "pantry.levels": "Aukštai",
+  "pantry.levelLess": "Vienu aukštu mažiau",
+  "pantry.levelMore": "Vienu aukštu daugiau",
+  "pantry.fromBottom": "1 aukštas yra apačioje",
+  "pantry.removeShelf": "Ištrinti lentyną {name}",
+  "pantry.newShelf": "Lentyna {n}",
+  "pantry.levelsHelp": "Aukštai atskirti kableliais, pvz. 1, 2, 3 arba Viršus, Apačia. Pervadinus prekės keliauja kartu.",
+  "pantry.rackLevel": "{shelf}, aukštas {level}: prekių {n}",
+  "pantry.noShelf": "Be lentynos",
+  "new.racks": "Nupieštos lentynos su aukštais: palieskite aukštą, kad pamatytumėte turinį. Naujas lentynų redaktorius."
 }

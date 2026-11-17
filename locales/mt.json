@@ -377,5 +377,17 @@
   "pantry.importDone": "{n} prodotti importati",
   "pantry.importErr": "Ma nistax naqra l-fajl. Esporta minn Invendo bħala Excel (.xlsx) jew CSV.",
   "pantry.expires": "jiskadi {date}",
-  "new.import": "Importa l-kexxun minn Invendo (Excel jew CSV), b'postijiet, ixkafef, livelli u skadenzi."
+  "new.import": "Importa l-kexxun minn Invendo (Excel jew CSV), b'postijiet, ixkafef, livelli u skadenzi.",
+  "pantry.addShelf": "Żid xkaffa",
+  "pantry.shelfName": "Isem l-ixkaffa",
+  "pantry.levels": "Livelli",
+  "pantry.levelLess": "Livell wieħed inqas",
+  "pantry.levelMore": "Livell wieħed aktar",
+  "pantry.fromBottom": "Il-livell 1 jinsab isfel",
+  "pantry.removeShelf": "Ħassar l-ixkaffa {name}",
+  "pantry.newShelf": "Xkaffa {n}",
+  "pantry.levelsHelp": "Livelli separati b'virgoli, eż. 1, 2, 3 jew Fuq, Isfel. Jekk tibdel l-isem, il-prodotti jimxu magħhom.",
+  "pantry.rackLevel": "{shelf}, livell {level}: {n} prodotti",
+  "pantry.noShelf": "Bla xkaffa",
+  "new.racks": "Xkafef imfassla bil-livelli: agħfas livell biex tara x'fih. Editur ġdid tal-ixkafef."
 }

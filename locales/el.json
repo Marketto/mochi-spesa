@@ -377,5 +377,17 @@
   "pantry.importDone": "Εισήχθησαν {n} προϊόντα",
   "pantry.importErr": "Δεν μπορώ να διαβάσω το αρχείο. Κάνε εξαγωγή από το Invendo σε Excel (.xlsx) ή CSV.",
   "pantry.expires": "λήγει {date}",
-  "new.import": "Εισαγωγή ντουλαπιού από Invendo (Excel ή CSV) με θέσεις, ράφια, επίπεδα και λήξεις."
+  "new.import": "Εισαγωγή ντουλαπιού από Invendo (Excel ή CSV) με θέσεις, ράφια, επίπεδα και λήξεις.",
+  "pantry.addShelf": "Προσθήκη ραφιέρας",
+  "pantry.shelfName": "Όνομα ραφιέρας",
+  "pantry.levels": "Ράφια",
+  "pantry.levelLess": "Ένα ράφι λιγότερο",
+  "pantry.levelMore": "Ένα ράφι περισσότερο",
+  "pantry.fromBottom": "Το ράφι 1 είναι κάτω",
+  "pantry.removeShelf": "Διαγραφή ραφιέρας {name}",
+  "pantry.newShelf": "Ραφιέρα {n}",
+  "pantry.levelsHelp": "Ράφια χωρισμένα με κόμμα, π.χ. 1, 2, 3 ή Πάνω, Κάτω. Με μετονομασία μετακινούνται και τα προϊόντα.",
+  "pantry.rackLevel": "{shelf}, ράφι {level}: {n} προϊόντα",
+  "pantry.noShelf": "Χωρίς ραφιέρα",
+  "new.racks": "Σχεδιασμένες ραφιέρες με ράφια: πάτα ένα ράφι για να δεις τι έχει. Νέος επεξεργαστής."
 }

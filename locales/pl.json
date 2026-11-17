@@ -377,5 +377,17 @@
   "pantry.importDone": "Zaimportowano produkty: {n}",
   "pantry.importErr": "Nie mogę odczytać pliku. Wyeksportuj z Invendo jako Excel (.xlsx) lub CSV.",
   "pantry.expires": "ważne do {date}",
-  "new.import": "Import spiżarni z Invendo (Excel lub CSV) z miejscami, regałami, półkami i datami ważności."
+  "new.import": "Import spiżarni z Invendo (Excel lub CSV) z miejscami, regałami, półkami i datami ważności.",
+  "pantry.addShelf": "Dodaj regał",
+  "pantry.shelfName": "Nazwa regału",
+  "pantry.levels": "Półki",
+  "pantry.levelLess": "Jedna półka mniej",
+  "pantry.levelMore": "Jedna półka więcej",
+  "pantry.fromBottom": "Półka 1 jest na dole",
+  "pantry.removeShelf": "Usuń regał {name}",
+  "pantry.newShelf": "Regał {n}",
+  "pantry.levelsHelp": "Półki oddzielone przecinkami, np. 1, 2, 3 lub Góra, Dół. Po zmianie nazwy produkty przenoszą się razem z nią.",
+  "pantry.rackLevel": "{shelf}, półka {level}: produkty: {n}",
+  "pantry.noShelf": "Bez regału",
+  "new.racks": "Narysowane regały z półkami: dotknij półki, by zobaczyć zawartość. Nowy edytor regałów."
 }

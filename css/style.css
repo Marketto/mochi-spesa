@@ -433,3 +433,31 @@ textarea:focus { border-color: var(--pink); box-shadow: 0 0 0 4px var(--pink-sof
 .pantry-item .exp.past { color: var(--warn-ink, #a3341c); font-weight: 700; }
 @media (prefers-color-scheme: dark) { .pantry-item .exp.past { color: var(--warn); } }
 #pantry-import { margin-top: 8px; }
+
+/* scaffali disegnati */
+:root { --wood: #e9c9a6; --wood-dark: #c99a6e; }
+@media (prefers-color-scheme: dark) { :root { --wood: #6e4f3c; --wood-dark: #8d6a4f; } }
+.racks { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px; margin-bottom: 4px; scroll-snap-type: x proximity; }
+.rack { flex: 0 0 auto; min-width: 150px; max-width: 220px; scroll-snap-align: start; }
+.rack-name { font-weight: 800; font-size: 14px; margin: 0 4px 4px; display: flex; gap: 6px; align-items: center; color: var(--ink); }
+.rack-body { list-style: none; margin: 0; padding: 0 0 8px; border: 6px solid var(--wood-dark); border-top-width: 8px; border-bottom-width: 10px;
+  border-radius: 10px 10px 4px 4px; background: var(--card); box-shadow: var(--shadow); }
+.rack-body li + li .rack-lvl { border-top: 0; }
+.rack-lvl { display: flex; align-items: flex-end; gap: 6px; width: 100%; min-height: 48px; padding: 6px 8px 4px; border: 0; border-bottom: 5px solid var(--wood);
+  background: transparent; color: var(--ink); font: inherit; text-align: start; cursor: pointer; transition: background .15s; }
+button.rack-lvl:hover, button.rack-lvl:focus-visible { background: var(--pink-soft); }
+.rack-lvl.empty { cursor: default; opacity: .7; }
+.lv-n { font-weight: 800; font-size: 13px; color: var(--lav); min-width: 1.4em; }
+.lv-ic { flex: 1; display: flex; gap: 2px; font-size: 18px; color: var(--pink); flex-wrap: wrap; }
+.lv-c { font-weight: 800; font-size: 13px; background: var(--pink-soft); border-radius: 99px; padding: 0 8px; min-width: 1.8em; text-align: center; }
+.rack-lvl.empty .lv-c { background: none; }
+h3.shelf { display: flex; gap: 6px; align-items: center; scroll-margin-top: 16px; }
+h3.shelf.flash { animation: flash 1.2s ease; }
+@keyframes flash { 0%, 40% { background: var(--pink-soft); } 100% { background: transparent; } }
+/* editor scaffali */
+.shelf-edit { border: 2px dashed var(--line); border-radius: 14px; padding: 8px 10px; margin: 8px 0; }
+.shelf-head { display: flex; justify-content: space-between; align-items: center; }
+.lv-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.lv-row .stepper output { min-width: 2ch; text-align: center; font-weight: 800; font-size: 18px; }
+.lv-row > input { flex: 1; min-width: 120px; }
+.btn.small { font-size: 15px; padding: 8px 14px; min-height: 44px; }
