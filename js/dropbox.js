@@ -1,5 +1,6 @@
 // Sincronizzazione con Dropbox, direttamente dal browser (OAuth PKCE, nessun server).
 // I token restano solo in questo dispositivo (localStorage).
+import { t } from "./i18n.js";
 
 const LS = "mochi.dropbox";
 const read = () => { try { return JSON.parse(localStorage.getItem(LS)) || {}; } catch { return {}; } };
@@ -31,15 +32,15 @@ export async function handleRedirect() {
   const code = p.get("code"), state = p.get("state");
   if (!code && !p.get("error")) return false;
   history.replaceState(null, "", redirectUri() + location.hash);
-  if (!code) throw new Error("Accesso a Dropbox annullato.");
+  if (!code) throw new Error(t("dbx.cancelled"));
   let saved; try { saved = JSON.parse(sessionStorage.getItem("mochi.pkce")); } catch {}
   sessionStorage.removeItem("mochi.pkce");
-  if (!saved || saved.state !== state) throw new Error("Accesso non valido, riprova.");
+  if (!saved || saved.state !== state) throw new Error(t("dbx.invalid"));
   const r = await fetch("https://api.dropboxapi.com/oauth2/token", {
     method: "POST",
     body: new URLSearchParams({ code, grant_type: "authorization_code", code_verifier: saved.verifier, client_id: saved.appKey, redirect_uri: redirectUri() }),
   });
-  if (!r.ok) throw new Error("Dropbox non ha accettato l'accesso.");
+  if (!r.ok) throw new Error(t("dbx.rejected"));
   const t = await r.json();
   write({ ...read(), appKey: saved.appKey, refresh_token: t.refresh_token, access_token: t.access_token, exp: Date.now() + (t.expires_in - 60) * 1000 });
   return true;
@@ -47,13 +48,13 @@ export async function handleRedirect() {
 
 async function token() {
   const d = read();
-  if (!d.refresh_token) throw Object.assign(new Error("Dropbox non collegato"), { code: "auth" });
+  if (!d.refresh_token) throw Object.assign(new Error(t("sync.local")), { code: "auth" });
   if (d.access_token && d.exp > Date.now()) return d.access_token;
   const r = await fetch("https://api.dropboxapi.com/oauth2/token", {
     method: "POST", body: new URLSearchParams({ grant_type: "refresh_token", refresh_token: d.refresh_token, client_id: d.appKey }),
   });
-  if (r.status === 400 || r.status === 401) { disconnect(); throw Object.assign(new Error("Accesso Dropbox scaduto"), { code: "auth" }); }
-  if (!r.ok) throw new Error("Dropbox non raggiungibile");
+  if (r.status === 400 || r.status === 401) { disconnect(); throw Object.assign(new Error(t("sync.reconnect")), { code: "auth" }); }
+  if (!r.ok) throw new Error(t("sync.retry"));
   const t = await r.json();
   write({ ...d, access_token: t.access_token, exp: Date.now() + (t.expires_in - 60) * 1000 });
   return t.access_token;
@@ -68,8 +69,8 @@ export async function download(path) {
     method: "POST", headers: { Authorization: "Bearer " + await token(), "Dropbox-API-Arg": apiArg({ path }) },
   });
   if (r.status === 409) return null;
-  if (r.status === 401) { disconnect(); throw Object.assign(new Error("Accesso Dropbox scaduto"), { code: "auth" }); }
-  if (!r.ok) throw new Error("Download non riuscito (" + r.status + ")");
+  if (r.status === 401) { disconnect(); throw Object.assign(new Error(t("sync.reconnect")), { code: "auth" }); }
+  if (!r.ok) throw new Error(t("sync.retry"));
   const meta = JSON.parse(r.headers.get("Dropbox-API-Result") || "{}");
   let data = null; try { data = JSON.parse(await r.text()); } catch {}
   return { data, rev: meta.rev };
@@ -86,6 +87,6 @@ export async function upload(path, data, rev) {
     body: JSON.stringify(data),
   });
   if (r.status === 409) throw Object.assign(new Error("conflict"), { code: "conflict" });
-  if (!r.ok) throw new Error("Upload non riuscito (" + r.status + ")");
+  if (!r.ok) throw new Error(t("sync.retry"));
   return (await r.json()).rev;
 }

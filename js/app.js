@@ -1,60 +1,64 @@
-import { mountMochi, frase } from "./mascot.js";
-import { catOf, iconOf, ORDER, parseAdd } from "./categories.js";
+import { mountMochi, frase, MOCHI_SVG } from "./mascot.js";
+import { catOf, catId, iconOf, ORDER, parseAdd } from "./categories.js";
 import { emptyState, merge, normalize, same, live, uid } from "./store.js";
+import { t, setLang, detect, lang, locale, langName, LANGS } from "./i18n.js";
+import { APP_VERSION, POLICY_VERSION, CHANGELOG, novitaDopo } from "./version.js";
 import * as dbx from "./dropbox.js";
 import * as ai from "./claude.js";
 
 // ---------- utilità ----------
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const eur = n => (typeof n === "number" && isFinite(n)) ? n.toLocaleString("it-IT", { style: "currency", currency: "EUR" }) : "–";
-const eur3 = n => (typeof n === "number" && isFinite(n)) ? "€ " + n.toLocaleString("it-IT", { minimumFractionDigits: 2, maximumFractionDigits: 3 }) : "–";
-const num = v => { const n = parseFloat(String(v || "").replace(",", ".")); return isFinite(n) && n > 0 ? n : null; };
-const UNIT1 = { lavaggi: "lavaggio", litri: "litro", kg: "kg", pezzi: "pezzo" };
+const ic = (n, cls = "") => `<i class="mi mi-${n}${cls ? " " + cls : ""}" aria-hidden="true"></i>`;
+const num = v => { const n = parseFloat(String(v || "").replace(/\s/g, "").replace(",", ".")); return isFinite(n) && n > 0 ? n : null; };
 const safeUrl = u => /^https:\/\//i.test(u || "") ? u : null;
 const lsGet = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v ?? d; } catch { return d; } };
 const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
-const quando = t => new Date(t).toLocaleString("it-IT", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+const quando = ts => new Date(ts).toLocaleString(locale(), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+
+// Valuta: impostazione condivisa, con un valore iniziale sensato per la lingua
+const CURRENCIES = ["EUR", "GBP", "CHF", "SEK", "DKK", "NOK", "PLN", "CZK", "HUF", "RON", "USD", "RUB", "CNY", "JPY", "KRW", "AED", "SAR", "EGP", "MAD"];
+const CUR_BY_LANG = { sv: "SEK", da: "DKK", pl: "PLN", cs: "CZK", hu: "HUF", ro: "RON", ru: "RUB", zh: "CNY", ja: "JPY", ko: "KRW", ar: "AED", en: "GBP" };
+const currency = () => state.settings.valuta || CUR_BY_LANG[lang()] || "EUR";
+const fmt = (n, d) => new Intl.NumberFormat(locale(), { style: "currency", currency: currency(), ...(d ? { minimumFractionDigits: 2, maximumFractionDigits: 3 } : {}) }).format(n);
+const money = n => (typeof n === "number" && isFinite(n)) ? fmt(n) : "–";
+const money3 = n => (typeof n === "number" && isFinite(n)) ? fmt(n, true) : "–";
+const curSymbol = () => new Intl.NumberFormat(locale(), { style: "currency", currency: currency() }).formatToParts(0).find(p => p.type === "currency")?.value || currency();
+const perUnit = (n, u) => `${money3(n)} ${t("unitPer." + (u || "pezzi"))}`;
 
 // ---------- configurazione locale (mai nel repo) ----------
-// config.local.js è facoltativo e in .gitignore: utile solo in sviluppo per precompilare i campi.
 let LOCAL_CFG = {};
 if (["localhost", "127.0.0.1"].includes(location.hostname)) {
   try { LOCAL_CFG = (await import("../config.local.js")).default || {}; } catch {}
 }
 const DBX_CFG_KEY = "mochi.dbxcfg";
 const dbxCfg = () => ({ appKey: LOCAL_CFG.dropboxAppKey || "", path: LOCAL_CFG.dropboxPath || "/Spesa/mochi-spesa.json", ...lsGet(DBX_CFG_KEY, {}) });
-const me = () => lsGet("mochi.me", { nome: "", anim: "auto" });
+const me = () => ({ nome: "", anim: "auto", lang: "", ...lsGet("mochi.me", {}) });
+const setMe = patch => lsSet("mochi.me", { ...me(), ...patch });
 
 // ---------- stato ----------
+const hadState = localStorage.getItem("mochi.state") !== null;
 let state = normalize(lsGet("mochi.state", null) || emptyState());
-const seen = new Set(live(state.items).map(i => i.id)); // per animare solo le novità
+for (const it of Object.values(state.items)) it.cat = catId(it.cat); // migrazione 1.0 → 1.1
+const seen = new Set(live(state.items).map(i => i.id));
 const save = () => lsSet("mochi.state", state);
-
-function mutate(fn) {
-  fn(state, Date.now());
-  save(); render(); scheduleSync();
-}
+function mutate(fn) { fn(state, Date.now()); save(); render(); scheduleSync(); }
 
 // ---------- mascotte, toast, effetti ----------
 const mochi = mountMochi($("#mascot"), $("#bubble"));
 let toastT;
 function toast(msg, icon = "heart") {
-  const t = $("#toast"); $("#toast-txt").textContent = msg; $("#toast-ic").className = "mi mi-" + icon; t.classList.add("show");
-  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 2600);
+  $("#toast-txt").textContent = msg; $("#toast-ic").className = "mi mi-" + icon;
+  $("#toast").classList.add("show");
+  clearTimeout(toastT); toastT = setTimeout(() => $("#toast").classList.remove("show"), 2600);
 }
-const motionOk = () => {
-  const a = me().anim;
-  return a === "on" || (a !== "off" && !matchMedia("(prefers-reduced-motion: reduce)").matches);
-};
+const motionOk = () => { const a = me().anim; return a === "on" || (a !== "off" && !matchMedia("(prefers-reduced-motion: reduce)").matches); };
 function sparkles(el) {
   if (!motionOk() || !el) return;
-  const r = el.getBoundingClientRect(), fx = $("#fx");
-  const sym = ["magic", "heart", "star", "heart-line", "mochi"];
+  const r = el.getBoundingClientRect(), fx = $("#fx"), sym = ["magic", "heart", "star", "heart-line", "mochi"];
   for (let i = 0; i < 8; i++) {
-    const s = document.createElement("span");
+    const s = document.createElement("span"), a = (Math.PI * 2 * i) / 8, d = 34 + Math.random() * 18;
     s.className = "spark mi mi-" + sym[i % sym.length];
-    const a = (Math.PI * 2 * i) / 8, d = 34 + Math.random() * 18;
     s.style.cssText = `left:${r.left + r.width / 2 - 8}px;top:${r.top + r.height / 2 - 10}px;--dx:${Math.cos(a) * d}px;--dy:${Math.sin(a) * d}px;--rot:${Math.random() * 180}deg;color:${["#ff7eb3", "#b08cff", "#6fcf97", "#ffc94d"][i % 4]}`;
     fx.appendChild(s); setTimeout(() => s.remove(), 900);
   }
@@ -69,8 +73,8 @@ function confetti() {
     fx.appendChild(c); setTimeout(() => c.remove(), 4500);
   }
 }
-function confirmDlg(testo, ok = "Sì", icon = "ok") {
-  const d = $("#dlg"); $("#dlg-t").textContent = testo; $("#dlg-ok").textContent = ok; $("#dlg-ic").className = "mi mi-" + icon;
+function confirmDlg(testo, ok, icon = "ok") {
+  const d = $("#dlg"); $("#dlg-t").textContent = testo; $("#dlg-ok").textContent = ok || t("common.yes"); $("#dlg-ic").className = "mi mi-" + icon;
   d.returnValue = ""; d.showModal();
   return new Promise(res => d.addEventListener("close", () => res(d.returnValue === "si"), { once: true }));
 }
@@ -80,22 +84,23 @@ function applyAnim() {
   document.documentElement.classList.toggle("anim-off", a === "off");
 }
 
-// ---------- tab accessibili (ARIA tabs + frecce) ----------
+// ---------- tab accessibili ----------
 const tabs = [...document.querySelectorAll('[role="tab"]')];
 function selectTab(tab, focus = true) {
-  for (const t of tabs) {
-    const on = t === tab;
-    t.setAttribute("aria-selected", on); t.tabIndex = on ? 0 : -1;
-    $("#" + t.getAttribute("aria-controls")).hidden = !on;
+  for (const x of tabs) {
+    const on = x === tab;
+    x.setAttribute("aria-selected", on); x.tabIndex = on ? 0 : -1;
+    $("#" + x.getAttribute("aria-controls")).hidden = !on;
   }
   if (focus) tab.focus();
   history.replaceState(null, "", "#" + tab.id.slice(2));
   window.scrollTo({ top: 0, behavior: motionOk() ? "smooth" : "auto" });
 }
-tabs.forEach((t, i) => {
-  t.addEventListener("click", () => selectTab(t, false));
-  t.addEventListener("keydown", e => {
-    const k = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+tabs.forEach((x, i) => {
+  x.addEventListener("click", () => selectTab(x, false));
+  x.addEventListener("keydown", e => {
+    const rtl = document.documentElement.dir === "rtl";
+    const k = { ArrowRight: rtl ? -1 : 1, ArrowLeft: rtl ? 1 : -1 }[e.key];
     if (k) { e.preventDefault(); selectTab(tabs[(i + k + tabs.length) % tabs.length]); }
     if (e.key === "Home") { e.preventDefault(); selectTab(tabs[0]); }
     if (e.key === "End") { e.preventDefault(); selectTab(tabs[tabs.length - 1]); }
@@ -110,38 +115,33 @@ function keepFocus(fn) {
 }
 
 function renderLista() {
-  const items = live(state.items);
-  const done = items.filter(i => i.fatto).length;
+  const items = live(state.items), done = items.filter(i => i.fatto).length;
   $("#progress").hidden = !items.length;
   if (items.length) {
     $("#pfill").style.width = (done / items.length * 100) + "%";
     $("#pbar").setAttribute("aria-valuemax", items.length); $("#pbar").setAttribute("aria-valuenow", done);
-    $("#ptxt").textContent = done === items.length ? `Tutto preso! ${items.length} su ${items.length} ♡` : `${done} su ${items.length} nel carrello`;
+    $("#ptxt").textContent = done === items.length ? t("list.allDone", { total: items.length }) : t("list.progress", { done, total: items.length });
   }
   $("#clear-done").hidden = !done;
-
   if (!items.length) {
-    $("#lista").innerHTML = `<div class="card empty"><i class="mi mi-basket big-emoji" aria-hidden="true"></i>
-      <p><strong>La lista è vuota.</strong><br>Scrivi qui sopra cosa serve, Mochi lo mette nel reparto giusto.</p></div>`;
+    $("#lista").innerHTML = `<div class="card empty">${ic("basket", "big-emoji")}<p><strong>${esc(t("list.emptyTitle"))}</strong><br>${esc(t("list.emptyText"))}</p></div>`;
     return;
   }
   const groups = {};
-  for (const it of items) (groups[it.cat] ||= []).push(it);
+  for (const it of items) (groups[catId(it.cat)] ||= []).push(it);
   let h = "";
-  for (const c of [...ORDER, ...Object.keys(groups).filter(k => !ORDER.includes(k))]) {
+  for (const c of ORDER) {
     const g = groups[c]; if (!g) continue;
     g.sort((a, b) => (a.fatto - b.fatto) || (a.ts || 0) - (b.ts || 0));
-    const gid = "g-" + c.replace(/\W+/g, "");
-    h += `<section class="group" aria-labelledby="${gid}"><h2 id="${gid}"><i class="mi mi-${iconOf(c)} em" aria-hidden="true"></i>${esc(c)}</h2>
-      <div class="card"><ul class="items">`;
+    h += `<section class="group" aria-labelledby="g-${c}"><h2 id="g-${c}">${ic(iconOf(c), "em")}${esc(t("cat." + c))}</h2><div class="card"><ul class="items">`;
     for (const it of g) {
       const chi = it.da && it.da !== me().nome ? it.da : "";
       const isNew = !seen.has(it.id); seen.add(it.id);
       h += `<li class="item${it.fatto ? " done" : ""}${isNew ? " new" : ""}">
         <label class="tick"><input type="checkbox" data-chk="${esc(it.id)}" data-fk="c${esc(it.id)}"${it.fatto ? " checked" : ""}>
           <span class="txt"><span class="n">${esc(it.nome)}${it.qta ? ` <span class="q">· ${esc(it.qta)}</span>` : ""}</span>
-          ${chi ? `<span class="meta">aggiunto da ${esc(chi)}</span>` : ""}${it.nota ? `<span class="meta">${esc(it.nota)}</span>` : ""}</span></label>
-        <button class="icon-btn danger" type="button" data-del="${esc(it.id)}" data-fk="d${esc(it.id)}" aria-label="Elimina ${esc(it.nome)}"><i class="mi mi-delete" aria-hidden="true"></i></button></li>`;
+          ${chi ? `<span class="meta">${esc(t("list.addedBy", { name: chi }))}</span>` : ""}${it.nota ? `<span class="meta">${esc(it.nota)}</span>` : ""}</span></label>
+        <button class="icon-btn danger" type="button" data-del="${esc(it.id)}" data-fk="d${esc(it.id)}" aria-label="${esc(t("list.delete", { name: it.nome }))}">${ic("delete")}</button></li>`;
     }
     h += "</ul></div></section>";
   }
@@ -151,40 +151,39 @@ function renderLista() {
 function renderMonitor() {
   const m = live(state.monitor).sort((a, b) => a.nome.localeCompare(b.nome));
   $("#monitor").innerHTML = m.length ? m.map(x =>
-    `<li class="chip">${esc(x.nome)}<small>per ${esc(UNIT1[x.unita] || x.unita)}</small>
-      <button class="icon-btn" type="button" data-mdel="${esc(x.id)}" aria-label="Smetti di monitorare ${esc(x.nome)}"><i class="mi mi-unwatch" aria-hidden="true"></i></button></li>`).join("")
-    : `<li class="hint">Nessun prodotto. Prova con “detersivo lavatrice”.</li>`;
+    `<li class="chip">${esc(x.nome)}<small>${esc(t("unitPer." + x.unita))}</small>
+      <button class="icon-btn" type="button" data-mdel="${esc(x.id)}" aria-label="${esc(t("deals.unwatch", { name: x.nome }))}">${ic("unwatch")}</button></li>`).join("")
+    : `<li class="hint">${esc(t("deals.noneWatched"))}</li>`;
 }
 
-const VOTO = { ottima: ["Ottima offerta", "gold", "star"], buona: ["Buona", "", "down"], normale: ["Nella media", "warn", "info"] };
+const VOTO = { ottima: ["vote.great", "gold", "star"], buona: ["vote.good", "", "down"], normale: ["vote.avg", "warn", "info"] };
 function renderOfferte() {
-  const s = state.settings, o = state.offerte;
-  const key = !!ai.getCfg().key;
-  const GEAR = '<i class="mi mi-tab-settings" aria-hidden="true"></i>';
-  $("#off-info").innerHTML = !s.luogo ? `${GEAR} Prima imposta la zona di casa in Impostazioni.`
-    : !key ? `${GEAR} Per cercare serve la chiave API di Claude (Impostazioni).`
-    : o.updatedAt ? `<i class="mi mi-pin" aria-hidden="true"></i> Ultima ricerca: ${quando(o.updatedAt)} · entro ${esc(s.raggioKm)} km da ${esc(s.luogo)}` : `<i class="mi mi-info" aria-hidden="true"></i> Tocca il bottone per la prima ricerca.`;
+  const s = state.settings, o = state.offerte, key = !!ai.getCfg().key;
+  $("#off-info").innerHTML = !s.luogo ? `${ic("tab-settings")} ${esc(t("deals.needZone"))}`
+    : !key ? `${ic("key")} ${esc(t("deals.needKey"))}`
+    : o.updatedAt ? `${ic("pin")} ${esc(t("deals.last", { when: quando(o.updatedAt), km: s.raggioKm, place: s.luogo }))}`
+    : `${ic("info")} ${esc(t("deals.first"))}`;
   $("#cerca").disabled = !s.luogo || !key || !live(state.monitor).length;
-
-  if (!o.list.length) { $("#offerte").innerHTML = `<div class="card empty"><i class="mi mi-percent big-emoji" aria-hidden="true"></i><p>Nessuna offerta per ora.</p></div>`; return; }
+  if (!o.list.length) { $("#offerte").innerHTML = `<div class="card empty">${ic("percent", "big-emoji")}<p>${esc(t("deals.none"))}</p></div>`; renderOfferte.sorted = []; return; }
   const list = [...o.list].sort((a, b) => (a.categoria || a.prodotto).localeCompare(b.categoria || b.prodotto) || (a.prezzoUnit ?? 1e9) - (b.prezzoUnit ?? 1e9));
+  const nt = `<span class="sr"> ${esc(t("a11y.newTab"))}</span>`;
   $("#offerte").innerHTML = list.map((x, i) => {
-    const v = VOTO[x.voto], u = UNIT1[x.unita] || x.unita || "", az = x.amazon || null;
+    const v = VOTO[x.voto], az = x.amazon || null;
     let diff = "";
     if (az && az.prezzoUnit > 0 && x.prezzoUnit > 0) {
       const p = Math.round((x.prezzoUnit / az.prezzoUnit - 1) * 100);
-      diff = p < 0 ? `<strong><i class="mi mi-down" aria-hidden="true"></i> ${-p}% in meno di Amazon</strong>` : p > 0 ? `${p}% in più di Amazon` : "come Amazon";
+      diff = p < 0 ? `<strong>${ic("down")} ${esc(t("deals.cheaper", { p: -p }))}</strong>` : p > 0 ? esc(t("deals.pricier", { p })) : esc(t("deals.same"));
     }
     const src = safeUrl(x.fonte), azu = az && safeUrl(az.url);
     return `<article class="card offer${x.voto === "ottima" ? " top-deal" : ""}" aria-labelledby="of${i}">
       <div class="head"><div><h3 id="of${i}">${esc(x.prodotto)}</h3>
-        <div class="where"><i class="mi mi-store" aria-hidden="true"></i> ${esc(x.negozio || "")}${x.distanzaKm != null ? ` · ${esc(x.distanzaKm)} km` : ""}${x.validoFino ? ` · fino al ${esc(x.validoFino)}` : ""}</div></div>
-        <div class="price">${eur(x.prezzo)}<small>${x.quantita ? esc(x.quantita) + " " + esc(x.unita || "") : ""}</small></div></div>
-      <div class="badges">${v ? `<span class="badge ${v[1]}"><i class="mi mi-${v[2]}" aria-hidden="true"></i> ${v[0]}</span>` : ""}${x.prezzoUnit ? `<span class="unit">${eur3(x.prezzoUnit)} al ${esc(u)}</span>` : ""}</div>
-      ${az ? `<p class="cmp">Amazon: ${eur(az.prezzo)}${az.prezzoUnit ? ` (${eur3(az.prezzoUnit)} al ${esc(u)})` : ""}${diff ? " · " + diff : ""}${azu ? ` · <a href="${esc(azu)}" target="_blank" rel="noopener noreferrer"><i class="mi mi-external" aria-hidden="true"></i>vedi su Amazon<span class="sr"> (si apre in una nuova scheda)</span></a>` : ""}</p>` : ""}
+        <div class="where">${ic("store")} ${esc(x.negozio || "")}${x.distanzaKm != null ? ` · ${esc(x.distanzaKm)} km` : ""}${x.validoFino ? ` · ${esc(t("deals.until", { date: x.validoFino }))}` : ""}</div></div>
+        <div class="price">${money(x.prezzo)}<small>${x.quantita ? esc(x.quantita) + " " + esc(t("units." + (x.unita || "pezzi"))) : ""}</small></div></div>
+      <div class="badges">${v ? `<span class="badge ${v[1]}">${ic(v[2])} ${esc(t(v[0]))}</span>` : ""}${x.prezzoUnit ? `<span class="unit">${esc(perUnit(x.prezzoUnit, x.unita))}</span>` : ""}</div>
+      ${az ? `<p class="cmp">Amazon: ${money(az.prezzo)}${az.prezzoUnit ? ` (${esc(perUnit(az.prezzoUnit, x.unita))})` : ""}${diff ? " · " + diff : ""}${azu ? ` · <a href="${esc(azu)}" target="_blank" rel="noopener noreferrer">${ic("external")}${esc(t("deals.seeAmazon"))}${nt}</a>` : ""}</p>` : ""}
       ${x.nota ? `<p class="hint">${esc(x.nota)}</p>` : ""}
-      <div class="foot">${src ? `<a href="${esc(src)}" target="_blank" rel="noopener noreferrer"><i class="mi mi-flyer" aria-hidden="true"></i>Volantino<span class="sr"> di ${esc(x.negozio)} (nuova scheda)</span></a>` : "<span></span>"}
-        <button class="btn ghost" type="button" data-addoff="${i}" data-fk="o${i}"><i class="mi mi-list-add" aria-hidden="true"></i> Lista</button></div>
+      <div class="foot">${src ? `<a href="${esc(src)}" target="_blank" rel="noopener noreferrer">${ic("flyer")}${esc(t("deals.flyer"))}${nt}</a>` : "<span></span>"}
+        <button class="btn ghost" type="button" data-addoff="${i}" data-fk="o${i}" aria-label="${esc(t("deals.addToList", { name: x.prodotto }))}">${ic("list-add")} ${esc(t("deals.addList"))}</button></div>
     </article>`;
   }).join("");
   renderOfferte.sorted = list;
@@ -192,23 +191,26 @@ function renderOfferte() {
 
 function renderValutazioni() {
   const list = live(state.valutazioni).sort((a, b) => (b.ts || 0) - (a.ts || 0));
-  if (!list.length) { $("#valutazioni").innerHTML = `<p class="hint">Le valutazioni che chiedi a Mochi restano qui, visibili anche a casa.</p>`; return; }
+  if (!list.length) { $("#valutazioni").innerHTML = `<p class="hint">${esc(t("rate.historyEmpty"))}</p>`; return; }
   $("#valutazioni").innerHTML = list.map(v => {
     const e = v.esito || {}, link = safeUrl(v.testo);
-    const b = e.voto === "conveniente" ? `<span class="badge gold"><i class="mi mi-star" aria-hidden="true"></i> Conveniente</span>` : e.voto === "caro" ? `<span class="badge warn"><i class="mi mi-warn" aria-hidden="true"></i> Caro</span>` : e.voto ? `<span class="badge"><i class="mi mi-info" aria-hidden="true"></i> Nella media</span>` : "";
+    const b = e.voto === "conveniente" ? `<span class="badge gold">${ic("star")} ${esc(t("verdict.good"))}</span>`
+      : e.voto === "caro" ? `<span class="badge warn">${ic("warn")} ${esc(t("verdict.dear"))}</span>`
+      : e.voto ? `<span class="badge">${ic("info")} ${esc(t("verdict.avg"))}</span>` : "";
     return `<article class="card"><div class="row" style="align-items:flex-start;justify-content:space-between">
       <div style="min-width:0"><h3 style="margin:0;font-size:17px">${esc(e.prodotto || v.testo)}</h3>
-      <p class="hint" style="margin:2px 0">${v.prezzo ? eur(v.prezzo) : ""}${v.quantita ? ` · ${esc(v.quantita)} ${esc(v.unita)}` : ""} · ${quando(v.ts)}${link ? ` · <a href="${esc(link)}" target="_blank" rel="noopener noreferrer"><i class="mi mi-external" aria-hidden="true"></i>link<span class="sr"> al prodotto (nuova scheda)</span></a>` : ""}</p></div>
-      <button class="icon-btn danger" type="button" data-vdel="${esc(v.id)}" aria-label="Elimina valutazione"><i class="mi mi-delete" aria-hidden="true"></i></button></div>
-      <div class="badges">${b}${e.prezzoUnit ? `<span class="unit">${eur3(e.prezzoUnit)} al ${esc(UNIT1[e.unita] || e.unita || "")}</span>` : ""}</div>
-      ${e.qualita ? `<p style="margin:8px 0 0"><strong>Qualità:</strong> ${esc(e.qualita)}</p>` : ""}
+      <p class="hint" style="margin:2px 0">${v.prezzo ? money(v.prezzo) : ""}${v.quantita ? ` · ${esc(v.quantita)} ${esc(t("units." + v.unita))}` : ""} · ${quando(v.ts)}${link ? ` · <a href="${esc(link)}" target="_blank" rel="noopener noreferrer">${ic("external")}${esc(t("rate.link"))}<span class="sr"> ${esc(t("a11y.newTab"))}</span></a>` : ""}</p></div>
+      <button class="icon-btn danger" type="button" data-vdel="${esc(v.id)}" aria-label="${esc(t("rate.delete"))}">${ic("delete")}</button></div>
+      <div class="badges">${b}${e.prezzoUnit ? `<span class="unit">${esc(perUnit(e.prezzoUnit, e.unita))}</span>` : ""}</div>
+      ${e.qualita ? `<p style="margin:8px 0 0"><strong>${esc(t("rate.quality"))}:</strong> ${esc(e.qualita)}</p>` : ""}
       ${e.sintesi ? `<p style="margin:6px 0 0">${esc(e.sintesi)}</p>` : ""}
-      ${e.alternativa ? `<p class="cmp"><i class="mi mi-info" aria-hidden="true"></i> ${esc(e.alternativa)}</p>` : ""}</article>`;
+      ${e.alternativa ? `<p class="cmp">${ic("info")} ${esc(e.alternativa)}</p>` : ""}</article>`;
   }).join("");
 }
 
 function render() {
   keepFocus(() => { renderLista(); renderMonitor(); renderOfferte(); renderValutazioni(); });
+  document.querySelectorAll(".cur-sym").forEach(el => el.textContent = curSymbol());
 }
 
 // ---------- LISTA: azioni ----------
@@ -216,232 +218,249 @@ $("#f-add").addEventListener("submit", e => {
   e.preventDefault();
   const inp = $("#add-nome"), v = inp.value.trim();
   if (!v) { mochi.say(frase("vuoto")); inp.focus(); return; }
-  // più prodotti separati da virgola: "latte, pane, uova"
-  const nuovi = v.split(/\s*[,;]\s*/).filter(Boolean).map(parseAdd);
+  const nuovi = v.split(/\s*[,;、，]\s*/).filter(Boolean).map(parseAdd);
   mutate((s, now) => {
-    for (const { nome, qta } of nuovi) {
-      const id = uid();
-      s.items[id] = { id, nome, qta, cat: catOf(nome), fatto: false, da: me().nome, nota: "", ts: now, updatedAt: now };
-    }
+    for (const { nome, qta } of nuovi) { const id = uid(); s.items[id] = { id, nome, qta, cat: catOf(nome), fatto: false, da: me().nome, nota: "", ts: now, updatedAt: now }; }
   });
   inp.value = "";
   mochi.mood("happy"); mochi.say(frase("aggiunto"));
-  toast(nuovi.length > 1 ? `${nuovi.length} prodotti aggiunti` : `${nuovi[0].nome} aggiunto`, "add");
+  toast(nuovi.length > 1 ? t("toast.addedN", { n: nuovi.length }) : t("toast.added", { name: nuovi[0].nome }), "add");
 });
-
 $("#lista").addEventListener("change", e => {
   const id = e.target.dataset.chk; if (!id) return;
   const checked = e.target.checked, it = state.items[id];
   mutate((s, now) => { s.items[id] = { ...s.items[id], fatto: checked, updatedAt: now }; });
   if (checked) {
     sparkles(document.querySelector(`[data-chk="${CSS.escape(id)}"]`));
-    const rest = live(state.items).filter(i => !i.fatto).length;
-    if (!rest) { mochi.mood("happy", 3000); mochi.say(frase("finito"), 3500); confetti(); toast("Spesa completata!", "mochi"); }
-    else { mochi.mood("happy"); mochi.say(frase("preso")); toast(`${it.nome} preso`, "heart"); }
-  } else toast(`${it.nome} rimesso in lista`, "tab-list");
+    if (!live(state.items).some(i => !i.fatto)) { mochi.mood("happy", 3000); mochi.say(frase("finito"), 3500); confetti(); toast(t("toast.allDone"), "mochi"); }
+    else { mochi.mood("happy"); mochi.say(frase("preso")); toast(t("toast.got", { name: it.nome }), "heart"); }
+  } else toast(t("toast.back", { name: it.nome }), "tab-list");
 });
-
 $("#lista").addEventListener("click", e => {
   const b = e.target.closest("[data-del]"); if (!b) return;
   const id = b.dataset.del, nome = state.items[id]?.nome;
-  // sposta il focus su un elemento vicino prima di eliminare
   const li = b.closest("li"), next = (li.nextElementSibling || li.previousElementSibling)?.querySelector("input");
   mutate((s, now) => { s.items[id] = { ...s.items[id], deleted: true, updatedAt: now }; });
   (next && document.querySelector(`[data-fk="${CSS.escape(next.dataset.fk)}"]`) || $("#add-nome")).focus();
-  toast(`${nome} eliminato`, "delete");
+  toast(t("toast.deleted", { name: nome }), "delete");
 });
-
 $("#clear-done").addEventListener("click", async () => {
   const n = live(state.items).filter(i => i.fatto).length;
-  if (!(await confirmDlg(`Togliere ${n} ${n === 1 ? "prodotto preso" : "prodotti presi"} dalla lista?`, "Sì, togli", "clean"))) return;
+  if (!(await confirmDlg(t("list.clearConfirm", { n }), t("list.clearYes"), "clean"))) return;
   mutate((s, now) => { for (const i of live(s.items)) if (i.fatto) s.items[i.id] = { ...i, deleted: true, updatedAt: now }; });
-  $("#add-nome").focus();
-  mochi.mood("happy"); mochi.say("Tutto in ordine ✿"); toast("Lista pulita", "clean");
+  $("#add-nome").focus(); mochi.mood("happy"); mochi.say(frase("pulito")); toast(t("toast.cleared"), "clean");
 });
 
 // ---------- MONITOR / OFFERTE ----------
 $("#mon-nome").addEventListener("input", e => {
   const v = e.target.value;
-  if (/detersiv.*(lavatric|bucato)|ammorbid|lavastovigl|capsul|pods/i.test(v)) $("#mon-unita").value = "lavaggi";
-  else if (/olio|latte|acqua|vino|candeggin|sgrassat|detersivo piatti/i.test(v)) $("#mon-unita").value = "litri";
+  if (/detersiv.*(lavatric|bucato)|ammorbid|lavastovigl|capsul|pods|laundry|softener|dishwasher/i.test(v)) $("#mon-unita").value = "lavaggi";
+  else if (/olio|latte|acqua|vino|candeggin|sgrassat|\boil\b|milk|water|wine|bleach/i.test(v)) $("#mon-unita").value = "litri";
 });
 $("#f-mon").addEventListener("submit", e => {
   e.preventDefault();
   const nome = $("#mon-nome").value.trim(); if (!nome) return $("#mon-nome").focus();
   mutate((s, now) => { const id = uid(); s.monitor[id] = { id, nome, unita: $("#mon-unita").value, updatedAt: now }; });
-  $("#mon-nome").value = ""; toast(`Tengo d'occhio: ${nome}`, "watch"); mochi.mood("wow"); mochi.say("Ci penso io! 👀");
+  $("#mon-nome").value = ""; toast(t("toast.watching", { name: nome }), "watch"); mochi.mood("wow"); mochi.say(frase("guardo"));
 });
 $("#monitor").addEventListener("click", e => {
   const b = e.target.closest("[data-mdel]"); if (!b) return;
   const id = b.dataset.mdel, nome = state.monitor[id]?.nome;
   mutate((s, now) => { s.monitor[id] = { ...s.monitor[id], deleted: true, updatedAt: now }; });
-  $("#mon-nome").focus(); toast(`${nome} rimosso`, "unwatch");
+  $("#mon-nome").focus(); toast(t("toast.removed", { name: nome }), "unwatch");
 });
 $("#offerte").addEventListener("click", e => {
   const b = e.target.closest("[data-addoff]"); if (!b) return;
   const x = renderOfferte.sorted[+b.dataset.addoff]; if (!x) return;
   mutate((s, now) => {
     const id = uid();
-    s.items[id] = { id, nome: x.prodotto, qta: "", cat: catOf(x.categoria || x.prodotto), fatto: false, da: me().nome,
-      nota: `Offerta ${x.negozio || ""} ${eur(x.prezzo)}${x.validoFino ? " fino al " + x.validoFino : ""}`.trim(), ts: now, updatedAt: now };
+    s.items[id] = { id, nome: x.prodotto, qta: "", cat: catOf((x.categoria || "") + " " + x.prodotto), fatto: false, da: me().nome,
+      nota: t("deals.offerNote", { store: x.negozio || "", price: money(x.prezzo) }) + (x.validoFino ? " · " + t("deals.until", { date: x.validoFino }) : ""), ts: now, updatedAt: now };
   });
-  sparkles(b); toast("Aggiunto alla lista", "list-add"); mochi.mood("happy"); mochi.say(frase("aggiunto"));
+  sparkles(b); toast(t("toast.addedList"), "list-add"); mochi.mood("happy"); mochi.say(frase("aggiunto"));
 });
 
 let searching = null;
+function endSearch() { searching = null; $("#cerca").classList.remove("loading"); $("#cerca").removeAttribute("aria-busy"); }
 $("#cerca").addEventListener("click", async () => {
   if (searching) return;
-  const btn = $("#cerca"), s = state.settings;
+  const btn = $("#cerca");
   btn.classList.add("loading"); btn.setAttribute("aria-busy", "true");
-  $("#off-info").textContent = "Mochi sta sfogliando i volantini… può volerci un minuto.";
-  mochi.mood("wow", 0); mochi.say("Cerco, cerco… 🔍", 60000);
+  $("#off-info").textContent = t("deals.searching");
+  mochi.mood("wow", 0); mochi.say(frase("cerco"), 60000);
   searching = new AbortController();
   try {
-    const offerte = await ai.cercaOfferte({ prodotti: live(state.monitor), ...s }, { signal: searching.signal });
+    const offerte = await ai.cercaOfferte({ prodotti: live(state.monitor), ...state.settings, valuta: currency(), lingua: langName() }, { signal: searching.signal });
+    endSearch();
     mutate((st, now) => { st.offerte = { list: offerte, updatedAt: now }; });
     const top = offerte.filter(o => o.voto === "ottima").length;
-    mochi.mood("happy", 2500); mochi.say(offerte.length ? frase("offerta") : "Niente di speciale oggi (´・ω・`)");
-    toast(offerte.length ? `${offerte.length} offerte trovate${top ? `, ${top} ottime` : ""}` : "Nessuna offerta trovata", top ? "star" : "search");
+    mochi.mood("happy", 2500); mochi.say(frase(offerte.length ? "offerta" : "niente"));
+    toast(!offerte.length ? t("deals.foundNone") : top ? t("deals.foundTop", { n: offerte.length, top }) : t("deals.found", { n: offerte.length }), top ? "star" : "search");
     if (top) confetti();
   } catch (err) {
+    endSearch(); renderOfferte();
     mochi.mood("sleepy", 2500); mochi.say(frase("errore"));
-    $("#off-info").textContent = err.message;
-  } finally {
-    searching = null; btn.classList.remove("loading"); btn.removeAttribute("aria-busy"); renderOfferte();
+    $("#off-info").innerHTML = `${ic("warn")} ${esc(err.message)}`;
   }
 });
 
 // ---------- VALUTA ----------
-const words = s => (s || "").toLowerCase().replace(/https?:\/\/\S+/g, " ").split(/[^a-zà-ù0-9]+/).filter(w => w.length > 3);
-function readVal() { return { testo: $("#val-testo").value.trim(), prezzo: num($("#val-prezzo").value), quantita: num($("#val-q").value), unita: $("#val-u").value }; }
+const words = s => (s || "").toLowerCase().replace(/https?:\/\/\S+/g, " ").split(/[^\p{L}\p{N}]+/u).filter(w => w.length > 3);
+const readVal = () => ({ testo: $("#val-testo").value.trim(), prezzo: num($("#val-prezzo").value), quantita: num($("#val-q").value), unita: $("#val-u").value });
 $("#val-calc").addEventListener("click", () => {
   const { testo, prezzo, quantita, unita } = readVal(), out = $("#val-out");
-  if (!prezzo || !quantita) { out.innerHTML = `<p class="hint">Scrivi prezzo e quantità (es. 12,90 € e 40 lavaggi).</p>`; (!prezzo ? $("#val-prezzo") : $("#val-q")).focus(); return; }
+  if (!prezzo || !quantita) { out.innerHTML = `<p class="hint">${ic("info")} ${esc(t("rate.needPQ"))}</p>`; (!prezzo ? $("#val-prezzo") : $("#val-q")).focus(); return; }
   const pu = prezzo / quantita, w = words(testo);
   const simili = state.offerte.list.filter(o => o.unita === unita && o.prezzoUnit > 0 && (!w.length || words(o.prodotto + " " + (o.categoria || "")).some(x => w.includes(x))));
   const best = simili.sort((a, b) => a.prezzoUnit - b.prezzoUnit)[0];
-  let h = `<div class="result"><div class="bigv">${eur3(pu)}</div><div class="unit">al ${UNIT1[unita]}</div>`;
+  let h = `<div class="result"><div class="bigv">${money3(pu)}</div><div class="unit">${esc(t("unitPer." + unita))}</div>`;
   if (best) {
     const p = Math.round((pu / best.prezzoUnit - 1) * 100);
-    h += p <= 0 ? `<p><span class="badge gold"><i class="mi mi-star" aria-hidden="true"></i> Conveniente</span> Costa ${p < 0 ? -p + "% in meno" : "uguale"} rispetto alla migliore offerta vicino a casa (${esc(best.negozio)}).</p>`
-                : `<p><span class="badge warn"><i class="mi mi-warn" aria-hidden="true"></i> Si trova a meno</span> Da ${esc(best.negozio)} costa ${eur3(best.prezzoUnit)} al ${UNIT1[unita]} (${p}% in meno).</p>`;
-  } else h += `<p class="hint">Non ho offerte simili salvate per confrontarlo. Prova “Chiedi a Mochi”.</p>`;
+    h += p <= 0 ? `<p><span class="badge gold">${ic("star")} ${esc(t("verdict.good"))}</span> ${esc(p < 0 ? t("rate.cheapText", { p: -p, store: best.negozio }) : t("rate.sameText", { store: best.negozio }))}</p>`
+                : `<p><span class="badge warn">${ic("warn")} ${esc(t("rate.dear"))}</span> ${esc(t("rate.dearText", { store: best.negozio, price: perUnit(best.prezzoUnit, unita), p }))}</p>`;
+  } else h += `<p class="hint">${esc(t("rate.noCompare"))}</p>`;
   out.innerHTML = h + "</div>";
   mochi.mood(best && pu <= best.prezzoUnit ? "happy" : "wow");
 });
 $("#f-val").addEventListener("submit", async e => {
   e.preventDefault();
   const v = readVal(), btn = $("#val-ask"), out = $("#val-out");
-  if (!v.testo) { out.innerHTML = `<p class="hint">Scrivi il nome del prodotto o incolla il link.</p>`; $("#val-testo").focus(); return; }
-  if (!ai.getCfg().key) { out.innerHTML = `<p class="hint"><i class="mi mi-key" aria-hidden="true"></i> Serve la chiave API di Claude: la trovi in Impostazioni.</p>`; return; }
+  if (!v.testo) { out.innerHTML = `<p class="hint">${ic("info")} ${esc(t("rate.needWhat"))}</p>`; $("#val-testo").focus(); return; }
+  if (!ai.getCfg().key) { out.innerHTML = `<p class="hint">${ic("key")} ${esc(t("deals.needKey"))}</p>`; return; }
   btn.classList.add("loading"); btn.setAttribute("aria-busy", "true"); btn.disabled = true;
-  out.innerHTML = `<p class="hint">Mochi sta controllando prezzi e recensioni…</p>`;
-  mochi.mood("wow", 0); mochi.say("Fammi vedere… 🧐", 60000);
+  out.innerHTML = `<p class="hint">${esc(t("rate.checking"))}</p>`;
+  mochi.mood("wow", 0); mochi.say(frase("guardo"), 60000);
   try {
-    const esito = await ai.valuta({ ...v, offerte: state.offerte.list });
+    const esito = await ai.valuta({ ...v, offerte: state.offerte.list, valuta: currency(), luogo: state.settings.luogo, lingua: langName() });
     mutate((s, now) => { const id = uid(); s.valutazioni[id] = { id, ...v, esito, da: me().nome, ts: now, updatedAt: now }; });
-    out.innerHTML = `<p class="hint"><i class="mi mi-ok" aria-hidden="true"></i> Fatto! Il risultato è qui sotto.</p>`;
+    out.innerHTML = `<p class="hint">${ic("ok")} ${esc(t("rate.done"))}</p>`;
     mochi.mood(esito.voto === "conveniente" ? "happy" : "wow", 2500);
-    mochi.say(esito.voto === "conveniente" ? "Buon affare! 💕" : esito.voto === "caro" ? "Mmh, si trova a meno…" : "Nella media ✿");
+    mochi.say(frase(esito.voto === "conveniente" ? "affare" : esito.voto === "caro" ? "caro" : "media"));
     document.querySelector("#valutazioni article")?.scrollIntoView({ behavior: motionOk() ? "smooth" : "auto", block: "nearest" });
   } catch (err) {
-    out.innerHTML = `<p class="hint">${esc(err.message)}</p>`; mochi.mood("sleepy", 2500); mochi.say(frase("errore"));
+    out.innerHTML = `<p class="hint">${ic("warn")} ${esc(err.message)}</p>`; mochi.mood("sleepy", 2500); mochi.say(frase("errore"));
   } finally { btn.classList.remove("loading"); btn.removeAttribute("aria-busy"); btn.disabled = false; }
 });
 $("#valutazioni").addEventListener("click", e => {
   const b = e.target.closest("[data-vdel]"); if (!b) return;
   mutate((s, now) => { s.valutazioni[b.dataset.vdel] = { ...s.valutazioni[b.dataset.vdel], deleted: true, updatedAt: now }; });
-  $("#val-testo").focus(); toast("Valutazione eliminata", "delete");
+  $("#val-testo").focus(); toast(t("rate.deleted"), "delete");
 });
 
 // ---------- IMPOSTAZIONI ----------
+function fillLangSelect(sel) {
+  sel.innerHTML = Object.entries(LANGS).sort((a, b) => a[1].localeCompare(b[1], "en")).map(([c, n]) => `<option value="${c}" lang="${c}">${esc(n)}</option>`).join("");
+  sel.value = lang();
+}
 function fillSettings() {
-  const m = me(); $("#me-nome").value = m.nome || "";
+  const m = me();
+  fillLangSelect($("#me-lang"));
+  $("#me-nome").value = m.nome || "";
   for (const r of document.querySelectorAll('input[name="anim"]')) r.checked = r.value === (m.anim || "auto");
   const c = dbxCfg(); $("#dbx-key").value = c.appKey || ""; $("#dbx-path").value = c.path || "";
   const s = state.settings;
   $("#z-luogo").value = s.luogo || ""; $("#z-raggio").value = s.raggioKm || 5; $("#z-raggio-v").textContent = s.raggioKm || 5;
   $("#z-negozi").value = s.negozi || ""; $("#z-amz").checked = s.amazon !== false;
+  let names; try { names = new Intl.DisplayNames([locale()], { type: "currency" }); } catch {}
+  $("#z-valuta").innerHTML = CURRENCIES.map(c => `<option value="${c}">${esc(names ? names.of(c) : c)} (${c})</option>`).join("");
+  $("#z-valuta").value = currency();
   const a = ai.getCfg(); $("#ai-key").value = a.key || ""; $("#ai-model").value = a.model || ai.DEFAULT_MODEL;
-  $("#dbx-off").hidden = !dbx.isConnected(); $("#dbx-go span").textContent = dbx.isConnected() ? "Ricollega Dropbox" : "Collega Dropbox";
+  $("#dbx-off").hidden = !dbx.isConnected();
+  $("#dbx-go-txt").textContent = t(dbx.isConnected() ? "dbx.reconnect" : "dbx.connect");
+  $("#about-ver").textContent = t("about.version", { v: APP_VERSION });
 }
 $("#z-raggio").addEventListener("input", e => $("#z-raggio-v").textContent = e.target.value);
+async function changeLang(code) {
+  setMe({ lang: code });
+  await setLang(code);
+  fillSettings(); renderOnboard(); render(); syncSet(syncKind, syncKey, syncVars);
+}
+$("#me-lang").addEventListener("change", async e => { await changeLang(e.target.value); toast(t("lang.changed"), "lang"); $("#me-lang").focus(); });
 $("#f-me").addEventListener("submit", e => {
   e.preventDefault();
-  lsSet("mochi.me", { nome: $("#me-nome").value.trim(), anim: document.querySelector('input[name="anim"]:checked')?.value || "auto" });
-  applyAnim(); render(); toast("Salvato", "save"); mochi.mood("happy"); mochi.say($("#me-nome").value.trim() ? `Piacere, ${$("#me-nome").value.trim()}! ♡` : "Salvato ✿");
+  const nome = $("#me-nome").value.trim();
+  setMe({ nome, anim: document.querySelector('input[name="anim"]:checked')?.value || "auto" });
+  applyAnim(); render(); toast(t("common.saved"), "save"); mochi.mood("happy"); mochi.say(nome ? t("phr.nice", { name: nome }) : frase("aggiunto"));
 });
 $("#f-zona").addEventListener("submit", e => {
   e.preventDefault();
-  mutate((s, now) => { s.settings = { luogo: $("#z-luogo").value.trim(), raggioKm: +$("#z-raggio").value, negozi: $("#z-negozi").value.trim(), amazon: $("#z-amz").checked, updatedAt: now }; });
-  toast("Zona salvata", "pin");
+  mutate((s, now) => { s.settings = { luogo: $("#z-luogo").value.trim(), raggioKm: +$("#z-raggio").value, negozi: $("#z-negozi").value.trim(), amazon: $("#z-amz").checked, valuta: $("#z-valuta").value, updatedAt: now }; });
+  toast(t("zone.saved"), "pin");
 });
 $("#f-ai").addEventListener("submit", e => {
   e.preventDefault();
   ai.setCfg({ key: $("#ai-key").value.trim(), model: $("#ai-model").value.trim() || ai.DEFAULT_MODEL });
-  renderOfferte(); toast("Chiave salvata su questo telefono", "key");
+  renderOfferte(); toast(t("ai.saved"), "key");
 });
+const normPath = p => { p = (p || "").trim() || "/Spesa/mochi-spesa.json"; if (!p.startsWith("/")) p = "/" + p; if (!/\.json$/i.test(p)) p += ".json"; return p; };
 $("#f-dbx").addEventListener("submit", async e => {
   e.preventDefault();
   const appKey = $("#dbx-key").value.trim(), path = normPath($("#dbx-path").value);
-  if (!appKey) { $("#dbx-msg").textContent = "Inserisci l'app key di Dropbox."; $("#dbx-key").focus(); return; }
+  if (!appKey) { $("#dbx-msg").textContent = t("dbx.needKey"); $("#dbx-key").focus(); return; }
   lsSet(DBX_CFG_KEY, { appKey, path });
-  $("#dbx-msg").textContent = "Ti porto su Dropbox per autorizzare…";
+  $("#dbx-msg").textContent = t("dbx.redirecting");
   await dbx.startAuth(appKey);
 });
 $("#dbx-off").addEventListener("click", async () => {
-  if (!(await confirmDlg("Scollegare Dropbox da questo telefono? La lista resta salvata qui.", "Scollega", "disconnect"))) return;
-  dbx.disconnect(); fillSettings(); setSync("local"); toast("Dropbox scollegato", "disconnect");
+  if (!(await confirmDlg(t("dbx.disconnectConfirm"), t("dbx.disconnect"), "disconnect"))) return;
+  dbx.disconnect(); fillSettings(); renderOnboard(); syncSet("local", "sync.local"); toast(t("dbx.disconnected"), "disconnect");
 });
 $("#dbx-share").addEventListener("click", async () => {
-  const c = { k: $("#dbx-key").value.trim(), p: normPath($("#dbx-path").value) };
-  if (!c.k) { $("#dbx-msg").textContent = "Prima inserisci l'app key."; return; }
-  // Il link contiene solo app key e percorso, mai i token di accesso.
-  const link = dbx.redirectUri() + "#setup=" + btoa(unescape(encodeURIComponent(JSON.stringify(c))));
-  try { await navigator.clipboard.writeText(link); $("#dbx-msg").textContent = "Link copiato! Mandalo a tua moglie: aprendolo trova tutto pronto, deve solo toccare “Collega Dropbox”."; }
-  catch { $("#dbx-msg").innerHTML = `Copia questo link: <input readonly value="${esc(link)}" aria-label="Link di configurazione">`; }
+  const c = { k: $("#dbx-key").value.trim(), p: normPath($("#dbx-path").value), l: lang() };
+  if (!c.k) { $("#dbx-msg").textContent = t("dbx.needKey"); return; }
+  const link = dbx.redirectUri() + "#setup=" + btoa(unescape(encodeURIComponent(JSON.stringify(c)))); // solo app key, percorso e lingua: mai token
+  try { await navigator.clipboard.writeText(link); $("#dbx-msg").textContent = t("dbx.copied"); toast(t("dbx.copiedShort"), "copy"); }
+  catch { $("#dbx-msg").innerHTML = `${esc(t("dbx.copyThis"))} <input readonly dir="ltr" value="${esc(link)}" aria-label="${esc(t("dbx.share"))}">`; }
 });
-const normPath = p => { p = (p || "").trim() || "/Spesa/mochi-spesa.json"; if (!p.startsWith("/")) p = "/" + p; if (!/\.json$/i.test(p)) p += ".json"; return p; };
+$("#open-legal").addEventListener("click", () => openLegal());
+$("#open-news").addEventListener("click", () => openNews(CHANGELOG, false));
+$("#open-wizard").addEventListener("click", () => openWizard({ required: false }));
 
 // ---------- SINCRONIZZAZIONE ----------
 let rev = lsGet("mochi.rev", null), syncing = false, syncAgain = false, syncT;
-function setSync(kind, txt) {
+let syncKind = "local", syncKey = "sync.local", syncVars = null;
+function syncSet(kind, key, vars) {
+  syncKind = kind; syncKey = key; syncVars = vars || null;
   const b = $("#sync");
   b.className = "sync " + ({ ok: "ok", busy: "busy", err: "err" }[kind] || "");
   $("#sync-ic").className = "mi mi-" + ({ ok: "cloud-ok", busy: "cloud-up", err: "cloud-off" }[kind] || "phone");
-  $("#sync-txt").textContent = txt || ({ local: "Solo su questo telefono", busy: "Sincronizzo…", ok: "Sincronizzato" }[kind] || "");
-  b.setAttribute("aria-label", ($("#sync-txt").textContent) + (dbx.isConnected() ? ". Tocca per sincronizzare ora" : ". Tocca per collegare Dropbox"));
+  $("#sync-txt").textContent = t(key, vars);
+  b.setAttribute("aria-label", t(key, vars) + ". " + t(dbx.isConnected() ? "sync.tapSync" : "sync.tapConnect"));
 }
 function scheduleSync() { clearTimeout(syncT); syncT = setTimeout(sync, 700); }
 async function sync() {
-  if (!dbx.isConnected()) { setSync("local"); return; }
-  if (!navigator.onLine) { setSync("err", "Offline: salvo qui"); return; }
+  if (!dbx.isConnected()) { syncSet("local", "sync.local"); return; }
+  if (!navigator.onLine) { syncSet("err", "sync.offline"); return; }
   if (syncing) { syncAgain = true; return; }
-  syncing = true; setSync("busy");
+  syncing = true; syncSet("busy", "sync.busy");
   const path = dbxCfg().path;
   try {
     for (let attempt = 0; attempt < 4; attempt++) {
       const remote = await dbx.download(path);
       const remoteState = remote && remote.data ? normalize(remote.data) : null;
+      if (remoteState) for (const it of Object.values(remoteState.items)) it.cat = catId(it.cat);
       const merged = merge(state, remoteState);
       try {
         if (!remoteState || !same(merged, remoteState)) rev = await dbx.upload(path, merged, remote && remote.rev);
         else rev = remote.rev;
       } catch (e) { if (e.code === "conflict") continue; throw e; }
       const before = state;
-      state = merge(state, merged); // tiene anche modifiche fatte durante la sincronizzazione
+      state = merge(state, merged);
       lsSet("mochi.rev", rev); save();
       if (!same(before, state)) {
         const nuovi = live(state.items).filter(i => !seen.has(i.id) && i.da && i.da !== me().nome);
         render();
-        if (nuovi.length) { toast(`${nuovi[0].da} ha aggiunto ${nuovi.length === 1 ? nuovi[0].nome : nuovi.length + " prodotti"}`, "send-love"); mochi.mood("wow"); mochi.say("Novità in lista! 💌"); }
+        if (nuovi.length) {
+          toast(nuovi.length === 1 ? t("toast.fromOther", { who: nuovi[0].da, what: nuovi[0].nome }) : t("toast.fromOtherN", { who: nuovi[0].da, n: nuovi.length }), "send-love");
+          mochi.mood("wow"); mochi.say(frase("novita"));
+        }
       }
-      setSync("ok", "Sincronizzato " + new Date().toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" }));
+      syncSet("ok", "sync.ok", { time: new Date().toLocaleTimeString(locale(), { hour: "2-digit", minute: "2-digit" }) });
       break;
     }
   } catch (e) {
-    if (e.code === "auth") { setSync("err", "Ricollega Dropbox"); fillSettings(); }
-    else setSync("err", "Non sincronizzato, riprovo");
+    if (e.code === "auth") { syncSet("err", "sync.reconnect"); fillSettings(); }
+    else syncSet("err", "sync.retry");
   } finally {
     syncing = false;
     if (syncAgain) { syncAgain = false; scheduleSync(); }
@@ -454,35 +473,145 @@ $("#sync").addEventListener("click", () => {
 setInterval(() => { if (document.visibilityState === "visible") sync(); }, 20000);
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") sync(); });
 addEventListener("online", sync);
-addEventListener("offline", () => setSync("err", "Offline: salvo qui"));
+addEventListener("offline", () => syncSet("err", "sync.offline"));
 
-// ---------- onboarding ----------
+// ---------- onboarding nella lista ----------
 function renderOnboard() {
   $("#onboard").innerHTML = dbx.isConnected() ? "" :
-    `<div class="card"><h2 class="in"><i class="mi mi-mochi" aria-hidden="true"></i> Ciao! Sono Mochi</h2>
-     <p style="margin:0 0 10px">La lista funziona già su questo telefono. Per condividerla con tua moglie collega Dropbox.</p>
-     <button class="btn primary" type="button" id="go-dbx"><i class="mi mi-connect" aria-hidden="true"></i> Collega Dropbox</button></div>`;
+    `<div class="card"><h2 class="in">${ic("mochi")} ${esc(t("onboard.title"))}</h2>
+     <p style="margin:0 0 10px">${esc(t("onboard.text"))}</p>
+     <button class="btn primary" type="button" id="go-dbx">${ic("connect")} ${esc(t("dbx.connect"))}</button></div>`;
   $("#go-dbx")?.addEventListener("click", () => { selectTab($("#t-imp")); $("#dbx-key").focus(); });
 }
+
+// ---------- PRIVACY E CONDIZIONI ----------
+function legalHtml() {
+  const sec = (icon, title, prefix, n) => `<h3>${ic(icon)} ${esc(t(title))}</h3><ul>${
+    Array.from({ length: n }, (_, i) => `<li>${esc(t(`${prefix}${i + 1}`))}</li>`).join("")}</ul>`;
+  return `<p class="hint">${esc(t("legal.updated", { date: new Date(POLICY_VERSION).toLocaleDateString(locale(), { dateStyle: "long" }) }))}</p>
+    ${sec("privacy", "legal.privacyTitle", "legal.p", 8)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
+}
+function openLegal() { $("#legal-body").innerHTML = legalHtml(); $("#legal").showModal(); }
+
+// ---------- NOVITÀ ----------
+function openNews(releases, soloNuove = true) {
+  if (!releases.length) return;
+  $("#news-title").textContent = soloNuove ? t("news.title", { v: APP_VERSION }) : t("news.allTitle");
+  $("#news-body").innerHTML = releases.map(r => `<h3 class="ver">${esc(t("news.version", { v: r.v }))}</h3><ul class="feat">${
+    r.items.map(([icon, key]) => `<li>${ic(icon, "feat-ic")}<span>${esc(t(key))}</span></li>`).join("")}</ul>`).join("");
+  $("#news").showModal();
+  if (soloNuove) { mochi.mood("happy", 2500); confetti(); }
+}
+
+// ---------- WIZARD (primo avvio, riaccettazione policy, o dalle impostazioni) ----------
+const WIZ = [
+  { id: "welcome", n: 1, icon: "wave" }, { id: "list", n: 2, icon: "tab-list" }, { id: "share", n: 3, icon: "cloud" },
+  { id: "deals", n: 4, icon: "tab-deals" }, { id: "privacy", n: 5, icon: "privacy" },
+];
+let wiz = { step: 0, steps: WIZ, required: false, accepted: false };
+const policyOk = () => lsGet("mochi.policy", null) === POLICY_VERSION;
+const bullets = arr => `<ul class="feat">${arr.map(([icon, key]) => `<li>${ic(icon, "feat-ic")}<span>${esc(t(key))}</span></li>`).join("")}</ul>`;
+
+function wizBody(id) {
+  switch (id) {
+    case "welcome": return `<p>${esc(t("wiz.s1.text"))}</p>
+      <label for="wiz-lang">${ic("lang")} ${esc(t("lang.label"))}</label><select id="wiz-lang" class="lang-select"></select>`;
+    case "list": return bullets([["add", "wiz.s2.b1"], ["cat-veg", "wiz.s2.b2"], ["heart", "wiz.s2.b3"]]);
+    case "share": return `<p>${esc(t("wiz.s3.text"))}</p>${bullets([["cloud", "wiz.s3.b1"], ["copy", "wiz.s3.b2"], ["phone", "wiz.s3.b3"]])}
+      <label for="wiz-name">${esc(t("me.name"))}</label><input id="wiz-name" maxlength="30" autocomplete="given-name" value="${esc(me().nome)}">`;
+    case "deals": return bullets([["watch", "wiz.s4.b1"], ["search", "wiz.s4.b2"], ["mochi", "wiz.s4.b3"], ["key", "wiz.s4.b4"]]);
+    case "privacy": return `${wiz.steps.length === 1 ? `<p class="notice">${ic("info")} ${esc(t("legal.reaccept"))}</p>` : ""}
+      ${bullets([["phone", "wiz.s5.b1"], ["privacy", "wiz.s5.b2"], ["key", "wiz.s5.b3"], ["warn", "wiz.s5.b4"]])}
+      <button class="btn ghost" type="button" id="wiz-read">${ic("terms")} ${esc(t("wiz.s5.read"))}</button>
+      <label class="check accept"><input type="checkbox" id="wiz-accept" aria-describedby="wiz-err"${wiz.accepted ? " checked" : ""}> <span>${esc(t("wiz.s5.accept"))}</span></label>
+      <p class="err" id="wiz-err" role="alert"></p>`;
+  }
+  return "";
+}
+function renderWizard(focusTitle = true) {
+  const s = wiz.steps[wiz.step], last = wiz.step === wiz.steps.length - 1, total = wiz.steps.length;
+  $("#wiz-mochi").innerHTML = s.id === "welcome" ? MOCHI_SVG : `<div class="wiz-ic">${ic(s.icon)}</div>`;
+  $("#wiz-dots").innerHTML = wiz.steps.map((_, i) => `<li class="${i === wiz.step ? "on" : i < wiz.step ? "done" : ""}"></li>`).join("");
+  $("#wiz-dots").hidden = total < 2;
+  $("#wiz-step").textContent = total > 1 ? t("wiz.step", { n: wiz.step + 1, total }) : "";
+  $("#wiz-title").textContent = t(`wiz.s${s.n}.title`);
+  $("#wiz-body").innerHTML = wizBody(s.id);
+  $("#wiz-back").hidden = wiz.step === 0;
+  $("#wiz-skip").hidden = last;
+  $("#wiz-next-txt").textContent = last ? t("wiz.start") : t("wiz.next");
+  $("#wiz-next-ic").className = "mi mi-" + (last ? "party" : "next");
+  const sel = $("#wiz-lang");
+  if (sel) { fillLangSelect(sel); sel.addEventListener("change", async () => { await changeLang(sel.value); renderWizard(false); $("#wiz-lang").focus(); }); }
+  $("#wiz-read")?.addEventListener("click", openLegal);
+  $("#wiz-accept")?.addEventListener("change", e => { wiz.accepted = e.target.checked; if (e.target.checked) $("#wiz-err").textContent = ""; });
+  $("#wiz-name")?.addEventListener("change", e => setMe({ nome: e.target.value.trim() }));
+  if (focusTitle) $("#wiz-title").focus();
+}
+function openWizard({ required, steps = WIZ }) {
+  wiz = { step: 0, steps, required, accepted: policyOk() };
+  renderWizard(false);
+  $("#wiz").showModal();
+  $("#wiz-title").focus();
+}
+$("#wiz").addEventListener("cancel", e => { if (wiz.required) e.preventDefault(); }); // Esc non salta l'accettazione obbligatoria
+$("#wiz-back").addEventListener("click", () => { if (wiz.step > 0) { wiz.step--; renderWizard(); } });
+$("#wiz-skip").addEventListener("click", () => { wiz.step = wiz.steps.length - 1; renderWizard(); });
+$("#wiz-next").addEventListener("click", () => {
+  const s = wiz.steps[wiz.step];
+  if (s.id === "share") { const n = $("#wiz-name"); if (n) setMe({ nome: n.value.trim() }); }
+  if (wiz.step < wiz.steps.length - 1) {
+    wiz.step++; renderWizard();
+    if (motionOk()) $("#wiz-body").animate([{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], { duration: 250 });
+    return;
+  }
+  if (s.id === "privacy" && !$("#wiz-accept").checked) {
+    $("#wiz-err").textContent = t("wiz.s5.must"); $("#wiz-accept").focus(); mochi.mood("wow"); return;
+  }
+  if (s.id === "privacy") lsSet("mochi.policy", POLICY_VERSION);
+  if (wiz.steps.length > 1) lsSet("mochi.seen", APP_VERSION);
+  $("#wiz").close();
+  fillSettings(); render();
+  mochi.mood("happy", 2500); mochi.say(t("phr.nice", { name: me().nome || "♡" }));
+  if (wiz.steps.length > 1) confetti();
+  $("#add-nome").focus();
+});
 
 // ---------- avvio ----------
 (async function start() {
   applyAnim();
-  // link di configurazione condiviso: #setup=…
+  // Link di configurazione condiviso: #setup=… (app key, percorso, lingua)
   const m = location.hash.match(/^#setup=(.+)$/);
+  let setupOk = false;
   if (m) {
-    try { const c = JSON.parse(decodeURIComponent(escape(atob(m[1])))); lsSet(DBX_CFG_KEY, { appKey: String(c.k || ""), path: normPath(c.p) }); toast("Configurazione ricevuta: ora collega Dropbox", "send-love"); } catch {}
+    try {
+      const c = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+      lsSet(DBX_CFG_KEY, { appKey: String(c.k || ""), path: normPath(c.p) });
+      if (c.l && LANGS[c.l] && !me().lang) setMe({ lang: c.l });
+      setupOk = true;
+    } catch {}
     history.replaceState(null, "", dbx.redirectUri() + "#imp");
   }
-  try { if (await dbx.handleRedirect()) { toast("Dropbox collegato!", "cloud-ok"); mochi.mood("happy", 2500); mochi.say("Ora siamo connessi ♡"); } }
+  await setLang(detect(me().lang));
+  if (setupOk) toast(t("dbx.configReceived"), "send-love");
+  try { if (await dbx.handleRedirect()) { toast(t("dbx.connected"), "cloud-ok"); mochi.mood("happy", 2500); mochi.say(frase("connesso")); } }
   catch (e) { toast(e.message, "warn"); }
 
   fillSettings(); renderOnboard(); render();
-  const start = tabs.find(t => "#" + t.id.slice(2) === location.hash) || tabs[0];
-  selectTab(start, false);
-  setSync(dbx.isConnected() ? "busy" : "local");
+  selectTab(tabs.find(x => "#" + x.id.slice(2) === location.hash) || tabs[0], false);
+  syncSet(dbx.isConnected() ? "busy" : "local", dbx.isConnected() ? "sync.busy" : "sync.local");
   sync();
-  setTimeout(() => mochi.say(frase("ciao")), 600);
+
+  // Primo avvio → wizard. Policy cambiata → riaccettazione. Aggiornamento → novità.
+  const seenV = lsGet("mochi.seen", null) || (hadState ? "1.0.0" : null);
+  if (!seenV) openWizard({ required: true });
+  else {
+    const nuove = novitaDopo(seenV);
+    const afterPolicy = () => { lsSet("mochi.seen", APP_VERSION); if (nuove.length) openNews(nuove); else setTimeout(() => mochi.say(frase("ciao")), 600); };
+    if (!policyOk()) {
+      openWizard({ required: true, steps: WIZ.filter(w => w.id === "privacy") });
+      $("#wiz").addEventListener("close", afterPolicy, { once: true });
+    } else afterPolicy();
+  }
 
   if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {});
 })();

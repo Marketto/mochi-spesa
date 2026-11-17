@@ -8,6 +8,8 @@ Lista della spesa **condivisa**, **kawaii** e **senza server**, con Mochi che ce
 - ☁️ **Sincronizzata con Dropbox**: un file JSON in una cartella condivisa in famiglia. Funziona anche offline e le modifiche si uniscono da sole.
 - 🏷️ **Offerte vicino a casa**: scegli i prodotti da tenere d'occhio (detersivo lavatrice, ammorbidente…), la zona e il raggio. Mochi cerca nei volantini e confronta con Amazon il **prezzo per lavaggio, litro o kg**.
 - ⚖️ **È un buon affare?**: incolli un link Amazon o un prezzo. Ottieni subito il prezzo per unità e, se vuoi, un'analisi di qualità e prezzo.
+- 🌍 **29 lingue**: le 24 lingue ufficiali dell'UE più russo, cinese, giapponese, coreano e arabo (impaginazione da destra a sinistra). Rileva la lingua del telefono e si cambia dalle impostazioni.
+- 👋 **Tour di benvenuto** al primo avvio, con **privacy e condizioni d'uso** da accettare, e la schermata **Novità** dopo ogni aggiornamento.
 - 📱 **Installabile** (PWA): “Aggiungi a schermata Home” su iPhone e Android.
 - ♿ **Accessibile**: contrasti WCAG AA, tutto usabile da tastiera e con screen reader, target da 44px o più, rispetta “riduci movimento”, tema chiaro e scuro.
 
@@ -66,6 +68,21 @@ Uso: `<i class="mi mi-delete" aria-hidden="true"></i>`, sempre insieme a un test
 npm install && npm run icons
 ```
 
+## 🌍 Lingue
+
+Le traduzioni sono file JSON in `locales/<codice>.json`; l'inglese è la lingua di riserva. Il test `tests/i18n.test.mjs` controlla che ogni lingua abbia tutte le chiavi con gli stessi segnaposto `{...}`.
+Le traduzioni sono state scritte con l'aiuto di un'IA: correzioni da madrelingua sono benvenute (basta modificare il JSON).
+Per aggiungere una lingua: aggiungi il codice in `LANGS` (`js/i18n.js`), crea `locales/<codice>.json` copiando `en.json` e lancia `npm test`.
+
+Il riconoscimento automatico dei reparti capisce parole italiane e inglesi; nelle altre lingue i prodotti non riconosciuti vanno in “Altro”.
+
+## 🎁 Rilasciare una nuova versione
+
+In `js/version.js`:
+- alza `APP_VERSION` e aggiungi in cima a `CHANGELOG` le novità (icona + chiave `new.*`, da tradurre in tutti i `locales`): al prossimo avvio gli utenti vedono la schermata **Novità**;
+- se cambiano privacy o condizioni, alza anche `POLICY_VERSION`: verrà chiesta di nuovo l'accettazione;
+- alza `CACHE` in `sw.js` per aggiornare la cache offline.
+
 ## 🛠️ Sviluppo
 
 ```bash
@@ -84,6 +101,9 @@ js/mascot.js          Mochi (SVG) con espressioni e frasi
 js/store.js           unione senza conflitti (last-writer-wins per elemento + tombstone)
 js/dropbox.js         OAuth PKCE e file Dropbox dal browser
 js/claude.js          ricerca offerte e valutazioni con l'API di Claude
+js/i18n.js            traduzioni, lingua RTL, font per lingua
+js/version.js         versione, novità e versione della policy
+locales/              29 file di traduzione
 css/icons.css         classi delle icone (generato)
 fonts/                font Mochi Icons, anteprima e licenza Phosphor
 tools/build-icons.mjs costruisce il font da Phosphor + glifo Mochi
