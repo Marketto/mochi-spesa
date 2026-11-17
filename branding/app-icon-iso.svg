@@ -79,5 +79,5 @@
 <ellipse cx="214" cy="318" rx="20" ry="13" fill="#fff" stroke="#e8b7c8" stroke-width="5"/>
 <ellipse cx="298" cy="318" rx="20" ry="13" fill="#fff" stroke="#e8b7c8" stroke-width="5"/>
 <!-- cuore sul fianco -->
-<path d="M316 372 c-9 -12 -28 -2 -19 12 l19 18 l19 -18 c9 -14 -10 -24 -19 -12z" fill="#fff"/>
+<path d="M0 -12 c-10 -13 -31 -2 -21 13 l21 20 l21 -20 c10 -15 -11 -26 -21 -13z" fill="#fff" transform="translate(318 418) matrix(0.8 -0.4 0 0.8 0 0)"/>
 </svg>
