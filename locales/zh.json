@@ -286,5 +286,11 @@
   "voice.denied": "麦克风未获允许。",
   "voice.none": "没有听到声音，请再试一次。",
   "legal.p10": "语音输入使用浏览器自带的语音识别：在 Chrome 中由 Google 处理音频，在 Safari 中由 Apple 处理。只有点按麦克风时才会开始。",
-  "new.voice": "免费用语音口述购物清单。"
+  "new.voice": "免费用语音口述购物清单。",
+  "share.btn": "分享应用",
+  "share.title": "Mochi Spesa",
+  "share.text": "超可爱的共享购物清单，麻糬还会帮你找优惠！",
+  "share.copied": "已复制应用链接",
+  "new.share": "一点即可把应用分享给亲友。",
+  "new.version": "版本号始终显示在标题旁：点一下即可查看新功能。"
 }

@@ -286,5 +286,11 @@
   "voice.denied": "Mikrofon nije dopušten.",
   "voice.none": "Ništa nisam čula, pokušaj ponovno.",
   "legal.p10": "Diktiranje koristi prepoznavanje govora u pregledniku: u Chromeu zvuk obrađuje Google, u Safariju Apple. Pokreće se samo kad dodirneš mikrofon.",
-  "new.voice": "Izdiktiraj popis za kupovinu glasom, besplatno."
+  "new.voice": "Izdiktiraj popis za kupovinu glasom, besplatno.",
+  "share.btn": "Podijeli aplikaciju",
+  "share.title": "Mochi Spesa",
+  "share.text": "Zajednički i preslatki popis za kupovinu, a Mochi traži akcije!",
+  "share.copied": "Poveznica na aplikaciju kopirana",
+  "new.share": "Podijeli aplikaciju s prijateljima i obitelji jednim dodirom.",
+  "new.version": "Verzija je uvijek vidljiva pored naslova: dodirni je za novosti."
 }

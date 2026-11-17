@@ -286,5 +286,11 @@
   "voice.denied": "Brak dostępu do mikrofonu.",
   "voice.none": "Nic nie usłyszałam, spróbuj ponownie.",
   "legal.p10": "Dyktowanie korzysta z rozpoznawania mowy w przeglądarce: w Chrome dźwięk przetwarza Google, w Safari Apple. Startuje tylko po dotknięciu mikrofonu.",
-  "new.voice": "Dyktuj listę zakupów głosem, za darmo."
+  "new.voice": "Dyktuj listę zakupów głosem, za darmo.",
+  "share.btn": "Udostępnij aplikację",
+  "share.title": "Mochi Spesa",
+  "share.text": "Wspólna, przeurocza lista zakupów, a Mochi szuka promocji!",
+  "share.copied": "Skopiowano link do aplikacji",
+  "new.share": "Udostępnij aplikację znajomym i rodzinie jednym dotknięciem.",
+  "new.version": "Wersja jest zawsze widoczna obok tytułu: dotknij jej, aby zobaczyć nowości."
 }

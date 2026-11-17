@@ -286,5 +286,11 @@
   "voice.denied": "Microfonul nu e permis.",
   "voice.none": "N-am auzit nimic, mai încearcă.",
   "legal.p10": "Dictarea folosește recunoașterea vocală a browserului: în Chrome sunetul e procesat de Google, în Safari de Apple. Pornește doar când atingi microfonul.",
-  "new.voice": "Dictează lista de cumpărături cu vocea, gratuit."
+  "new.voice": "Dictează lista de cumpărături cu vocea, gratuit.",
+  "share.btn": "Distribuie aplicația",
+  "share.title": "Mochi Spesa",
+  "share.text": "Lista de cumpărături comună și super drăguță, cu Mochi care caută oferte!",
+  "share.copied": "Linkul aplicației a fost copiat",
+  "new.share": "Distribuie aplicația prietenilor și familiei dintr-o atingere.",
+  "new.version": "Versiunea e mereu vizibilă lângă titlu: atinge-o ca să vezi noutățile."
 }

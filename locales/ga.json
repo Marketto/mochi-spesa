@@ -286,5 +286,11 @@
   "voice.denied": "Níl cead ag an micreafón.",
   "voice.none": "Níor chuala mé faic, bain triail eile as.",
   "legal.p10": "Úsáideann an deachtú aithint cainte an bhrabhsálaí: in Chrome próiseálann Google an fhuaim, in Safari Apple. Ní thosaíonn sé ach nuair a thapálann tú an micreafón.",
-  "new.voice": "Deachtaigh do liosta siopadóireachta le do ghlór, saor in aisce."
+  "new.voice": "Deachtaigh do liosta siopadóireachta le do ghlór, saor in aisce.",
+  "share.btn": "Roinn an aip",
+  "share.title": "Mochi Spesa",
+  "share.text": "Liosta siopadóireachta roinnte gleoite, agus Mochi ag lorg tairiscintí!",
+  "share.copied": "Nasc na haipe cóipeáilte",
+  "new.share": "Roinn an aip le cairde agus teaghlach le tapáil amháin.",
+  "new.version": "Bíonn an leagan le feiceáil i gcónaí in aice leis an teideal: tapáil é don nuacht."
 }

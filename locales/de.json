@@ -286,5 +286,11 @@
   "voice.denied": "Mikrofon nicht erlaubt.",
   "voice.none": "Ich habe nichts gehört, versuch es noch mal.",
   "legal.p10": "Das Diktat nutzt die Spracherkennung des Browsers: In Chrome verarbeitet Google den Ton, in Safari Apple. Es startet nur, wenn du auf das Mikrofon tippst.",
-  "new.voice": "Diktiere deine Einkaufsliste per Stimme, kostenlos."
+  "new.voice": "Diktiere deine Einkaufsliste per Stimme, kostenlos.",
+  "share.btn": "App teilen",
+  "share.title": "Mochi Spesa",
+  "share.text": "Die geteilte, superniedliche Einkaufsliste – Mochi sucht die Angebote!",
+  "share.copied": "App-Link kopiert",
+  "new.share": "Teile die App mit einem Tipp mit Freunden und Familie.",
+  "new.version": "Die Version steht immer neben dem Titel: Tippe darauf für die Neuigkeiten."
 }

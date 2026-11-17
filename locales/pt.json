@@ -286,5 +286,11 @@
   "voice.denied": "Microfone não permitido.",
   "voice.none": "Não ouvi nada, tenta de novo.",
   "legal.p10": "O ditado usa o reconhecimento de voz do navegador: no Chrome o áudio é processado pela Google, no Safari pela Apple. Só começa quando tocas no microfone.",
-  "new.voice": "Dita a lista de compras por voz, grátis."
+  "new.voice": "Dita a lista de compras por voz, grátis.",
+  "share.btn": "Partilhar a app",
+  "share.title": "Mochi Spesa",
+  "share.text": "A lista de compras partilhada e fofinha, com a Mochi a procurar promoções!",
+  "share.copied": "Link da app copiado",
+  "new.share": "Partilha a app com amigos e família num toque.",
+  "new.version": "A versão está sempre ao lado do título: toca nela para ver as novidades."
 }

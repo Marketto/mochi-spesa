@@ -286,5 +286,11 @@
   "voice.denied": "Il-mikrofonu mhux permess.",
   "voice.none": "Ma smajt xejn, erġa' pprova.",
   "legal.p10": "Id-dettatura tuża r-rikonoxximent tal-vuċi tal-browser: fuq Chrome l-awdjo jipproċessah Google, fuq Safari Apple. Tibda biss meta tagħfas il-mikrofonu.",
-  "new.voice": "Iddetta l-lista tax-xiri bil-vuċi, b'xejn."
+  "new.voice": "Iddetta l-lista tax-xiri bil-vuċi, b'xejn.",
+  "share.btn": "Aqsam l-app",
+  "share.title": "Mochi Spesa",
+  "share.text": "Il-lista tax-xiri maqsuma u ħelwa ħafna, b'Mochi jfittex l-offerti!",
+  "share.copied": "Il-link tal-app ikkupjat",
+  "new.share": "Aqsam l-app mal-ħbieb u l-familja b'għafsa waħda.",
+  "new.version": "Il-verżjoni dejjem tidher ħdejn it-titlu: agħfasha biex tara x'hemm ġdid."
 }
