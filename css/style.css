@@ -475,3 +475,17 @@ body.has-save-bar { padding-bottom: calc(170px + env(safe-area-inset-bottom)); }
 .flyer-links { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 6px 0 0; }
 .flyer-links a.chip { text-decoration: none; color: var(--ink); min-height: 44px; display: inline-flex; align-items: center; gap: 6px; }
 .op-credit a { color: var(--pink); }
+
+/* volantini letti */
+h3.sub { font-size: 15px; margin: 14px 0 6px; }
+#fl-prog { width: 100%; height: 10px; margin-top: 10px; accent-color: var(--pink); }
+.fl-best { list-style: none; padding: 0; margin: 0; }
+.fl-best li { display: grid; grid-template-columns: 1fr auto auto; gap: 2px 8px; align-items: center; padding: 6px 0; border-top: 2px dashed var(--line); }
+.fl-best li:first-child { border-top: 0; }
+.fl-best .fl-n { font-weight: 800; }
+.fl-best .fl-p { font-weight: 800; color: var(--pink); }
+.fl-best .fl-w { grid-column: 1 / 2; font-size: 13px; color: var(--muted); }
+.fl-best .icon-btn { grid-row: 1 / 3; grid-column: 3; }
+.fl-found { list-style: none; padding: 0; margin: 0; }
+.fl-found li { display: grid; gap: 4px; padding: 8px 0; border-top: 2px dashed var(--line); }
+.fl-found li > input { max-width: 8em; }
