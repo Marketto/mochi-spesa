@@ -435,5 +435,8 @@
   "fl.remove": "Kustuta {name} hind poes {store}",
   "fl.compareOnline": "Võrdle veebis Trovaprezzis:",
   "legal.p13": "Üles laaditud lehed loetakse telefonis: faili ei saadeta kuhugi. Lugemiseks laadib rakendus tesseract.js, pdf.js ja keelemudeli jsDelivrist, mis saab sinu IP-aadressi. Salvestatud hinnad lähevad jagatud Dropboxi faili.",
-  "new.flyer": "Loe kampaanialehti (PDF või foto) tasuta telefonis ja hoia parimaid hindu."
+  "new.flyer": "Loe kampaanialehti (PDF või foto) tasuta telefonis ja hoia parimaid hindu.",
+  "ai.share": "Jaga võtit sama nimekirja kasutajatega",
+  "ai.shareHint": "See salvestatakse jagatud Dropboxi faili, nii et teistel pole oma võtit vaja. Jaga ainult usaldusväärsetega: kellel on võti, see kasutab sinu kontot.",
+  "ai.sharedInUse": "Kasutan pere poolt Dropboxi kaudu jagatud võtit."
 }

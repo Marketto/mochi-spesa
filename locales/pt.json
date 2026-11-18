@@ -435,5 +435,8 @@
   "fl.remove": "Eliminar o preço de {name} em {store}",
   "fl.compareOnline": "Comparar online no Trovaprezzi:",
   "legal.p13": "Os folhetos carregados são lidos no telemóvel: o ficheiro não é enviado a ninguém. Para os ler, a app transfere tesseract.js, pdf.js e o modelo de língua do jsDelivr, que recebe o teu IP. Os preços guardados vão para o ficheiro partilhado no Dropbox.",
-  "new.flyer": "Lê folhetos (PDF ou foto) grátis no telemóvel e guarda o histórico dos melhores preços."
+  "new.flyer": "Lê folhetos (PDF ou foto) grátis no telemóvel e guarda o histórico dos melhores preços.",
+  "ai.share": "Partilhar a chave com quem usa a mesma lista",
+  "ai.shareHint": "Fica guardada no ficheiro partilhado do Dropbox, assim quem partilha a pasta não precisa de criar uma. Partilha-a só com pessoas de confiança: quem tem a chave usa a tua conta.",
+  "ai.sharedInUse": "Estou a usar a chave partilhada pela família via Dropbox."
 }

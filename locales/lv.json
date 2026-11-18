@@ -435,5 +435,8 @@
   "fl.remove": "Dzēst {name} cenu veikalā {store}",
   "fl.compareOnline": "Salīdzini tiešsaistē Trovaprezzi:",
   "legal.p13": "Augšupielādētie bukleti tiek lasīti tālrunī: fails netiek nekur sūtīts. Lasīšanai lietotne lejupielādē tesseract.js, pdf.js un valodas modeli no jsDelivr, kas saņem tavu IP adresi. Saglabātās cenas nonāk koplietotajā Dropbox failā.",
-  "new.flyer": "Lasi bukletus (PDF vai foto) bez maksas tālrunī un glabā labākās cenas."
+  "new.flyer": "Lasi bukletus (PDF vai foto) bez maksas tālrunī un glabā labākās cenas.",
+  "ai.share": "Kopīgot atslēgu ar tiem, kas lieto to pašu sarakstu",
+  "ai.shareHint": "Tā tiek saglabāta koplietotajā Dropbox failā, tāpēc citiem nevajag savu. Kopīgo tikai ar uzticamiem cilvēkiem: kam ir atslēga, tas lieto tavu kontu.",
+  "ai.sharedInUse": "Izmantoju ģimenes kopīgoto atslēgu caur Dropbox."
 }

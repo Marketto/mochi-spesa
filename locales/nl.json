@@ -435,5 +435,8 @@
   "fl.remove": "Prijs van {name} bij {store} verwijderen",
   "fl.compareOnline": "Online vergelijken op Trovaprezzi:",
   "legal.p13": "Geüploade folders worden op je telefoon gelezen: het bestand wordt nergens heen gestuurd. Daarvoor downloadt de app tesseract.js, pdf.js en het taalmodel van jsDelivr, dat je IP-adres ontvangt. Opgeslagen prijzen komen in het gedeelde Dropbox-bestand.",
-  "new.flyer": "Lees folders (pdf of foto) gratis op je telefoon en bewaar de beste prijzen."
+  "new.flyer": "Lees folders (pdf of foto) gratis op je telefoon en bewaar de beste prijzen.",
+  "ai.share": "Sleutel delen met wie dezelfde lijst gebruikt",
+  "ai.shareHint": "Hij wordt opgeslagen in het gedeelde Dropbox-bestand, dus anderen hebben er geen eigen nodig. Deel hem alleen met mensen die je vertrouwt: wie de sleutel heeft, gebruikt jouw account.",
+  "ai.sharedInUse": "Ik gebruik de sleutel die je gezin via Dropbox deelt."
 }

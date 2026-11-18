@@ -435,5 +435,8 @@
   "fl.remove": "Preis von {name} bei {store} löschen",
   "fl.compareOnline": "Online auf Trovaprezzi vergleichen:",
   "legal.p13": "Hochgeladene Prospekte werden auf dem Handy gelesen: die Datei wird nirgendwohin gesendet. Dazu lädt die App tesseract.js, pdf.js und das Sprachmodell von jsDelivr, das deine IP-Adresse erhält. Gespeicherte Preise landen in der geteilten Dropbox-Datei.",
-  "new.flyer": "Prospekte (PDF oder Foto) kostenlos auf dem Handy lesen und die besten Preise speichern."
+  "new.flyer": "Prospekte (PDF oder Foto) kostenlos auf dem Handy lesen und die besten Preise speichern.",
+  "ai.share": "Schlüssel mit allen teilen, die dieselbe Liste nutzen",
+  "ai.shareHint": "Er wird in der geteilten Dropbox-Datei gespeichert, so brauchen andere keinen eigenen. Teile ihn nur mit Vertrauenspersonen: wer den Schlüssel hat, nutzt dein Konto.",
+  "ai.sharedInUse": "Ich nutze den über Dropbox geteilten Familienschlüssel."
 }

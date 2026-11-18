@@ -435,5 +435,8 @@
   "fl.remove": "Obriši cijenu {name} u {store}",
   "fl.compareOnline": "Usporedi online na Trovaprezzi:",
   "legal.p13": "Učitani katalozi čitaju se na mobitelu: datoteka se nikamo ne šalje. Za čitanje aplikacija preuzima tesseract.js, pdf.js i jezični model s jsDelivra, koji prima tvoju IP adresu. Spremljene cijene idu u zajedničku datoteku na Dropboxu.",
-  "new.flyer": "Besplatno čitaj kataloge (PDF ili foto) na mobitelu i čuvaj najbolje cijene."
+  "new.flyer": "Besplatno čitaj kataloge (PDF ili foto) na mobitelu i čuvaj najbolje cijene.",
+  "ai.share": "Podijeli ključ s onima koji koriste isti popis",
+  "ai.shareHint": "Sprema se u zajedničku datoteku na Dropboxu pa drugi ne trebaju svoj. Dijeli ga samo s osobama od povjerenja: tko ima ključ, koristi tvoj račun.",
+  "ai.sharedInUse": "Koristim ključ koji obitelj dijeli preko Dropboxa."
 }

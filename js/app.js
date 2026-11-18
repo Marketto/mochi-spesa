@@ -206,10 +206,8 @@ function renderOfferte() {
     <button class="btn ghost" type="button" id="away-home">${ic("tab-list")} ${esc(t("geo.backHome"))}</button></div>` : "";
   $("#away-home")?.addEventListener("click", () => { lsSet(AWAY_KEY, null); renderOfferte(); toast(t("geo.backHome"), "pin"); $("#cerca").focus(); });
   $("#cerca").disabled = !s.luogo || !live(state.monitor).length;
-  const mons = live(state.monitor);
   $("#free-box").innerHTML = key ? "" : `<div class="card notice-card"><p>${ic("heart")} ${esc(t("free.info"))}</p>
-    ${mons.length && s.luogo ? `<p class="hint">${esc(t("free.flyers"))}</p><ul class="flyer-links">${mons.map(m => `<li><a class="chip" href="https://www.google.com/search?q=${encodeURIComponent(`${t("free.flyerWord")} ${m.nome} ${s.luogo}`)}" target="_blank" rel="noopener noreferrer">${ic("flyer")} ${esc(m.nome)}<span class="sr"> ${esc(t("a11y.newTab"))}</span></a></li>`).join("")}</ul>
-    <p class="hint">${esc(t("fl.compareOnline"))}</p><ul class="flyer-links">${mons.map(m => `<li><a class="chip" href="https://www.google.com/search?q=${encodeURIComponent(`site:trovaprezzi.it ${m.nome}`)}" target="_blank" rel="noopener noreferrer">${ic("external")} ${esc(m.nome)}<span class="sr"> ${esc(t("a11y.newTab"))}</span></a></li>`).join("")}</ul>` : ""}</div>`;
+    </div>`;
   if (!o.list.length) { $("#offerte").innerHTML = `<div class="card empty">${ic("percent", "big-emoji")}<p>${esc(t("deals.none"))}</p></div>`; renderOfferte.sorted = []; return; }
   const list = [...o.list].sort((a, b) => (a.categoria || a.prodotto).localeCompare(b.categoria || b.prodotto) || (a.prezzoUnit ?? 1e9) - (b.prezzoUnit ?? 1e9));
   const nt = `<span class="sr"> ${esc(t("a11y.newTab"))}</span>`;
@@ -256,6 +254,7 @@ function renderValutazioni() {
 }
 
 function render() {
+  ai.setShared(state.settings.aiShared);
   keepFocus(() => { renderLista(); renderMonitor(); renderOfferte(); renderValutazioni(); renderPantry(); renderPrefs(); renderFlyerBest(); });
   document.querySelectorAll(".cur-sym").forEach(el => el.textContent = curSymbol());
 }
@@ -1064,6 +1063,7 @@ function fillSettings() {
   let names; try { names = new Intl.DisplayNames([locale()], { type: "currency" }); } catch {}
   $("#z-valuta").innerHTML = CURRENCIES.map(c => `<option value="${c}">${esc(names ? names.of(c) : c)} (${c})</option>`).join("");
   $("#z-valuta").value = currency();
+  ai.setShared(state.settings.aiShared);
   const a = ai.getCfg(); $("#ai-provider").value = a.provider; fillAi(a.provider);
   $("#dbx-off").hidden = !dbx.isConnected();
   $("#dbx-go-txt").textContent = t(dbx.isConnected() ? "dbx.reconnect" : "dbx.connect");
@@ -1082,7 +1082,9 @@ $("#me-lang").addEventListener("change", async e => {
 $("#me-lang").addEventListener("input", e => e.stopPropagation());
 // servizio di ricerca: Claude o Mistral (ognuno con la sua chiave)
 function fillAi(provider) {
-  const a = ai.getCfg(provider);
+  const a = ai.getCfg(provider, { local: true }), sh = state.settings.aiShared;
+  $("#ai-share").checked = !!(sh && sh.key && sh.key === a.key);
+  $("#ai-shared-msg").hidden = !(sh && sh.key && sh.provider === provider && !a.key);
   $("#ai-key").value = a.key; $("#ai-model").value = a.model;
   $("#ai-key").placeholder = provider === "mistral" ? "…" : "sk-ant-…";
   $("#ai-hint").textContent = t(provider === "mistral" ? "ai.mistralHint" : "ai.hint");
@@ -1110,7 +1112,9 @@ async function saveSettings() {
     setMe({ nome, anim: document.querySelector('input[name="anim"]:checked')?.value || "auto" });
     applyAnim();
     // chiave Claude (solo su questo telefono)
-    ai.setCfg({ provider: $("#ai-provider").value, key: $("#ai-key").value.trim(), model: $("#ai-model").value.trim() });
+    const aiCfg = { provider: $("#ai-provider").value, key: $("#ai-key").value.trim(), model: $("#ai-model").value.trim() };
+    ai.setCfg(aiCfg);
+    const aiShared = $("#ai-share").checked && aiCfg.key ? aiCfg : null;
     // zona e dispensa (condivisi)
     const luogo = $("#z-luogo").value.trim(), old = state.settings;
     let coords = luogo === old.luogo && old.lat != null ? { lat: old.lat, lon: old.lon } : { lat: null, lon: null };
@@ -1121,7 +1125,7 @@ async function saveSettings() {
     const ripiani = document.querySelector('input[name="lvdir"]:checked')?.value === "basso" ? "basso" : "alto";
     mutate((s, now) => {
       s.settings = { ...s.settings, luogo, raggioKm: +$("#z-raggio").value, negozi: $("#z-negozi").value.trim(), amazon: $("#z-amz").checked,
-        valuta: $("#z-valuta").value, ripiani, ...coords, updatedAt: now };
+        valuta: $("#z-valuta").value, ripiani, aiShared, ...coords, updatedAt: now };
     });
     setDirty(false); fillSettings(); render(); renderOfferte();
     toast(t("set.saved"), "save"); mochi.mood("happy"); mochi.say(nome ? t("phr.nice", { name: nome }) : frase("aggiunto"));

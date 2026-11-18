@@ -7,10 +7,14 @@ export const PROVIDERS = ["claude", "mistral"];
 export const DEFAULT_MODELS = { claude: "claude-sonnet-5-5", mistral: "mistral-medium-latest" };
 export const DEFAULT_MODEL = DEFAULT_MODELS.claude;
 const raw = () => { try { return JSON.parse(localStorage.getItem(LS)) || {}; } catch { return {}; } };
-/** Configurazione attiva: { provider, key, model }. Le chiavi di ogni servizio restano salvate a parte. */
-export function getCfg(provider) {
-  const r = raw(), p = provider || r.provider || "claude";
+// chiave condivisa in famiglia (arriva dal file su Dropbox, mai dal repository)
+let shared = null;
+export const setShared = c => { shared = c && c.key && PROVIDERS.includes(c.provider) ? c : null; };
+/** Configurazione attiva: { provider, key, model }. Senza chiave propria usa quella condivisa via Dropbox. */
+export function getCfg(provider, { local = false } = {}) {
+  const r = raw(), p = provider || r.provider || (shared ? shared.provider : "claude");
   const keys = r.keys || { claude: r.key || "" }, models = r.models || { claude: r.model || "" };
+  if (!keys[p] && !local && shared && (!provider || provider === shared.provider)) return { provider: shared.provider, key: shared.key, model: shared.model || DEFAULT_MODELS[shared.provider], shared: true };
   return { provider: p, key: keys[p] || "", model: models[p] || DEFAULT_MODELS[p] };
 }
 export function setCfg({ provider = "claude", key = "", model = "" }) {

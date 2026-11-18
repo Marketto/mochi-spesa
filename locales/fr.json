@@ -435,5 +435,8 @@
   "fl.remove": "Supprimer le prix de {name} chez {store}",
   "fl.compareOnline": "Comparer en ligne sur Trovaprezzi :",
   "legal.p13": "Les prospectus chargés sont lus sur le téléphone : le fichier n'est envoyé nulle part. Pour les lire, l'app télécharge tesseract.js, pdf.js et le modèle de langue depuis jsDelivr, qui reçoit ton adresse IP. Les prix enregistrés vont dans le fichier Dropbox partagé.",
-  "new.flyer": "Lis les prospectus (PDF ou photo) gratuitement sur le téléphone et garde l'historique des meilleurs prix."
+  "new.flyer": "Lis les prospectus (PDF ou photo) gratuitement sur le téléphone et garde l'historique des meilleurs prix.",
+  "ai.share": "Partager la clé avec ceux qui utilisent la même liste",
+  "ai.shareHint": "Elle est enregistrée dans le fichier Dropbox partagé : les personnes qui partagent le dossier n'ont pas besoin d'en créer une. Partage-la seulement avec des personnes de confiance : qui a la clé utilise ton compte.",
+  "ai.sharedInUse": "J'utilise la clé partagée par la famille via Dropbox."
 }

@@ -435,5 +435,8 @@
   "fl.remove": "Zmazať cenu {name} v {store}",
   "fl.compareOnline": "Porovnať online na Trovaprezzi:",
   "legal.p13": "Nahrané letáky sa čítajú v telefóne: súbor sa nikam neposiela. Aplikácia na to sťahuje tesseract.js, pdf.js a jazykový model z jsDelivr, ktorý dostane tvoju IP adresu. Uložené ceny idú do zdieľaného súboru v Dropboxe.",
-  "new.flyer": "Čítaj letáky (PDF alebo fotku) zadarmo v telefóne a ukladaj najlepšie ceny."
+  "new.flyer": "Čítaj letáky (PDF alebo fotku) zadarmo v telefóne a ukladaj najlepšie ceny.",
+  "ai.share": "Zdieľať kľúč s ostatnými na rovnakom zozname",
+  "ai.shareHint": "Uloží sa do zdieľaného súboru v Dropboxe, takže ostatní nemusia vytvárať vlastný. Zdieľaj ho len s ľuďmi, ktorým veríš: kto má kľúč, používa tvoj účet.",
+  "ai.sharedInUse": "Používam kľúč zdieľaný rodinou cez Dropbox."
 }

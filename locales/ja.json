@@ -435,5 +435,8 @@
   "fl.remove": "{store} の {name} の価格を削除",
   "fl.compareOnline": "Trovaprezzi でオンライン比較：",
   "legal.p13": "アップロードしたチラシはスマホの中で読み取り、ファイルはどこにも送られません。読み取りのため tesseract.js・pdf.js・言語モデルを jsDelivr からダウンロードし、jsDelivr は IP アドレスを受け取ります。保存した価格は共有の Dropbox ファイルに入ります。",
-  "new.flyer": "チラシ（PDF・写真）をスマホで無料で読み取り、最安値の履歴を保存。"
+  "new.flyer": "チラシ（PDF・写真）をスマホで無料で読み取り、最安値の履歴を保存。",
+  "ai.share": "同じリストを使う人とキーを共有",
+  "ai.shareHint": "共有の Dropbox ファイルに保存されるので、ほかの人は自分のキーを作らなくて大丈夫。信頼できる人とだけ共有してね：キーを持つ人はあなたのアカウントを使います。",
+  "ai.sharedInUse": "家族が Dropbox で共有したキーを使っています。"
 }

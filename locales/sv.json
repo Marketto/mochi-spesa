@@ -435,5 +435,8 @@
   "fl.remove": "Ta bort priset för {name} hos {store}",
   "fl.compareOnline": "Jämför online på Trovaprezzi:",
   "legal.p13": "Reklamblad du laddar upp läses på telefonen: filen skickas ingenstans. För att läsa dem laddar appen ner tesseract.js, pdf.js och språkmodellen från jsDelivr, som får din IP-adress. Sparade priser hamnar i den delade Dropbox-filen.",
-  "new.flyer": "Läs reklamblad (pdf eller foto) gratis på telefonen och spara de bästa priserna."
+  "new.flyer": "Läs reklamblad (pdf eller foto) gratis på telefonen och spara de bästa priserna.",
+  "ai.share": "Dela nyckeln med dem som använder samma lista",
+  "ai.shareHint": "Den sparas i den delade Dropbox-filen, så andra behöver ingen egen. Dela den bara med personer du litar på: den som har nyckeln använder ditt konto.",
+  "ai.sharedInUse": "Jag använder nyckeln som familjen delar via Dropbox."
 }

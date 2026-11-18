@@ -435,5 +435,8 @@
   "fl.remove": "Izbriši ceno {name} v {store}",
   "fl.compareOnline": "Primerjaj na spletu na Trovaprezzi:",
   "legal.p13": "Naloženi letaki se preberejo na telefonu: datoteka se nikamor ne pošlje. Za branje aplikacija prenese tesseract.js, pdf.js in jezikovni model z jsDelivr, ki prejme tvoj IP. Shranjene cene gredo v skupno datoteko na Dropboxu.",
-  "new.flyer": "Brezplačno beri letake (PDF ali foto) na telefonu in shranjuj najboljše cene."
+  "new.flyer": "Brezplačno beri letake (PDF ali foto) na telefonu in shranjuj najboljše cene.",
+  "ai.share": "Deli ključ z vsemi, ki uporabljajo isti seznam",
+  "ai.shareHint": "Shrani se v skupno datoteko na Dropboxu, zato drugi ne potrebujejo svojega. Deli ga samo z ljudmi, ki jim zaupaš: kdor ima ključ, uporablja tvoj račun.",
+  "ai.sharedInUse": "Uporabljam ključ, ki ga družina deli prek Dropboxa."
 }
