@@ -195,7 +195,7 @@ function renderMonitor() {
 
 const VOTO = { ottima: ["vote.great", "gold", "star"], buona: ["vote.good", "", "down"], normale: ["vote.avg", "warn", "info"] };
 function renderOfferte() {
-  const s = state.settings, o = state.offerte, key = !!ai.getCfg().key;
+  const s = state.settings, o = state.offerte, key = ai.ready();
   $("#off-info").innerHTML = !s.luogo ? `${ic("pin")} ${esc(t("geo.ask"))} <button class="btn ghost" type="button" id="offerte-geo2">${ic("pin")} ${esc(t("geo.use"))}</button>`
     : o.updatedAt ? `${ic("pin")} ${esc(t("deals.last", { when: quando(o.updatedAt), km: s.raggioKm, place: s.luogo }))}`
     : `${ic("info")} ${esc(t("deals.first"))}`;
@@ -794,7 +794,7 @@ async function runCompare() {
   const s0 = state.settings, btn = $("#compare");
   if (!s0.luogo) { toast(t("geo.ask"), "pin"); selectTab($("#t-imp")); $("#z-luogo").focus(); return; }
   const prodotti = live(state.items).filter(i => !i.fatto).slice(0, 25).map(i => ({ id: i.id, nome: i.nome, qta: i.qta || "" }));
-  if (!ai.getCfg().key) {
+  if (!ai.ready()) {
     const pt = searchPoint(); if (!pt) { toast(t("geo.ask"), "pin"); return; }
     btn.classList.add("loading"); btn.setAttribute("aria-busy", "true");
     try {
@@ -882,7 +882,7 @@ $("#cerca").addEventListener("click", async () => {
     const s0 = state.settings, a0 = away();
     const luogo = a0 ? `${a0.nome} (lat ${a0.lat}, lon ${a0.lon})` : s0.lat != null ? `${s0.luogo} (lat ${s0.lat}, lon ${s0.lon})` : s0.luogo;
     let offerte;
-    if (ai.getCfg().key) offerte = await ai.cercaOfferte({ prodotti: live(state.monitor), ...s0, luogo, valuta: currency(), lingua: langName() }, { signal: searching.signal });
+    if (ai.ready()) offerte = await ai.cercaOfferte({ prodotti: live(state.monitor), ...s0, luogo, valuta: currency(), lingua: langName() }, { signal: searching.signal });
     else {
       const pt = searchPoint(); if (!pt) throw new Error(t("geo.ask"));
       const prices = await op.nearby({ ...pt, raggioKm: Math.max(s0.raggioKm || 5, 10) }, { signal: searching.signal });
@@ -926,7 +926,7 @@ $("#f-val").addEventListener("submit", async e => {
   e.preventDefault();
   const v = readVal(), btn = $("#val-ask"), out = $("#val-out");
   if (!v.testo) { out.innerHTML = `<p class="hint">${ic("info")} ${esc(t("rate.needWhat"))}</p>`; $("#val-testo").focus(); return; }
-  if (!ai.getCfg().key) { out.innerHTML = `<p class="hint">${ic("key")} ${esc(t("deals.needKey"))}</p>`; return; }
+  if (!ai.ready()) { out.innerHTML = `<p class="hint">${ic("key")} ${esc(t("deals.needKey"))}</p>`; return; }
   btn.classList.add("loading"); btn.setAttribute("aria-busy", "true"); btn.disabled = true;
   out.innerHTML = `<p class="hint">${esc(t("rate.checking"))}</p>`;
   mochi.mood("wow", 0); mochi.say(frase("guardo"), 60000);
@@ -971,7 +971,7 @@ function fillSettings() {
   let names; try { names = new Intl.DisplayNames([locale()], { type: "currency" }); } catch {}
   $("#z-valuta").innerHTML = CURRENCIES.map(c => `<option value="${c}">${esc(names ? names.of(c) : c)} (${c})</option>`).join("");
   $("#z-valuta").value = currency();
-  const a = ai.getCfg(); $("#ai-key").value = a.key || ""; $("#ai-model").value = a.model || ai.DEFAULT_MODEL;
+  const a = ai.getCfg(); $("#ai-provider").value = a.provider; fillAi(a.provider);
   $("#dbx-off").hidden = !dbx.isConnected();
   $("#dbx-go-txt").textContent = t(dbx.isConnected() ? "dbx.reconnect" : "dbx.connect");
   $("#about-ver").textContent = t("about.version", { v: APP_VERSION });
@@ -987,6 +987,15 @@ async function changeLang(code) {
 $("#me-lang").addEventListener("change", async e => {
   e.stopPropagation(); await changeLang(e.target.value); toast(t("lang.changed"), "lang"); $("#me-lang").focus(); });
 $("#me-lang").addEventListener("input", e => e.stopPropagation());
+// servizio di ricerca: Claude o Mistral (ognuno con la sua chiave)
+function fillAi(provider) {
+  const a = ai.getCfg(provider);
+  $("#ai-key").value = a.key; $("#ai-model").value = a.model;
+  $("#ai-key").placeholder = provider === "mistral" ? "…" : "sk-ant-…";
+  $("#ai-hint").textContent = t(provider === "mistral" ? "ai.mistralHint" : "ai.hint");
+  $("#ai-link").href = provider === "mistral" ? "https://console.mistral.ai/api-keys" : "https://console.anthropic.com/settings/keys";
+}
+$("#ai-provider").addEventListener("change", e => fillAi(e.target.value));
 // ---------- IMPOSTAZIONI: una sola barra Salva / Annulla ----------
 let settingsDirty = false;
 function setDirty(v) {
@@ -1008,7 +1017,7 @@ async function saveSettings() {
     setMe({ nome, anim: document.querySelector('input[name="anim"]:checked')?.value || "auto" });
     applyAnim();
     // chiave Claude (solo su questo telefono)
-    ai.setCfg({ key: $("#ai-key").value.trim(), model: $("#ai-model").value.trim() || ai.DEFAULT_MODEL });
+    ai.setCfg({ provider: $("#ai-provider").value, key: $("#ai-key").value.trim(), model: $("#ai-model").value.trim() });
     // zona e dispensa (condivisi)
     const luogo = $("#z-luogo").value.trim(), old = state.settings;
     let coords = luogo === old.luogo && old.lat != null ? { lat: old.lat, lon: old.lon } : { lat: null, lon: null };
@@ -1214,7 +1223,7 @@ function legalHtml() {
   const sec = (icon, title, prefix, n) => `<h3>${ic(icon)} ${esc(t(title))}</h3><ul>${
     Array.from({ length: n }, (_, i) => `<li>${esc(t(`${prefix}${i + 1}`))}</li>`).join("")}</ul>`;
   return `<p class="hint">${esc(t("legal.updated", { date: new Date(POLICY_VERSION).toLocaleDateString(locale(), { dateStyle: "long" }) }))}</p>
-    ${sec("privacy", "legal.privacyTitle", "legal.p", 11)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
+    ${sec("privacy", "legal.privacyTitle", "legal.p", 12)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
 }
 function openLegal() { $("#legal-body").innerHTML = legalHtml(); $("#legal").showModal(); }
 

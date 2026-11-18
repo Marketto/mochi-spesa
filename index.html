@@ -215,9 +215,12 @@
 
     <form class="card track" id="f-ai">
       <h2 class="in"><i class="mi mi-key" aria-hidden="true"></i> <span data-i18n="ai.title"></span></h2>
-      <p class="hint" data-i18n="ai.hint"></p>
+      <label for="ai-provider" data-i18n="ai.provider"></label>
+      <select id="ai-provider"><option value="mistral" data-i18n="ai.pMistral"></option><option value="claude" data-i18n="ai.pClaude"></option></select>
+      <p class="hint" id="ai-hint"></p>
       <label for="ai-key" data-i18n="ai.key"></label>
-      <input id="ai-key" type="password" autocomplete="off" spellcheck="false" dir="ltr" placeholder="sk-ant-…">
+      <input id="ai-key" type="password" autocomplete="off" spellcheck="false" dir="ltr">
+      <p class="hint"><a id="ai-link" href="https://console.mistral.ai/api-keys" target="_blank" rel="noopener noreferrer"><i class="mi mi-external" aria-hidden="true"></i> <span data-i18n="ai.getKey"></span><span class="sr" data-i18n="a11y.newTab"></span></a></p>
       <label for="ai-model" data-i18n="ai.model"></label>
       <input id="ai-model" spellcheck="false" dir="ltr">
     </form>
