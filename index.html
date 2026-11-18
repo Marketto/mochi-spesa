@@ -112,6 +112,16 @@
     <div id="away" aria-live="polite"></div>
     <p class="hint" id="off-info" aria-live="polite"></p>
     <div id="free-box"></div>
+    <section class="card" aria-labelledby="fl-t">
+      <h2 class="in" id="fl-t"><i class="mi mi-scan" aria-hidden="true"></i> <span data-i18n="fl.title"></span> <small data-i18n="zone.shared"></small></h2>
+      <p class="hint" data-i18n="fl.hint"></p>
+      <button class="btn ghost" type="button" id="fl-btn"><i class="mi mi-scan" aria-hidden="true"></i> <span data-i18n="fl.load"></span></button>
+      <input type="file" id="fl-file" accept="application/pdf,image/*" hidden>
+      <progress id="fl-prog" max="1" value="0" hidden data-i18n-attr="aria-label:fl.title"></progress>
+      <p class="hint" id="fl-msg" aria-live="polite"></p>
+      <h3 class="sub" data-i18n="fl.best"></h3>
+      <ul class="fl-best" id="fl-best"></ul>
+    </section>
     <div id="offerte"></div>
   </section>
 

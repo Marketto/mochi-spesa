@@ -10,6 +10,7 @@ import * as voice from "./voice.js";
 import * as pantry from "./pantry.js";
 import * as importer from "./importer.js";
 import * as op from "./openprices.js";
+import * as flyer from "./flyer.js";
 
 // ---------- utilità ----------
 const $ = s => document.querySelector(s);
@@ -207,7 +208,8 @@ function renderOfferte() {
   $("#cerca").disabled = !s.luogo || !live(state.monitor).length;
   const mons = live(state.monitor);
   $("#free-box").innerHTML = key ? "" : `<div class="card notice-card"><p>${ic("heart")} ${esc(t("free.info"))}</p>
-    ${mons.length && s.luogo ? `<p class="hint">${esc(t("free.flyers"))}</p><ul class="flyer-links">${mons.map(m => `<li><a class="chip" href="https://www.google.com/search?q=${encodeURIComponent(`${t("free.flyerWord")} ${m.nome} ${s.luogo}`)}" target="_blank" rel="noopener noreferrer">${ic("flyer")} ${esc(m.nome)}<span class="sr"> ${esc(t("a11y.newTab"))}</span></a></li>`).join("")}</ul>` : ""}</div>`;
+    ${mons.length && s.luogo ? `<p class="hint">${esc(t("free.flyers"))}</p><ul class="flyer-links">${mons.map(m => `<li><a class="chip" href="https://www.google.com/search?q=${encodeURIComponent(`${t("free.flyerWord")} ${m.nome} ${s.luogo}`)}" target="_blank" rel="noopener noreferrer">${ic("flyer")} ${esc(m.nome)}<span class="sr"> ${esc(t("a11y.newTab"))}</span></a></li>`).join("")}</ul>
+    <p class="hint">${esc(t("fl.compareOnline"))}</p><ul class="flyer-links">${mons.map(m => `<li><a class="chip" href="https://www.google.com/search?q=${encodeURIComponent(`site:trovaprezzi.it ${m.nome}`)}" target="_blank" rel="noopener noreferrer">${ic("external")} ${esc(m.nome)}<span class="sr"> ${esc(t("a11y.newTab"))}</span></a></li>`).join("")}</ul>` : ""}</div>`;
   if (!o.list.length) { $("#offerte").innerHTML = `<div class="card empty">${ic("percent", "big-emoji")}<p>${esc(t("deals.none"))}</p></div>`; renderOfferte.sorted = []; return; }
   const list = [...o.list].sort((a, b) => (a.categoria || a.prodotto).localeCompare(b.categoria || b.prodotto) || (a.prezzoUnit ?? 1e9) - (b.prezzoUnit ?? 1e9));
   const nt = `<span class="sr"> ${esc(t("a11y.newTab"))}</span>`;
@@ -254,7 +256,7 @@ function renderValutazioni() {
 }
 
 function render() {
-  keepFocus(() => { renderLista(); renderMonitor(); renderOfferte(); renderValutazioni(); renderPantry(); renderPrefs(); });
+  keepFocus(() => { renderLista(); renderMonitor(); renderOfferte(); renderValutazioni(); renderPantry(); renderPrefs(); renderFlyerBest(); });
   document.querySelectorAll(".cur-sym").forEach(el => el.textContent = curSymbol());
 }
 
@@ -718,6 +720,92 @@ const searchPoint = () => { const a0 = away(), s0 = state.settings; return a0 ? 
 const opNote = p => t("free.seen", { product: [p.nome, p.quantita ? `${p.quantita} ${p.unitaQ}` : ""].filter(Boolean).join(" "), date: p.data ? new Date(p.data + "T12:00").toLocaleDateString(locale(), { dateStyle: "medium" }) : "–" });
 const OP_CREDIT = () => `<p class="hint op-credit">${ic("info")} ${esc(t("free.credit"))} <a href="${op.SITE}" target="_blank" rel="noopener noreferrer">Open Food Facts – Open Prices${`<span class="sr"> ${esc(t("a11y.newTab"))}</span>`}</a> (ODbL)</p>`;
 
+// prezzi dai volantini salvati, come opzioni per "Dove conviene?"
+const oggiISO = () => new Date().toISOString().slice(0, 10);
+const shortDate = d => new Date(d + "T12:00").toLocaleDateString(locale(), { day: "numeric", month: "short" });
+function savedOptions(nome) {
+  return flyer.bestSaved(nome, live(state.prezzi)).map(x => ({ negozio: x.negozio, prezzo: x.prezzo, prezzoUnit: x.prezzoUnit, offerta: !!(x.validoFino && x.validoFino >= oggiISO()),
+    validoFino: x.validoFino ? shortDate(x.validoFino) : null, fonte: "", nota: t("fl.note", { date: shortDate(x.data) }) + (x.riga ? ` – ${x.riga}` : "") }));
+}
+/** Un'opzione per negozio: vince la prima (volantini salvati prima dei prezzi della community), poi dalla più economica. */
+function mergeOptions(opts) {
+  const m = new Map();
+  for (const o of opts) { const k = pantry.norm(o.negozio); if (!m.has(k)) m.set(k, o); }
+  return [...m.values()].sort((a, b) => a.prezzo - b.prezzo).slice(0, 6);
+}
+
+// ---------- LEGGI UN VOLANTINO ----------
+const flyerNames = () => [...new Map([...live(state.monitor).map(m => m.nome), ...live(state.items).filter(i => !i.fatto).map(i => i.nome)]
+  .map(n => [pantry.norm(n), n])).values()];
+function renderFlyerBest() {
+  const nomi = flyerNames(), rows = [];
+  for (const n of nomi) { const b = flyer.bestSaved(n, live(state.prezzi))[0]; if (b) rows.push([n, b]); }
+  $("#fl-best").innerHTML = rows.length ? rows.map(([n, b]) => `<li><span class="fl-n">${esc(n)}</span>
+      <span class="fl-p">${money(b.prezzo)}</span><span class="fl-w">${ic("store")} ${esc(b.negozio)} · ${esc(b.validoFino ? t("deals.until", { date: shortDate(b.validoFino) }) : t("fl.note", { date: shortDate(b.data) }))}</span>
+      <button class="icon-btn" type="button" data-fldel="${esc(b.id)}" aria-label="${esc(t("fl.remove", { name: n, store: b.negozio }))}">${ic("delete")}</button></li>`).join("")
+    : `<li class="hint">${esc(t("fl.bestEmpty"))}</li>`;
+}
+$("#fl-best").addEventListener("click", e => {
+  const b = e.target.closest("[data-fldel]"); if (!b) return;
+  const id = b.dataset.fldel, prev = state.prezzi[id];
+  mutate((s, now) => { s.prezzi[id] = { ...s.prezzi[id], deleted: true, updatedAt: now }; });
+  toast(t("pref.removed"), "delete", { label: t("common.undo"), run: () => mutate((s, now) => { s.prezzi[id] = { ...prev, deleted: false, updatedAt: now }; }) });
+});
+$("#fl-btn").addEventListener("click", () => {
+  if (!flyerNames().length) { toast(t("fl.needProducts"), "info"); $("#mon-nome").focus(); return; }
+  $("#fl-file").click();
+});
+$("#fl-file").addEventListener("change", async e => {
+  const file = e.target.files[0]; e.target.value = ""; if (!file) return;
+  const negozi = [...new Set([...live(state.prezzi).map(p => p.negozio), ...String(state.settings.negozi || "").split(",").map(x => x.trim())].filter(Boolean))];
+  const q = await sheet({
+    title: t("fl.title"), icon: "scan",
+    body: `<p class="hint">${ic("flyer")} ${esc(file.name)}</p>
+      <label for="fl-store">${esc(t("fl.store"))}</label><input id="fl-store" name="negozio" list="fl-stores" maxlength="40" required autocomplete="off" value="${esc(negozi[0] || "")}">
+      <datalist id="fl-stores">${negozi.map(n => `<option value="${esc(n)}">`).join("")}</datalist>
+      <label for="fl-until">${esc(t("fl.until"))}</label><input id="fl-until" name="fino" type="date">`,
+    buttons: [{ value: "ok", label: t("fl.read"), icon: "scan", primary: true }, { value: "", label: t("common.cancel"), icon: "close" }],
+  });
+  const negozio = String(q.form?.get("negozio") || "").trim();
+  if (q.value !== "ok" || !negozio) return;
+  const fino = String(q.form.get("fino") || "");
+  const btn = $("#fl-btn"), prog = $("#fl-prog"), msg = $("#fl-msg");
+  btn.disabled = true; btn.classList.add("loading"); prog.hidden = false; prog.removeAttribute("value");
+  mochi.mood("wow", 0); mochi.say(frase("guardo"), 120000);
+  let text = "";
+  try {
+    text = await flyer.readFlyer(file, flyer.ocrLang(lang()), ev => {
+      if (ev.step === "load") { msg.textContent = t("fl.loading"); prog.removeAttribute("value"); }
+      if (ev.step === "page") { msg.textContent = t("fl.page", { page: ev.page, pages: ev.pages }); prog.value = (ev.page - 1) / ev.pages; }
+      if (ev.step === "ocr" && ev.p != null && prog.max) { /* avanzamento della pagina corrente */ }
+    });
+  } catch (err) { msg.textContent = t("fl.err"); toast(t("fl.err"), "warn"); mochi.mood("sleepy", 2000); return; }
+  finally { btn.disabled = false; btn.classList.remove("loading"); prog.hidden = true; }
+  const found = flyer.findProducts(text, flyerNames());
+  msg.textContent = "";
+  if (!found.length) { msg.textContent = t("fl.none"); mochi.mood("sleepy", 2000); mochi.say(frase("niente")); return; }
+  mochi.mood("happy", 1500);
+  const r = await sheet({
+    title: t("fl.foundTitle"), icon: "scan",
+    body: `<p class="hint">${esc(t("fl.foundHint"))} ${ic("store")} <strong>${esc(negozio)}</strong></p><ul class="fl-found">${found.map((f, i) => `<li>
+      <label class="check"><input type="checkbox" name="ok-${i}" checked> <strong>${esc(f.nome)}</strong></label>
+      <span class="hint">${esc(f.riga)}</span>
+      <label class="sr" for="flp-${i}">${esc(t("rate.price"))}</label><input id="flp-${i}" name="p-${i}" inputmode="decimal" value="${f.prezzo.toFixed(2).replace(".", (1.5).toLocaleString(locale())[1])}"></li>`).join("")}</ul>`,
+    buttons: [{ value: "ok", label: t("fl.save"), icon: "save", primary: true }, { value: "", label: t("common.cancel"), icon: "close" }],
+  });
+  if (r.value !== "ok") return;
+  const oggi = oggiISO(); let n = 0;
+  mutate((s, now) => {
+    found.forEach((f, i) => {
+      if (!r.form.get("ok-" + i)) return;
+      const prezzo = num(r.form.get("p-" + i)); if (!(prezzo > 0)) return;
+      const id = uid(); n++;
+      s.prezzi[id] = { id, nome: f.nome, riga: f.riga, prezzo, prezzoUnit: f.prezzoUnit, negozio, validoFino: fino, data: oggi, ts: now, updatedAt: now };
+    });
+  });
+  toast(t("fl.saved", { n }), "save"); if (n) confetti();
+});
+
 // ---------- DOVE CONVIENE? ----------
 const prefOf = (prodotto, negozio) => live(state.preferenze).find(p => pantry.sameProduct(p.prodotto, prodotto) && pantry.norm(p.negozio) === pantry.norm(negozio));
 function togglePref(prodotto, negozio, tipo) {
@@ -798,9 +886,11 @@ async function runCompare() {
     const pt = searchPoint(); if (!pt) { toast(t("geo.ask"), "pin"); return; }
     btn.classList.add("loading"); btn.setAttribute("aria-busy", "true");
     try {
-      const prices = await op.nearby({ ...pt, raggioKm: Math.max(s0.raggioKm || 5, 10) });
-      const res = prodotti.map(p => ({ id: p.id, nome: p.nome, opzioni: op.bestFor(p.nome, prices).map(x => ({
-        negozio: x.negozio, prezzo: x.prezzo, offerta: x.sconto, fonte: op.priceUrl(x.id), nota: opNote(x) })) }));
+      let prices = []; try { prices = await op.nearby({ ...pt, raggioKm: Math.max(s0.raggioKm || 5, 10) }); } catch {}
+      const res = prodotti.map(p => ({ id: p.id, nome: p.nome, opzioni: mergeOptions([
+        ...savedOptions(p.nome),
+        ...op.bestFor(p.nome, prices).map(x => ({ negozio: x.negozio, prezzo: x.prezzo, offerta: x.sconto, fonte: op.priceUrl(x.id), nota: opNote(x) })),
+      ]) }));
       mutate((s, now) => { s.confronto = { prodotti: res, fonte: "openprices", updatedAt: now }; });
       openCompare();
     } catch (err) { toast(err.message, "warn"); }
@@ -885,11 +975,14 @@ $("#cerca").addEventListener("click", async () => {
     if (ai.ready()) offerte = await ai.cercaOfferte({ prodotti: live(state.monitor), ...s0, luogo, valuta: currency(), lingua: langName() }, { signal: searching.signal });
     else {
       const pt = searchPoint(); if (!pt) throw new Error(t("geo.ask"));
-      const prices = await op.nearby({ ...pt, raggioKm: Math.max(s0.raggioKm || 5, 10) }, { signal: searching.signal });
-      offerte = live(state.monitor).flatMap(m => op.bestFor(m.nome, prices, 3).map(x => ({
+      let prices = []; try { prices = await op.nearby({ ...pt, raggioKm: Math.max(s0.raggioKm || 5, 10) }, { signal: searching.signal }); } catch (e) { if (e.name === "AbortError") throw e; }
+      offerte = live(state.monitor).flatMap(m => flyer.bestSaved(m.nome, live(state.prezzi)).slice(0, 2).map(x => ({
+        prodotto: x.riga || x.nome, categoria: m.nome, negozio: x.negozio, prezzo: x.prezzo, quantita: null, unita: m.unita, prezzoUnit: x.prezzoUnit,
+        validoFino: x.validoFino ? shortDate(x.validoFino) : null, fonte: "", amazon: null, voto: null, nota: t("fl.note", { date: shortDate(x.data) }) })))
+        .concat(live(state.monitor).flatMap(m => op.bestFor(m.nome, prices, 3).map(x => ({
         prodotto: [x.marca, x.nome].filter(Boolean).join(" · "), categoria: m.nome, negozio: x.citta ? `${x.negozio} · ${x.citta}` : x.negozio,
         prezzo: x.prezzo, quantita: null, unita: m.unita, prezzoUnit: op.unitPrice(x, m.unita), validoFino: null,
-        fonte: op.priceUrl(x.id), amazon: null, voto: null, nota: opNote(x), gratis: true })));
+        fonte: op.priceUrl(x.id), amazon: null, voto: null, nota: opNote(x), gratis: true }))));
     }
     endSearch();
     mutate((st, now) => { st.offerte = { list: offerte, updatedAt: now }; });
@@ -1223,7 +1316,7 @@ function legalHtml() {
   const sec = (icon, title, prefix, n) => `<h3>${ic(icon)} ${esc(t(title))}</h3><ul>${
     Array.from({ length: n }, (_, i) => `<li>${esc(t(`${prefix}${i + 1}`))}</li>`).join("")}</ul>`;
   return `<p class="hint">${esc(t("legal.updated", { date: new Date(POLICY_VERSION).toLocaleDateString(locale(), { dateStyle: "long" }) }))}</p>
-    ${sec("privacy", "legal.privacyTitle", "legal.p", 12)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
+    ${sec("privacy", "legal.privacyTitle", "legal.p", 13)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
 }
 function openLegal() { $("#legal-body").innerHTML = legalHtml(); $("#legal").showModal(); }
 

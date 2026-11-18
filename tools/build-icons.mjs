@@ -57,6 +57,7 @@ const ICONS = {
   "star": ["fill/star-fill", "ottima offerta"],
   "down": ["bold/trend-down", "più economico"],
   "warn": ["bold/warning-circle", "attenzione"],
+  "scan": ["bold/scan", "leggi volantino"],
   "shelf": ["bold/books", "scaffale"],
   "import": ["bold/tray-arrow-down", "importa da file"],
   "expiry": ["bold/hourglass-medium", "scadenza"],
