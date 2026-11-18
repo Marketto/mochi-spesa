@@ -435,5 +435,8 @@
   "fl.remove": "Eliminar el precio de {name} en {store}",
   "fl.compareOnline": "Comparar en línea en Trovaprezzi:",
   "legal.p13": "Los folletos que subes se leen en el móvil: el archivo no se envía a nadie. Para leerlos la app descarga tesseract.js, pdf.js y el modelo de idioma de jsDelivr, que recibe tu IP. Los precios guardados van al archivo compartido de Dropbox.",
-  "new.flyer": "Lee folletos (PDF o foto) gratis en el móvil y guarda el historial de los mejores precios."
+  "new.flyer": "Lee folletos (PDF o foto) gratis en el móvil y guarda el historial de los mejores precios.",
+  "ai.share": "Compartir la clave con quien usa la misma lista",
+  "ai.shareHint": "Se guarda en el archivo compartido de Dropbox, así quien comparte la carpeta no necesita crear una. Compártela solo con personas de confianza: quien tiene la clave usa tu cuenta.",
+  "ai.sharedInUse": "Uso la clave compartida por la familia mediante Dropbox."
 }

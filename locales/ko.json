@@ -435,5 +435,8 @@
   "fl.remove": "{store}의 {name} 가격 삭제",
   "fl.compareOnline": "Trovaprezzi에서 온라인 비교:",
   "legal.p13": "올린 전단지는 휴대폰에서 읽고 파일은 어디로도 보내지 않아요. 읽기 위해 앱이 jsDelivr에서 tesseract.js, pdf.js, 언어 모델을 내려받으며 jsDelivr는 IP 주소를 받아요. 저장한 가격은 공유 Dropbox 파일에 들어가요.",
-  "new.flyer": "휴대폰에서 전단지(PDF·사진)를 무료로 읽고 최저가 기록을 남겨요."
+  "new.flyer": "휴대폰에서 전단지(PDF·사진)를 무료로 읽고 최저가 기록을 남겨요.",
+  "ai.share": "같은 목록을 쓰는 사람과 키 공유",
+  "ai.shareHint": "공유 Dropbox 파일에 저장되어 다른 사람은 키를 따로 만들 필요가 없어요. 믿을 수 있는 사람과만 공유하세요: 키를 가진 사람은 내 계정을 사용해요.",
+  "ai.sharedInUse": "가족이 Dropbox로 공유한 키를 사용 중이에요."
 }

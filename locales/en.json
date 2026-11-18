@@ -435,5 +435,8 @@
   "fl.remove": "Delete the price of {name} at {store}",
   "fl.compareOnline": "Compare online on Trovaprezzi:",
   "legal.p13": "Flyers you upload are read on your phone: the file isn't sent anywhere. To read them the app downloads tesseract.js, pdf.js and the language model from jsDelivr, which receives your IP address. Saved prices go into the shared Dropbox file.",
-  "new.flyer": "Read flyers (PDF or photo) for free on your phone and keep a history of the best prices."
+  "new.flyer": "Read flyers (PDF or photo) for free on your phone and keep a history of the best prices.",
+  "ai.share": "Share the key with people using the same list",
+  "ai.shareHint": "It's saved in the shared Dropbox file, so others sharing the folder don't need their own. Only share it with people you trust: whoever has the key uses your account.",
+  "ai.sharedInUse": "Using the key shared by your family via Dropbox."
 }

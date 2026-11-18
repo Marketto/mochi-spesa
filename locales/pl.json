@@ -435,5 +435,8 @@
   "fl.remove": "Usuń cenę {name} w {store}",
   "fl.compareOnline": "Porównaj online na Trovaprezzi:",
   "legal.p13": "Wgrane gazetki są czytane na telefonie: plik nigdzie nie jest wysyłany. Aby je odczytać, aplikacja pobiera tesseract.js, pdf.js i model języka z jsDelivr, który otrzymuje Twój adres IP. Zapisane ceny trafiają do wspólnego pliku w Dropboxie.",
-  "new.flyer": "Czytaj gazetki (PDF lub zdjęcie) za darmo na telefonie i zapisuj najlepsze ceny."
+  "new.flyer": "Czytaj gazetki (PDF lub zdjęcie) za darmo na telefonie i zapisuj najlepsze ceny.",
+  "ai.share": "Udostępnij klucz osobom korzystającym z tej samej listy",
+  "ai.shareHint": "Zostanie zapisany we wspólnym pliku Dropbox, więc inni nie muszą tworzyć własnego. Udostępniaj go tylko zaufanym osobom: kto ma klucz, korzysta z Twojego konta.",
+  "ai.sharedInUse": "Używam klucza udostępnionego przez rodzinę w Dropboxie."
 }

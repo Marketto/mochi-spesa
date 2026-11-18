@@ -435,5 +435,8 @@
   "fl.remove": "Elimina il prezzo di {name} da {store}",
   "fl.compareOnline": "Confronta online su Trovaprezzi:",
   "legal.p13": "I volantini che carichi sono letti sul telefono: il file non viene inviato a nessuno. Per leggerli l'app scarica tesseract.js, pdf.js e il modello della lingua da jsDelivr, che riceve il tuo indirizzo IP. I prezzi salvati finiscono nel file condiviso su Dropbox.",
-  "new.flyer": "Leggi i volantini (PDF o foto) gratis sul telefono e tieni lo storico dei prezzi migliori."
+  "new.flyer": "Leggi i volantini (PDF o foto) gratis sul telefono e tieni lo storico dei prezzi migliori.",
+  "ai.share": "Condividi la chiave con chi usa la stessa lista",
+  "ai.shareHint": "Viene salvata nel file condiviso su Dropbox, così tua moglie (o chi condivide la cartella) non deve crearne una. Condividila solo con persone di fiducia: chi ha la chiave usa il tuo account.",
+  "ai.sharedInUse": "Uso la chiave condivisa dalla famiglia tramite Dropbox."
 }

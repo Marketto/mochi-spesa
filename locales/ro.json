@@ -435,5 +435,8 @@
   "fl.remove": "Șterge prețul pentru {name} la {store}",
   "fl.compareOnline": "Compară online pe Trovaprezzi:",
   "legal.p13": "Cataloagele încărcate sunt citite pe telefon: fișierul nu e trimis nicăieri. Pentru citire, aplicația descarcă tesseract.js, pdf.js și modelul de limbă de pe jsDelivr, care primește adresa ta IP. Prețurile salvate ajung în fișierul comun din Dropbox.",
-  "new.flyer": "Citește cataloage (PDF sau poză) gratuit pe telefon și păstrează istoricul celor mai bune prețuri."
+  "new.flyer": "Citește cataloage (PDF sau poză) gratuit pe telefon și păstrează istoricul celor mai bune prețuri.",
+  "ai.share": "Partajează cheia cu cei care folosesc aceeași listă",
+  "ai.shareHint": "Se salvează în fișierul comun din Dropbox, așa ceilalți nu trebuie să-și creeze una. Partajeaz-o doar cu persoane de încredere: cine are cheia îți folosește contul.",
+  "ai.sharedInUse": "Folosesc cheia partajată de familie prin Dropbox."
 }

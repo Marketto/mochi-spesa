@@ -435,5 +435,8 @@
   "fl.remove": "Slet prisen på {name} hos {store}",
   "fl.compareOnline": "Sammenlign online på Trovaprezzi:",
   "legal.p13": "Uploadede tilbudsaviser læses på telefonen: filen sendes ingen steder. For at læse dem henter appen tesseract.js, pdf.js og sprogmodellen fra jsDelivr, som modtager din IP-adresse. Gemte priser havner i den delte Dropbox-fil.",
-  "new.flyer": "Læs tilbudsaviser (pdf eller foto) gratis på telefonen og gem de bedste priser."
+  "new.flyer": "Læs tilbudsaviser (pdf eller foto) gratis på telefonen og gem de bedste priser.",
+  "ai.share": "Del nøglen med dem, der bruger samme liste",
+  "ai.shareHint": "Den gemmes i den delte Dropbox-fil, så andre ikke behøver deres egen. Del den kun med folk, du stoler på: den, der har nøglen, bruger din konto.",
+  "ai.sharedInUse": "Jeg bruger nøglen, som familien deler via Dropbox."
 }

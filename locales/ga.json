@@ -435,5 +435,8 @@
   "fl.remove": "Scrios praghas {name} ag {store}",
   "fl.compareOnline": "Déan comparáid ar líne ar Trovaprezzi:",
   "legal.p13": "Léitear na bileoga ar an bhfón: ní sheoltar an comhad áit ar bith. Chun iad a léamh íoslódálann an aip tesseract.js, pdf.js agus samhail teanga ó jsDelivr, a fhaigheann do sheoladh IP. Téann na praghsanna sábháilte chuig an gcomhad comhroinnte Dropbox.",
-  "new.flyer": "Léigh bileoga (PDF nó grianghraf) saor in aisce ar an bhfón agus coinnigh na praghsanna is fearr."
+  "new.flyer": "Léigh bileoga (PDF nó grianghraf) saor in aisce ar an bhfón agus coinnigh na praghsanna is fearr.",
+  "ai.share": "Comhroinn an eochair leo siúd a úsáideann an liosta céanna",
+  "ai.shareHint": "Sábháiltear í sa chomhad comhroinnte Dropbox, mar sin ní gá do dhaoine eile ceann dá gcuid féin. Ná comhroinn í ach le daoine iontaofa: úsáideann duine ar bith a bhfuil an eochair aige do chuntas.",
+  "ai.sharedInUse": "Ag úsáid na heochrach a roinn an teaghlach trí Dropbox."
 }

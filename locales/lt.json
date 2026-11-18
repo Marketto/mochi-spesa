@@ -435,5 +435,8 @@
   "fl.remove": "Ištrinti {name} kainą parduotuvėje {store}",
   "fl.compareOnline": "Palyginti internete Trovaprezzi:",
   "legal.p13": "Įkelti leidiniai skaitomi telefone: failas niekur nesiunčiamas. Skaitymui programėlė atsisiunčia tesseract.js, pdf.js ir kalbos modelį iš jsDelivr, kuris gauna jūsų IP adresą. Išsaugotos kainos patenka į bendrą Dropbox failą.",
-  "new.flyer": "Skaitykite leidinius (PDF ar nuotrauką) nemokamai telefone ir saugokite geriausias kainas."
+  "new.flyer": "Skaitykite leidinius (PDF ar nuotrauką) nemokamai telefone ir saugokite geriausias kainas.",
+  "ai.share": "Bendrinti raktą su tais, kurie naudoja tą patį sąrašą",
+  "ai.shareHint": "Jis išsaugomas bendrame Dropbox faile, todėl kitiems nereikia savo. Bendrinkite tik su patikimais žmonėmis: kas turi raktą, naudoja jūsų paskyrą.",
+  "ai.sharedInUse": "Naudoju šeimos per Dropbox bendrinamą raktą."
 }

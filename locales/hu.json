@@ -435,5 +435,8 @@
   "fl.remove": "{name} árának törlése ({store})",
   "fl.compareOnline": "Összehasonlítás a Trovaprezzin:",
   "legal.p13": "A feltöltött szórólapokat a telefon olvassa be: a fájl nem kerül sehova. Ehhez az app letölti a tesseract.js-t, a pdf.js-t és a nyelvi modellt a jsDelivrről, amely megkapja az IP-címedet. A mentett árak a közös Dropbox-fájlba kerülnek.",
-  "new.flyer": "Szórólapok (PDF vagy fotó) ingyenes beolvasása a telefonon, a legjobb árak megőrzésével."
+  "new.flyer": "Szórólapok (PDF vagy fotó) ingyenes beolvasása a telefonon, a legjobb árak megőrzésével.",
+  "ai.share": "Kulcs megosztása az ugyanazt a listát használókkal",
+  "ai.shareHint": "A közös Dropbox-fájlba kerül, így a többieknek nem kell sajátot létrehozniuk. Csak megbízható emberekkel oszd meg: akinél a kulcs van, a te fiókodat használja.",
+  "ai.sharedInUse": "A család által Dropboxon megosztott kulcsot használom."
 }

@@ -435,5 +435,8 @@
   "fl.remove": "Ħassar il-prezz ta' {name} f'{store}",
   "fl.compareOnline": "Qabbel online fuq Trovaprezzi:",
   "legal.p13": "Il-fuljetti jinqraw fuq it-telefon: il-fajl ma jintbagħat imkien. Biex jaqrahom l-app tniżżel tesseract.js, pdf.js u l-mudell tal-lingwa minn jsDelivr, li jirċievi l-indirizz IP tiegħek. Il-prezzijiet salvati jmorru fil-fajl kondiviż ta' Dropbox.",
-  "new.flyer": "Aqra fuljetti (PDF jew ritratt) b'xejn fuq it-telefon u żomm l-aqwa prezzijiet."
+  "new.flyer": "Aqra fuljetti (PDF jew ritratt) b'xejn fuq it-telefon u żomm l-aqwa prezzijiet.",
+  "ai.share": "Aqsam iċ-ċavetta ma' min juża l-istess lista",
+  "ai.shareHint": "Tiġi salvata fil-fajl kondiviż ta' Dropbox, għalhekk ħaddieħor m'għandux bżonn tiegħu. Aqsamha biss ma' nies ta' fiduċja: min għandu ċ-ċavetta juża l-kont tiegħek.",
+  "ai.sharedInUse": "Qed nuża ċ-ċavetta kondiviża mill-familja permezz ta' Dropbox."
 }

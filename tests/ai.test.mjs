@@ -18,3 +18,13 @@ test("testo dalla risposta Mistral (blocchi e stringa)", () => {
   assert.deepEqual(ai.extractJson(ai.mistralText(j)), { a: 1 });
   assert.equal(ai.mistralText({ outputs: [{ type: "message.output", content: "ciao" }] }), "ciao");
 });
+
+test("chiave condivisa via Dropbox: usata solo se non ce n'è una propria", () => {
+  for (const k of Object.keys(store)) delete store[k];
+  ai.setShared({ provider: "mistral", key: "family", model: "" });
+  assert.deepEqual(ai.getCfg(), { provider: "mistral", key: "family", model: "mistral-medium-latest", shared: true });
+  assert.equal(ai.getCfg("mistral", { local: true }).key, "");
+  ai.setCfg({ provider: "mistral", key: "mine", model: "" });
+  assert.equal(ai.getCfg().key, "mine");
+  ai.setShared(null);
+});

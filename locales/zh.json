@@ -435,5 +435,8 @@
   "fl.remove": "删除 {store} 的 {name} 价格",
   "fl.compareOnline": "在 Trovaprezzi 上在线比价：",
   "legal.p13": "上传的促销单只在手机上读取，文件不会发送到任何地方。为此应用会从 jsDelivr 下载 tesseract.js、pdf.js 和语言模型，jsDelivr 会收到你的 IP 地址。保存的价格会写入共享的 Dropbox 文件。",
-  "new.flyer": "在手机上免费读取促销单（PDF 或照片），并保存最低价记录。"
+  "new.flyer": "在手机上免费读取促销单（PDF 或照片），并保存最低价记录。",
+  "ai.share": "与使用同一清单的人共享密钥",
+  "ai.shareHint": "密钥会保存在共享的 Dropbox 文件中，其他共享文件夹的人无需自己创建。只与信任的人共享：拿到密钥的人会使用你的账户。",
+  "ai.sharedInUse": "正在使用家人通过 Dropbox 共享的密钥。"
 }

@@ -435,5 +435,8 @@
   "fl.remove": "Poista tuotteen {name} hinta kaupasta {store}",
   "fl.compareOnline": "Vertaa verkossa Trovaprezzissa:",
   "legal.p13": "Lataamasi mainokset luetaan puhelimessa: tiedostoa ei lähetetä minnekään. Lukemista varten sovellus lataa tesseract.js:n, pdf.js:n ja kielimallin jsDelivristä, joka saa IP-osoitteesi. Tallennetut hinnat menevät jaettuun Dropbox-tiedostoon.",
-  "new.flyer": "Lue mainoksia (PDF tai kuva) ilmaiseksi puhelimessa ja tallenna parhaat hinnat."
+  "new.flyer": "Lue mainoksia (PDF tai kuva) ilmaiseksi puhelimessa ja tallenna parhaat hinnat.",
+  "ai.share": "Jaa avain saman listan käyttäjien kanssa",
+  "ai.shareHint": "Se tallennetaan jaettuun Dropbox-tiedostoon, joten muut eivät tarvitse omaa. Jaa vain luotettaville: avaimen haltija käyttää tiliäsi.",
+  "ai.sharedInUse": "Käytän perheen Dropboxin kautta jakamaa avainta."
 }
