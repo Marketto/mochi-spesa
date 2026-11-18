@@ -3,15 +3,57 @@
 import { t } from "./i18n.js";
 
 const LS = "mochi.claude";
-export const getCfg = () => { try { return JSON.parse(localStorage.getItem(LS)) || {}; } catch { return {}; } };
-export const setCfg = v => { try { localStorage.setItem(LS, JSON.stringify(v)); } catch {} };
-export const DEFAULT_MODEL = "claude-sonnet-5-5";
+export const PROVIDERS = ["claude", "mistral"];
+export const DEFAULT_MODELS = { claude: "claude-sonnet-5-5", mistral: "mistral-medium-latest" };
+export const DEFAULT_MODEL = DEFAULT_MODELS.claude;
+const raw = () => { try { return JSON.parse(localStorage.getItem(LS)) || {}; } catch { return {}; } };
+/** Configurazione attiva: { provider, key, model }. Le chiavi di ogni servizio restano salvate a parte. */
+export function getCfg(provider) {
+  const r = raw(), p = provider || r.provider || "claude";
+  const keys = r.keys || { claude: r.key || "" }, models = r.models || { claude: r.model || "" };
+  return { provider: p, key: keys[p] || "", model: models[p] || DEFAULT_MODELS[p] };
+}
+export function setCfg({ provider = "claude", key = "", model = "" }) {
+  const r = raw(), keys = r.keys || { claude: r.key || "" }, models = r.models || { claude: r.model || "" };
+  keys[provider] = key; models[provider] = model && model !== DEFAULT_MODELS[provider] ? model : "";
+  try { localStorage.setItem(LS, JSON.stringify({ provider, keys, models })); } catch {}
+}
+export const ready = () => !!getCfg().key;
 
 const err = (key, vars) => Object.assign(new Error(t(key, vars)), { code: key });
 
-async function ask(system, prompt, { signal } = {}) {
-  const { key, model } = getCfg();
-  if (!key) throw err("err.noKey");
+async function ask(system, prompt, opts = {}) {
+  const cfg = getCfg();
+  if (!cfg.key) throw err("err.noKey");
+  return cfg.provider === "mistral" ? askMistral(cfg, system, prompt, opts) : askClaude(cfg, system, prompt, opts);
+}
+
+/** Mistral: Conversations API con lo strumento web_search (piano gratuito disponibile). */
+async function askMistral({ key, model }, system, prompt, { signal } = {}) {
+  let r;
+  try {
+    r = await fetch("https://api.mistral.ai/v1/conversations", {
+      method: "POST", signal,
+      headers: { "content-type": "application/json", authorization: "Bearer " + key },
+      body: JSON.stringify({ model, instructions: system, inputs: prompt, tools: [{ type: "web_search" }], store: false,
+        completion_args: { temperature: 0.2, max_tokens: 6000 } }),
+    });
+  } catch (e) { if (e.name === "AbortError") throw e; throw err("err.network"); }
+  if (r.status === 401) throw err("err.badKey");
+  if (r.status === 429) throw err("err.rate");
+  if (!r.ok) {
+    let msg = ""; try { const j = await r.json(); msg = j.message || j.detail?.[0]?.msg || j.detail || ""; } catch {}
+    throw Object.assign(new Error(t("err.status", { status: r.status }) + (msg ? ` – ${String(msg).slice(0, 160)}` : "")), { code: "err.status" });
+  }
+  return extractJson(mistralText(await r.json()));
+}
+/** Testo della risposta Mistral (stringa o blocchi). */
+export function mistralText(j) {
+  return (j.outputs || []).filter(o => o.type === "message.output").map(o =>
+    typeof o.content === "string" ? o.content : (o.content || []).filter(c => c.type === "text").map(c => c.text).join("")).join("\n");
+}
+
+async function askClaude({ key, model }, system, prompt, { signal } = {}) {
   const messages = [{ role: "user", content: prompt }];
   for (let turn = 0; turn < 4; turn++) {
     let r;

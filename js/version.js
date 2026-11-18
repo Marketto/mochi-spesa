@@ -3,10 +3,13 @@
 // (icona + chiave di traduzione "new.*" in tutti i file locales/*.json).
 // Se cambiano privacy o condizioni d'uso, alza anche POLICY_VERSION: verrà chiesta di nuovo l'accettazione.
 
-export const APP_VERSION = "1.6.0";
-export const POLICY_VERSION = "2026-11-18";
+export const APP_VERSION = "1.7.0";
+export const POLICY_VERSION = "2026-11-18b";
 
 export const CHANGELOG = [
+  { v: "1.7.0", items: [
+    ["search", "new.mistral"],
+  ] },
   { v: "1.6.0", items: [
     ["heart", "new.free"],
     ["save", "new.savebar"],
