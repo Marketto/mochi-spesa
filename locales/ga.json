@@ -438,5 +438,15 @@
   "new.flyer": "Léigh bileoga (PDF nó grianghraf) saor in aisce ar an bhfón agus coinnigh na praghsanna is fearr.",
   "ai.share": "Comhroinn an eochair leo siúd a úsáideann an liosta céanna",
   "ai.shareHint": "Sábháiltear í sa chomhad comhroinnte Dropbox, mar sin ní gá do dhaoine eile ceann dá gcuid féin. Ná comhroinn í ach le daoine iontaofa: úsáideann duine ar bith a bhfuil an eochair aige do chuntas.",
-  "ai.sharedInUse": "Ag úsáid na heochrach a roinn an teaghlach trí Dropbox."
+  "ai.sharedInUse": "Ag úsáid na heochrach a roinn an teaghlach trí Dropbox.",
+  "ch.title": "Do shlabhraí",
+  "ch.hint": "Íoslódálann Mochi bileoga oifigiúla na slabhraí seo leis féin agus lorgaíonn sé do tháirgí. Léitear an bhileog ar an bhfón.",
+  "ch.none": "Níl an droichead do bhileoga oifigiúla gníomhach fós.",
+  "ch.refresh": "Nuashonraigh bileoga na slabhraí",
+  "ch.loading": "Ag íoslódáil bhileog {chain}: {name}…",
+  "ch.done": "Bileoga seiceáilte: {n} praghas aimsithe",
+  "ch.err": "Ní féidir bileoga {chain} a íoslódáil.",
+  "ch.national": "náisiúnta",
+  "legal.p14": "Má roghnaíonn tú slabhraí, íoslódálann an aip a mbileoga oifigiúla trí dhroichead ar Cloudflare nach nglacann ach le suíomhanna oifigiúla agus nach sábhálann tada: feiceann Cloudflare seoladh IP an iarratais, ní do liosta. Léitear an bhileog ar an bhfón.",
+  "new.chains": "Bileoga oifigiúla go huathoibríoch: roghnaigh do shlabhraí agus aimseoidh Mochi praghsanna do tháirgí leis féin."
 }

@@ -438,5 +438,15 @@
   "new.flyer": "Szórólapok (PDF vagy fotó) ingyenes beolvasása a telefonon, a legjobb árak megőrzésével.",
   "ai.share": "Kulcs megosztása az ugyanazt a listát használókkal",
   "ai.shareHint": "A közös Dropbox-fájlba kerül, így a többieknek nem kell sajátot létrehozniuk. Csak megbízható emberekkel oszd meg: akinél a kulcs van, a te fiókodat használja.",
-  "ai.sharedInUse": "A család által Dropboxon megosztott kulcsot használom."
+  "ai.sharedInUse": "A család által Dropboxon megosztott kulcsot használom.",
+  "ch.title": "Láncaid",
+  "ch.hint": "Mochi magától letölti ezeknek a láncoknak a hivatalos szórólapjait, és megkeresi a termékeidet. A szórólapot a telefon olvassa be.",
+  "ch.none": "A hivatalos szórólapok hídja még nem aktív.",
+  "ch.refresh": "Láncok szórólapjainak frissítése",
+  "ch.loading": "{chain} szórólap letöltése: {name}…",
+  "ch.done": "Ellenőrzött szórólapok: {n} ár található",
+  "ch.err": "Nem tudom letölteni a(z) {chain} szórólapjait.",
+  "ch.national": "országos",
+  "legal.p14": "Ha láncokat választasz, az app egy Cloudflare-hídon keresztül tölti le a hivatalos szórólapjaikat, amely csak hivatalos oldalakat fogad el és semmit sem tárol: a Cloudflare a kérés IP-címét látja, a listádat nem. A szórólapot a telefon olvassa be.",
+  "new.chains": "Hivatalos szórólapok automatikusan: válaszd ki a láncaidat, és Mochi magától megtalálja a termékeid árait."
 }

@@ -438,5 +438,15 @@
   "new.flyer": "Czytaj gazetki (PDF lub zdjęcie) za darmo na telefonie i zapisuj najlepsze ceny.",
   "ai.share": "Udostępnij klucz osobom korzystającym z tej samej listy",
   "ai.shareHint": "Zostanie zapisany we wspólnym pliku Dropbox, więc inni nie muszą tworzyć własnego. Udostępniaj go tylko zaufanym osobom: kto ma klucz, korzysta z Twojego konta.",
-  "ai.sharedInUse": "Używam klucza udostępnionego przez rodzinę w Dropboxie."
+  "ai.sharedInUse": "Używam klucza udostępnionego przez rodzinę w Dropboxie.",
+  "ch.title": "Twoje sieci",
+  "ch.hint": "Mochi sam pobiera oficjalne gazetki tych sieci i szuka Twoich produktów. Gazetka jest czytana na telefonie.",
+  "ch.none": "Most do oficjalnych gazetek nie jest jeszcze aktywny.",
+  "ch.refresh": "Odśwież gazetki sieci",
+  "ch.loading": "Pobieram gazetkę {chain}: {name}…",
+  "ch.done": "Sprawdzone gazetki: znaleziono cen: {n}",
+  "ch.err": "Nie mogę pobrać gazetek {chain}.",
+  "ch.national": "ogólnokrajowa",
+  "legal.p14": "Jeśli wybierzesz sieci, aplikacja pobiera ich oficjalne gazetki przez most w Cloudflare, który akceptuje tylko oficjalne strony i niczego nie zapisuje: Cloudflare widzi adres IP żądania, nie Twoją listę. Gazetka jest czytana na telefonie.",
+  "new.chains": "Oficjalne gazetki automatycznie: wybierz sieci, a Mochi sam znajdzie ceny Twoich produktów."
 }

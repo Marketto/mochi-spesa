@@ -11,6 +11,7 @@ Lista della spesa **condivisa**, **kawaii** e **senza server**, con Mochi che ce
 - 📥 **Importa da Invendo**: carichi l'export Excel (.xlsx) o CSV. “Cantina | Angolo | 3” diventa posto › scaffale › ripiano, con quantità, categorie e scadenze. Se reimporti, i prodotti vengono aggiornati e non duplicati. Quelli a quantità 0 vengono tolti.
 - 🏪 **Dove conviene?**: per la lista scegli il negozio più economico di ogni prodotto. I preferiti ★ e i negozi da evitare ⦸ valgono anche per le ricerche successive.
 - ☁️ **Sincronizzata con Dropbox**: un file JSON in una cartella condivisa in famiglia. Funziona anche offline e le modifiche si uniscono da sole.
+- 🏬 **Volantini ufficiali in automatico**: in Impostazioni scegli le tue catene (per ora Lidl). Mochi scarica i volantini ufficiali attraverso un piccolo ponte su Cloudflare, gratuito, che accetta solo i siti delle catene e non salva nulla. Il volantino viene letto sul telefono e i prezzi dei tuoi prodotti si salvano da soli. Per pubblicare il ponte servono il secret `CLOUDFLARE_API_TOKEN`, la variabile `CLOUDFLARE_ACCOUNT_ID` e, dopo il primo deploy, la variabile `FLYER_PROXY` con l'indirizzo `https://mochi-spesa-ponte.<tuo-sottodominio>.workers.dev`. Per aggiungere una catena basta un adattatore in `js/chains.js` e il suo dominio in `worker/src/index.js`.
 - 📰 **Leggi un volantino**: carichi il PDF o una foto, anche di un volantino passato. Il testo viene letto sul telefono con tesseract.js e pdf.js. Mochi trova i prodotti della lista e quelli da tenere d'occhio, tu confermi i prezzi e lui li salva nello storico condiviso. I prezzi salvati entrano in “Dove conviene?” e in Offerte.
 - 🤖 **IA gratis con Mistral**: oltre a Claude puoi scegliere Mistral, che ha un piano API gratuito, per cercare nei volantini e nei siti dei negozi.
 - 🆓 **Prezzi gratis, senza chiave**: Mochi usa i prezzi segnalati dalla community di [Open Food Facts – Open Prices](https://prices.openfoodfacts.org) (ODbL) vicino a casa, sia in “Dove conviene?” sia in Offerte. Ci sono anche link rapidi per cercare i volantini. La chiave Claude è facoltativa: serve per i volantini aggiornati e per Amazon.
@@ -122,6 +123,8 @@ js/pantry.js          dispensa: posti, scaffali, ripiani, quantità
 js/importer.js        importazione da Invendo (.xlsx/.csv) senza librerie
 js/openprices.js      prezzi gratuiti della community (Open Food Facts – Open Prices)
 js/flyer.js           lettura volantini (OCR con tesseract.js, PDF con pdf.js) e storico prezzi
+js/chains.js          catene supportate (adattatori) per i volantini ufficiali
+worker/               ponte Cloudflare (solo siti ufficiali, nessun salvataggio)
 js/geo.js             posizione, distanza da casa, indirizzi con OpenStreetMap
 js/i18n.js            traduzioni, lingua RTL, font per lingua
 js/version.js         versione, novità e versione della policy

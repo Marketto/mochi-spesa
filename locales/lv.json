@@ -438,5 +438,15 @@
   "new.flyer": "Lasi bukletus (PDF vai foto) bez maksas tālrunī un glabā labākās cenas.",
   "ai.share": "Kopīgot atslēgu ar tiem, kas lieto to pašu sarakstu",
   "ai.shareHint": "Tā tiek saglabāta koplietotajā Dropbox failā, tāpēc citiem nevajag savu. Kopīgo tikai ar uzticamiem cilvēkiem: kam ir atslēga, tas lieto tavu kontu.",
-  "ai.sharedInUse": "Izmantoju ģimenes kopīgoto atslēgu caur Dropbox."
+  "ai.sharedInUse": "Izmantoju ģimenes kopīgoto atslēgu caur Dropbox.",
+  "ch.title": "Tavi tīkli",
+  "ch.hint": "Moči pats lejupielādē šo tīklu oficiālos bukletus un meklē tavus produktus. Buklets tiek lasīts tālrunī.",
+  "ch.none": "Oficiālo bukletu tilts vēl nav aktīvs.",
+  "ch.refresh": "Atjaunināt tīklu bukletus",
+  "ch.loading": "Lejupielādēju {chain} bukletu: {name}…",
+  "ch.done": "Bukleti pārbaudīti: atrastas {n} cenas",
+  "ch.err": "Nevaru lejupielādēt {chain} bukletus.",
+  "ch.national": "valsts mērogā",
+  "legal.p14": "Ja izvēlies tīklus, lietotne lejupielādē to oficiālos bukletus caur Cloudflare tiltu, kas pieņem tikai oficiālās vietnes un neko nesaglabā: Cloudflare redz pieprasījuma IP adresi, nevis tavu sarakstu. Buklets tiek lasīts tālrunī.",
+  "new.chains": "Oficiālie bukleti automātiski: izvēlies tīklus, un Moči pats atradīs tavu produktu cenas."
 }

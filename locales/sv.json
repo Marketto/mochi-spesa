@@ -438,5 +438,15 @@
   "new.flyer": "Läs reklamblad (pdf eller foto) gratis på telefonen och spara de bästa priserna.",
   "ai.share": "Dela nyckeln med dem som använder samma lista",
   "ai.shareHint": "Den sparas i den delade Dropbox-filen, så andra behöver ingen egen. Dela den bara med personer du litar på: den som har nyckeln använder ditt konto.",
-  "ai.sharedInUse": "Jag använder nyckeln som familjen delar via Dropbox."
+  "ai.sharedInUse": "Jag använder nyckeln som familjen delar via Dropbox.",
+  "ch.title": "Dina kedjor",
+  "ch.hint": "Mochi laddar själv ner dessa kedjors officiella reklamblad och letar efter dina produkter. Bladet läses på telefonen.",
+  "ch.none": "Bryggan för officiella reklamblad är inte aktiv än.",
+  "ch.refresh": "Uppdatera kedjornas reklamblad",
+  "ch.loading": "Laddar ner {chain}s reklamblad: {name}…",
+  "ch.done": "Reklamblad kontrollerade: {n} priser hittade",
+  "ch.err": "Kan inte ladda ner reklambladen från {chain}.",
+  "ch.national": "rikstäckande",
+  "legal.p14": "Väljer du kedjor laddar appen ner deras officiella reklamblad via en brygga på Cloudflare som bara godtar officiella webbplatser och inte sparar något: Cloudflare ser förfrågans IP-adress, inte din lista. Bladet läses på telefonen.",
+  "new.chains": "Officiella reklamblad automatiskt: välj dina kedjor så hittar Mochi själv priserna på dina produkter."
 }

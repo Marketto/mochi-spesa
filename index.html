@@ -115,6 +115,7 @@
     <section class="card" aria-labelledby="fl-t">
       <h2 class="in" id="fl-t"><i class="mi mi-scan" aria-hidden="true"></i> <span data-i18n="fl.title"></span> <small data-i18n="zone.shared"></small></h2>
       <p class="hint" data-i18n="fl.hint"></p>
+      <button class="btn ghost" type="button" id="ch-refresh" hidden><i class="mi mi-refresh" aria-hidden="true"></i> <span data-i18n="ch.refresh"></span></button>
       <button class="btn ghost" type="button" id="fl-btn"><i class="mi mi-scan" aria-hidden="true"></i> <span data-i18n="fl.load"></span></button>
       <input type="file" id="fl-file" accept="application/pdf,image/*" hidden>
       <progress id="fl-prog" max="1" value="0" hidden data-i18n-attr="aria-label:fl.title"></progress>
@@ -207,6 +208,11 @@
       <label for="z-valuta"><i class="mi mi-coins" aria-hidden="true"></i> <span data-i18n="zone.currency"></span></label>
       <select id="z-valuta"></select>
       <label class="check"><input type="checkbox" id="z-amz" checked> <span data-i18n="zone.amazon"></span></label>
+      <fieldset class="chains" id="z-chains">
+        <legend><i class="mi mi-store" aria-hidden="true"></i> <span data-i18n="ch.title"></span></legend>
+        <p class="hint" id="z-chains-hint" data-i18n="ch.hint"></p>
+        <div id="z-chains-list"></div>
+      </fieldset>
     </form>
 
     <form class="card track" id="f-lvdir" aria-labelledby="lvdir-t">

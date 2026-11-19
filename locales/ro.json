@@ -438,5 +438,15 @@
   "new.flyer": "Citește cataloage (PDF sau poză) gratuit pe telefon și păstrează istoricul celor mai bune prețuri.",
   "ai.share": "Partajează cheia cu cei care folosesc aceeași listă",
   "ai.shareHint": "Se salvează în fișierul comun din Dropbox, așa ceilalți nu trebuie să-și creeze una. Partajeaz-o doar cu persoane de încredere: cine are cheia îți folosește contul.",
-  "ai.sharedInUse": "Folosesc cheia partajată de familie prin Dropbox."
+  "ai.sharedInUse": "Folosesc cheia partajată de familie prin Dropbox.",
+  "ch.title": "Lanțurile tale",
+  "ch.hint": "Mochi descarcă singur cataloagele oficiale ale acestor lanțuri și caută produsele tale. Catalogul e citit pe telefon.",
+  "ch.none": "Puntea pentru cataloage oficiale nu e încă activă.",
+  "ch.refresh": "Actualizează cataloagele lanțurilor",
+  "ch.loading": "Descarc catalogul {chain}: {name}…",
+  "ch.done": "Cataloage verificate: {n} prețuri găsite",
+  "ch.err": "Nu pot descărca cataloagele {chain}.",
+  "ch.national": "național",
+  "legal.p14": "Dacă alegi lanțuri, aplicația le descarcă cataloagele oficiale printr-o punte Cloudflare care acceptă doar site-uri oficiale și nu salvează nimic: Cloudflare vede IP-ul cererii, nu lista ta. Catalogul e citit pe telefon.",
+  "new.chains": "Cataloage oficiale automat: alege lanțurile și Mochi găsește singur prețurile produselor tale."
 }

@@ -438,5 +438,15 @@
   "new.flyer": "Read flyers (PDF or photo) for free on your phone and keep a history of the best prices.",
   "ai.share": "Share the key with people using the same list",
   "ai.shareHint": "It's saved in the shared Dropbox file, so others sharing the folder don't need their own. Only share it with people you trust: whoever has the key uses your account.",
-  "ai.sharedInUse": "Using the key shared by your family via Dropbox."
+  "ai.sharedInUse": "Using the key shared by your family via Dropbox.",
+  "ch.title": "Your chains",
+  "ch.hint": "Mochi downloads these chains' official flyers by itself and looks for your products. The flyer is read on your phone.",
+  "ch.none": "The official flyer bridge isn't active yet.",
+  "ch.refresh": "Update chain flyers",
+  "ch.loading": "Downloading the {chain} flyer: {name}…",
+  "ch.done": "Flyers checked: {n} prices found",
+  "ch.err": "Can't download the {chain} flyers.",
+  "ch.national": "national",
+  "legal.p14": "If you choose chains, the app downloads their official flyers through a Cloudflare bridge that only accepts official sites and stores nothing: Cloudflare sees the request's IP address, not your list. The flyer is read on your phone.",
+  "new.chains": "Official flyers automatically: pick your chains and Mochi finds your products' prices by itself."
 }

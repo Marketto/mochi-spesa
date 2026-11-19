@@ -438,5 +438,15 @@
   "new.flyer": "Lue mainoksia (PDF tai kuva) ilmaiseksi puhelimessa ja tallenna parhaat hinnat.",
   "ai.share": "Jaa avain saman listan käyttäjien kanssa",
   "ai.shareHint": "Se tallennetaan jaettuun Dropbox-tiedostoon, joten muut eivät tarvitse omaa. Jaa vain luotettaville: avaimen haltija käyttää tiliäsi.",
-  "ai.sharedInUse": "Käytän perheen Dropboxin kautta jakamaa avainta."
+  "ai.sharedInUse": "Käytän perheen Dropboxin kautta jakamaa avainta.",
+  "ch.title": "Ketjusi",
+  "ch.hint": "Mochi lataa itse näiden ketjujen viralliset mainokset ja etsii tuotteesi. Mainos luetaan puhelimessa.",
+  "ch.none": "Virallisten mainosten silta ei ole vielä käytössä.",
+  "ch.refresh": "Päivitä ketjujen mainokset",
+  "ch.loading": "Ladataan {chain}-mainosta: {name}…",
+  "ch.done": "Mainokset tarkistettu: {n} hintaa löytyi",
+  "ch.err": "Ketjun {chain} mainoksia ei voi ladata.",
+  "ch.national": "valtakunnallinen",
+  "legal.p14": "Jos valitset ketjuja, sovellus lataa niiden viralliset mainokset Cloudflaressa olevan sillan kautta, joka hyväksyy vain viralliset sivustot eikä tallenna mitään: Cloudflare näkee pyynnön IP-osoitteen, ei listaasi. Mainos luetaan puhelimessa.",
+  "new.chains": "Viralliset mainokset automaattisesti: valitse ketjusi, ja Mochi löytää tuotteidesi hinnat itse."
 }

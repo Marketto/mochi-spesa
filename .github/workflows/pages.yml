@@ -44,8 +44,9 @@ jobs:
       - name: Configurazione dal deploy (App key Dropbox da variabile del repo)
         env:
           DROPBOX_APP_KEY: ${{ vars.DROPBOX_APP_KEY }}
+          FLYER_PROXY: ${{ vars.FLYER_PROXY }}
         run: |
-          printf 'export default { dropboxAppKey: "%s" };\n' "$DROPBOX_APP_KEY" > _site/config.js
+          printf 'export default { dropboxAppKey: "%s", flyerProxy: "%s" };\n' "$DROPBOX_APP_KEY" "$FLYER_PROXY" > _site/config.js
           test -n "$DROPBOX_APP_KEY" || echo "::warning::Variabile DROPBOX_APP_KEY non impostata: l'app chiederà la App key agli utenti"
       - uses: actions/configure-pages@v5
         with:

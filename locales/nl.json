@@ -438,5 +438,15 @@
   "new.flyer": "Lees folders (pdf of foto) gratis op je telefoon en bewaar de beste prijzen.",
   "ai.share": "Sleutel delen met wie dezelfde lijst gebruikt",
   "ai.shareHint": "Hij wordt opgeslagen in het gedeelde Dropbox-bestand, dus anderen hebben er geen eigen nodig. Deel hem alleen met mensen die je vertrouwt: wie de sleutel heeft, gebruikt jouw account.",
-  "ai.sharedInUse": "Ik gebruik de sleutel die je gezin via Dropbox deelt."
+  "ai.sharedInUse": "Ik gebruik de sleutel die je gezin via Dropbox deelt.",
+  "ch.title": "Jouw ketens",
+  "ch.hint": "Mochi downloadt zelf de officiële folders van deze ketens en zoekt je producten. De folder wordt op je telefoon gelezen.",
+  "ch.none": "De brug voor officiële folders is nog niet actief.",
+  "ch.refresh": "Folders van de ketens bijwerken",
+  "ch.loading": "Folder van {chain} downloaden: {name}…",
+  "ch.done": "Folders gecontroleerd: {n} prijzen gevonden",
+  "ch.err": "Kan de folders van {chain} niet downloaden.",
+  "ch.national": "landelijk",
+  "legal.p14": "Kies je ketens, dan downloadt de app hun officiële folders via een Cloudflare-brug die alleen officiële sites toelaat en niets bewaart: Cloudflare ziet het IP-adres van het verzoek, niet je lijst. De folder wordt op je telefoon gelezen.",
+  "new.chains": "Officiële folders automatisch: kies je ketens en Mochi vindt zelf de prijzen van je producten."
 }

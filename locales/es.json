@@ -438,5 +438,15 @@
   "new.flyer": "Lee folletos (PDF o foto) gratis en el móvil y guarda el historial de los mejores precios.",
   "ai.share": "Compartir la clave con quien usa la misma lista",
   "ai.shareHint": "Se guarda en el archivo compartido de Dropbox, así quien comparte la carpeta no necesita crear una. Compártela solo con personas de confianza: quien tiene la clave usa tu cuenta.",
-  "ai.sharedInUse": "Uso la clave compartida por la familia mediante Dropbox."
+  "ai.sharedInUse": "Uso la clave compartida por la familia mediante Dropbox.",
+  "ch.title": "Tus cadenas",
+  "ch.hint": "Mochi descarga solo los folletos oficiales de estas cadenas y busca tus productos. El folleto se lee en el móvil.",
+  "ch.none": "El puente para folletos oficiales aún no está activo.",
+  "ch.refresh": "Actualizar folletos de las cadenas",
+  "ch.loading": "Descargando el folleto de {chain}: {name}…",
+  "ch.done": "Folletos revisados: {n} precios encontrados",
+  "ch.err": "No puedo descargar los folletos de {chain}.",
+  "ch.national": "nacional",
+  "legal.p14": "Si eliges cadenas, la app descarga sus folletos oficiales a través de un puente en Cloudflare que solo acepta sitios oficiales y no guarda nada: Cloudflare ve la IP de la petición, no tu lista. El folleto se lee en el móvil.",
+  "new.chains": "Folletos oficiales automáticos: elige tus cadenas y Mochi encuentra solo los precios de tus productos."
 }

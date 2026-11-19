@@ -438,5 +438,15 @@
   "new.flyer": "Lê folhetos (PDF ou foto) grátis no telemóvel e guarda o histórico dos melhores preços.",
   "ai.share": "Partilhar a chave com quem usa a mesma lista",
   "ai.shareHint": "Fica guardada no ficheiro partilhado do Dropbox, assim quem partilha a pasta não precisa de criar uma. Partilha-a só com pessoas de confiança: quem tem a chave usa a tua conta.",
-  "ai.sharedInUse": "Estou a usar a chave partilhada pela família via Dropbox."
+  "ai.sharedInUse": "Estou a usar a chave partilhada pela família via Dropbox.",
+  "ch.title": "As tuas cadeias",
+  "ch.hint": "O Mochi descarrega sozinho os folhetos oficiais destas cadeias e procura os teus produtos. O folheto é lido no telemóvel.",
+  "ch.none": "A ponte para folhetos oficiais ainda não está ativa.",
+  "ch.refresh": "Atualizar folhetos das cadeias",
+  "ch.loading": "A descarregar o folheto {chain}: {name}…",
+  "ch.done": "Folhetos verificados: {n} preços encontrados",
+  "ch.err": "Não consigo descarregar os folhetos de {chain}.",
+  "ch.national": "nacional",
+  "legal.p14": "Se escolheres cadeias, a app descarrega os folhetos oficiais através de uma ponte na Cloudflare que só aceita sites oficiais e não guarda nada: a Cloudflare vê o IP do pedido, não a tua lista. O folheto é lido no telemóvel.",
+  "new.chains": "Folhetos oficiais automáticos: escolhe as tuas cadeias e o Mochi encontra sozinho os preços dos teus produtos."
 }

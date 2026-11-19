@@ -438,5 +438,15 @@
   "new.flyer": "Prospekte (PDF oder Foto) kostenlos auf dem Handy lesen und die besten Preise speichern.",
   "ai.share": "Schlüssel mit allen teilen, die dieselbe Liste nutzen",
   "ai.shareHint": "Er wird in der geteilten Dropbox-Datei gespeichert, so brauchen andere keinen eigenen. Teile ihn nur mit Vertrauenspersonen: wer den Schlüssel hat, nutzt dein Konto.",
-  "ai.sharedInUse": "Ich nutze den über Dropbox geteilten Familienschlüssel."
+  "ai.sharedInUse": "Ich nutze den über Dropbox geteilten Familienschlüssel.",
+  "ch.title": "Deine Ketten",
+  "ch.hint": "Mochi lädt die offiziellen Prospekte dieser Ketten selbst und sucht deine Produkte. Das Prospekt wird auf dem Handy gelesen.",
+  "ch.none": "Die Brücke für offizielle Prospekte ist noch nicht aktiv.",
+  "ch.refresh": "Prospekte der Ketten aktualisieren",
+  "ch.loading": "Lade das {chain}-Prospekt: {name}…",
+  "ch.done": "Prospekte geprüft: {n} Preise gefunden",
+  "ch.err": "Prospekte von {chain} können nicht geladen werden.",
+  "ch.national": "landesweit",
+  "legal.p14": "Wählst du Ketten, lädt die App deren offizielle Prospekte über eine Cloudflare-Brücke, die nur offizielle Seiten zulässt und nichts speichert: Cloudflare sieht die IP-Adresse der Anfrage, nicht deine Liste. Das Prospekt wird auf dem Handy gelesen.",
+  "new.chains": "Offizielle Prospekte automatisch: wähle deine Ketten und Mochi findet die Preise deiner Produkte selbst."
 }
