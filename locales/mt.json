@@ -438,5 +438,15 @@
   "new.flyer": "Aqra fuljetti (PDF jew ritratt) b'xejn fuq it-telefon u żomm l-aqwa prezzijiet.",
   "ai.share": "Aqsam iċ-ċavetta ma' min juża l-istess lista",
   "ai.shareHint": "Tiġi salvata fil-fajl kondiviż ta' Dropbox, għalhekk ħaddieħor m'għandux bżonn tiegħu. Aqsamha biss ma' nies ta' fiduċja: min għandu ċ-ċavetta juża l-kont tiegħek.",
-  "ai.sharedInUse": "Qed nuża ċ-ċavetta kondiviża mill-familja permezz ta' Dropbox."
+  "ai.sharedInUse": "Qed nuża ċ-ċavetta kondiviża mill-familja permezz ta' Dropbox.",
+  "ch.title": "Il-ktajjen tiegħek",
+  "ch.hint": "Mochi jniżżel waħdu l-fuljetti uffiċjali ta' dawn il-ktajjen u jfittex il-prodotti tiegħek. Il-fuljett jinqara fuq it-telefon.",
+  "ch.none": "Il-pont għall-fuljetti uffiċjali għadu mhux attiv.",
+  "ch.refresh": "Aġġorna l-fuljetti tal-ktajjen",
+  "ch.loading": "Qed inniżżel il-fuljett ta' {chain}: {name}…",
+  "ch.done": "Fuljetti ċċekkjati: instabu {n} prezzijiet",
+  "ch.err": "Ma nistax inniżżel il-fuljetti ta' {chain}.",
+  "ch.national": "nazzjonali",
+  "legal.p14": "Jekk tagħżel ktajjen, l-app tniżżel il-fuljetti uffiċjali tagħhom permezz ta' pont fuq Cloudflare li jaċċetta biss siti uffiċjali u ma jsalva xejn: Cloudflare jara l-indirizz IP tat-talba, mhux il-lista tiegħek. Il-fuljett jinqara fuq it-telefon.",
+  "new.chains": "Fuljetti uffiċjali awtomatikament: agħżel il-ktajjen u Mochi jsib waħdu l-prezzijiet tal-prodotti tiegħek."
 }

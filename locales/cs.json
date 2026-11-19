@@ -438,5 +438,15 @@
   "new.flyer": "Čti letáky (PDF nebo fotku) zdarma v telefonu a ukládej nejlepší ceny.",
   "ai.share": "Sdílet klíč s ostatními na stejném seznamu",
   "ai.shareHint": "Uloží se do sdíleného souboru v Dropboxu, takže ostatní nemusí vytvářet vlastní. Sdílej ho jen s lidmi, kterým věříš: kdo má klíč, používá tvůj účet.",
-  "ai.sharedInUse": "Používám klíč sdílený rodinou přes Dropbox."
+  "ai.sharedInUse": "Používám klíč sdílený rodinou přes Dropbox.",
+  "ch.title": "Tvoje řetězce",
+  "ch.hint": "Mochi sám stahuje oficiální letáky těchto řetězců a hledá tvé produkty. Leták se čte v telefonu.",
+  "ch.none": "Most pro oficiální letáky zatím není aktivní.",
+  "ch.refresh": "Aktualizovat letáky řetězců",
+  "ch.loading": "Stahuji leták {chain}: {name}…",
+  "ch.done": "Zkontrolované letáky: nalezeno cen: {n}",
+  "ch.err": "Nelze stáhnout letáky {chain}.",
+  "ch.national": "celostátní",
+  "legal.p14": "Pokud zvolíš řetězce, aplikace stahuje jejich oficiální letáky přes most v Cloudflare, který přijímá jen oficiální weby a nic neukládá: Cloudflare vidí IP adresu požadavku, ne tvůj seznam. Leták se čte v telefonu.",
+  "new.chains": "Oficiální letáky automaticky: vyber řetězce a Mochi sám najde ceny tvých produktů."
 }

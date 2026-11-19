@@ -438,5 +438,15 @@
   "new.flyer": "Skaitykite leidinius (PDF ar nuotrauką) nemokamai telefone ir saugokite geriausias kainas.",
   "ai.share": "Bendrinti raktą su tais, kurie naudoja tą patį sąrašą",
   "ai.shareHint": "Jis išsaugomas bendrame Dropbox faile, todėl kitiems nereikia savo. Bendrinkite tik su patikimais žmonėmis: kas turi raktą, naudoja jūsų paskyrą.",
-  "ai.sharedInUse": "Naudoju šeimos per Dropbox bendrinamą raktą."
+  "ai.sharedInUse": "Naudoju šeimos per Dropbox bendrinamą raktą.",
+  "ch.title": "Jūsų tinklai",
+  "ch.hint": "Moči pats atsisiunčia šių tinklų oficialius leidinius ir ieško jūsų prekių. Leidinys skaitomas telefone.",
+  "ch.none": "Oficialių leidinių tiltas dar neaktyvus.",
+  "ch.refresh": "Atnaujinti tinklų leidinius",
+  "ch.loading": "Atsisiunčiu {chain} leidinį: {name}…",
+  "ch.done": "Patikrinti leidiniai: rasta kainų: {n}",
+  "ch.err": "Negaliu atsisiųsti {chain} leidinių.",
+  "ch.national": "nacionalinis",
+  "legal.p14": "Jei pasirinksite tinklus, programėlė atsisiunčia jų oficialius leidinius per Cloudflare tiltą, kuris priima tik oficialias svetaines ir nieko nesaugo: Cloudflare mato užklausos IP adresą, ne jūsų sąrašą. Leidinys skaitomas telefone.",
+  "new.chains": "Oficialūs leidiniai automatiškai: pasirinkite tinklus ir Moči pats ras jūsų prekių kainas."
 }

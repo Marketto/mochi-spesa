@@ -4,7 +4,7 @@
 // così non ricompaiono quando l'altro telefono sincronizza.
 
 export const TOMBSTONE_MS = 30 * 24 * 3600 * 1000;
-const MAPS = ["items", "monitor", "valutazioni", "dispensa", "luoghi", "preferenze", "prezzi"];
+const MAPS = ["items", "monitor", "valutazioni", "dispensa", "luoghi", "preferenze", "prezzi", "volantini"];
 
 export function emptyState() {
   return {
@@ -22,6 +22,7 @@ export function emptyState() {
       cantina: { id: "cantina", nome: "", ordine: 1, scaffali: [], updatedAt: 1 },
     },
     preferenze: {}, // { id, prodotto, negozio, tipo: "preferito" | "evita" }
+    volantini: {}, // volantini ufficiali già letti: { id, catena, nome, fine, url, letto }
     prezzi: {}, // prezzi letti dai volantini: { id, nome, riga, prezzo, prezzoUnit, negozio, validoFino, data }
     confronto: { prodotti: [], updatedAt: 0 },
     offerte: { list: [], updatedAt: 0 },
@@ -59,7 +60,7 @@ export function normalize(s) {
   return {
     schema: 1,
     items: obj(s.items), monitor: s.monitor ? obj(s.monitor) : e.monitor, valutazioni: obj(s.valutazioni),
-    dispensa: obj(s.dispensa), luoghi: s.luoghi && Object.keys(s.luoghi).length ? obj(s.luoghi) : e.luoghi, preferenze: obj(s.preferenze), prezzi: obj(s.prezzi),
+    dispensa: obj(s.dispensa), luoghi: s.luoghi && Object.keys(s.luoghi).length ? obj(s.luoghi) : e.luoghi, preferenze: obj(s.preferenze), prezzi: obj(s.prezzi), volantini: obj(s.volantini),
     confronto: s.confronto && Array.isArray(s.confronto.prodotti) ? s.confronto : e.confronto,
     offerte: s.offerte && Array.isArray(s.offerte.list) ? s.offerte : e.offerte,
     settings: { ...e.settings, ...(s.settings || {}) },

@@ -438,5 +438,15 @@
   "new.flyer": "Brezplačno beri letake (PDF ali foto) na telefonu in shranjuj najboljše cene.",
   "ai.share": "Deli ključ z vsemi, ki uporabljajo isti seznam",
   "ai.shareHint": "Shrani se v skupno datoteko na Dropboxu, zato drugi ne potrebujejo svojega. Deli ga samo z ljudmi, ki jim zaupaš: kdor ima ključ, uporablja tvoj račun.",
-  "ai.sharedInUse": "Uporabljam ključ, ki ga družina deli prek Dropboxa."
+  "ai.sharedInUse": "Uporabljam ključ, ki ga družina deli prek Dropboxa.",
+  "ch.title": "Tvoje verige",
+  "ch.hint": "Mochi sam prenese uradne letake teh verig in poišče tvoje izdelke. Letak se prebere na telefonu.",
+  "ch.none": "Most za uradne letake še ni aktiven.",
+  "ch.refresh": "Posodobi letake verig",
+  "ch.loading": "Prenašam letak {chain}: {name}…",
+  "ch.done": "Pregledani letaki: najdenih cen: {n}",
+  "ch.err": "Letakov {chain} ne morem prenesti.",
+  "ch.national": "nacionalno",
+  "legal.p14": "Če izbereš verige, aplikacija prenese njihove uradne letake prek mostu v Cloudflare, ki sprejema samo uradne strani in nič ne shranjuje: Cloudflare vidi IP zahteve, ne tvojega seznama. Letak se prebere na telefonu.",
+  "new.chains": "Uradni letaki samodejno: izberi verige in Mochi sam najde cene tvojih izdelkov."
 }

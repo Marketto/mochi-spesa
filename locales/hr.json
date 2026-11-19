@@ -438,5 +438,15 @@
   "new.flyer": "Besplatno čitaj kataloge (PDF ili foto) na mobitelu i čuvaj najbolje cijene.",
   "ai.share": "Podijeli ključ s onima koji koriste isti popis",
   "ai.shareHint": "Sprema se u zajedničku datoteku na Dropboxu pa drugi ne trebaju svoj. Dijeli ga samo s osobama od povjerenja: tko ima ključ, koristi tvoj račun.",
-  "ai.sharedInUse": "Koristim ključ koji obitelj dijeli preko Dropboxa."
+  "ai.sharedInUse": "Koristim ključ koji obitelj dijeli preko Dropboxa.",
+  "ch.title": "Tvoji lanci",
+  "ch.hint": "Mochi sam preuzima službene kataloge ovih lanaca i traži tvoje proizvode. Katalog se čita na mobitelu.",
+  "ch.none": "Most za službene kataloge još nije aktivan.",
+  "ch.refresh": "Ažuriraj kataloge lanaca",
+  "ch.loading": "Preuzimam katalog {chain}: {name}…",
+  "ch.done": "Provjereni katalozi: pronađeno cijena: {n}",
+  "ch.err": "Ne mogu preuzeti kataloge {chain}.",
+  "ch.national": "nacionalni",
+  "legal.p14": "Ako odabereš lance, aplikacija preuzima njihove službene kataloge preko mosta na Cloudflareu koji prihvaća samo službene stranice i ništa ne sprema: Cloudflare vidi IP adresu zahtjeva, ne tvoj popis. Katalog se čita na mobitelu.",
+  "new.chains": "Službeni katalozi automatski: odaberi lance i Mochi sam nalazi cijene tvojih proizvoda."
 }

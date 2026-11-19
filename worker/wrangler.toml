@@ -1,0 +1,8 @@
+name = "mochi-spesa-ponte"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+[vars]
+# siti da cui l'app può chiedere i volantini (separati da virgola)
+ALLOWED_ORIGINS = "https://marketto.github.io"

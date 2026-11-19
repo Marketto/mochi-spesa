@@ -438,5 +438,15 @@
   "new.flyer": "Čítaj letáky (PDF alebo fotku) zadarmo v telefóne a ukladaj najlepšie ceny.",
   "ai.share": "Zdieľať kľúč s ostatnými na rovnakom zozname",
   "ai.shareHint": "Uloží sa do zdieľaného súboru v Dropboxe, takže ostatní nemusia vytvárať vlastný. Zdieľaj ho len s ľuďmi, ktorým veríš: kto má kľúč, používa tvoj účet.",
-  "ai.sharedInUse": "Používam kľúč zdieľaný rodinou cez Dropbox."
+  "ai.sharedInUse": "Používam kľúč zdieľaný rodinou cez Dropbox.",
+  "ch.title": "Tvoje reťazce",
+  "ch.hint": "Mochi sám sťahuje oficiálne letáky týchto reťazcov a hľadá tvoje produkty. Leták sa číta v telefóne.",
+  "ch.none": "Most pre oficiálne letáky ešte nie je aktívny.",
+  "ch.refresh": "Aktualizovať letáky reťazcov",
+  "ch.loading": "Sťahujem leták {chain}: {name}…",
+  "ch.done": "Skontrolované letáky: nájdené ceny: {n}",
+  "ch.err": "Nedajú sa stiahnuť letáky {chain}.",
+  "ch.national": "celoštátny",
+  "legal.p14": "Ak zvolíš reťazce, aplikácia sťahuje ich oficiálne letáky cez most v Cloudflare, ktorý prijíma len oficiálne weby a nič neukladá: Cloudflare vidí IP adresu požiadavky, nie tvoj zoznam. Leták sa číta v telefóne.",
+  "new.chains": "Oficiálne letáky automaticky: vyber reťazce a Mochi sám nájde ceny tvojich produktov."
 }

@@ -11,6 +11,7 @@ import * as pantry from "./pantry.js";
 import * as importer from "./importer.js";
 import * as op from "./openprices.js";
 import * as flyer from "./flyer.js";
+import * as chains from "./chains.js";
 
 // ---------- utilità ----------
 const $ = s => document.querySelector(s);
@@ -38,6 +39,7 @@ let LOCAL_CFG = {};
 const isLocal = ["localhost", "127.0.0.1"].includes(location.hostname);
 try { LOCAL_CFG = (await import(isLocal ? "../config.local.js" : "../config.js")).default || {}; } catch {}
 const BUILT_KEY = String(LOCAL_CFG.dropboxAppKey || "");
+const PROXY = /^https:\/\//.test(LOCAL_CFG.flyerProxy || "") ? LOCAL_CFG.flyerProxy : "";
 const DBX_CFG_KEY = "mochi.dbxcfg";
 const dbxCfg = () => {
   const c = { appKey: "", path: LOCAL_CFG.dropboxPath || "/Spesa/mochi-spesa.json", ...lsGet(DBX_CFG_KEY, {}) };
@@ -724,7 +726,7 @@ const oggiISO = () => new Date().toISOString().slice(0, 10);
 const shortDate = d => new Date(d + "T12:00").toLocaleDateString(locale(), { day: "numeric", month: "short" });
 function savedOptions(nome) {
   return flyer.bestSaved(nome, live(state.prezzi)).map(x => ({ negozio: x.negozio, prezzo: x.prezzo, prezzoUnit: x.prezzoUnit, offerta: !!(x.validoFino && x.validoFino >= oggiISO()),
-    validoFino: x.validoFino ? shortDate(x.validoFino) : null, fonte: "", nota: t("fl.note", { date: shortDate(x.data) }) + (x.riga ? ` – ${x.riga}` : "") }));
+    validoFino: x.validoFino ? shortDate(x.validoFino) : null, fonte: x.fonte || "", nota: t("fl.note", { date: shortDate(x.data) }) + (x.riga ? ` – ${x.riga}` : "") }));
 }
 /** Un'opzione per negozio: vince la prima (volantini salvati prima dei prezzi della community), poi dalla più economica. */
 function mergeOptions(opts) {
@@ -733,10 +735,71 @@ function mergeOptions(opts) {
   return [...m.values()].sort((a, b) => a.prezzo - b.prezzo).slice(0, 6);
 }
 
+// ---------- VOLANTINI UFFICIALI DELLE CATENE (via ponte) ----------
+const FLY_TXT = "mochi.flyertext", CH_CHECK = "mochi.chainCheck";
+const simpleHash = str => { let h = 5381; for (const c of str) h = (h * 33 + c.codePointAt(0)) >>> 0; return h.toString(36); };
+const myChains = () => PROXY ? (state.settings.catene || []).map(id => chains.CHAINS[id]).filter(Boolean) : [];
+let chainRun = null;
+async function refreshChains({ manual = false } = {}) {
+  const list = myChains(); if (!list.length || chainRun) return chainRun;
+  if (!manual && Date.now() - lsGet(CH_CHECK, 0) < 12 * 3600e3) { matchChainTexts(); return; }
+  const btn = $("#ch-refresh"), msg = $("#fl-msg"), prog = $("#fl-prog");
+  chainRun = (async () => {
+    btn.disabled = true; btn.classList.add("loading"); prog.hidden = false; prog.removeAttribute("value");
+    const cache = lsGet(FLY_TXT, {}), oggi = oggiISO(); let errori = 0;
+    for (const k of Object.keys(cache)) if (cache[k].fine && cache[k].fine < oggi) delete cache[k];
+    try {
+      for (const ch of list) {
+        let fl = [];
+        try { fl = await ch.flyers(PROXY); } catch { errori++; toast(t("ch.err", { chain: ch.nome }), "warn"); continue; }
+        for (const f of fl) {
+          if (cache[f.id]) continue;
+          msg.textContent = t("ch.loading", { chain: ch.nome, name: f.nome });
+          try {
+            const text = await flyer.readFlyer(await ch.pdf(PROXY, f), flyer.ocrLang(lang()), ev => { if (ev.step === "page") msg.textContent = `${t("ch.loading", { chain: ch.nome, name: f.nome })} ${t("fl.page", { page: ev.page, pages: ev.pages })}`; });
+            cache[f.id] = { fine: f.fine, text: text.slice(0, 400000), f };
+            try { localStorage.setItem(FLY_TXT, JSON.stringify(cache)); } catch { delete cache[f.id]; }
+          } catch { errori++; }
+          mutate((s, now) => { s.volantini[f.id] = { id: f.id, catena: f.catena, nome: f.nome, fine: f.fine, url: f.url, letto: now, updatedAt: now }; });
+        }
+      }
+      lsSet(CH_CHECK, Date.now());
+      const n = matchChainTexts();
+      msg.textContent = t("ch.done", { n });
+      if (manual || n) toast(t("ch.done", { n }), "store");
+    } finally { btn.disabled = false; btn.classList.remove("loading"); prog.hidden = true; chainRun = null; }
+  })();
+  return chainRun;
+}
+/** Cerca i prodotti della lista nei volantini già scaricati e aggiorna i prezzi automatici. */
+function matchChainTexts() {
+  const cache = lsGet(FLY_TXT, {}), names = flyerNames(), oggi = oggiISO(); let n = 0;
+  const nuovi = {};
+  for (const { text, f, fine } of Object.values(cache)) {
+    if (!f || (fine && fine < oggi)) continue;
+    const ch = chains.CHAINS[f.catena]; if (!ch || !(state.settings.catene || []).includes(f.catena)) continue;
+    for (const x of flyer.findProducts(text, names)) {
+      const id = "auto-" + simpleHash(`${f.id}|${x.nome}|${x.prezzo}`);
+      nuovi[id] = { id, nome: x.nome, riga: x.riga, prezzo: x.prezzo, prezzoUnit: x.prezzoUnit, negozio: ch.nome, validoFino: f.fine, data: oggi, fonte: f.url, auto: f.id };
+    }
+  }
+  const cur = state.prezzi;
+  const cambia = Object.keys(nuovi).some(id => !cur[id] || cur[id].deleted && !cur[id].tolto) ||
+    Object.values(cur).some(p => p.auto && !p.deleted && !nuovi[p.id]);
+  n = Object.keys(nuovi).length;
+  if (cambia) mutate((s, now) => {
+    for (const [id, p] of Object.entries(nuovi)) if (!s.prezzi[id] || (s.prezzi[id].deleted && !s.prezzi[id].tolto)) s.prezzi[id] = { ...p, ts: now, updatedAt: now };
+    for (const p of Object.values(s.prezzi)) if (p.auto && !p.deleted && !nuovi[p.id]) s.prezzi[p.id] = { ...p, deleted: true, updatedAt: now };
+  });
+  return n;
+}
+$("#ch-refresh").addEventListener("click", () => refreshChains({ manual: true }));
+
 // ---------- LEGGI UN VOLANTINO ----------
 const flyerNames = () => [...new Map([...live(state.monitor).map(m => m.nome), ...live(state.items).filter(i => !i.fatto).map(i => i.nome)]
   .map(n => [pantry.norm(n), n])).values()];
 function renderFlyerBest() {
+  $("#ch-refresh").hidden = !myChains().length;
   const nomi = flyerNames(), rows = [];
   for (const n of nomi) { const b = flyer.bestSaved(n, live(state.prezzi))[0]; if (b) rows.push([n, b]); }
   $("#fl-best").innerHTML = rows.length ? rows.map(([n, b]) => `<li><span class="fl-n">${esc(n)}</span>
@@ -747,8 +810,8 @@ function renderFlyerBest() {
 $("#fl-best").addEventListener("click", e => {
   const b = e.target.closest("[data-fldel]"); if (!b) return;
   const id = b.dataset.fldel, prev = state.prezzi[id];
-  mutate((s, now) => { s.prezzi[id] = { ...s.prezzi[id], deleted: true, updatedAt: now }; });
-  toast(t("pref.removed"), "delete", { label: t("common.undo"), run: () => mutate((s, now) => { s.prezzi[id] = { ...prev, deleted: false, updatedAt: now }; }) });
+  mutate((s, now) => { s.prezzi[id] = { ...s.prezzi[id], deleted: true, tolto: true, updatedAt: now }; });
+  toast(t("pref.removed"), "delete", { label: t("common.undo"), run: () => mutate((s, now) => { s.prezzi[id] = { ...prev, deleted: false, tolto: false, updatedAt: now }; }) });
 });
 $("#fl-btn").addEventListener("click", () => {
   if (!flyerNames().length) { toast(t("fl.needProducts"), "info"); $("#mon-nome").focus(); return; }
@@ -842,7 +905,7 @@ function compareBody() {
     h += `</fieldset>`;
   }
   h += `<p class="cmp-total" aria-live="polite">${esc(t("cmp.total", { total: money(tot) }))}</p>
-    <p class="hint">${esc(t("cmp.when", { when: state.confronto.updatedAt ? quando(state.confronto.updatedAt) : "–" }))}</p>${state.confronto.fonte === "openprices" ? OP_CREDIT() + `<p class="hint">${ic("key")} ${esc(t("free.moreWithKey"))}</p>` : ""}`;
+    <p class="hint">${esc(t("cmp.when", { when: state.confronto.updatedAt ? quando(state.confronto.updatedAt) : "–" }))}</p>${state.confronto.fonte === "openprices" && (state.confronto.prodotti || []).some(r => (r.opzioni || []).some(o => o.op)) ? OP_CREDIT() + `<p class="hint">${ic("key")} ${esc(t("free.moreWithKey"))}</p>` : ""}`;
   return h;
 }
 $("#sheet-body").addEventListener("click", e => {
@@ -881,6 +944,7 @@ async function runCompare() {
   const s0 = state.settings, btn = $("#compare");
   if (!s0.luogo) { toast(t("geo.ask"), "pin"); selectTab($("#t-imp")); $("#z-luogo").focus(); return; }
   const prodotti = live(state.items).filter(i => !i.fatto).slice(0, 25).map(i => ({ id: i.id, nome: i.nome, qta: i.qta || "" }));
+  if (myChains().length) { btn.classList.add("loading"); try { await refreshChains(); } catch {} btn.classList.remove("loading"); }
   if (!ai.ready()) {
     const pt = searchPoint(); if (!pt) { toast(t("geo.ask"), "pin"); return; }
     btn.classList.add("loading"); btn.setAttribute("aria-busy", "true");
@@ -888,7 +952,7 @@ async function runCompare() {
       let prices = []; try { prices = await op.nearby({ ...pt, raggioKm: Math.max(s0.raggioKm || 5, 10) }); } catch {}
       const res = prodotti.map(p => ({ id: p.id, nome: p.nome, opzioni: mergeOptions([
         ...savedOptions(p.nome),
-        ...op.bestFor(p.nome, prices).map(x => ({ negozio: x.negozio, prezzo: x.prezzo, offerta: x.sconto, fonte: op.priceUrl(x.id), nota: opNote(x) })),
+        ...op.bestFor(p.nome, prices).map(x => ({ negozio: x.negozio, prezzo: x.prezzo, offerta: x.sconto, fonte: op.priceUrl(x.id), nota: opNote(x), op: true })),
       ]) }));
       mutate((s, now) => { s.confronto = { prodotti: res, fonte: "openprices", updatedAt: now }; });
       openCompare();
@@ -905,6 +969,8 @@ async function runCompare() {
     const res = await ai.confrontaPrezzi({ prodotti, luogo, raggioKm: s0.raggioKm, negozi: s0.negozi, valuta: currency(), lingua: langName(),
       preferiti: prefs.filter(p => p.tipo === "preferito").map(p => ({ prodotto: p.prodotto, negozio: p.negozio })),
       evitati: prefs.filter(p => p.tipo === "evita").map(p => ({ prodotto: p.prodotto, negozio: p.negozio })) });
+    // i volantini ufficiali letti sul telefono vincono sulle stime dell'IA per lo stesso negozio
+    for (const r of res) { const p = prodotti.find(x => x.id === r.id); if (p) r.opzioni = mergeOptions([...savedOptions(p.nome), ...(r.opzioni || [])]); }
     mutate((s, now) => { s.confronto = { prodotti: res, fonte: "ai", updatedAt: now }; });
     mochi.mood("happy", 2000); mochi.say(frase("offerta"));
     openCompare();
@@ -977,7 +1043,7 @@ $("#cerca").addEventListener("click", async () => {
       let prices = []; try { prices = await op.nearby({ ...pt, raggioKm: Math.max(s0.raggioKm || 5, 10) }, { signal: searching.signal }); } catch (e) { if (e.name === "AbortError") throw e; }
       offerte = live(state.monitor).flatMap(m => flyer.bestSaved(m.nome, live(state.prezzi)).slice(0, 2).map(x => ({
         prodotto: x.riga || x.nome, categoria: m.nome, negozio: x.negozio, prezzo: x.prezzo, quantita: null, unita: m.unita, prezzoUnit: x.prezzoUnit,
-        validoFino: x.validoFino ? shortDate(x.validoFino) : null, fonte: "", amazon: null, voto: null, nota: t("fl.note", { date: shortDate(x.data) }) })))
+        validoFino: x.validoFino ? shortDate(x.validoFino) : null, fonte: x.fonte || "", amazon: null, voto: null, nota: t("fl.note", { date: shortDate(x.data) }) })))
         .concat(live(state.monitor).flatMap(m => op.bestFor(m.nome, prices, 3).map(x => ({
         prodotto: [x.marca, x.nome].filter(Boolean).join(" · "), categoria: m.nome, negozio: x.citta ? `${x.negozio} · ${x.citta}` : x.negozio,
         prezzo: x.prezzo, quantita: null, unita: m.unita, prezzoUnit: op.unitPrice(x, m.unita), validoFino: null,
@@ -1059,7 +1125,10 @@ function fillSettings() {
   const s = state.settings;
   $("#z-luogo").value = s.luogo || ""; $("#z-raggio").value = s.raggioKm || 5; $("#z-raggio-v").textContent = s.raggioKm || 5;
   for (const r of document.querySelectorAll('input[name="lvdir"]')) r.checked = r.value === (s.ripiani === "basso" ? "basso" : "alto");
-  $("#z-negozi").value = s.negozi || ""; $("#z-amz").checked = s.amazon !== false;
+  $("#z-negozi").value = s.negozi || "";
+  const scelte = new Set(s.catene || []);
+  $("#z-chains-list").innerHTML = PROXY ? chains.chainList().map(c => `<label class="check"><input type="checkbox" name="catena" value="${c.id}"${scelte.has(c.id) ? " checked" : ""}> ${esc(c.nome)}${c.nazionale ? ` <small>· ${esc(t("ch.national"))}</small>` : ""}</label>`).join("") : "";
+  $("#z-chains-hint").textContent = t(PROXY ? "ch.hint" : "ch.none"); $("#z-amz").checked = s.amazon !== false;
   let names; try { names = new Intl.DisplayNames([locale()], { type: "currency" }); } catch {}
   $("#z-valuta").innerHTML = CURRENCIES.map(c => `<option value="${c}">${esc(names ? names.of(c) : c)} (${c})</option>`).join("");
   $("#z-valuta").value = currency();
@@ -1125,7 +1194,7 @@ async function saveSettings() {
     const ripiani = document.querySelector('input[name="lvdir"]:checked')?.value === "basso" ? "basso" : "alto";
     mutate((s, now) => {
       s.settings = { ...s.settings, luogo, raggioKm: +$("#z-raggio").value, negozi: $("#z-negozi").value.trim(), amazon: $("#z-amz").checked,
-        valuta: $("#z-valuta").value, ripiani, aiShared, ...coords, updatedAt: now };
+        valuta: $("#z-valuta").value, ripiani, aiShared, catene: [...document.querySelectorAll('#z-chains-list input[name="catena"]:checked')].map(x => x.value), ...coords, updatedAt: now };
     });
     setDirty(false); fillSettings(); render(); renderOfferte();
     toast(t("set.saved"), "save"); mochi.mood("happy"); mochi.say(nome ? t("phr.nice", { name: nome }) : frase("aggiunto"));
@@ -1313,14 +1382,14 @@ async function checkAway({ ask = false, modal = false } = {}) {
   $("#away-yes").addEventListener("click", accetta);
   $("#away-no").addEventListener("click", rifiuta);
 }
-$("#t-offerte").addEventListener("click", () => checkAway());
+$("#t-offerte").addEventListener("click", () => { checkAway(); refreshChains(); });
 
 // ---------- PRIVACY E CONDIZIONI ----------
 function legalHtml() {
   const sec = (icon, title, prefix, n) => `<h3>${ic(icon)} ${esc(t(title))}</h3><ul>${
     Array.from({ length: n }, (_, i) => `<li>${esc(t(`${prefix}${i + 1}`))}</li>`).join("")}</ul>`;
   return `<p class="hint">${esc(t("legal.updated", { date: new Date(POLICY_VERSION).toLocaleDateString(locale(), { dateStyle: "long" }) }))}</p>
-    ${sec("privacy", "legal.privacyTitle", "legal.p", 13)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
+    ${sec("privacy", "legal.privacyTitle", "legal.p", 14)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
 }
 function openLegal() { $("#legal-body").innerHTML = legalHtml(); $("#legal").showModal(); }
 

@@ -438,5 +438,15 @@
   "new.flyer": "Læs tilbudsaviser (pdf eller foto) gratis på telefonen og gem de bedste priser.",
   "ai.share": "Del nøglen med dem, der bruger samme liste",
   "ai.shareHint": "Den gemmes i den delte Dropbox-fil, så andre ikke behøver deres egen. Del den kun med folk, du stoler på: den, der har nøglen, bruger din konto.",
-  "ai.sharedInUse": "Jeg bruger nøglen, som familien deler via Dropbox."
+  "ai.sharedInUse": "Jeg bruger nøglen, som familien deler via Dropbox.",
+  "ch.title": "Dine kæder",
+  "ch.hint": "Mochi henter selv disse kæders officielle tilbudsaviser og leder efter dine produkter. Avisen læses på telefonen.",
+  "ch.none": "Broen til officielle tilbudsaviser er ikke aktiv endnu.",
+  "ch.refresh": "Opdatér kædernes tilbudsaviser",
+  "ch.loading": "Henter tilbudsavisen fra {chain}: {name}…",
+  "ch.done": "Tilbudsaviser tjekket: {n} priser fundet",
+  "ch.err": "Kan ikke hente tilbudsaviserne fra {chain}.",
+  "ch.national": "landsdækkende",
+  "legal.p14": "Vælger du kæder, henter appen deres officielle tilbudsaviser via en bro på Cloudflare, der kun accepterer officielle sider og intet gemmer: Cloudflare ser anmodningens IP-adresse, ikke din liste. Avisen læses på telefonen.",
+  "new.chains": "Officielle tilbudsaviser automatisk: vælg dine kæder, så finder Mochi selv priserne på dine produkter."
 }

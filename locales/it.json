@@ -438,5 +438,15 @@
   "new.flyer": "Leggi i volantini (PDF o foto) gratis sul telefono e tieni lo storico dei prezzi migliori.",
   "ai.share": "Condividi la chiave con chi usa la stessa lista",
   "ai.shareHint": "Viene salvata nel file condiviso su Dropbox, così tua moglie (o chi condivide la cartella) non deve crearne una. Condividila solo con persone di fiducia: chi ha la chiave usa il tuo account.",
-  "ai.sharedInUse": "Uso la chiave condivisa dalla famiglia tramite Dropbox."
+  "ai.sharedInUse": "Uso la chiave condivisa dalla famiglia tramite Dropbox.",
+  "ch.title": "Le tue catene",
+  "ch.hint": "Mochi scarica da solo i volantini ufficiali di queste catene e cerca i tuoi prodotti. Il volantino viene letto sul telefono.",
+  "ch.none": "Il ponte per i volantini ufficiali non è ancora attivo.",
+  "ch.refresh": "Aggiorna i volantini delle catene",
+  "ch.loading": "Scarico il volantino {chain}: {name}…",
+  "ch.done": "Volantini controllati: {n} prezzi trovati",
+  "ch.err": "Non riesco a scaricare i volantini di {chain}.",
+  "ch.national": "nazionale",
+  "legal.p14": "Se scegli delle catene, l'app scarica i loro volantini ufficiali attraverso un ponte su Cloudflare, che accetta solo i siti ufficiali e non salva nulla: Cloudflare vede l'indirizzo IP della richiesta, non la tua lista. Il volantino viene letto sul telefono.",
+  "new.chains": "Volantini ufficiali in automatico: scegli le tue catene e Mochi trova da solo i prezzi dei tuoi prodotti."
 }

@@ -438,5 +438,15 @@
   "new.flyer": "Loe kampaanialehti (PDF või foto) tasuta telefonis ja hoia parimaid hindu.",
   "ai.share": "Jaga võtit sama nimekirja kasutajatega",
   "ai.shareHint": "See salvestatakse jagatud Dropboxi faili, nii et teistel pole oma võtit vaja. Jaga ainult usaldusväärsetega: kellel on võti, see kasutab sinu kontot.",
-  "ai.sharedInUse": "Kasutan pere poolt Dropboxi kaudu jagatud võtit."
+  "ai.sharedInUse": "Kasutan pere poolt Dropboxi kaudu jagatud võtit.",
+  "ch.title": "Sinu ketid",
+  "ch.hint": "Mochi laadib ise nende kettide ametlikud kampaanialehed ja otsib sinu tooteid. Lehte loetakse telefonis.",
+  "ch.none": "Ametlike kampaanialehtede sild pole veel aktiivne.",
+  "ch.refresh": "Uuenda kettide kampaanialehti",
+  "ch.loading": "Laadin {chain} lehte: {name}…",
+  "ch.done": "Lehed kontrollitud: leiti {n} hinda",
+  "ch.err": "{chain} lehti ei saa alla laadida.",
+  "ch.national": "üleriigiline",
+  "legal.p14": "Kui valid ketid, laadib rakendus nende ametlikud lehed Cloudflare'i silla kaudu, mis lubab ainult ametlikke saite ega salvesta midagi: Cloudflare näeb päringu IP-aadressi, mitte sinu nimekirja. Lehte loetakse telefonis.",
+  "new.chains": "Ametlikud kampaanialehed automaatselt: vali ketid ja Mochi leiab ise sinu toodete hinnad."
 }
