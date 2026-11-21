@@ -5,7 +5,7 @@
 // esaurito o una chiave sbagliata: possono riguardare la chiave intera o un solo modello.
 import { PROVIDERS } from "./providers.js";
 
-const LS = "mochi.ai", OLD = "mochi.claude", USE = "mochi.aiUse", COOL = "mochi.aiCool";
+const LS = "mochi.ai", OLD = "mochi.claude", USE = "mochi.aiUse", COOL = "mochi.aiCool2"; // v2: pause per chiave o per modello (le vecchie pause non valgono più)
 const ls = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
 const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
 const rid = () => Math.random().toString(36).slice(2, 10);
