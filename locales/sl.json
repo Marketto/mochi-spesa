@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi se pogovarja s Kapibo: računi, ki jih prebere Kapibo, gredo v shrambo, pospravljen nakup pa lahko v proračun.",
   "best.partial": "Nekateri viri niso odgovorili: {msg}",
   "best.also": "Prelistaj letake tudi na {site}",
-  "new.bestv2": "Natančnejše »Najdi najboljšo ceno«: pregleda letake bližnjih verig enega za drugim, zbiralnike letakov, spletne trgovine in Amazon ter izloči druge oblike (npr. tablete, če iščeš kapsule)."
+  "new.bestv2": "Natančnejše »Najdi najboljšo ceno«: pregleda letake bližnjih verig enega za drugim, zbiralnike letakov, spletne trgovine in Amazon ter izloči druge oblike (npr. tablete, če iščeš kapsule).",
+  "sync.newer": "Seznam iz novejše različice: posodobi aplikacijo za shranjevanje",
+  "new.syncformat": "Zanesljivejša sinhronizacija: podatki drugih aplikacij in različic se ne izgubijo več"
 }

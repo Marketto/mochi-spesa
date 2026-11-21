@@ -1,0 +1,41 @@
+{
+  "nome": "05-tombstone-piu-nuovo",
+  "descrizione": "Un'eliminazione più recente vince su una modifica più vecchia e resta come tombstone.",
+  "local": {
+    "schema": 1,
+    "items": {
+      "a": {
+        "id": "a",
+        "nome": "Uova",
+        "deleted": true,
+        "updatedAt": 1799913600000
+      }
+    }
+  },
+  "remote": {
+    "schema": 1,
+    "items": {
+      "a": {
+        "id": "a",
+        "nome": "Uova",
+        "qta": "6",
+        "updatedAt": 1799827200000
+      }
+    }
+  },
+  "now": 1800000000000,
+  "atteso": {
+    "scrivi": true,
+    "stato": {
+      "schema": 1,
+      "items": {
+        "a": {
+          "id": "a",
+          "nome": "Uova",
+          "deleted": true,
+          "updatedAt": 1799913600000
+        }
+      }
+    }
+  }
+}

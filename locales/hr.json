@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi razgovara s Kapibo: računi koje Kapibo pročita idu u smočnicu, a pospremljena kupnja može u proračun.",
   "best.partial": "Neki izvori nisu odgovorili: {msg}",
   "best.also": "Prelistaj kataloge i na {site}",
-  "new.bestv2": "Preciznije „Pronađi najbolju cijenu”: provjerava kataloge obližnjih lanaca jedan po jedan, agregatore kataloga, online kupnju i Amazon te izostavlja druge oblike (npr. tablete kad tražiš kapsule)."
+  "new.bestv2": "Preciznije „Pronađi najbolju cijenu”: provjerava kataloge obližnjih lanaca jedan po jedan, agregatore kataloga, online kupnju i Amazon te izostavlja druge oblike (npr. tablete kad tražiš kapsule).",
+  "sync.newer": "Popis iz novije verzije: ažuriraj aplikaciju za spremanje",
+  "new.syncformat": "Pouzdanija sinkronizacija: podaci drugih aplikacija i verzija više se ne gube"
 }

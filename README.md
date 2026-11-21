@@ -140,6 +140,9 @@ js/amazon.js          link di ricerca sul negozio Amazon del paese (nessuna lett
 js/shops.js           negozi nel raggio da OpenStreetMap (Overpass API) per i preferiti
 js/ai/                IA: providers.js (catalogo modelli), keys.js (chiavi e pause),
                       adapters.js (formati API), router.js (sceglie il modello per tag), tasks.js (compiti)
+docs/sync-format.md   formato del file condiviso (Mochi Sync Format v1), per altri client
+schema/               JSON Schema del file condiviso
+tests/vectors/        casi di prova comuni dell'unione, usati anche da altri client
 worker/               ponte Cloudflare (solo siti ufficiali, nessun salvataggio)
 js/geo.js             posizione, distanza da casa, indirizzi con OpenStreetMap
 js/i18n.js            traduzioni, lingua RTL, font per lingua

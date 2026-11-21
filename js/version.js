@@ -3,10 +3,13 @@
 // (icona + chiave di traduzione "new.*" in tutti i file locales/*.json).
 // Se cambiano privacy o condizioni d'uso, alza anche POLICY_VERSION: verrà chiesta di nuovo l'accettazione.
 
-export const APP_VERSION = "2.1.1";
+export const APP_VERSION = "2.2.0";
 export const POLICY_VERSION = "2026-11-21b";
 
 export const CHANGELOG = [
+  { v: "2.2.0", items: [
+    ["cloud-ok", "new.syncformat"],
+  ] },
   { v: "2.1.1", items: [
     ["trophy", "new.bestv2"],
   ] },

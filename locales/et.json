@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi räägib Kapiboga: Kapibo loetud tšekid lähevad sahvrisse ja ära pandud ostud võivad minna eelarvesse.",
   "best.partial": "Mõned allikad ei vastanud: {msg}",
   "best.also": "Vaata kampaanialehti ka siit: {site}",
-  "new.bestv2": "Täpsem „Leia parim hind”: vaatab läbi lähedal olevate kettide lehed ükshaaval, kampaanialehtede koondajad, e-poed ja Amazoni ning jätab välja muud vormid (nt tabletid, kui otsid kapsleid)."
+  "new.bestv2": "Täpsem „Leia parim hind”: vaatab läbi lähedal olevate kettide lehed ükshaaval, kampaanialehtede koondajad, e-poed ja Amazoni ning jätab välja muud vormid (nt tabletid, kui otsid kapsleid).",
+  "sync.newer": "Nimekiri uuemast versioonist: salvestamiseks uuenda rakendust",
+  "new.syncformat": "Töökindlam sünkroonimine: teiste rakenduste ja versioonide andmed enam ei kao"
 }

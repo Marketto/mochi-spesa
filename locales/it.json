@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi parla con Kapibo: gli scontrini letti da Kapibo vanno in dispensa e la spesa messa via può finire nei conti.",
   "best.partial": "Alcune fonti non hanno risposto: {msg}",
   "best.also": "Sfoglia anche i volantini su {site}",
-  "new.bestv2": "«Trova il prezzo migliore» più preciso: cerca nei volantini delle catene vicine una per una, negli aggregatori di volantini, nella spesa online e su Amazon, e scarta i formati diversi (es. pastiglie se cerchi pod)."
+  "new.bestv2": "«Trova il prezzo migliore» più preciso: cerca nei volantini delle catene vicine una per una, negli aggregatori di volantini, nella spesa online e su Amazon, e scarta i formati diversi (es. pastiglie se cerchi pod).",
+  "sync.newer": "Lista creata con una versione più nuova: aggiorna l'app per salvare",
+  "new.syncformat": "Sincronizzazione più robusta: i dati di altre app e versioni non si perdono più"
 }

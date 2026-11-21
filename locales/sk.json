@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi sa rozpráva s Kapibo: bločky prečítané Kapibom idú do špajze a odložený nákup môže ísť do rozpočtu.",
   "best.partial": "Niektoré zdroje neodpovedali: {msg}",
   "best.also": "Pozri si letáky aj na {site}",
-  "new.bestv2": "Presnejšie „Nájdi najlepšiu cenu“: prechádza letáky blízkych reťazcov jeden po druhom, agregátory letákov, online nákupy a Amazon a vynecháva iné formy (napr. tablety, keď hľadáš kapsuly)."
+  "new.bestv2": "Presnejšie „Nájdi najlepšiu cenu“: prechádza letáky blízkych reťazcov jeden po druhom, agregátory letákov, online nákupy a Amazon a vynecháva iné formy (napr. tablety, keď hľadáš kapsuly).",
+  "sync.newer": "Zoznam z novšej verzie: aktualizuj aplikáciu, aby sa dalo ukladať",
+  "new.syncformat": "Spoľahlivejšia synchronizácia: dáta z iných aplikácií a verzií sa už nestrácajú"
 }
