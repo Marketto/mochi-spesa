@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} lisatud: salvesta seaded.",
   "fl.files": "{n} faili",
   "fl.fileN": "Fail {i}/{n}",
-  "new.flyers2": "Sinu poodide ametlikud kampaanialehed nende lehe lingist ning mitu kampaanialehe ekraanipilti korraga, ka „Jaga” kaudu."
+  "new.flyers2": "Sinu poodide ametlikud kampaanialehed nende lehe lingist ning mitu kampaanialehe ekraanipilti korraga, ka „Jaga” kaudu.",
+  "ch.ponte": "Cloudflare'i silla aadress",
+  "ch.ponteHint": "Kopeeri see Cloudflare'ist pärast Workeri loomist (lõpeb .workers.dev). Piisab ühest telefonist: seda jagatakse perega.",
+  "new.ponte": "Ametlike kampaanialehtede silla saab sisse lülitada ilma tokenita: loo Cloudflare'is Worker ja kleebi selle aadress seadetesse."
 }

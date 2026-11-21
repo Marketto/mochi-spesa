@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} 추가됨: 설정을 저장하세요.",
   "fl.files": "파일 {n}개",
   "fl.fileN": "{n}개 중 {i}번째 파일",
-  "new.flyers2": "가게 페이지 링크로 공식 전단지를 읽고, 전단지 스크린샷 여러 장을 한 번에 읽어요('공유'로도 가능)."
+  "new.flyers2": "가게 페이지 링크로 공식 전단지를 읽고, 전단지 스크린샷 여러 장을 한 번에 읽어요('공유'로도 가능).",
+  "ch.ponte": "Cloudflare 브리지 주소",
+  "ch.ponteHint": "Worker를 만든 뒤 Cloudflare에서 복사하세요(.workers.dev로 끝나요). 휴대폰 한 대에만 입력하면 가족과 공유돼요.",
+  "new.ponte": "공식 전단지 브리지를 토큰 없이 켤 수 있어요: Cloudflare에서 Worker를 만들고 주소를 설정에 붙여넣으세요."
 }

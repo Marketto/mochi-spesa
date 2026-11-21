@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} tilføjet: gem indstillingerne.",
   "fl.files": "{n} filer",
   "fl.fileN": "Fil {i} af {n}",
-  "new.flyers2": "Officielle tilbudsaviser fra dine butikker via linket til deres side, og flere skærmbilleder af tilbudsaviser på én gang, også via “Del”."
+  "new.flyers2": "Officielle tilbudsaviser fra dine butikker via linket til deres side, og flere skærmbilleder af tilbudsaviser på én gang, også via “Del”.",
+  "ch.ponte": "Adresse på Cloudflare-broen",
+  "ch.ponteHint": "Kopiér den fra Cloudflare, når du har oprettet Workeren (ender på .workers.dev). Det er nok på én telefon: den deles med familien.",
+  "new.ponte": "Broen til officielle tilbudsaviser kan slås til uden token: opret Workeren på Cloudflare og indsæt adressen i indstillingerne."
 }

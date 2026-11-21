@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} miżjud: issalva s-settings.",
   "fl.files": "{n} fajls",
   "fl.fileN": "Fajl {i} minn {n}",
-  "new.flyers2": "Fuljetti uffiċjali tal-ħwienet tiegħek mil-link tal-paġna tagħhom, u diversi screenshots tal-fuljett flimkien, anke b'“Aqsam”."
+  "new.flyers2": "Fuljetti uffiċjali tal-ħwienet tiegħek mil-link tal-paġna tagħhom, u diversi screenshots tal-fuljett flimkien, anke b'“Aqsam”.",
+  "ch.ponte": "Indirizz tal-pont Cloudflare",
+  "ch.ponteHint": "Ikkopjah minn Cloudflare wara li toħloq il-Worker (jispiċċa b'.workers.dev). Biżżejjed fuq telefon wieħed: jinqasam mal-familja.",
+  "new.ponte": "Il-pont għall-fuljetti uffiċjali jinxtegħel mingħajr token: oħloq il-Worker fuq Cloudflare u waħħal l-indirizz tiegħu fis-settings."
 }

@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} adăugat: salvează setările.",
   "fl.files": "{n} fișiere",
   "fl.fileN": "Fișierul {i} din {n}",
-  "new.flyers2": "Cataloage oficiale ale magazinelor tale din linkul paginii lor și mai multe capturi de catalog citite împreună, și prin „Partajare”."
+  "new.flyers2": "Cataloage oficiale ale magazinelor tale din linkul paginii lor și mai multe capturi de catalog citite împreună, și prin „Partajare”.",
+  "ch.ponte": "Adresa podului Cloudflare",
+  "ch.ponteHint": "Copiaz-o din Cloudflare după ce creezi Worker-ul (se termină cu .workers.dev). Ajunge pe un telefon: e partajată cu familia.",
+  "new.ponte": "Podul pentru cataloagele oficiale se activează fără token: creezi Worker-ul pe Cloudflare și lipești adresa în setări."
 }

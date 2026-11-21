@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} added: save the settings.",
   "fl.files": "{n} files",
   "fl.fileN": "File {i} of {n}",
-  "new.flyers2": "Official flyers of your shops (Todis, Eurospin, MD, Conad…) from their page link, and several flyer screenshots read together, also via “Share”."
+  "new.flyers2": "Official flyers of your shops (Todis, Eurospin, MD, Conad…) from their page link, and several flyer screenshots read together, also via “Share”.",
+  "ch.ponte": "Cloudflare bridge address",
+  "ch.ponteHint": "Copy it from Cloudflare after creating the Worker (it ends with .workers.dev). Enter it on one phone: it's shared with the family.",
+  "new.ponte": "The bridge for official flyers can be turned on without a token: create the Worker on Cloudflare and paste its address in the settings."
 }

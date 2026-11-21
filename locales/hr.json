@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} dodan: spremi postavke.",
   "fl.files": "Datoteka: {n}",
   "fl.fileN": "Datoteka {i} od {n}",
-  "new.flyers2": "Službeni katalozi tvojih trgovina s poveznice njihove stranice i više snimki kataloga odjednom, i preko „Dijeli”."
+  "new.flyers2": "Službeni katalozi tvojih trgovina s poveznice njihove stranice i više snimki kataloga odjednom, i preko „Dijeli”.",
+  "ch.ponte": "Adresa Cloudflare mosta",
+  "ch.ponteHint": "Kopiraj je iz Cloudflarea nakon izrade Workera (završava s .workers.dev). Dovoljno je na jednom mobitelu: dijeli se s obitelji.",
+  "new.ponte": "Most za službene kataloge uključuje se bez tokena: napravi Worker na Cloudflareu i zalijepi njegovu adresu u postavke."
 }

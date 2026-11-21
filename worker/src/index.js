@@ -23,7 +23,8 @@ export function allowedTarget(raw) {
   return ALLOWED_HOSTS.includes(u.hostname) || official(u.hostname) ? u : null;
 }
 export function allowedOrigin(origin, env) {
-  const list = String(env.ALLOWED_ORIGINS || "").split(",").map(s => s.trim()).filter(Boolean);
+  // predefinito: l'app pubblica (così il Worker funziona anche incollato a mano nella dashboard, senza variabili)
+  const list = String(env?.ALLOWED_ORIGINS || "https://marketto.github.io").split(",").map(s => s.trim()).filter(Boolean);
   return origin && list.includes(origin) ? origin : null;
 }
 const cors = origin => ({ "access-control-allow-origin": origin, "access-control-allow-methods": "GET, OPTIONS", "access-control-max-age": "86400", vary: "Origin" });
