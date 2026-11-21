@@ -481,5 +481,15 @@
   "db.saved": "저장한 가격: {n}",
   "db.history": "기록",
   "new.multikey": "여러 AI 키 지원, 무료 포함(Groq, Qwen, OpenRouter, SiliconFlow): 모찌가 작업마다 가장 알맞은 키를 골라요.",
-  "new.pricedb": "'내 가격': 읽은 전단지의 모든 가격을 휴대폰 속 검색 가능한 데이터베이스에."
+  "new.pricedb": "'내 가격': 읽은 전단지의 모든 가격을 휴대폰 속 검색 가능한 데이터베이스에.",
+  "zone.shopsHint": "{km}km 안의 가게 중 즐겨 찾는 곳을 체크하세요.",
+  "zone.shopsLoading": "근처 가게를 찾는 중…",
+  "zone.shopsNeedZone": "지역을 설정하고 저장하면 여기에 근처 가게가 나와요.",
+  "zone.shopsNone": "{km}km 안에 가게가 없어요: 범위를 넓혀 보세요.",
+  "zone.shopsFail": "가게를 불러올 수 없어요: 나중에 다시 시도하세요.",
+  "zone.shopsMore": "{n}개 더 보기",
+  "zone.shopsCount": "{n}곳 · {km}km",
+  "zone.osm": "가게 목록 출처: OpenStreetMap (© OpenStreetMap 기여자)",
+  "legal.p16": "근처 가게를 보여주기 위해 지역의 (반올림한) 중심점과 반경이 OpenStreetMap(Overpass API)으로 전송돼요. 목록은 휴대폰에 7일간 보관돼요.",
+  "new.nearshops": "즐겨 찾는 가게를 입력 없이: 설정한 반경 안의 가게에서 고르세요."
 }

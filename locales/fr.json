@@ -481,5 +481,15 @@
   "db.saved": "Prix enregistrés : {n}",
   "db.history": "Historique",
   "new.multikey": "Plusieurs clés IA, gratuites aussi (Groq, Qwen, OpenRouter, SiliconFlow) : Mochi choisit la meilleure pour chaque tâche.",
-  "new.pricedb": "« Mes prix » : tous les prix des prospectus que tu lis dans une base de données sur ton téléphone, avec recherche."
+  "new.pricedb": "« Mes prix » : tous les prix des prospectus que tu lis dans une base de données sur ton téléphone, avec recherche.",
+  "zone.shopsHint": "Coche tes préférés parmi les magasins à moins de {km} km.",
+  "zone.shopsLoading": "Recherche des magasins proches…",
+  "zone.shopsNeedZone": "Définis ta zone et enregistre : les magasins proches apparaîtront ici.",
+  "zone.shopsNone": "Aucun magasin à moins de {km} km : essaie un rayon plus grand.",
+  "zone.shopsFail": "Impossible de charger les magasins : réessaie plus tard.",
+  "zone.shopsMore": "Afficher {n} de plus",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Liste des magasins d'OpenStreetMap (© contributeurs OpenStreetMap)",
+  "legal.p16": "Pour afficher les magasins proches, le centre (arrondi) de ta zone et le rayon sont envoyés à OpenStreetMap (Overpass API). La liste reste sur ton téléphone 7 jours.",
+  "new.nearshops": "Magasins préférés sans rien taper : choisis-les dans la liste des magasins de ton rayon."
 }

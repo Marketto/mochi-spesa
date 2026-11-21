@@ -481,5 +481,15 @@
   "db.saved": "Praghsanna sábháilte: {n}",
   "db.history": "Stair",
   "new.multikey": "Roinnt eochracha IS, cinn saor in aisce freisin (Groq, Qwen, OpenRouter, SiliconFlow): roghnaíonn Mochi an ceann is fearr do gach tasc.",
-  "new.pricedb": "“Mo phraghsanna”: gach praghas ó na bileoga a léann tú i mbunachar sonraí inchuardaithe ar an bhfón."
+  "new.pricedb": "“Mo phraghsanna”: gach praghas ó na bileoga a léann tú i mbunachar sonraí inchuardaithe ar an bhfón.",
+  "zone.shopsHint": "Cuir tic le do rogha siopaí laistigh de {km} km.",
+  "zone.shopsLoading": "Ag cuardach siopaí in aice láimhe…",
+  "zone.shopsNeedZone": "Socraigh do cheantar agus sábháil: beidh siopaí in aice láimhe le feiceáil anseo.",
+  "zone.shopsNone": "Níl siopa ar bith laistigh de {km} km: bain triail as ga níos mó.",
+  "zone.shopsFail": "Ní féidir na siopaí a lódáil: bain triail eile as níos déanaí.",
+  "zone.shopsMore": "Taispeáin {n} eile",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Liosta siopaí ó OpenStreetMap (© rannpháirtithe OpenStreetMap)",
+  "legal.p16": "Chun siopaí in aice láimhe a thaispeáint, seoltar lár (slánaithe) do cheantair agus an ga chuig OpenStreetMap (Overpass API). Fanann an liosta ar an bhfón ar feadh 7 lá.",
+  "new.nearshops": "Siopaí is fearr leat gan clóscríobh: roghnaigh ó na siopaí i do gha."
 }

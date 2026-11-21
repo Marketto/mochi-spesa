@@ -481,5 +481,15 @@
   "db.saved": "Opgeslagen prijzen: {n}",
   "db.history": "Geschiedenis",
   "new.multikey": "Meerdere AI-sleutels, ook gratis (Groq, Qwen, OpenRouter, SiliconFlow): Mochi kiest per taak de beste.",
-  "new.pricedb": "„Mijn prijzen”: alle prijzen uit je folders in een doorzoekbare database op je telefoon."
+  "new.pricedb": "„Mijn prijzen”: alle prijzen uit je folders in een doorzoekbare database op je telefoon.",
+  "zone.shopsHint": "Vink je favorieten aan uit de winkels binnen {km} km.",
+  "zone.shopsLoading": "Winkels in de buurt zoeken…",
+  "zone.shopsNeedZone": "Stel je buurt in en sla op: dan verschijnen hier winkels in de buurt.",
+  "zone.shopsNone": "Geen winkels binnen {km} km: probeer een grotere straal.",
+  "zone.shopsFail": "Kan de winkels niet laden: probeer het later.",
+  "zone.shopsMore": "Nog {n} tonen",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Winkellijst van OpenStreetMap (© OpenStreetMap-bijdragers)",
+  "legal.p16": "Om winkels in de buurt te tonen, worden het (afgeronde) midden van je buurt en de straal naar OpenStreetMap (Overpass API) gestuurd. De lijst blijft 7 dagen op je telefoon.",
+  "new.nearshops": "Favoriete winkels zonder typen: kies uit de winkels binnen je straal."
 }

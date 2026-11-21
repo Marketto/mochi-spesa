@@ -481,5 +481,15 @@
   "db.saved": "Sparade priser: {n}",
   "db.history": "Historik",
   "new.multikey": "Flera AI-nycklar, även gratis (Groq, Qwen, OpenRouter, SiliconFlow): Mochi väljer den bästa för varje uppgift.",
-  "new.pricedb": "”Mina priser”: alla priser från reklamblad du läser i en sökbar databas på telefonen."
+  "new.pricedb": "”Mina priser”: alla priser från reklamblad du läser i en sökbar databas på telefonen.",
+  "zone.shopsHint": "Bocka för dina favoriter bland butikerna inom {km} km.",
+  "zone.shopsLoading": "Letar efter butiker i närheten…",
+  "zone.shopsNeedZone": "Ange ditt område och spara: här visas sedan butiker i närheten.",
+  "zone.shopsNone": "Inga butiker inom {km} km: prova en större radie.",
+  "zone.shopsFail": "Kan inte ladda butikerna: försök senare.",
+  "zone.shopsMore": "Visa {n} till",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Butikslista från OpenStreetMap (© OpenStreetMap-bidragsgivare)",
+  "legal.p16": "För att visa butiker i närheten skickas områdets (avrundade) mittpunkt och radien till OpenStreetMap (Overpass API). Listan sparas på telefonen i 7 dagar.",
+  "new.nearshops": "Favoritbutiker utan att skriva: välj bland butikerna inom din radie."
 }

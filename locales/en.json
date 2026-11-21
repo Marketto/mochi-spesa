@@ -481,5 +481,15 @@
   "db.saved": "Prices saved: {n}",
   "db.history": "History",
   "new.multikey": "Several AI keys, free ones too (Groq, Qwen, OpenRouter, SiliconFlow): Mochi picks the best for each task.",
-  "new.pricedb": "“My prices”: every price from the flyers you read in a searchable database on your phone."
+  "new.pricedb": "“My prices”: every price from the flyers you read in a searchable database on your phone.",
+  "zone.shopsHint": "Tick your favourites among the shops within {km} km.",
+  "zone.shopsLoading": "Looking for shops nearby…",
+  "zone.shopsNeedZone": "Set your area and save: nearby shops will appear here.",
+  "zone.shopsNone": "No shops found within {km} km: try a wider radius.",
+  "zone.shopsFail": "Can't load the shops: try again later.",
+  "zone.shopsMore": "Show {n} more",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Shop list from OpenStreetMap (© OpenStreetMap contributors)",
+  "legal.p16": "To show nearby shops, the (rounded) centre of your area and the radius are sent to OpenStreetMap (Overpass API). The list is kept on your phone for 7 days.",
+  "new.nearshops": "Favourite shops without typing: pick from the shops within your radius."
 }

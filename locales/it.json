@@ -481,5 +481,15 @@
   "db.saved": "Prezzi salvati: {n}",
   "db.history": "Storico",
   "new.multikey": "Più chiavi IA, anche gratuite (Groq, Qwen, OpenRouter, SiliconFlow): Mochi sceglie la migliore per ogni compito.",
-  "new.pricedb": "«I miei prezzi»: tutti i prezzi dei volantini che leggi in un database sul telefono, con ricerca."
+  "new.pricedb": "«I miei prezzi»: tutti i prezzi dei volantini che leggi in un database sul telefono, con ricerca.",
+  "zone.shopsHint": "Spunta i tuoi preferiti tra i negozi entro {km} km.",
+  "zone.shopsLoading": "Cerco i negozi nella zona…",
+  "zone.shopsNeedZone": "Imposta la zona e salva: poi qui compaiono i negozi vicini.",
+  "zone.shopsNone": "Nessun negozio trovato entro {km} km: prova un raggio più ampio.",
+  "zone.shopsFail": "Non riesco a caricare i negozi: riprova più tardi.",
+  "zone.shopsMore": "Mostra altri {n}",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Elenco negozi da OpenStreetMap (© collaboratori OpenStreetMap)",
+  "legal.p16": "Per mostrare i negozi vicini, il centro della zona (arrotondato) e il raggio vengono inviati a OpenStreetMap (Overpass API). L'elenco resta in memoria sul telefono per 7 giorni.",
+  "new.nearshops": "Negozi preferiti senza scrivere: scegli dalla lista dei negozi nel raggio impostato."
 }

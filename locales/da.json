@@ -481,5 +481,15 @@
   "db.saved": "Gemte priser: {n}",
   "db.history": "Historik",
   "new.multikey": "Flere AI-nøgler, også gratis (Groq, Qwen, OpenRouter, SiliconFlow): Mochi vælger den bedste til hver opgave.",
-  "new.pricedb": "“Mine priser”: alle priser fra dine tilbudsaviser i en søgbar database på telefonen."
+  "new.pricedb": "“Mine priser”: alle priser fra dine tilbudsaviser i en søgbar database på telefonen.",
+  "zone.shopsHint": "Sæt flueben ved dine favoritter blandt butikkerne inden for {km} km.",
+  "zone.shopsLoading": "Leder efter butikker i nærheden…",
+  "zone.shopsNeedZone": "Angiv dit område og gem: så vises butikker i nærheden her.",
+  "zone.shopsNone": "Ingen butikker inden for {km} km: prøv en større radius.",
+  "zone.shopsFail": "Kan ikke hente butikkerne: prøv senere.",
+  "zone.shopsMore": "Vis {n} mere",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Butiksliste fra OpenStreetMap (© OpenStreetMap-bidragydere)",
+  "legal.p16": "For at vise butikker i nærheden sendes områdets (afrundede) midtpunkt og radius til OpenStreetMap (Overpass API). Listen gemmes på telefonen i 7 dage.",
+  "new.nearshops": "Favoritbutikker uden at skrive: vælg blandt butikkerne i din radius."
 }

@@ -481,5 +481,15 @@
   "db.saved": "Saglabātas cenas: {n}",
   "db.history": "Vēsture",
   "new.multikey": "Vairākas MI atslēgas, arī bezmaksas (Groq, Qwen, OpenRouter, SiliconFlow): Moči izvēlas labāko katram uzdevumam.",
-  "new.pricedb": "“Manas cenas”: visas lasīto bukletu cenas meklējamā datubāzē tālrunī."
+  "new.pricedb": "“Manas cenas”: visas lasīto bukletu cenas meklējamā datubāzē tālrunī.",
+  "zone.shopsHint": "Atzīmē iecienītos veikalus {km} km rādiusā.",
+  "zone.shopsLoading": "Meklēju veikalus tuvumā…",
+  "zone.shopsNeedZone": "Iestati apkārtni un saglabā: šeit parādīsies tuvējie veikali.",
+  "zone.shopsNone": "{km} km rādiusā nav veikalu: izmēģini lielāku rādiusu.",
+  "zone.shopsFail": "Neizdodas ielādēt veikalus: mēģini vēlāk.",
+  "zone.shopsMore": "Rādīt vēl {n}",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Veikalu saraksts no OpenStreetMap (© OpenStreetMap līdzautori)",
+  "legal.p16": "Lai parādītu tuvējos veikalus, apkārtnes (noapaļotais) centrs un rādiuss tiek nosūtīti uz OpenStreetMap (Overpass API). Saraksts paliek tālrunī 7 dienas.",
+  "new.nearshops": "Iecienītie veikali bez rakstīšanas: izvēlies no veikaliem tavā rādiusā."
 }

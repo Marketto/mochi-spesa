@@ -481,5 +481,15 @@
   "db.saved": "Gespeicherte Preise: {n}",
   "db.history": "Verlauf",
   "new.multikey": "Mehrere KI-Schlüssel, auch kostenlose (Groq, Qwen, OpenRouter, SiliconFlow): Mochi wählt für jede Aufgabe den besten.",
-  "new.pricedb": "„Meine Preise“: alle Preise aus deinen Prospekten in einer durchsuchbaren Datenbank auf dem Handy."
+  "new.pricedb": "„Meine Preise“: alle Preise aus deinen Prospekten in einer durchsuchbaren Datenbank auf dem Handy.",
+  "zone.shopsHint": "Hake deine Lieblinge unter den Geschäften im Umkreis von {km} km an.",
+  "zone.shopsLoading": "Suche Geschäfte in der Nähe…",
+  "zone.shopsNeedZone": "Lege deine Gegend fest und speichere: dann erscheinen hier Geschäfte in der Nähe.",
+  "zone.shopsNone": "Keine Geschäfte im Umkreis von {km} km: versuche einen größeren Radius.",
+  "zone.shopsFail": "Geschäfte können nicht geladen werden: versuche es später.",
+  "zone.shopsMore": "{n} weitere zeigen",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Geschäftsliste von OpenStreetMap (© OpenStreetMap-Mitwirkende)",
+  "legal.p16": "Um Geschäfte in der Nähe zu zeigen, werden der (gerundete) Mittelpunkt deiner Gegend und der Radius an OpenStreetMap (Overpass API) gesendet. Die Liste bleibt 7 Tage auf dem Handy.",
+  "new.nearshops": "Lieblingsgeschäfte ohne Tippen: wähle aus den Geschäften in deinem Radius."
 }

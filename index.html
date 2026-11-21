@@ -222,8 +222,13 @@
       <p class="hint" id="geo-msg" aria-live="polite"></p>
       <label for="z-raggio"><span data-i18n="zone.radius"></span>: <output id="z-raggio-v" for="z-raggio">5</output> km</label>
       <input id="z-raggio" type="range" min="1" max="30" value="5">
-      <label for="z-negozi" data-i18n="zone.shops"></label>
-      <input id="z-negozi" data-i18n-attr="placeholder:zone.shopsPh">
+      <fieldset class="seg shop-pick" aria-describedby="z-shops-msg">
+        <legend data-i18n="zone.shops"></legend>
+        <p class="hint" id="z-shops-msg" role="status"></p>
+        <div id="z-shops-list"></div>
+        <button type="button" class="btn ghost" id="z-shops-more" hidden></button>
+        <p class="hint osm"><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" data-i18n="zone.osm"></a></p>
+      </fieldset>
       <label for="z-valuta"><i class="mi mi-coins" aria-hidden="true"></i> <span data-i18n="zone.currency"></span></label>
       <select id="z-valuta"></select>
       <label class="check"><input type="checkbox" id="z-amz" checked> <span data-i18n="zone.amazon"></span></label>

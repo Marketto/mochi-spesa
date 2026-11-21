@@ -481,5 +481,15 @@
   "db.saved": "Spremljene cijene: {n}",
   "db.history": "Povijest",
   "new.multikey": "Više AI ključeva, i besplatnih (Groq, Qwen, OpenRouter, SiliconFlow): Mochi za svaki zadatak bira najbolji.",
-  "new.pricedb": "„Moje cijene”: sve cijene iz pročitanih kataloga u bazi podataka na mobitelu, s pretragom."
+  "new.pricedb": "„Moje cijene”: sve cijene iz pročitanih kataloga u bazi podataka na mobitelu, s pretragom.",
+  "zone.shopsHint": "Označi omiljene među trgovinama do {km} km.",
+  "zone.shopsLoading": "Tražim trgovine u blizini…",
+  "zone.shopsNeedZone": "Postavi područje i spremi: ovdje će se pojaviti obližnje trgovine.",
+  "zone.shopsNone": "Nema trgovina do {km} km: probaj veći radijus.",
+  "zone.shopsFail": "Ne mogu učitati trgovine: pokušaj kasnije.",
+  "zone.shopsMore": "Prikaži još {n}",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Popis trgovina iz OpenStreetMapa (© suradnici OpenStreetMapa)",
+  "legal.p16": "Za prikaz obližnjih trgovina (zaokruženo) središte područja i radijus šalju se OpenStreetMapu (Overpass API). Popis ostaje na mobitelu 7 dana.",
+  "new.nearshops": "Omiljene trgovine bez tipkanja: odaberi s popisa trgovina u svom radijusu."
 }

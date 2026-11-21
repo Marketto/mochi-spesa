@@ -481,5 +481,15 @@
   "db.saved": "Tallennettuja hintoja: {n}",
   "db.history": "Historia",
   "new.multikey": "Useita tekoälyavaimia, myös ilmaisia (Groq, Qwen, OpenRouter, SiliconFlow): Mochi valitsee parhaan jokaiseen tehtävään.",
-  "new.pricedb": "”Omat hinnat”: kaikkien lukemiesi mainosten hinnat haettavassa tietokannassa puhelimessa."
+  "new.pricedb": "”Omat hinnat”: kaikkien lukemiesi mainosten hinnat haettavassa tietokannassa puhelimessa.",
+  "zone.shopsHint": "Valitse suosikkisi kauppojen joukosta {km} km:n säteellä.",
+  "zone.shopsLoading": "Etsin lähellä olevia kauppoja…",
+  "zone.shopsNeedZone": "Aseta alue ja tallenna: lähikaupat näkyvät sitten tässä.",
+  "zone.shopsNone": "Ei kauppoja {km} km:n säteellä: kokeile suurempaa sädettä.",
+  "zone.shopsFail": "Kauppoja ei voi ladata: yritä myöhemmin.",
+  "zone.shopsMore": "Näytä {n} lisää",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Kauppalista OpenStreetMapista (© OpenStreetMapin tekijät)",
+  "legal.p16": "Lähikauppojen näyttämiseksi alueesi (pyöristetty) keskipiste ja säde lähetetään OpenStreetMapiin (Overpass API). Lista säilyy puhelimessa 7 päivää.",
+  "new.nearshops": "Suosikkikaupat ilman kirjoittamista: valitse säteelläsi olevista kaupoista."
 }
