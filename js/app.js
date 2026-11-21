@@ -15,6 +15,7 @@ import * as chains from "./chains.js";
 import * as pricedb from "./pricedb.js";
 import * as shops from "./shops.js";
 import { amazonSearch, isAmazon } from "./amazon.js";
+import * as best from "./best.js";
 
 // ---------- utilità ----------
 const $ = s => document.querySelector(s);
@@ -746,6 +747,112 @@ function mergeOptions(opts) {
   return [...m.values()].sort((a, b) => a.prezzo - b.prezzo).slice(0, 6);
 }
 
+// ---------- TROVA IL PREZZO MIGLIORE (un prodotto, tutte le fonti) ----------
+const BEST_KEY = "mochi.best";
+let bestRun = 0;
+function renderBestHow() {
+  if (document.activeElement?.id === "best-keyin") return;
+  const s = state.settings, web = ai.ready(true);
+  $("#best-how").textContent = web ? t("best.howWeb", { km: s.raggioKm || 5 }) : t("best.howFree");
+  $("#best-key").innerHTML = web ? "" : `<details class="keysetup"><summary>${ic("key")} ${esc(t("best.keyTitle"))}</summary>
+    <ol><li>${esc(t("best.key1"))} <a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer">console.groq.com/keys<span class="sr"> ${esc(t("a11y.newTab"))}</span></a></li>
+    <li>${esc(t("best.key2"))}</li><li>${esc(t("best.key3"))}</li></ol>
+    <label for="best-keyin" class="sr">${esc(t("best.keyLabel"))}</label>
+    <div class="best-row"><input id="best-keyin" type="password" autocomplete="off" spellcheck="false" placeholder="gsk_…">
+    <button class="btn primary" type="button" id="best-keysave">${ic("save")} ${esc(t("common.save"))}</button></div></details>`;
+}
+const srcLabel = r => r.src === "web" ? t("best.srcWeb") : r.src === "op" ? "Open Prices" : t("best.srcMine");
+function bestRow(r, i, top) {
+  const src = safeUrl(r.fonte), nt = `<span class="sr"> ${esc(t("a11y.newTab"))}</span>`;
+  const fino = r.validoFino && /^\d{4}-\d{2}-\d{2}$/.test(r.validoFino) ? shortDate(r.validoFino) : r.validoFino;
+  return `<li class="best-item${top ? " win" : ""}">
+    ${top ? `<p class="best-badge">${ic("trophy")} ${esc(t("best.winner"))}</p>` : ""}
+    <div class="head"><div><h3>${esc(r.negozio || "?")}</h3><p class="what">${esc(r.nome)}</p></div>
+      <div class="price">${money(r.prezzo)}${r.prezzoUnit ? `<small>${esc(perUnit(r.prezzoUnit, r.unita))}</small>` : ""}</div></div>
+    <p class="meta"><span class="badge">${esc(srcLabel(r))}</span>${r.offerta ? ` <span class="badge gold">${esc(t("cmp.deal"))}</span>` : ""}${r.online ? ` · ${esc(t("best.online"))}` : r.distanzaKm != null ? ` · ${esc(r.distanzaKm)} km` : ""}${fino ? ` · ${esc(t("deals.until", { date: fino }))}` : ""}${r.data && r.src !== "web" ? ` · ${esc(t("fl.note", { date: shortDate(r.data) }))}` : ""}</p>
+    ${r.nota ? `<p class="hint">${esc(r.nota)}</p>` : ""}
+    <div class="foot">${src ? `<a href="${esc(src)}" target="_blank" rel="noopener noreferrer">${ic("external")}${esc(t("best.open"))}${nt}</a>` : "<span></span>"}
+      <button class="btn ghost" type="button" data-bestadd="${i}" aria-label="${esc(t("deals.addToList", { name: r.nome }))}">${ic("list-add")} ${esc(t("deals.addList"))}</button></div></li>`;
+}
+function renderBest(res) {
+  const out = $("#best-out");
+  if (!res) { out.innerHTML = ""; return; }
+  renderBest.cur = res;
+  const st = res.stato || {};
+  const chip = (k, label) => `<span class="src-chip ${st[k] || ""}">${st[k] === "run" ? ic("spinner") : st[k] === "ok" ? ic("ok") : st[k] === "err" ? ic("warn") : ic("minus")} ${esc(label)}${res.n?.[k] != null && st[k] === "ok" ? ` (${res.n[k]})` : ""}</span>`;
+  const righe = res.righe || [];
+  const busy = Object.values(st).includes("run");
+  out.innerHTML = `<section class="card best-res" aria-labelledby="best-rt" aria-busy="${busy}">
+    <h3 id="best-rt">${esc(t("best.results", { q: res.q }))}</h3>
+    <p class="srcs">${chip("mine", t("best.srcMine"))}${chip("op", "Open Prices")}${chip("web", t("best.srcWeb"))}</p>
+    ${righe.length ? `<ol class="best-list">${righe.map((r, i) => bestRow(r, i, i === 0 && !busy)).join("")}</ol>` : `<p class="hint">${esc(busy ? t("best.searching") : t("best.none"))}</p>`}
+    ${amzOn() && !righe.some(r => isAmazon(r.negozio)) ? `<p class="cmp">${amzLink(res.q)}</p>` : ""}
+    ${righe.some(r => r.src === "web") ? `<p class="hint">${ic("info")} ${esc(t("best.check"))}</p>` : ""}
+    ${righe.some(r => r.src === "op") ? OP_CREDIT() : ""}
+    <p class="hint">${esc(t("cmp.when", { when: quando(res.at) }))}</p></section>`;
+}
+async function findBest(q, link = "") {
+  q = String(q || "").trim(); if (!q) return;
+  const run = ++bestRun, s0 = state.settings;
+  const res = { q, at: Date.now(), righe: [], gruppo: null, stato: { mine: "run", op: s0.lat != null ? "run" : "", web: ai.ready(true) ? "run" : "" }, n: {} };
+  const parts = { mine: [], op: [], web: [] };
+  const update = () => { if (run !== bestRun) return; Object.assign(res, best.rank([...parts.web, ...parts.mine, ...parts.op])); renderBest(res); };
+  const btn = $("#best-go"); btn.classList.add("loading"); btn.setAttribute("aria-busy", "true");
+  mochi.mood("wow", 0); mochi.say(frase("cerco"), 90000);
+  update();
+  // 1. i miei prezzi (volantini letti, catene, inseriti a mano, ricerche passate)
+  try {
+    await pricedb.all();
+    parts.mine = [...best.variants(q).flatMap(v => pricedb.recent(v, 60)).map(x => ({ ...x, src: "mine", offerta: !!(x.validoFino && x.validoFino >= oggiISO()) })),
+      ...best.variants(q).flatMap(v => flyer.bestSaved(v, live(state.prezzi))).map(x => ({ negozio: x.negozio, nome: x.riga || q, prezzo: x.prezzo, prezzoUnit: x.prezzoUnit, unita: x.unita, validoFino: x.validoFino, fonte: x.fonte, data: x.data, src: "mine" }))];
+    res.stato.mine = "ok"; res.n.mine = parts.mine.length;
+  } catch { res.stato.mine = "err"; }
+  update();
+  const jobs = [];
+  // 2. Open Prices (community, gratis)
+  if (res.stato.op) jobs.push(op.nearby({ lat: s0.lat, lon: s0.lon, raggioKm: s0.raggioKm || 5 })
+    .then(list => { parts.op = best.variants(q).flatMap(v => op.bestFor(v, list, 8)).map(x => ({ negozio: x.negozio, nome: [x.marca, x.nome].filter(Boolean).join(" "), prezzo: x.prezzo, quantita: x.quantita, data: x.data, fonte: op.priceUrl(x.id), src: "op" })); res.stato.op = "ok"; res.n.op = parts.op.length; })
+    .catch(() => { res.stato.op = "err"; }).then(update));
+  // 3. ricerca web con l'IA: volantini, siti delle catene, spesa online, Amazon
+  if (res.stato.web) {
+    const a0 = away();
+    const luogo = a0 ? `${a0.nome} (lat ${a0.lat}, lon ${a0.lon})` : s0.lat != null ? `${s0.luogo} (lat ${s0.lat}, lon ${s0.lon})` : s0.luogo || "";
+    jobs.push(ai.cercaMigliore({ query: q, link, luogo, raggioKm: s0.raggioKm || 5, negozi: s0.negozi, amazon: amzOn(), valuta: currency(), lingua: langName() })
+      .then(async list => {
+        parts.web = list.map(x => ({ negozio: x.negozio, nome: x.prodotto, prezzo: x.prezzo, quantita: x.quantita, unita: x.unita, prezzoUnit: x.prezzoUnit,
+          offerta: !!x.offerta, validoFino: x.validoFino, online: !!x.online, distanzaKm: x.distanzaKm, fonte: x.fonte, nota: x.nota, src: "web" }));
+        res.stato.web = "ok"; res.n.web = parts.web.length;
+        // restano tra i tuoi prezzi: la prossima volta li trovi anche senza rete
+        pricedb.add(parts.web.map(x => ({ ...best.withUnit(x), validoFino: /^\d{4}-\d{2}-\d{2}$/.test(x.validoFino || "") ? x.validoFino : "", origine: "web" }))).then(renderDb).catch(() => {});
+      })
+      .catch(e => { res.stato.web = "err"; res.errore = e.message; toast(e.message, "warn"); }).then(update));
+  }
+  await Promise.all(jobs);
+  btn.classList.remove("loading"); btn.removeAttribute("aria-busy");
+  if (run !== bestRun) return;
+  update(); lsSet(BEST_KEY, { ...res, stato: { mine: res.stato.mine, op: res.stato.op, web: res.stato.web } });
+  if (res.righe.length) { mochi.mood("happy", 2000); mochi.say(t("best.say", { store: res.righe[0].negozio, price: money(res.righe[0].prezzo) })); }
+  else { mochi.mood("sleepy", 2000); mochi.say(frase("niente")); }
+}
+$("#f-best").addEventListener("submit", e => { e.preventDefault(); $("#best-q").blur(); findBest($("#best-q").value); });
+$("#best-key").addEventListener("click", e => {
+  if (!e.target.closest("#best-keysave")) return;
+  const k = $("#best-keyin").value.trim();
+  if (k.length < 20) { toast(t("best.keyBad"), "warn"); $("#best-keyin").focus(); return; }
+  ai.addKey({ provider: "groq", key: k }); renderAiKeys(); renderBestHow(); renderOfferte();
+  toast(t("common.saved"), "key"); $("#best-q").focus();
+});
+$("#best-out").addEventListener("click", e => {
+  const b = e.target.closest("[data-bestadd]"); if (!b) return;
+  const r = renderBest.cur?.righe[+b.dataset.bestadd]; if (!r) return;
+  mutate((s, now) => {
+    const id = uid();
+    s.items[id] = { id, nome: r.nome.slice(0, 80), qta: "", cat: catOf(r.nome), fatto: false, da: me().nome,
+      nota: t("deals.offerNote", { store: r.negozio || "", price: money(r.prezzo) }), negozio: r.negozio || "", prezzo: r.prezzo, ts: now, updatedAt: now };
+  });
+  sparkles(b); toast(t("toast.addedList"), "list-add"); mochi.mood("happy"); mochi.say(frase("aggiunto"));
+});
+
 // ---------- VOLANTINI UFFICIALI DELLE CATENE (via ponte) ----------
 const FLY_TXT = "mochi.flyertext", CH_CHECK = "mochi.chainCheck";
 const simpleHash = str => { let h = 5381; for (const c of str) h = (h * 33 + c.codePointAt(0)) >>> 0; return h.toString(36); };
@@ -842,9 +949,10 @@ $("#fl-btn").addEventListener("click", () => {
   if (!flyerNames().length) { toast(t("fl.needProducts"), "info"); $("#mon-nome").focus(); return; }
   $("#fl-file").click();
 });
+let sharedStore = "";
 $("#fl-file").addEventListener("change", async e => {
   const file = e.target.files[0]; e.target.value = ""; if (!file) return;
-  const negozi = [...new Set([...live(state.prezzi).map(p => p.negozio), ...String(state.settings.negozi || "").split(",").map(x => x.trim())].filter(Boolean))];
+  const negozi = [...new Set([sharedStore, ...live(state.prezzi).map(p => p.negozio), ...String(state.settings.negozi || "").split(",").map(x => x.trim())].filter(Boolean))];
   const q = await sheet({
     title: t("fl.title"), icon: "scan",
     body: `<p class="hint">${ic("flyer")} ${esc(file.name)}</p>
@@ -853,6 +961,7 @@ $("#fl-file").addEventListener("change", async e => {
       <label for="fl-until">${esc(t("fl.until"))}</label><input id="fl-until" name="fino" type="date">`,
     buttons: [{ value: "ok", label: t("fl.read"), icon: "scan", primary: true }, { value: "", label: t("common.cancel"), icon: "close" }],
   });
+  sharedStore = "";
   const negozio = String(q.form?.get("negozio") || "").trim();
   if (q.value !== "ok" || !negozio) return;
   const fino = String(q.form.get("fino") || "");
@@ -924,6 +1033,30 @@ $("#db-clear").addEventListener("click", async () => {
   await pricedb.clear(); renderDb(); toast(t("db.cleared"), "delete");
 });
 pricedb.all().then(() => pricedb.prune()).then(() => { renderDb(); renderOfferte(); }).catch(() => {});
+renderBestHow();
+// arrivo da "Condividi" di un'altra app: link/testo → ricerca; screenshot o PDF → lettura prezzi
+async function takeShare() {
+  if (!new URLSearchParams(location.search).has("share") || !("caches" in window)) return;
+  history.replaceState(null, "", location.pathname);
+  const c = await caches.open("mochi-share");
+  const tx = await c.match("./shared-text"), fr = await c.match("./shared-file");
+  await c.delete("./shared-text"); await c.delete("./shared-file");
+  selectTab($("#t-offerte"));
+  if (fr) {
+    const blob = await fr.blob(), name = decodeURIComponent(fr.headers.get("x-name") || "screenshot");
+    sharedStore = blob.type.startsWith("image/") && amzOn() ? "Amazon" : "";
+    const dt = new DataTransfer(); dt.items.add(new File([blob], name, { type: blob.type }));
+    const inp = $("#fl-file"); inp.files = dt.files; inp.dispatchEvent(new Event("change"));
+    return;
+  }
+  if (tx) {
+    const d = await tx.json(), sh = best.fromShare(d.title, d.text, d.url);
+    if (!sh.q && !sh.url) return;
+    $("#best-q").value = sh.q || sh.url; findBest(sh.q || sh.url, sh.url);
+  }
+}
+takeShare().catch(() => {});
+{ const lb = lsGet(BEST_KEY, null); if (lb && lb.q) { $("#best-q").value = lb.q; renderBest(lb); } }
 
 // ---------- DOVE CONVIENE? ----------
 const prefOf = (prodotto, negozio) => live(state.preferenze).find(p => pantry.sameProduct(p.prodotto, prodotto) && pantry.norm(p.negozio) === pantry.norm(negozio));
@@ -1267,6 +1400,7 @@ function renderAiKeys() {
   const sh = state.settings.aiShared, mine = ai.localKeys();
   $("#ai-share").checked = Array.isArray(sh) ? sh.length > 0 && mine.every(k => sh.some(x => x.key === k.key)) : !!(sh && sh.key);
   $("#ai-share").disabled = !mine.length;
+  if ($("#best-how")) renderBestHow();
 }
 function fillProviders() {
   const sel = $("#ai-provider"), cur = sel.value || "groq";
@@ -1517,6 +1651,7 @@ async function checkAway({ ask = false, modal = false } = {}) {
 }
 $("#t-offerte").addEventListener("click", () => { checkAway(); refreshChains(); });
 $("#t-imp").addEventListener("click", () => renderAiKeys());
+$("#t-offerte").addEventListener("click", () => renderBestHow());
 
 // ---------- PRIVACY E CONDIZIONI ----------
 function legalHtml() {
