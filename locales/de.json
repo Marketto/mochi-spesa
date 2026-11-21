@@ -547,5 +547,16 @@
   "best.also": "Prospekte auch auf {site} ansehen",
   "new.bestv2": "Genaueres „Besten Preis finden“: prüft die Prospekte der Ketten in der Nähe einzeln, Prospekt-Portale, Online-Supermärkte und Amazon und lässt andere Formate weg (z. B. Tabs, wenn du Pods suchst).",
   "sync.newer": "Liste mit neuerer Version erstellt: aktualisiere die App zum Speichern",
-  "new.syncformat": "Robustere Synchronisierung: Daten anderer Apps und Versionen gehen nicht mehr verloren"
+  "new.syncformat": "Robustere Synchronisierung: Daten anderer Apps und Versionen gehen nicht mehr verloren",
+  "serp.src": "Amazon & Onlineshops",
+  "serp.title": "Echte Preise von Amazon und Onlineshops",
+  "serp.hint": "Mit einem kostenlosen SerpApi-Schlüssel (250 Suchen pro Monat) liest Mochi echte Preise von Amazon und von den Onlineshops aus Google Shopping. Jede Suche verbraucht 2 und wird 24 Stunden gespeichert.",
+  "serp.on": "Aktiv · {n} Suchen diesen Monat",
+  "serp.off": "Aus: ohne Schlüssel sucht nur die KI auf Amazon und in Onlineshops, mit weniger Ergebnissen.",
+  "serp.step1": "Kostenloses Konto erstellen auf",
+  "serp.step2": "Kopiere den Schlüssel von der Seite",
+  "serp.key": "SerpApi-Schlüssel",
+  "serp.remove": "SerpApi-Schlüssel löschen",
+  "serp.removeConfirm": "SerpApi-Schlüssel von diesem Handy löschen?",
+  "new.serp": "Echte Preise von Amazon und Onlineshops mit kostenlosem SerpApi-Schlüssel; die Suche lässt andere Formate und Geschäfte außerhalb deines Radius weg."
 }

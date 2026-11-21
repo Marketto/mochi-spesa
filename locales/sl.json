@@ -547,5 +547,16 @@
   "best.also": "Prelistaj letake tudi na {site}",
   "new.bestv2": "Natančnejše »Najdi najboljšo ceno«: pregleda letake bližnjih verig enega za drugim, zbiralnike letakov, spletne trgovine in Amazon ter izloči druge oblike (npr. tablete, če iščeš kapsule).",
   "sync.newer": "Seznam iz novejše različice: posodobi aplikacijo za shranjevanje",
-  "new.syncformat": "Zanesljivejša sinhronizacija: podatki drugih aplikacij in različic se ne izgubijo več"
+  "new.syncformat": "Zanesljivejša sinhronizacija: podatki drugih aplikacij in različic se ne izgubijo več",
+  "serp.src": "Amazon in spletne trgovine",
+  "serp.title": "Prave cene z Amazona in spletnih trgovin",
+  "serp.hint": "Z brezplačnim ključem SerpApi (250 iskanj na mesec) Mochi bere prave cene z Amazona in spletnih trgovin iz Google Shopping. Vsako iskanje porabi 2 in se hrani 24 ur.",
+  "serp.on": "Vklopljeno · ta mesec {n} iskanj",
+  "serp.off": "Izklopljeno: brez ključa Amazon in spletne trgovine išče samo UI, z manj rezultati.",
+  "serp.step1": "Ustvari brezplačen račun na",
+  "serp.step2": "Kopiraj ključ s strani",
+  "serp.key": "Ključ SerpApi",
+  "serp.remove": "Izbriši ključ SerpApi",
+  "serp.removeConfirm": "Izbrišem ključ SerpApi s tega telefona?",
+  "new.serp": "Prave cene z Amazona in spletnih trgovin z brezplačnim ključem SerpApi; iskanje izloči druge oblike in trgovine zunaj tvojega polmera."
 }

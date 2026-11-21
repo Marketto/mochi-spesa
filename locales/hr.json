@@ -547,5 +547,16 @@
   "best.also": "Prelistaj kataloge i na {site}",
   "new.bestv2": "Preciznije „Pronađi najbolju cijenu”: provjerava kataloge obližnjih lanaca jedan po jedan, agregatore kataloga, online kupnju i Amazon te izostavlja druge oblike (npr. tablete kad tražiš kapsule).",
   "sync.newer": "Popis iz novije verzije: ažuriraj aplikaciju za spremanje",
-  "new.syncformat": "Pouzdanija sinkronizacija: podaci drugih aplikacija i verzija više se ne gube"
+  "new.syncformat": "Pouzdanija sinkronizacija: podaci drugih aplikacija i verzija više se ne gube",
+  "serp.src": "Amazon i web trgovine",
+  "serp.title": "Prave cijene s Amazona i web trgovina",
+  "serp.hint": "S besplatnim SerpApi ključem (250 pretraga mjesečno) Mochi čita prave cijene s Amazona i web trgovina iz Google Shoppinga. Svaka pretraga troši 2 i pamti se 24 sata.",
+  "serp.on": "Uključeno · ovaj mjesec {n} pretraga",
+  "serp.off": "Isključeno: bez ključa Amazon i web trgovine pretražuje samo AI, s manje rezultata.",
+  "serp.step1": "Napravi besplatan račun na",
+  "serp.step2": "Kopiraj ključ sa stranice",
+  "serp.key": "SerpApi ključ",
+  "serp.remove": "Obriši SerpApi ključ",
+  "serp.removeConfirm": "Obrisati SerpApi ključ s ovog mobitela?",
+  "new.serp": "Prave cijene s Amazona i web trgovina uz besplatan SerpApi ključ; pretraga izostavlja druge oblike i trgovine izvan tvog radijusa."
 }

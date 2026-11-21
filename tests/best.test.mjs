@@ -43,8 +43,20 @@ test("pod e pastiglie non si mescolano", () => {
   assert.deepEqual(formatsOf("Pod lavastoviglie"), ["pod"]);
   assert.ok(!sameType("pod lavastoviglie", "Finish Quantum pastiglie 40 pz"));
   assert.ok(sameType("pod lavastoviglie", "Svelto caps 30 pz"));
-  assert.ok(sameType("pod lavastoviglie", "Detersivo lavastoviglie 30 pz"));   // formato non detto: si tiene
+  assert.ok(!sameType("pod lavastoviglie", "Dexal detersivo lavastoviglie 40 pz")); // formato non detto: scartato
   assert.ok(sameType("detersivo lavastoviglie", "Finish tabs 40"));
   assert.ok(!variants("pod lavastoviglie").some(v => /pastigli|tabs/.test(v)));
   assert.deepEqual(rank([{ negozio: "A", nome: "Pastiglie 40 pz", prezzo: 4 }, { negozio: "B", nome: "Caps 30 pz", prezzo: 5 }], "pod").righe.map(r => r.negozio), ["B"]);
+});
+
+import { chainName, inRange } from "../js/best.js";
+test("catena senza aggregatore e filtro raggio", () => {
+  assert.equal(chainName("DoveConviene (Penny)"), "Penny");
+  assert.equal(chainName("PromoQui - Conad"), "Conad");
+  assert.equal(chainName("Lidl"), "Lidl");
+  const zona = ["Conad", "Todis", "Lidl"];
+  assert.ok(!inRange({ negozio: "Penny", distanzaKm: 4.3 }, 10, zona));       // catena non presente nella zona
+  assert.ok(inRange({ negozio: "Conad City", distanzaKm: 2 }, 10, zona));
+  assert.ok(!inRange({ negozio: "Lidl", distanzaKm: 12 }, 10, zona));          // oltre il raggio
+  assert.ok(inRange({ negozio: "Amazon", online: true }, 10, zona));
 });

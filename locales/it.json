@@ -547,5 +547,16 @@
   "best.also": "Sfoglia anche i volantini su {site}",
   "new.bestv2": "«Trova il prezzo migliore» più preciso: cerca nei volantini delle catene vicine una per una, negli aggregatori di volantini, nella spesa online e su Amazon, e scarta i formati diversi (es. pastiglie se cerchi pod).",
   "sync.newer": "Lista creata con una versione più nuova: aggiorna l'app per salvare",
-  "new.syncformat": "Sincronizzazione più robusta: i dati di altre app e versioni non si perdono più"
+  "new.syncformat": "Sincronizzazione più robusta: i dati di altre app e versioni non si perdono più",
+  "serp.src": "Amazon e negozi online",
+  "serp.title": "Prezzi veri da Amazon e dai negozi online",
+  "serp.hint": "Con una chiave SerpApi gratuita (250 ricerche al mese) Mochi legge i prezzi reali di Amazon e dei negozi online raccolti da Google Shopping. Ogni ricerca ne usa 2 e resta in memoria 24 ore.",
+  "serp.on": "Attiva · {n} ricerche usate questo mese",
+  "serp.off": "Non attiva: senza chiave Amazon e i negozi online vengono cercati solo dall'IA, con meno risultati.",
+  "serp.step1": "Crea un account gratuito su",
+  "serp.step2": "Copia la chiave dalla pagina",
+  "serp.key": "Chiave SerpApi",
+  "serp.remove": "Elimina la chiave SerpApi",
+  "serp.removeConfirm": "Eliminare la chiave SerpApi da questo telefono?",
+  "new.serp": "Prezzi veri da Amazon e dai negozi online con una chiave SerpApi gratuita; la ricerca scarta i formati diversi e i negozi fuori dal tuo raggio."
 }

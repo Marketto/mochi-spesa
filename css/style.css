@@ -536,3 +536,7 @@ h3.sub { font-size: 15px; margin: 14px 0 6px; }
 .best-item .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; gap: 8px; }
 .best-item.win { background: var(--pink-soft); color: var(--ink); border-radius: 16px; padding: 12px; border-top: 0; }
 .best-badge { margin: 0 0 6px; font-weight: 800; color: var(--pink); }
+
+/* SerpApi */
+.serp-steps { margin: 6px 0 10px; padding-left: 22px; }
+.serp-steps li { margin: 4px 0; }

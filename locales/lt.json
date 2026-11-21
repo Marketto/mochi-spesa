@@ -547,5 +547,16 @@
   "best.also": "Leidinius peržiūrėkite ir {site}",
   "new.bestv2": "Tikslesnė „Rasti geriausią kainą“: po vieną peržiūri netoliese esančių tinklų leidinius, leidinių agregatorius, internetines parduotuves ir Amazon bei atmeta kitas formas (pvz., tabletes, kai ieškote kapsulių).",
   "sync.newer": "Sąrašas iš naujesnės versijos: atnaujinkite programėlę, kad išsaugotumėte",
-  "new.syncformat": "Patikimesnis sinchronizavimas: kitų programėlių ir versijų duomenys nebedingsta"
+  "new.syncformat": "Patikimesnis sinchronizavimas: kitų programėlių ir versijų duomenys nebedingsta",
+  "serp.src": "Amazon ir internetinės parduotuvės",
+  "serp.title": "Tikros kainos iš Amazon ir internetinių parduotuvių",
+  "serp.hint": "Su nemokamu SerpApi raktu (250 paieškų per mėnesį) Moči skaito tikras kainas iš Amazon ir Google Shopping internetinių parduotuvių. Kiekviena paieška naudoja 2 ir saugoma 24 valandas.",
+  "serp.on": "Įjungta · šį mėnesį {n} paieškų",
+  "serp.off": "Išjungta: be rakto Amazon ir internetines parduotuves ieško tik DI, su mažiau rezultatų.",
+  "serp.step1": "Susikurkite nemokamą paskyrą",
+  "serp.step2": "Nukopijuokite raktą iš puslapio",
+  "serp.key": "SerpApi raktas",
+  "serp.remove": "Ištrinti SerpApi raktą",
+  "serp.removeConfirm": "Ištrinti SerpApi raktą iš šio telefono?",
+  "new.serp": "Tikros kainos iš Amazon ir internetinių parduotuvių su nemokamu SerpApi raktu; paieška atmeta kitas formas ir parduotuves už jūsų spindulio."
 }

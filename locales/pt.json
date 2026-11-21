@@ -547,5 +547,16 @@
   "best.also": "Vê também os folhetos em {site}",
   "new.bestv2": "«Encontrar o melhor preço» mais preciso: verifica um a um os folhetos das cadeias próximas, agregadores de folhetos, supermercados online e Amazon, e descarta outros formatos (ex. pastilhas se procuras cápsulas).",
   "sync.newer": "Lista criada com uma versão mais recente: atualiza a app para guardar",
-  "new.syncformat": "Sincronização mais robusta: os dados de outras apps e versões já não se perdem"
+  "new.syncformat": "Sincronização mais robusta: os dados de outras apps e versões já não se perdem",
+  "serp.src": "Amazon e lojas online",
+  "serp.title": "Preços reais da Amazon e de lojas online",
+  "serp.hint": "Com uma chave SerpApi gratuita (250 pesquisas por mês) o Mochi lê os preços reais da Amazon e das lojas online reunidas pelo Google Shopping. Cada pesquisa usa 2 e fica guardada 24 horas.",
+  "serp.on": "Ativa · {n} pesquisas usadas este mês",
+  "serp.off": "Inativa: sem chave, a Amazon e as lojas online só são pesquisadas pela IA, com menos resultados.",
+  "serp.step1": "Cria uma conta gratuita em",
+  "serp.step2": "Copia a chave da página",
+  "serp.key": "Chave SerpApi",
+  "serp.remove": "Eliminar a chave SerpApi",
+  "serp.removeConfirm": "Eliminar a chave SerpApi deste telemóvel?",
+  "new.serp": "Preços reais da Amazon e de lojas online com uma chave SerpApi gratuita; a pesquisa descarta outros formatos e lojas fora do teu raio."
 }

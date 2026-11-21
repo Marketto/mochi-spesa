@@ -547,5 +547,16 @@
   "best.also": "Vaata kampaanialehti ka siit: {site}",
   "new.bestv2": "Täpsem „Leia parim hind”: vaatab läbi lähedal olevate kettide lehed ükshaaval, kampaanialehtede koondajad, e-poed ja Amazoni ning jätab välja muud vormid (nt tabletid, kui otsid kapsleid).",
   "sync.newer": "Nimekiri uuemast versioonist: salvestamiseks uuenda rakendust",
-  "new.syncformat": "Töökindlam sünkroonimine: teiste rakenduste ja versioonide andmed enam ei kao"
+  "new.syncformat": "Töökindlam sünkroonimine: teiste rakenduste ja versioonide andmed enam ei kao",
+  "serp.src": "Amazon ja e-poed",
+  "serp.title": "Päris hinnad Amazonist ja e-poodidest",
+  "serp.hint": "Tasuta SerpApi võtmega (250 otsingut kuus) loeb Mochi päris hindu Amazonist ja Google Shoppingu e-poodidest. Iga otsing kasutab 2 ja jääb meelde 24 tunniks.",
+  "serp.on": "Sees · sel kuul {n} otsingut",
+  "serp.off": "Väljas: ilma võtmeta otsib Amazonist ja e-poodidest ainult tehisaru, vähemate tulemustega.",
+  "serp.step1": "Loo tasuta konto aadressil",
+  "serp.step2": "Kopeeri võti lehelt",
+  "serp.key": "SerpApi võti",
+  "serp.remove": "Kustuta SerpApi võti",
+  "serp.removeConfirm": "Kas kustutada SerpApi võti sellest telefonist?",
+  "new.serp": "Päris hinnad Amazonist ja e-poodidest tasuta SerpApi võtmega; otsing jätab välja muud vormid ja raadiusest väljas olevad poed."
 }

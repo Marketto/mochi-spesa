@@ -547,5 +547,16 @@
   "best.also": "Feuillette aussi les prospectus sur {site}",
   "new.bestv2": "« Trouver le meilleur prix » plus précis : il vérifie un par un les prospectus des enseignes proches, les agrégateurs de prospectus, les courses en ligne et Amazon, et écarte les autres formats (ex. pastilles si tu cherches des capsules).",
   "sync.newer": "Liste créée avec une version plus récente : mets l'app à jour pour enregistrer",
-  "new.syncformat": "Synchro plus solide : les données d'autres apps et versions ne se perdent plus"
+  "new.syncformat": "Synchro plus solide : les données d'autres apps et versions ne se perdent plus",
+  "serp.src": "Amazon et boutiques en ligne",
+  "serp.title": "Vrais prix d'Amazon et des boutiques en ligne",
+  "serp.hint": "Avec une clé SerpApi gratuite (250 recherches par mois), Mochi lit les vrais prix d'Amazon et des boutiques en ligne réunies par Google Shopping. Chaque recherche en utilise 2 et est gardée 24 heures.",
+  "serp.on": "Active · {n} recherches utilisées ce mois-ci",
+  "serp.off": "Inactive : sans clé, Amazon et les boutiques en ligne ne sont cherchés que par l'IA, avec moins de résultats.",
+  "serp.step1": "Crée un compte gratuit sur",
+  "serp.step2": "Copie la clé depuis la page",
+  "serp.key": "Clé SerpApi",
+  "serp.remove": "Supprimer la clé SerpApi",
+  "serp.removeConfirm": "Supprimer la clé SerpApi de ce téléphone ?",
+  "new.serp": "Vrais prix d'Amazon et des boutiques en ligne avec une clé SerpApi gratuite ; la recherche écarte les autres formats et les magasins hors de ton rayon."
 }

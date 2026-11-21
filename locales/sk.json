@@ -547,5 +547,16 @@
   "best.also": "Pozri si letáky aj na {site}",
   "new.bestv2": "Presnejšie „Nájdi najlepšiu cenu“: prechádza letáky blízkych reťazcov jeden po druhom, agregátory letákov, online nákupy a Amazon a vynecháva iné formy (napr. tablety, keď hľadáš kapsuly).",
   "sync.newer": "Zoznam z novšej verzie: aktualizuj aplikáciu, aby sa dalo ukladať",
-  "new.syncformat": "Spoľahlivejšia synchronizácia: dáta z iných aplikácií a verzií sa už nestrácajú"
+  "new.syncformat": "Spoľahlivejšia synchronizácia: dáta z iných aplikácií a verzií sa už nestrácajú",
+  "serp.src": "Amazon a e-shopy",
+  "serp.title": "Skutočné ceny z Amazonu a e-shopov",
+  "serp.hint": "S bezplatným kľúčom SerpApi (250 hľadaní mesačne) číta Mochi skutočné ceny z Amazonu a z e-shopov v Google Shopping. Každé hľadanie spotrebuje 2 a pamätá sa 24 hodín.",
+  "serp.on": "Zapnuté · tento mesiac {n} hľadaní",
+  "serp.off": "Vypnuté: bez kľúča hľadá na Amazone a v e-shopoch len AI, s menším počtom výsledkov.",
+  "serp.step1": "Založ si zadarmo účet na",
+  "serp.step2": "Skopíruj kľúč zo stránky",
+  "serp.key": "Kľúč SerpApi",
+  "serp.remove": "Zmazať kľúč SerpApi",
+  "serp.removeConfirm": "Zmazať kľúč SerpApi z tohto telefónu?",
+  "new.serp": "Skutočné ceny z Amazonu a e-shopov s bezplatným kľúčom SerpApi; hľadanie vynechá iné formy a obchody mimo tvoj okruh."
 }

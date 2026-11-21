@@ -547,5 +547,16 @@
   "best.also": "Selaa mainoksia myös palvelussa {site}",
   "new.bestv2": "Tarkempi ”Etsi paras hinta”: käy läpi lähiketjujen mainokset yksi kerrallaan, mainoskoosteet, verkkokaupat ja Amazonin ja jättää pois muut muodot (esim. tabletit, kun etsit kapseleita).",
   "sync.newer": "Lista on uudemmasta versiosta: päivitä sovellus tallentaaksesi",
-  "new.syncformat": "Vankempi synkronointi: muiden sovellusten ja versioiden tiedot eivät enää katoa"
+  "new.syncformat": "Vankempi synkronointi: muiden sovellusten ja versioiden tiedot eivät enää katoa",
+  "serp.src": "Amazon ja verkkokaupat",
+  "serp.title": "Oikeat hinnat Amazonista ja verkkokaupoista",
+  "serp.hint": "Ilmaisella SerpApi-avaimella (250 hakua kuukaudessa) Mochi lukee oikeat hinnat Amazonista ja Google Shoppingin verkkokaupoista. Jokainen haku käyttää 2 ja säilyy 24 tuntia.",
+  "serp.on": "Päällä · tässä kuussa {n} hakua",
+  "serp.off": "Pois: ilman avainta Amazonia ja verkkokauppoja hakee vain tekoäly, vähemmin tuloksin.",
+  "serp.step1": "Luo ilmainen tili osoitteessa",
+  "serp.step2": "Kopioi avain sivulta",
+  "serp.key": "SerpApi-avain",
+  "serp.remove": "Poista SerpApi-avain",
+  "serp.removeConfirm": "Poistetaanko SerpApi-avain tästä puhelimesta?",
+  "new.serp": "Oikeat hinnat Amazonista ja verkkokaupoista ilmaisella SerpApi-avaimella; haku jättää pois muut muodot ja säteen ulkopuoliset kaupat."
 }
