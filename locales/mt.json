@@ -547,5 +547,16 @@
   "best.also": "Ara l-fuljetti wkoll fuq {site}",
   "new.bestv2": "“Sib l-aħjar prezz” aktar preċiż: jiċċekkja l-fuljetti tal-ktajjen fil-qrib wieħed wieħed, l-aggregaturi tal-fuljetti, ix-xiri online u Amazon, u jħalli barra formati oħra (eż. pilloli meta tfittex kapsuli).",
   "sync.newer": "Lista minn verżjoni aktar ġdida: aġġorna l-app biex issalva",
-  "new.syncformat": "Sinkronizzazzjoni aktar soda: id-dejta minn apps u verżjonijiet oħra ma tintilifx aktar"
+  "new.syncformat": "Sinkronizzazzjoni aktar soda: id-dejta minn apps u verżjonijiet oħra ma tintilifx aktar",
+  "serp.src": "Amazon u ħwienet online",
+  "serp.title": "Prezzijiet veri minn Amazon u ħwienet online",
+  "serp.hint": "B'ċavetta SerpApi b'xejn (250 tfittxija fix-xahar) Mochi jaqra l-prezzijiet veri minn Amazon u mill-ħwienet online ta' Google Shopping. Kull tfittxija tuża 2 u tinżamm 24 siegħa.",
+  "serp.on": "Mixgħul · {n} tfittxijiet dan ix-xahar",
+  "serp.off": "Mitfi: mingħajr ċavetta, Amazon u l-ħwienet online ifittixhom biss l-IA, b'inqas riżultati.",
+  "serp.step1": "Oħloq kont b'xejn fuq",
+  "serp.step2": "Ikkopja ċ-ċavetta mill-paġna",
+  "serp.key": "Ċavetta SerpApi",
+  "serp.remove": "Ħassar iċ-ċavetta SerpApi",
+  "serp.removeConfirm": "Tħassar iċ-ċavetta SerpApi minn dan it-telefon?",
+  "new.serp": "Prezzijiet veri minn Amazon u ħwienet online b'ċavetta SerpApi b'xejn; it-tfittxija tħalli barra formati oħra u ħwienet barra r-raġġ tiegħek."
 }

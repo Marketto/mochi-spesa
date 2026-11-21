@@ -16,6 +16,7 @@ import * as pricedb from "./pricedb.js";
 import * as shops from "./shops.js";
 import { amazonSearch, isAmazon } from "./amazon.js";
 import * as best from "./best.js";
+import * as serp from "./serp.js";
 import * as bridge from "./bridge.js";
 
 // ---------- utilità ----------
@@ -824,7 +825,7 @@ function renderBestHow() {
     <div class="best-row"><input id="best-keyin" type="password" autocomplete="off" spellcheck="false" placeholder="gsk_…">
     <button class="btn primary" type="button" id="best-keysave">${ic("save")} ${esc(t("common.save"))}</button></div></details>`;
 }
-const srcLabel = r => r.src === "web" ? t("best.srcWeb") : r.src === "op" ? "Open Prices" : t("best.srcMine");
+const srcLabel = r => r.src === "web" ? t("best.srcWeb") : r.src === "op" ? "Open Prices" : r.src === "serp" ? t("serp.src") : t("best.srcMine");
 function bestRow(r, i, top) {
   const src = safeUrl(r.fonte), nt = `<span class="sr"> ${esc(t("a11y.newTab"))}</span>`;
   const fino = r.validoFino && /^\d{4}-\d{2}-\d{2}$/.test(r.validoFino) ? shortDate(r.validoFino) : r.validoFino;
@@ -847,7 +848,7 @@ function renderBest(res) {
   const busy = Object.values(st).includes("run");
   out.innerHTML = `<section class="card best-res" aria-labelledby="best-rt" aria-busy="${busy}">
     <h3 id="best-rt">${esc(t("best.results", { q: res.q }))}</h3>
-    <p class="srcs">${chip("mine", t("best.srcMine"))}${chip("op", "Open Prices")}${chip("web", t("best.srcWeb"))}</p>
+    <p class="srcs">${chip("mine", t("best.srcMine"))}${chip("op", "Open Prices")}${chip("serp", t("serp.src"))}${chip("web", t("best.srcWeb"))}</p>
     ${st.web === "err" && res.errore ? `<p class="hint">${ic("warn")} ${esc(res.errore)}</p>` : st.web === "ok" && res.avviso ? `<p class="hint">${ic("info")} ${esc(t("best.partial", { msg: res.avviso }))}</p>` : ""}
     ${righe.length ? `<ol class="best-list">${righe.map((r, i) => bestRow(r, i, i === 0 && !busy)).join("")}</ol>` : `<p class="hint">${esc(busy ? t("best.searching") : t("best.none"))}</p>`}
     ${amzOn() && !righe.some(r => isAmazon(r.negozio)) ? `<p class="cmp">${amzLink(res.q)}</p>` : ""}
@@ -859,9 +860,15 @@ function renderBest(res) {
 async function findBest(q, link = "") {
   q = String(q || "").trim(); if (!q) return;
   const run = ++bestRun, s0 = state.settings;
-  const res = { q, at: Date.now(), righe: [], gruppo: null, stato: { mine: "run", op: s0.lat != null ? "run" : "", web: ai.ready(true) ? "run" : "" }, n: {} };
-  const parts = { mine: [], op: [], web: [] };
-  const update = () => { if (run !== bestRun) return; Object.assign(res, best.rank([...parts.web, ...parts.mine, ...parts.op], q)); renderBest(res); };
+  const res = { q, at: Date.now(), righe: [], gruppo: null, stato: { mine: "run", op: s0.lat != null ? "run" : "", serp: serp.getKey() ? "run" : "", web: ai.ready(true) ? "run" : "" }, n: {} };
+  const parts = { mine: [], op: [], serp: [], web: [] };
+  const update = () => {
+    if (run !== bestRun) return;
+    Object.assign(res, best.rank([...parts.serp, ...parts.web.filter(r => best.inRange(r, s0.raggioKm || 5, res.catene, shops.sameShop)), ...parts.mine, ...parts.op], q));
+    // conteggi = risultati davvero mostrati (dopo i filtri su formato e raggio)
+    for (const k of ["mine", "op", "serp", "web"]) if (res.stato[k] === "ok") res.n[k] = res.righe.filter(r => r.src === k).length;
+    renderBest(res);
+  };
   const btn = $("#best-go"); btn.classList.add("loading"); btn.setAttribute("aria-busy", "true");
   mochi.mood("wow", 0); mochi.say(frase("cerco"), 90000);
   update();
@@ -878,8 +885,12 @@ async function findBest(q, link = "") {
   if (res.stato.op) jobs.push(op.nearby({ lat: s0.lat, lon: s0.lon, raggioKm: s0.raggioKm || 5 })
     .then(list => { parts.op = best.variants(q).flatMap(v => op.bestFor(v, list, 8)).map(x => ({ negozio: x.negozio, nome: [x.marca, x.nome].filter(Boolean).join(" "), prezzo: x.prezzo, quantita: x.quantita, data: x.data, fonte: op.priceUrl(x.id), src: "op" })); res.stato.op = "ok"; res.n.op = parts.op.length; })
     .catch(() => { res.stato.op = "err"; }).then(update));
-  // 3. ricerca web con l'IA, divisa per fonte: volantini delle catene vicine (a gruppi), aggregatori, spesa online, Amazon
-  if (res.stato.web) jobs.push(webBest(q, link, s0, res, parts, update));
+  // 3. Amazon e negozi online con prezzi veri (SerpApi: Amazon + Google Shopping), se l'utente ha la chiave
+  if (res.stato.serp) jobs.push(serp.search(q, { lang: lang(), proxy: PROXY })
+    .then(r => { parts.serp = [...r.amazon, ...r.shopping].map(x => ({ ...x, src: "serp" })); res.stato.serp = "ok"; res.n.serp = parts.serp.length; renderSerp(); })
+    .catch(e => { res.stato.serp = "err"; res.avviso = "SerpApi: " + e.message; }).then(update));
+  // 4. ricerca web con l'IA, divisa per fonte: volantini delle catene vicine (a gruppi), aggregatori, spesa online, Amazon
+  if (res.stato.web) jobs.push(webBest(q, link, s0, res, parts, update, !!res.stato.serp));
   await Promise.all(jobs);
   btn.classList.remove("loading"); btn.removeAttribute("aria-busy");
   if (run !== bestRun) return;
@@ -902,27 +913,30 @@ async function pool(tasks, n) {
   await Promise.all(Array.from({ length: Math.min(n, tasks.length) }, async () => { while (i < tasks.length) { const k = i++; out[k] = await tasks[k](); } }));
   return out;
 }
-async function webBest(q, link, s0, res, parts, update) {
+async function webBest(q, link, s0, res, parts, update, haveSerp) {
   const a0 = away();
   const luogo = a0 ? `${a0.nome} (lat ${a0.lat}, lon ${a0.lon})` : s0.lat != null ? `${s0.luogo} (lat ${s0.lat}, lon ${s0.lon})` : s0.luogo || "";
-  const catene = await chainsNear(s0);
+  const catene = res.catene = await chainsNear(s0);
   const fonti = [];
   for (let i = 0; i < catene.length; i += 3) fonti.push({ tipo: "volantini", catene: catene.slice(i, i + 3) });
-  fonti.push({ tipo: "aggregatori" }, { tipo: "online" });
-  if (amzOn()) fonti.push({ tipo: "amazon" });
+  fonti.push({ tipo: "aggregatori", catene });
+  // con SerpApi Amazon e spesa online hanno già prezzi veri: l'IA si concentra sui volantini
+  if (!haveSerp) { fonti.push({ tipo: "online" }); if (amzOn()) fonti.push({ tipo: "amazon" }); }
   res.web = { tot: fonti.length, done: 0, ok: 0 };
   update();
   const errs = [];
   await pool(fonti.map(fonte => () => ai.cercaMigliore({ query: q, link: fonte.tipo === "amazon" || fonte.tipo === "aggregatori" ? link : "", luogo, raggioKm: s0.raggioKm || 5, valuta: currency(), lingua: langName(), fonte })
     .then(list => {
-      const rows = list.map(x => ({ negozio: x.negozio, nome: x.prodotto, prezzo: x.prezzo, quantita: x.quantita, unita: x.unita, prezzoUnit: x.prezzoUnit,
+      const rows = list.map(x => ({ negozio: best.chainName(x.negozio), nome: x.prodotto, prezzo: x.prezzo, quantita: x.quantita, unita: x.unita, prezzoUnit: x.prezzoUnit,
         offerta: !!x.offerta, validoFino: x.validoFino, online: !!x.online || fonte.tipo === "amazon", distanzaKm: x.distanzaKm, fonte: x.fonte, nota: x.nota, src: "web" }));
       parts.web.push(...rows); res.web.ok++;
       // restano tra i tuoi prezzi: la prossima volta li trovi anche senza rete
       pricedb.add(rows.map(x => ({ ...best.withUnit(x), validoFino: /^\d{4}-\d{2}-\d{2}$/.test(x.validoFino || "") ? x.validoFino : "", origine: "web" }))).then(renderDb).catch(() => {});
     })
     .catch(e => { if (e.name !== "AbortError") errs.push(e.message); })
-    .then(() => { res.web.done++; res.n.web = parts.web.length; update(); })), 3);
+    .then(() => { res.web.done++; res.n.web = parts.web.length; update(); })),
+    // una richiesta alla volta per ogni servizio con ricerca web: i piani gratuiti hanno limiti al minuto
+    Math.max(1, Math.min(3, new Set(ai.route([ai.TAG.WEB]).map(c => c.provider)).size)));
   res.stato.web = res.web.ok ? "ok" : "err";
   if (!res.web.ok) res.errore = errs[0] || "";
   else if (errs.length) res.avviso = errs[0];
@@ -1476,6 +1490,26 @@ async function loadShops() {
 $("#z-shops-more").addEventListener("click", () => { shopsAll = true; renderShops(); $("#z-shops-list label:last-child input")?.focus(); });
 let shopsTimer; $("#z-raggio").addEventListener("change", () => { clearTimeout(shopsTimer); shopsTimer = setTimeout(loadShops, 400); });
 
+// ---------- SERPAPI: prezzi veri da Amazon e Google Shopping (chiave dell'utente) ----------
+function renderSerp() {
+  const k = serp.getKey();
+  $("#serp-signup").href = serp.SIGNUP; $("#serp-keypage").href = serp.KEY_PAGE;
+  $("#serp-state").textContent = k ? t("serp.on", { n: serp.used() }) : t("serp.off");
+  $("#serp-del").hidden = !k;
+  if (document.activeElement?.id !== "serp-key") $("#serp-key").value = "";
+  $("#serp-key").placeholder = k ? "•••• " + k.slice(-4) : "";
+}
+$("#serp-save").addEventListener("click", () => {
+  const k = $("#serp-key").value.trim();
+  if (k.length < 32) { toast(t("best.keyBad"), "warn"); $("#serp-key").focus(); return; }
+  serp.setKey(k); $("#serp-key").value = ""; renderSerp(); toast(t("common.saved"), "key");
+});
+$("#serp-del").addEventListener("click", async () => {
+  if (!(await confirmDlg(t("serp.removeConfirm"), t("serp.remove"), "delete"))) return;
+  serp.setKey(""); renderSerp(); $("#serp-key").focus();
+});
+renderSerp();
+
 // ---------- CHIAVI IA: più servizi e più chiavi, scelti in automatico ----------
 const mask = k => "•••• " + k.slice(-4);
 const until = ms => new Date(ms).toLocaleTimeString(locale(), { hour: "2-digit", minute: "2-digit" });
@@ -1748,7 +1782,7 @@ async function checkAway({ ask = false, modal = false } = {}) {
   $("#away-no").addEventListener("click", rifiuta);
 }
 $("#t-offerte").addEventListener("click", () => { checkAway(); refreshChains(); });
-$("#t-imp").addEventListener("click", () => renderAiKeys());
+$("#t-imp").addEventListener("click", () => { renderAiKeys(); renderSerp(); });
 $("#t-offerte").addEventListener("click", () => renderBestHow());
 
 // ---------- PRIVACY E CONDIZIONI ----------

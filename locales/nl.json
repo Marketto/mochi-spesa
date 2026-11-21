@@ -547,5 +547,16 @@
   "best.also": "Bekijk ook folders op {site}",
   "new.bestv2": "Preciezer „Beste prijs vinden”: bekijkt de folders van ketens in de buurt één voor één, folderportalen, online supermarkten en Amazon, en laat andere vormen weg (bv. tabletten als je pods zoekt).",
   "sync.newer": "Lijst gemaakt met een nieuwere versie: werk de app bij om op te slaan",
-  "new.syncformat": "Stevigere synchronisatie: gegevens van andere apps en versies gaan niet meer verloren"
+  "new.syncformat": "Stevigere synchronisatie: gegevens van andere apps en versies gaan niet meer verloren",
+  "serp.src": "Amazon & webwinkels",
+  "serp.title": "Echte prijzen van Amazon en webwinkels",
+  "serp.hint": "Met een gratis SerpApi-sleutel (250 zoekopdrachten per maand) leest Mochi echte prijzen van Amazon en van de webwinkels in Google Shopping. Elke zoekopdracht gebruikt er 2 en blijft 24 uur bewaard.",
+  "serp.on": "Aan · {n} zoekopdrachten deze maand",
+  "serp.off": "Uit: zonder sleutel zoekt alleen de AI op Amazon en in webwinkels, met minder resultaten.",
+  "serp.step1": "Maak een gratis account op",
+  "serp.step2": "Kopieer de sleutel van de pagina",
+  "serp.key": "SerpApi-sleutel",
+  "serp.remove": "SerpApi-sleutel verwijderen",
+  "serp.removeConfirm": "SerpApi-sleutel van deze telefoon verwijderen?",
+  "new.serp": "Echte prijzen van Amazon en webwinkels met een gratis SerpApi-sleutel; zoeken laat andere vormen en winkels buiten je straal weg."
 }

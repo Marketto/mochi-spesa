@@ -283,6 +283,19 @@
       <label class="check"><input type="checkbox" id="ai-share"> <span data-i18n="ai.share"></span></label>
       <p class="hint" data-i18n="ai.shareHint"></p>
     </section>
+    <section class="card" id="f-serp" aria-labelledby="serp-t">
+      <h2 class="in" id="serp-t"><i class="mi mi-store" aria-hidden="true"></i> <span data-i18n="serp.title"></span></h2>
+      <p class="hint" data-i18n="serp.hint"></p>
+      <p class="hint" id="serp-state" role="status"></p>
+      <ol class="serp-steps">
+        <li><span data-i18n="serp.step1"></span> <a id="serp-signup" target="_blank" rel="noopener noreferrer">serpapi.com</a></li>
+        <li><span data-i18n="serp.step2"></span> <a id="serp-keypage" target="_blank" rel="noopener noreferrer">Api Key</a></li>
+      </ol>
+      <label for="serp-key" data-i18n="serp.key"></label>
+      <div class="best-row"><input id="serp-key" type="password" autocomplete="off" spellcheck="false">
+        <button class="btn primary" type="button" id="serp-save"><i class="mi mi-save" aria-hidden="true"></i> <span data-i18n="common.save"></span></button>
+        <button class="icon-btn danger" type="button" id="serp-del" data-i18n-attr="aria-label:serp.remove"><i class="mi mi-delete" aria-hidden="true"></i></button></div>
+    </section>
 
     <section class="card" aria-labelledby="kap-t">
       <h2 class="in" id="kap-t"><i class="mi mi-coins" aria-hidden="true"></i> Kapibo</h2>

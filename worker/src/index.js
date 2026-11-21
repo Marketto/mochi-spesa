@@ -6,6 +6,7 @@ export const ALLOWED_HOSTS = [
   "www.lidl.it",               // pagina dei volantini Lidl
   "endpoints.leaflets.schwarz", // dati del visualizzatore volantini Lidl (stessa fonte usata da lidl.it)
   "assets.leaflets.schwarz",    // PDF ufficiale del volantino (download abilitato da Lidl)
+  "serpapi.com",                // ricerche Amazon / Google Shopping con la chiave SerpApi dell'utente (se il browser blocca la chiamata diretta)
 ];
 const MAX_BYTES = 40 * 1024 * 1024;
 const CACHE_SECONDS = 6 * 3600;

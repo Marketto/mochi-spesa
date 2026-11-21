@@ -135,6 +135,7 @@ js/openprices.js      prezzi gratuiti della community (Open Food Facts – Open 
 js/flyer.js           lettura volantini (OCR con tesseract.js, PDF con pdf.js) e storico prezzi
 js/chains.js          catene supportate (adattatori) per i volantini ufficiali
 js/pricedb.js         «I miei prezzi»: database locale (IndexedDB)
+js/serp.js            prezzi Amazon e Google Shopping con la chiave SerpApi dell'utente (250 ricerche/mese gratis)
 js/best.js            «Trova il prezzo migliore»: unione e ordinamento per prezzo a unità
 js/amazon.js          link di ricerca sul negozio Amazon del paese (nessuna lettura delle pagine)
 js/shops.js           negozi nel raggio da OpenStreetMap (Overpass API) per i preferiti

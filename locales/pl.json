@@ -547,5 +547,16 @@
   "best.also": "Przejrzyj też gazetki na {site}",
   "new.bestv2": "Dokładniejsze „Znajdź najlepszą cenę”: sprawdza po kolei gazetki pobliskich sieci, agregatory gazetek, sklepy online i Amazon oraz pomija inne formy (np. tabletki, gdy szukasz kapsułek).",
   "sync.newer": "Lista z nowszej wersji: zaktualizuj aplikację, aby zapisać",
-  "new.syncformat": "Solidniejsza synchronizacja: dane z innych aplikacji i wersji już nie giną"
+  "new.syncformat": "Solidniejsza synchronizacja: dane z innych aplikacji i wersji już nie giną",
+  "serp.src": "Amazon i sklepy online",
+  "serp.title": "Prawdziwe ceny z Amazona i sklepów online",
+  "serp.hint": "Z darmowym kluczem SerpApi (250 wyszukiwań miesięcznie) Mochi czyta prawdziwe ceny z Amazona i sklepów online zebranych przez Google Shopping. Każde wyszukiwanie zużywa 2 i jest pamiętane 24 godziny.",
+  "serp.on": "Włączone · w tym miesiącu: {n} wyszukiwań",
+  "serp.off": "Wyłączone: bez klucza Amazona i sklepy online przeszukuje tylko AI, z mniejszą liczbą wyników.",
+  "serp.step1": "Załóż darmowe konto na",
+  "serp.step2": "Skopiuj klucz ze strony",
+  "serp.key": "Klucz SerpApi",
+  "serp.remove": "Usuń klucz SerpApi",
+  "serp.removeConfirm": "Usunąć klucz SerpApi z tego telefonu?",
+  "new.serp": "Prawdziwe ceny z Amazona i sklepów online z darmowym kluczem SerpApi; wyszukiwanie pomija inne formy i sklepy poza Twoim promieniem."
 }

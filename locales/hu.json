@@ -547,5 +547,16 @@
   "best.also": "Lapozd át a szórólapokat itt is: {site}",
   "new.bestv2": "Pontosabb „Legjobb ár keresése”: egyenként átnézi a közeli láncok szórólapjait, a szórólap-gyűjtőket, az online boltokat és az Amazont, és kihagyja a más kiszereléseket (pl. tablettát, ha kapszulát keresel).",
   "sync.newer": "Újabb verzióval készült lista: frissítsd az appot a mentéshez",
-  "new.syncformat": "Megbízhatóbb szinkron: más appok és verziók adatai már nem vesznek el"
+  "new.syncformat": "Megbízhatóbb szinkron: más appok és verziók adatai már nem vesznek el",
+  "serp.src": "Amazon és webáruházak",
+  "serp.title": "Valódi árak az Amazonról és webáruházakból",
+  "serp.hint": "Ingyenes SerpApi-kulccsal (havi 250 keresés) Mochi valódi árakat olvas az Amazonról és a Google Shopping webáruházaiból. Egy keresés 2-t használ, és 24 óráig megmarad.",
+  "serp.on": "Bekapcsolva · e hónapban {n} keresés",
+  "serp.off": "Kikapcsolva: kulcs nélkül az Amazont és a webáruházakat csak a MI keresi, kevesebb találattal.",
+  "serp.step1": "Hozz létre ingyenes fiókot itt:",
+  "serp.step2": "Másold ki a kulcsot az oldalról",
+  "serp.key": "SerpApi-kulcs",
+  "serp.remove": "SerpApi-kulcs törlése",
+  "serp.removeConfirm": "Törlöd a SerpApi-kulcsot erről a telefonról?",
+  "new.serp": "Valódi árak az Amazonról és webáruházakból ingyenes SerpApi-kulccsal; a keresés kihagyja a más kiszereléseket és a sugáron kívüli boltokat."
 }

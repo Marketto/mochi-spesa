@@ -547,5 +547,16 @@
   "best.also": "Šķirsti bukletus arī {site}",
   "new.bestv2": "Precīzāka “Atrodi labāko cenu”: pa vienam pārbauda tuvējo tīklu bukletus, bukletu apkopotājus, interneta veikalus un Amazon un izslēdz citas formas (piem., tabletes, ja meklē kapsulas).",
   "sync.newer": "Saraksts no jaunākas versijas: atjaunini lietotni, lai saglabātu",
-  "new.syncformat": "Drošāka sinhronizācija: citu lietotņu un versiju dati vairs nepazūd"
+  "new.syncformat": "Drošāka sinhronizācija: citu lietotņu un versiju dati vairs nepazūd",
+  "serp.src": "Amazon un interneta veikali",
+  "serp.title": "Īstas cenas no Amazon un interneta veikaliem",
+  "serp.hint": "Ar bezmaksas SerpApi atslēgu (250 meklējumi mēnesī) Moči nolasa īstas cenas no Amazon un Google Shopping interneta veikaliem. Katrs meklējums izmanto 2 un tiek glabāts 24 stundas.",
+  "serp.on": "Ieslēgts · šomēnes {n} meklējumi",
+  "serp.off": "Izslēgts: bez atslēgas Amazon un interneta veikalus meklē tikai MI, ar mazāk rezultātiem.",
+  "serp.step1": "Izveido bezmaksas kontu vietnē",
+  "serp.step2": "Nokopē atslēgu no lapas",
+  "serp.key": "SerpApi atslēga",
+  "serp.remove": "Dzēst SerpApi atslēgu",
+  "serp.removeConfirm": "Dzēst SerpApi atslēgu no šī tālruņa?",
+  "new.serp": "Īstas cenas no Amazon un interneta veikaliem ar bezmaksas SerpApi atslēgu; meklēšana izslēdz citas formas un veikalus ārpus tava rādiusa."
 }

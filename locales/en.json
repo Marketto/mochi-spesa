@@ -547,5 +547,16 @@
   "best.also": "Also browse flyers on {site}",
   "new.bestv2": "More precise “Find the best price”: it checks the flyers of nearby chains one by one, flyer aggregators, online grocery shops and Amazon, and drops other formats (e.g. tablets when you search pods).",
   "sync.newer": "List made with a newer version: update the app to save",
-  "new.syncformat": "Sturdier sync: data from other apps and versions is no longer lost"
+  "new.syncformat": "Sturdier sync: data from other apps and versions is no longer lost",
+  "serp.src": "Amazon & online shops",
+  "serp.title": "Real prices from Amazon and online shops",
+  "serp.hint": "With a free SerpApi key (250 searches a month) Mochi reads real prices from Amazon and from the online shops gathered by Google Shopping. Each search uses 2 and is kept for 24 hours.",
+  "serp.on": "On · {n} searches used this month",
+  "serp.off": "Off: without a key, Amazon and online shops are only searched by the AI, with fewer results.",
+  "serp.step1": "Create a free account on",
+  "serp.step2": "Copy the key from the page",
+  "serp.key": "SerpApi key",
+  "serp.remove": "Delete the SerpApi key",
+  "serp.removeConfirm": "Delete the SerpApi key from this phone?",
+  "new.serp": "Real prices from Amazon and online shops with a free SerpApi key; search drops other formats and shops outside your radius."
 }

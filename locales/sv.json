@@ -547,5 +547,16 @@
   "best.also": "Bläddra även bland reklamblad på {site}",
   "new.bestv2": "Exaktare ”Hitta bästa priset”: går igenom närliggande kedjors reklamblad en i taget, reklambladsportaler, nätbutiker och Amazon, och tar bort andra format (t.ex. tabletter när du söker pods).",
   "sync.newer": "Lista från en nyare version: uppdatera appen för att spara",
-  "new.syncformat": "Stabilare synk: data från andra appar och versioner försvinner inte längre"
+  "new.syncformat": "Stabilare synk: data från andra appar och versioner försvinner inte längre",
+  "serp.src": "Amazon & nätbutiker",
+  "serp.title": "Riktiga priser från Amazon och nätbutiker",
+  "serp.hint": "Med en gratis SerpApi-nyckel (250 sökningar i månaden) läser Mochi riktiga priser från Amazon och från nätbutikerna i Google Shopping. Varje sökning använder 2 och sparas i 24 timmar.",
+  "serp.on": "På · {n} sökningar denna månad",
+  "serp.off": "Av: utan nyckel söker bara AI på Amazon och i nätbutiker, med färre resultat.",
+  "serp.step1": "Skapa ett gratis konto på",
+  "serp.step2": "Kopiera nyckeln från sidan",
+  "serp.key": "SerpApi-nyckel",
+  "serp.remove": "Ta bort SerpApi-nyckeln",
+  "serp.removeConfirm": "Ta bort SerpApi-nyckeln från den här telefonen?",
+  "new.serp": "Riktiga priser från Amazon och nätbutiker med en gratis SerpApi-nyckel; sökningen tar bort andra format och butiker utanför din radie."
 }

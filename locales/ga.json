@@ -547,5 +547,16 @@
   "best.also": "Brabhsáil bileoga ar {site} freisin",
   "new.bestv2": "“Aimsigh an praghas is fearr” níos cruinne: seiceálann sé bileoga na slabhraí in aice láimhe ceann ar cheann, comhbhailitheoirí bileog, siopaí ar líne agus Amazon, agus fágann sé formáidí eile ar lár (m.sh. táibléid nuair a lorgaíonn tú pónairí).",
   "sync.newer": "Liosta ó leagan níos nuaí: nuashonraigh an aip chun sábháil",
-  "new.syncformat": "Sioncronú níos láidre: ní chailltear sonraí ó aipeanna ná leaganacha eile a thuilleadh"
+  "new.syncformat": "Sioncronú níos láidre: ní chailltear sonraí ó aipeanna ná leaganacha eile a thuilleadh",
+  "serp.src": "Amazon agus siopaí ar líne",
+  "serp.title": "Praghsanna fíora ó Amazon agus ó shiopaí ar líne",
+  "serp.hint": "Le heochair SerpApi saor in aisce (250 cuardach sa mhí) léann Mochi praghsanna fíora ó Amazon agus ó na siopaí ar líne a bhailíonn Google Shopping. Úsáideann gach cuardach 2 agus coinnítear é ar feadh 24 uair.",
+  "serp.on": "Ar siúl · {n} cuardach an mhí seo",
+  "serp.off": "As: gan eochair, ní chuardaíonn ach an IS Amazon agus siopaí ar líne, le níos lú torthaí.",
+  "serp.step1": "Cruthaigh cuntas saor in aisce ar",
+  "serp.step2": "Cóipeáil an eochair ón leathanach",
+  "serp.key": "Eochair SerpApi",
+  "serp.remove": "Scrios an eochair SerpApi",
+  "serp.removeConfirm": "Scrios an eochair SerpApi ón bhfón seo?",
+  "new.serp": "Praghsanna fíora ó Amazon agus ó shiopaí ar líne le heochair SerpApi saor in aisce; fágann an cuardach formáidí eile agus siopaí lasmuigh de do gha ar lár."
 }

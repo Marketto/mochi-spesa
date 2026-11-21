@@ -37,8 +37,9 @@ const FONTE = {
 Open each chain's official flyer page (and the store page for the home area if prices differ by store).
 Also check the flyer aggregators of that country for those chains (in Italy: PromoQui, DoveConviene, VolantinoFacile, Tiendeo).
 Report the store's in-flyer price for every matching product you find, one result per chain at least when available.`,
-  aggregatori: () => `Search the flyer aggregators of that country (in Italy: promoqui.it/offerte/<product>, DoveConviene, VolantinoFacile, Tiendeo)
-for current offers on this product valid in the home area. Report every matching offer (chain, product, price, validity).`,
+  aggregatori: f => `Search the flyer aggregators of that country (in Italy: promoqui.it/offerte/<product>, DoveConviene, VolantinoFacile, Tiendeo)
+for current offers on this product valid in the home area. Report every matching offer (chain, product, price, validity).${f.catene?.length ? `
+Chains that have a store within the radius: ${f.catene.join(", ")}. Ignore offers of other chains.` : ""}`,
   amazon: () => `Look ONLY at the Amazon store of that country. Report the 2-3 cheapest per unit matching offers sold or shipped by Amazon,
 with their product page URL. online: true.`,
   online: () => `Look ONLY at online grocery shops of supermarket chains that deliver to the home area (e.g. in Italy Conad, Carrefour,
@@ -54,7 +55,9 @@ Product the user wants to buy: "${query}"${link ? `\nLink the user shared (open 
 ${FONTE[fonte.tipo](fonte)}
 
 Match the product TYPE exactly: same kind and same format (e.g. "pod/caps" are not "tablets/pastiglie", "gel" is not "powder").
-Brands may differ. Skip anything of a different type. Only prices valid today. Always give pack size so the unit price can be compared.
+Brands may differ. Skip anything of a different type, and anything whose name does not state the format. Only prices valid today.
+"negozio" is the chain name only (e.g. "Conad"), never the aggregator or website you read it on.
+Only stores within the radius: give distanzaKm only if you know the specific store, otherwise null. Always give pack size so the unit price can be compared.
 unita: "lavaggi" for washes/pods/tablets, "litri", "kg", or "pezzi". Return up to 6 results, cheapest per unit first.
 
 Format:

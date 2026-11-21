@@ -85,10 +85,34 @@ const FORMATS = {
 };
 /** Formati citati in un testo (es. "pod lavastoviglie" → ["pod"]). */
 export const formatsOf = text => Object.keys(FORMATS).filter(f => FORMATS[f].test(String(text || "")));
-/** Il risultato è dello stesso formato cercato? Se uno dei due non dice il formato, si tiene. */
+/**
+ * Il risultato è dello stesso formato cercato? Se chi cerca indica un formato (es. "pod"),
+ * il risultato deve dirlo anche lui: "detersivo lavastoviglie 40 pz" non basta.
+ */
 export function sameType(q, nome) {
   const a = formatsOf(q), b = formatsOf(nome);
-  return !a.length || !b.length || a.some(f => b.includes(f));
+  return !a.length || a.some(f => b.includes(f));
+}
+
+const AGGR = /^(doveconviene|promoqui|volantinofacile|tiendeo|shopfully|volantino)\b\s*[(:–—-]?\s*/i;
+/** Nome della catena senza l'aggregatore: "DoveConviene (Penny)" → "Penny". */
+export function chainName(negozio) {
+  const s = String(negozio || "").trim();
+  if (!AGGR.test(s)) return s;
+  return s.replace(AGGR, "").replace(/[)\s]+$/, "").trim() || s;
+}
+
+/**
+ * Tiene solo i negozi fisici entro il raggio: distanza dichiarata non oltre il raggio e,
+ * se conosciamo le catene della zona (OpenStreetMap), catena presente nella zona.
+ * Gli acquisti online (Amazon, spesa a domicilio) restano sempre.
+ */
+export function inRange(r, raggioKm, catene, same = (a, b) => a.toLowerCase() === b.toLowerCase()) {
+  if (r.online) return true;
+  if (r.distanzaKm != null && +r.distanzaKm > raggioKm) return false;
+  if (!catene || !catene.length) return true;
+  const n = String(r.negozio || "").toLowerCase();
+  return catene.some(c => same(c, r.negozio) || n.includes(c.toLowerCase()) || c.toLowerCase().includes(n));
 }
 
 /** La ricerca e le sue varianti con sinonimi (al massimo 8), per trovare più prezzi salvati. */

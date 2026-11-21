@@ -547,5 +547,16 @@
   "best.also": "Răsfoiește cataloagele și pe {site}",
   "new.bestv2": "„Găsește cel mai bun preț” mai precis: verifică pe rând cataloagele lanțurilor din apropiere, agregatoarele de cataloage, cumpărăturile online și Amazon, și elimină alte formate (ex. tablete dacă cauți capsule).",
   "sync.newer": "Listă creată cu o versiune mai nouă: actualizează aplicația ca să salvezi",
-  "new.syncformat": "Sincronizare mai solidă: datele din alte aplicații și versiuni nu se mai pierd"
+  "new.syncformat": "Sincronizare mai solidă: datele din alte aplicații și versiuni nu se mai pierd",
+  "serp.src": "Amazon și magazine online",
+  "serp.title": "Prețuri reale de la Amazon și magazine online",
+  "serp.hint": "Cu o cheie SerpApi gratuită (250 de căutări pe lună) Mochi citește prețurile reale de la Amazon și din magazinele online adunate de Google Shopping. Fiecare căutare folosește 2 și e păstrată 24 de ore.",
+  "serp.on": "Activă · {n} căutări folosite luna aceasta",
+  "serp.off": "Inactivă: fără cheie, Amazon și magazinele online sunt căutate doar de IA, cu mai puține rezultate.",
+  "serp.step1": "Creează un cont gratuit pe",
+  "serp.step2": "Copiază cheia din pagină",
+  "serp.key": "Cheie SerpApi",
+  "serp.remove": "Șterge cheia SerpApi",
+  "serp.removeConfirm": "Ștergi cheia SerpApi de pe acest telefon?",
+  "new.serp": "Prețuri reale de la Amazon și magazine online cu o cheie SerpApi gratuită; căutarea elimină alte formate și magazinele din afara razei tale."
 }
