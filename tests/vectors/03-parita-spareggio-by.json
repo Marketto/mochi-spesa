@@ -1,0 +1,47 @@
+{
+  "nome": "03-parita-spareggio-by",
+  "descrizione": "Stesso updatedAt: vince il campo by più alto (confronto tra stringhe).",
+  "local": {
+    "schema": 1,
+    "dispensa": {
+      "d": {
+        "id": "d",
+        "nome": "Riso",
+        "qta": "1 kg",
+        "luogo": "credenza",
+        "updatedAt": 3000,
+        "by": "phone:aaa"
+      }
+    }
+  },
+  "remote": {
+    "schema": 1,
+    "dispensa": {
+      "d": {
+        "id": "d",
+        "nome": "Riso",
+        "qta": "500 g",
+        "luogo": "credenza",
+        "updatedAt": 3000,
+        "by": "smartbridge:hub"
+      }
+    }
+  },
+  "now": 1800000000000,
+  "atteso": {
+    "scrivi": true,
+    "stato": {
+      "schema": 1,
+      "dispensa": {
+        "d": {
+          "id": "d",
+          "nome": "Riso",
+          "qta": "500 g",
+          "luogo": "credenza",
+          "updatedAt": 3000,
+          "by": "smartbridge:hub"
+        }
+      }
+    }
+  }
+}

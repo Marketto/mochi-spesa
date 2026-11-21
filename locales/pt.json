@@ -545,5 +545,7 @@
   "new.kapibo": "O Mochi fala com o Kapibo: os talões lidos pelo Kapibo vão para a despensa e as compras arrumadas podem ir para o orçamento.",
   "best.partial": "Algumas fontes não responderam: {msg}",
   "best.also": "Vê também os folhetos em {site}",
-  "new.bestv2": "«Encontrar o melhor preço» mais preciso: verifica um a um os folhetos das cadeias próximas, agregadores de folhetos, supermercados online e Amazon, e descarta outros formatos (ex. pastilhas se procuras cápsulas)."
+  "new.bestv2": "«Encontrar o melhor preço» mais preciso: verifica um a um os folhetos das cadeias próximas, agregadores de folhetos, supermercados online e Amazon, e descarta outros formatos (ex. pastilhas se procuras cápsulas).",
+  "sync.newer": "Lista criada com uma versão mais recente: atualiza a app para guardar",
+  "new.syncformat": "Sincronização mais robusta: os dados de outras apps e versões já não se perdem"
 }

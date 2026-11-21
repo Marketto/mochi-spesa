@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi juttelee Kapibon kanssa: Kapibon lukemat kuitit menevät ruokakaappiin ja paikoilleen laitetut ostokset budjettiin.",
   "best.partial": "Osa lähteistä ei vastannut: {msg}",
   "best.also": "Selaa mainoksia myös palvelussa {site}",
-  "new.bestv2": "Tarkempi ”Etsi paras hinta”: käy läpi lähiketjujen mainokset yksi kerrallaan, mainoskoosteet, verkkokaupat ja Amazonin ja jättää pois muut muodot (esim. tabletit, kun etsit kapseleita)."
+  "new.bestv2": "Tarkempi ”Etsi paras hinta”: käy läpi lähiketjujen mainokset yksi kerrallaan, mainoskoosteet, verkkokaupat ja Amazonin ja jättää pois muut muodot (esim. tabletit, kun etsit kapseleita).",
+  "sync.newer": "Lista on uudemmasta versiosta: päivitä sovellus tallentaaksesi",
+  "new.syncformat": "Vankempi synkronointi: muiden sovellusten ja versioiden tiedot eivät enää katoa"
 }

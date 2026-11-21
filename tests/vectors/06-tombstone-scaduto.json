@@ -1,0 +1,44 @@
+{
+  "nome": "06-tombstone-scaduto",
+  "descrizione": "Un tombstone vincente più vecchio di 30 giorni sparisce dal risultato.",
+  "local": {
+    "schema": 1,
+    "items": {
+      "a": {
+        "id": "a",
+        "nome": "Burro",
+        "deleted": true,
+        "updatedAt": 1797321600000
+      },
+      "b": {
+        "id": "b",
+        "nome": "Sale",
+        "updatedAt": 1796544000000
+      }
+    }
+  },
+  "remote": {
+    "schema": 1,
+    "items": {
+      "a": {
+        "id": "a",
+        "nome": "Burro",
+        "updatedAt": 1796976000000
+      }
+    }
+  },
+  "now": 1800000000000,
+  "atteso": {
+    "scrivi": true,
+    "stato": {
+      "schema": 1,
+      "items": {
+        "b": {
+          "id": "b",
+          "nome": "Sale",
+          "updatedAt": 1796544000000
+        }
+      }
+    }
+  }
+}

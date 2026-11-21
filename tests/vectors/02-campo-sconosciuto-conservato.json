@@ -1,0 +1,71 @@
+{
+  "nome": "02-campo-sconosciuto-conservato",
+  "descrizione": "Campi sconosciuti dentro un elemento restano con l'elemento che vince.",
+  "local": {
+    "schema": 1,
+    "items": {
+      "a": {
+        "id": "a",
+        "nome": "Latte",
+        "qta": "2 l",
+        "cat": "dairy",
+        "ts": 1000,
+        "updatedAt": 2000,
+        "barcode": "0000000000000"
+      }
+    }
+  },
+  "remote": {
+    "schema": 1,
+    "items": {
+      "a": {
+        "id": "a",
+        "nome": "Latte",
+        "qta": "1 l",
+        "cat": "dairy",
+        "ts": 1000,
+        "updatedAt": 1500
+      },
+      "b": {
+        "id": "b",
+        "nome": "Pane",
+        "cat": "bakery",
+        "ts": 1200,
+        "updatedAt": 1200,
+        "fonte": {
+          "app": "altro-client",
+          "v": 3
+        }
+      }
+    }
+  },
+  "now": 1800000000000,
+  "atteso": {
+    "scrivi": true,
+    "stato": {
+      "schema": 1,
+      "items": {
+        "a": {
+          "id": "a",
+          "nome": "Latte",
+          "qta": "2 l",
+          "cat": "dairy",
+          "ts": 1000,
+          "updatedAt": 2000,
+          "barcode": "0000000000000"
+        },
+        "b": {
+          "id": "b",
+          "nome": "Pane",
+          "cat": "bakery",
+          "ts": 1200,
+          "updatedAt": 1200,
+          "fonte": {
+            "app": "altro-client",
+            "v": 3
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "nome": "04-parita-senza-by",
+  "descrizione": "Stesso updatedAt e nessun by: vince il JSON con le chiavi ordinate più alto.",
+  "local": {
+    "schema": 1,
+    "items": {
+      "a": {
+        "id": "a",
+        "nome": "Mele",
+        "qta": "1 kg",
+        "updatedAt": 4000
+      }
+    }
+  },
+  "remote": {
+    "schema": 1,
+    "items": {
+      "a": {
+        "id": "a",
+        "nome": "Mele",
+        "qta": "2 kg",
+        "updatedAt": 4000
+      }
+    }
+  },
+  "now": 1800000000000,
+  "atteso": {
+    "scrivi": true,
+    "stato": {
+      "schema": 1,
+      "items": {
+        "a": {
+          "id": "a",
+          "nome": "Mele",
+          "qta": "2 kg",
+          "updatedAt": 4000
+        }
+      }
+    }
+  }
+}

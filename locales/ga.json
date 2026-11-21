@@ -545,5 +545,7 @@
   "new.kapibo": "Labhraíonn Mochi le Kapibo: téann admhálacha a léann Kapibo isteach sa phantrach agus is féidir le siopadóireacht a chuirtear i gcóir dul isteach sa bhuiséad.",
   "best.partial": "Níor fhreagair roinnt foinsí: {msg}",
   "best.also": "Brabhsáil bileoga ar {site} freisin",
-  "new.bestv2": "“Aimsigh an praghas is fearr” níos cruinne: seiceálann sé bileoga na slabhraí in aice láimhe ceann ar cheann, comhbhailitheoirí bileog, siopaí ar líne agus Amazon, agus fágann sé formáidí eile ar lár (m.sh. táibléid nuair a lorgaíonn tú pónairí)."
+  "new.bestv2": "“Aimsigh an praghas is fearr” níos cruinne: seiceálann sé bileoga na slabhraí in aice láimhe ceann ar cheann, comhbhailitheoirí bileog, siopaí ar líne agus Amazon, agus fágann sé formáidí eile ar lár (m.sh. táibléid nuair a lorgaíonn tú pónairí).",
+  "sync.newer": "Liosta ó leagan níos nuaí: nuashonraigh an aip chun sábháil",
+  "new.syncformat": "Sioncronú níos láidre: ní chailltear sonraí ó aipeanna ná leaganacha eile a thuilleadh"
 }

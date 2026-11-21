@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi spricht mit Kapibo: von Kapibo gelesene Bons gehen in deinen Vorrat, und eingeräumter Einkauf kann in dein Budget.",
   "best.partial": "Einige Quellen haben nicht geantwortet: {msg}",
   "best.also": "Prospekte auch auf {site} ansehen",
-  "new.bestv2": "Genaueres „Besten Preis finden“: prüft die Prospekte der Ketten in der Nähe einzeln, Prospekt-Portale, Online-Supermärkte und Amazon und lässt andere Formate weg (z. B. Tabs, wenn du Pods suchst)."
+  "new.bestv2": "Genaueres „Besten Preis finden“: prüft die Prospekte der Ketten in der Nähe einzeln, Prospekt-Portale, Online-Supermärkte und Amazon und lässt andere Formate weg (z. B. Tabs, wenn du Pods suchst).",
+  "sync.newer": "Liste mit neuerer Version erstellt: aktualisiere die App zum Speichern",
+  "new.syncformat": "Robustere Synchronisierung: Daten anderer Apps und Versionen gehen nicht mehr verloren"
 }

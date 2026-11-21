@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi talks to Kapibo: receipts read by Kapibo go into your pantry and shopping you put away can go into your budget.",
   "best.partial": "Some sources didn't answer: {msg}",
   "best.also": "Also browse flyers on {site}",
-  "new.bestv2": "More precise “Find the best price”: it checks the flyers of nearby chains one by one, flyer aggregators, online grocery shops and Amazon, and drops other formats (e.g. tablets when you search pods)."
+  "new.bestv2": "More precise “Find the best price”: it checks the flyers of nearby chains one by one, flyer aggregators, online grocery shops and Amazon, and drops other formats (e.g. tablets when you search pods).",
+  "sync.newer": "List made with a newer version: update the app to save",
+  "new.syncformat": "Sturdier sync: data from other apps and versions is no longer lost"
 }

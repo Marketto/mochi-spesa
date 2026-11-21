@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi praat met Kapibo: bonnen gelezen door Kapibo gaan in je voorraad en opgeruimde boodschappen kunnen in je budget.",
   "best.partial": "Sommige bronnen gaven geen antwoord: {msg}",
   "best.also": "Bekijk ook folders op {site}",
-  "new.bestv2": "Preciezer „Beste prijs vinden”: bekijkt de folders van ketens in de buurt één voor één, folderportalen, online supermarkten en Amazon, en laat andere vormen weg (bv. tabletten als je pods zoekt)."
+  "new.bestv2": "Preciezer „Beste prijs vinden”: bekijkt de folders van ketens in de buurt één voor één, folderportalen, online supermarkten en Amazon, en laat andere vormen weg (bv. tabletten als je pods zoekt).",
+  "sync.newer": "Lijst gemaakt met een nieuwere versie: werk de app bij om op te slaan",
+  "new.syncformat": "Stevigere synchronisatie: gegevens van andere apps en versies gaan niet meer verloren"
 }

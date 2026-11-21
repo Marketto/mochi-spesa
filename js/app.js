@@ -1,6 +1,6 @@
 import { mountMochi, frase, MOCHI_SVG } from "./mascot.js";
-import { catOf, catId, iconOf, ORDER, parseAdd } from "./categories.js";
-import { emptyState, merge, normalize, same, live, uid } from "./store.js";
+import { catOf, catId, legacyCat, iconOf, ORDER, parseAdd } from "./categories.js";
+import { emptyState, merge, normalize, same, live, uid, stamp, canWrite } from "./store.js";
 import { t, setLang, detect, lang, locale, langName, LANGS } from "./i18n.js";
 import { APP_VERSION, POLICY_VERSION, CHANGELOG, novitaDopo } from "./version.js";
 import * as dbx from "./dropbox.js";
@@ -68,10 +68,13 @@ const setMe = patch => lsSet("mochi.me", { ...me(), ...patch });
 // ---------- stato ----------
 const hadState = localStorage.getItem("mochi.state") !== null;
 let state = normalize(lsGet("mochi.state", null) || emptyState());
-for (const it of Object.values(state.items)) it.cat = catId(it.cat); // migrazione 1.0 → 1.1
+for (const it of Object.values(state.items)) it.cat = legacyCat(it.cat); // migrazione 1.0 → 1.1
 const seen = new Set(live(state.items).map(i => i.id));
 const save = () => lsSet("mochi.state", state);
-function mutate(fn) { fn(state, Date.now()); save(); render(); scheduleSync(); }
+// id stabile del dispositivo: finisce nel campo "by" di ogni elemento modificato (spareggio nell'unione)
+const deviceId = lsGet("mochi.device", null) || (() => { const id = uid(); lsSet("mochi.device", id); return id; })();
+const BY = "phone:" + deviceId;
+function mutate(fn) { const now = Date.now(); fn(state, now); stamp(state, now, BY); save(); render(); scheduleSync(); }
 
 // ---------- mascotte, toast, effetti ----------
 const mochi = mountMochi($("#mascot"), $("#bubble"));
@@ -1623,11 +1626,13 @@ async function sync() {
     for (let attempt = 0; attempt < 4; attempt++) {
       const remote = await dbx.download(path);
       const remoteState = remote && remote.data ? normalize(remote.data) : null;
-      if (remoteState) for (const it of Object.values(remoteState.items)) it.cat = catId(it.cat);
+      if (remoteState) for (const it of Object.values(remoteState.items)) it.cat = legacyCat(it.cat);
       const merged = merge(state, remoteState);
+      // file scritto da una versione più nuova del formato: si legge e basta
+      const readOnly = !canWrite(merged);
       try {
-        if (!remoteState || !same(merged, remoteState)) rev = await dbx.upload(path, merged, remote && remote.rev);
-        else rev = remote.rev;
+        if (!readOnly && (!remoteState || !same(merged, remoteState))) rev = await dbx.upload(path, merged, remote && remote.rev);
+        else rev = remote ? remote.rev : rev;
       } catch (e) { if (e.code === "conflict") continue; throw e; }
       const before = state;
       state = merge(state, merged);
@@ -1640,7 +1645,8 @@ async function sync() {
           mochi.mood("wow"); mochi.say(frase("novita"));
         }
       }
-      syncSet("ok", "sync.ok", { time: new Date().toLocaleTimeString(locale(), { hour: "2-digit", minute: "2-digit" }) });
+      if (readOnly) syncSet("err", "sync.newer");
+      else syncSet("ok", "sync.ok", { time: new Date().toLocaleTimeString(locale(), { hour: "2-digit", minute: "2-digit" }) });
       break;
     }
   } catch (e) {
