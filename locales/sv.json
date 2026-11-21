@@ -570,5 +570,11 @@
   "new.flyers2": "Officiella reklamblad från dina butiker via länken till deras sida, och flera skärmbilder av reklamblad på en gång, även via ”Dela”.",
   "ch.ponte": "Adress till Cloudflare-bryggan",
   "ch.ponteHint": "Kopiera den från Cloudflare när du skapat Workern (slutar på .workers.dev). Räcker på en telefon: den delas med familjen.",
-  "new.ponte": "Bryggan för officiella reklamblad kan slås på utan token: skapa Workern på Cloudflare och klistra in adressen i inställningarna."
+  "new.ponte": "Bryggan för officiella reklamblad kan slås på utan token: skapa Workern på Cloudflare och klistra in adressen i inställningarna.",
+  "ch.ponteMake": "Skapa din egen brygga (gratis)",
+  "ch.ponteTest": "Testa",
+  "ch.ponteSteps": "Du behöver ett Cloudflare- och ett GitHub-konto, båda gratis. Tryck på knappen, logga in och bekräfta ”Deploy”: kopiera sedan hit adressen som slutar på .workers.dev och spara. Bryggan är din: den använder bara din gratiskvot.",
+  "ch.ponteOk": "Bryggan fungerar ✓",
+  "ch.ponteKo": "Bryggan svarar inte: {msg}",
+  "new.ponte2": "Enklare brygga för officiella reklamblad: en knapp skapar den gratis på ditt Cloudflare-konto och ”Testa” kontrollerar att den fungerar."
 }

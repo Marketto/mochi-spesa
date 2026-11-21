@@ -570,5 +570,11 @@
   "new.flyers2": "가게 페이지 링크로 공식 전단지를 읽고, 전단지 스크린샷 여러 장을 한 번에 읽어요('공유'로도 가능).",
   "ch.ponte": "Cloudflare 브리지 주소",
   "ch.ponteHint": "Worker를 만든 뒤 Cloudflare에서 복사하세요(.workers.dev로 끝나요). 휴대폰 한 대에만 입력하면 가족과 공유돼요.",
-  "new.ponte": "공식 전단지 브리지를 토큰 없이 켤 수 있어요: Cloudflare에서 Worker를 만들고 주소를 설정에 붙여넣으세요."
+  "new.ponte": "공식 전단지 브리지를 토큰 없이 켤 수 있어요: Cloudflare에서 Worker를 만들고 주소를 설정에 붙여넣으세요.",
+  "ch.ponteMake": "내 브리지 만들기 (무료)",
+  "ch.ponteTest": "테스트",
+  "ch.ponteSteps": "Cloudflare와 GitHub 계정이 필요해요(둘 다 무료). 버튼을 누르고 로그인한 뒤 'Deploy'를 확인하세요. 끝나면 .workers.dev로 끝나는 주소를 여기에 붙여넣고 저장하세요. 브리지는 내 것이라 내 무료 할당량만 써요.",
+  "ch.ponteOk": "브리지가 작동해요 ✓",
+  "ch.ponteKo": "브리지가 응답하지 않아요: {msg}",
+  "new.ponte2": "공식 전단지 브리지가 쉬워졌어요: 버튼 하나로 내 Cloudflare 계정에 무료로 만들고 '테스트'로 확인해요."
 }

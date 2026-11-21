@@ -570,5 +570,11 @@
   "new.flyers2": "Fuljetti uffiċjali tal-ħwienet tiegħek mil-link tal-paġna tagħhom, u diversi screenshots tal-fuljett flimkien, anke b'“Aqsam”.",
   "ch.ponte": "Indirizz tal-pont Cloudflare",
   "ch.ponteHint": "Ikkopjah minn Cloudflare wara li toħloq il-Worker (jispiċċa b'.workers.dev). Biżżejjed fuq telefon wieħed: jinqasam mal-familja.",
-  "new.ponte": "Il-pont għall-fuljetti uffiċjali jinxtegħel mingħajr token: oħloq il-Worker fuq Cloudflare u waħħal l-indirizz tiegħu fis-settings."
+  "new.ponte": "Il-pont għall-fuljetti uffiċjali jinxtegħel mingħajr token: oħloq il-Worker fuq Cloudflare u waħħal l-indirizz tiegħu fis-settings.",
+  "ch.ponteMake": "Oħloq il-pont tiegħek (b'xejn)",
+  "ch.ponteTest": "Ipprova",
+  "ch.ponteSteps": "Għandek bżonn kont Cloudflare u kont GitHub, it-tnejn b'xejn. Agħfas il-buttuna, idħol u kkonferma “Deploy”: imbagħad ikkopja hawn l-indirizz li jispiċċa b'.workers.dev u ssalva. Il-pont huwa tiegħek: juża biss il-kwota b'xejn tiegħek.",
+  "ch.ponteOk": "Il-pont jaħdem ✓",
+  "ch.ponteKo": "Il-pont mhux qed iwieġeb: {msg}",
+  "new.ponte2": "Pont aktar faċli għall-fuljetti uffiċjali: buttuna toħolqu b'xejn fuq il-kont Cloudflare tiegħek, u “Ipprova” jiċċekkja li jaħdem."
 }

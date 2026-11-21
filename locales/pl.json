@@ -570,5 +570,11 @@
   "new.flyers2": "Oficjalne gazetki Twoich sklepów z linku do ich strony oraz kilka zrzutów gazetki naraz, także przez „Udostępnij”.",
   "ch.ponte": "Adres mostu Cloudflare",
   "ch.ponteHint": "Skopiuj go z Cloudflare po utworzeniu Workera (kończy się na .workers.dev). Wystarczy wpisać na jednym telefonie: jest wspólny dla rodziny.",
-  "new.ponte": "Most do oficjalnych gazetek można włączyć bez tokenu: utwórz Workera w Cloudflare i wklej jego adres w ustawieniach."
+  "new.ponte": "Most do oficjalnych gazetek można włączyć bez tokenu: utwórz Workera w Cloudflare i wklej jego adres w ustawieniach.",
+  "ch.ponteMake": "Utwórz własny most (za darmo)",
+  "ch.ponteTest": "Sprawdź",
+  "ch.ponteSteps": "Potrzebne konto Cloudflare i GitHub, oba darmowe. Dotknij przycisku, zaloguj się i potwierdź „Deploy”: potem wklej tu adres kończący się na .workers.dev i zapisz. Most jest Twój: używa tylko Twojego darmowego limitu.",
+  "ch.ponteOk": "Most działa ✓",
+  "ch.ponteKo": "Most nie odpowiada: {msg}",
+  "new.ponte2": "Łatwiejszy most do oficjalnych gazetek: przycisk tworzy go za darmo na Twoim koncie Cloudflare, a „Sprawdź” testuje działanie."
 }

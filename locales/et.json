@@ -570,5 +570,11 @@
   "new.flyers2": "Sinu poodide ametlikud kampaanialehed nende lehe lingist ning mitu kampaanialehe ekraanipilti korraga, ka „Jaga” kaudu.",
   "ch.ponte": "Cloudflare'i silla aadress",
   "ch.ponteHint": "Kopeeri see Cloudflare'ist pärast Workeri loomist (lõpeb .workers.dev). Piisab ühest telefonist: seda jagatakse perega.",
-  "new.ponte": "Ametlike kampaanialehtede silla saab sisse lülitada ilma tokenita: loo Cloudflare'is Worker ja kleebi selle aadress seadetesse."
+  "new.ponte": "Ametlike kampaanialehtede silla saab sisse lülitada ilma tokenita: loo Cloudflare'is Worker ja kleebi selle aadress seadetesse.",
+  "ch.ponteMake": "Loo oma sild (tasuta)",
+  "ch.ponteTest": "Proovi",
+  "ch.ponteSteps": "Vaja on Cloudflare'i ja GitHubi kontot, mõlemad tasuta. Puuduta nuppu, logi sisse ja kinnita „Deploy”: seejärel kopeeri siia .workers.dev-ga lõppev aadress ja salvesta. Sild on sinu: kasutab ainult sinu tasuta kvooti.",
+  "ch.ponteOk": "Sild töötab ✓",
+  "ch.ponteKo": "Sild ei vasta: {msg}",
+  "new.ponte2": "Lihtsam sild ametlikele kampaanialehtedele: nupp loob selle tasuta sinu Cloudflare'i kontole ja „Proovi” kontrollib, kas töötab."
 }

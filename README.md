@@ -158,3 +158,12 @@ sw.js                 funzionamento offline
 ## Licenza
 
 MIT. Mochi è un personaggio originale di questo progetto. Le icone derivano da Phosphor Icons (MIT).
+
+### Ponte per i volantini ufficiali (facoltativo, gratis)
+
+Ognuno usa il proprio ponte e quindi la propria quota gratuita di Cloudflare (100.000 richieste al giorno):
+
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Marketto/mochi-spesa/tree/main/worker)
+
+Dopo il deploy, incolla l'indirizzo `https://…workers.dev` in Impostazioni → Le tue catene e tocca «Prova».
+Per renderlo privato, aggiungi al Worker la variabile `CHIAVE` e usa l'indirizzo `https://…workers.dev/?k=<CHIAVE>`.

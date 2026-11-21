@@ -1,0 +1,7 @@
+{
+  "name": "mochi-spesa-ponte",
+  "private": true,
+  "description": "Ponte di Mochi Spesa per i volantini ufficiali (Cloudflare Worker, piano gratuito)",
+  "scripts": { "deploy": "wrangler deploy" },
+  "devDependencies": { "wrangler": "^4" }
+}

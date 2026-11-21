@@ -570,5 +570,11 @@
   "new.flyers2": "Üzleteid hivatalos szórólapjai az oldaluk linkjéből, és egyszerre több szórólap-képernyőkép, a „Megosztás” menüből is.",
   "ch.ponte": "A Cloudflare-híd címe",
   "ch.ponteHint": "Másold ki a Cloudflare-ből a Worker létrehozása után (.workers.dev-re végződik). Elég egy telefonon megadni: a családdal megosztva.",
-  "new.ponte": "A hivatalos szórólapok hídja token nélkül is bekapcsolható: hozd létre a Workert a Cloudflare-en, és illeszd be a címét a beállításokba."
+  "new.ponte": "A hivatalos szórólapok hídja token nélkül is bekapcsolható: hozd létre a Workert a Cloudflare-en, és illeszd be a címét a beállításokba.",
+  "ch.ponteMake": "Saját híd létrehozása (ingyen)",
+  "ch.ponteTest": "Próba",
+  "ch.ponteSteps": "Cloudflare- és GitHub-fiók kell, mindkettő ingyenes. Koppints a gombra, jelentkezz be és erősítsd meg a „Deploy” gombbal: utána másold ide a .workers.dev-re végződő címet, és ments. A híd a tiéd: csak a saját ingyenes keretedet használja.",
+  "ch.ponteOk": "A híd működik ✓",
+  "ch.ponteKo": "A híd nem válaszol: {msg}",
+  "new.ponte2": "Egyszerűbb híd a hivatalos szórólapokhoz: egy gomb ingyen létrehozza a Cloudflare-fiókodban, a „Próba” ellenőrzi."
 }

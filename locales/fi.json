@@ -570,5 +570,11 @@
   "new.flyers2": "Kauppojesi viralliset mainokset niiden sivun linkistä ja useita mainoskuvakaappauksia kerralla, myös ”Jaa”-toiminnolla.",
   "ch.ponte": "Cloudflare-sillan osoite",
   "ch.ponteHint": "Kopioi se Cloudflaresta Workerin luomisen jälkeen (päättyy .workers.dev). Riittää yhdessä puhelimessa: se jaetaan perheen kanssa.",
-  "new.ponte": "Virallisten mainosten silta toimii ilman tunnusta: luo Worker Cloudflaressa ja liitä sen osoite asetuksiin."
+  "new.ponte": "Virallisten mainosten silta toimii ilman tunnusta: luo Worker Cloudflaressa ja liitä sen osoite asetuksiin.",
+  "ch.ponteMake": "Luo oma silta (ilmainen)",
+  "ch.ponteTest": "Testaa",
+  "ch.ponteSteps": "Tarvitset Cloudflare- ja GitHub-tilin, molemmat ilmaisia. Napauta painiketta, kirjaudu ja vahvista ”Deploy”: kopioi sitten tähän .workers.dev-päätteinen osoite ja tallenna. Silta on sinun: se käyttää vain omaa ilmaiskiintiötäsi.",
+  "ch.ponteOk": "Silta toimii ✓",
+  "ch.ponteKo": "Silta ei vastaa: {msg}",
+  "new.ponte2": "Helpompi silta virallisille mainoksille: painike luo sen ilmaiseksi Cloudflare-tilillesi, ja ”Testaa” tarkistaa toiminnan."
 }

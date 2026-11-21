@@ -570,5 +570,11 @@
   "new.flyers2": "お店のページのリンクから公式チラシを読み込み、チラシのスクショを複数まとめて読めるように（「共有」からも）。",
   "ch.ponte": "Cloudflare ブリッジのアドレス",
   "ch.ponteHint": "Worker を作成したあと Cloudflare からコピーしてね（.workers.dev で終わります）。1 台のスマホで入力すれば家族と共有されます。",
-  "new.ponte": "公式チラシ用のブリッジはトークンなしで使えます：Cloudflare で Worker を作り、アドレスを設定に貼り付けるだけ。"
+  "new.ponte": "公式チラシ用のブリッジはトークンなしで使えます：Cloudflare で Worker を作り、アドレスを設定に貼り付けるだけ。",
+  "ch.ponteMake": "自分のブリッジを作る（無料）",
+  "ch.ponteTest": "テスト",
+  "ch.ponteSteps": "Cloudflare と GitHub のアカウント（どちらも無料）が必要です。ボタンを押してログインし「Deploy」を確認。最後に .workers.dev で終わるアドレスをここに貼って保存してね。ブリッジはあなた専用で、あなたの無料枠だけを使います。",
+  "ch.ponteOk": "ブリッジは正常です ✓",
+  "ch.ponteKo": "ブリッジが応答しません：{msg}",
+  "new.ponte2": "公式チラシ用ブリッジがもっと簡単に：ボタンひとつで自分の Cloudflare アカウントに無料で作成、「テスト」で動作確認。"
 }

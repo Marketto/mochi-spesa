@@ -570,5 +570,11 @@
   "new.flyers2": "Volantini ufficiali dei tuoi negozi (Todis, Eurospin, MD, Conad…) dal link della loro pagina, e più screenshot di volantino letti insieme, anche con «Condividi».",
   "ch.ponte": "Indirizzo del ponte Cloudflare",
   "ch.ponteHint": "Lo copi da Cloudflare dopo aver creato il Worker (finisce con .workers.dev). Basta inserirlo su un telefono: viene condiviso con la famiglia.",
-  "new.ponte": "Il ponte per i volantini ufficiali si può attivare senza token: crei il Worker su Cloudflare e ne incolli l'indirizzo nelle impostazioni."
+  "new.ponte": "Il ponte per i volantini ufficiali si può attivare senza token: crei il Worker su Cloudflare e ne incolli l'indirizzo nelle impostazioni.",
+  "ch.ponteMake": "Crea il tuo ponte (gratis)",
+  "ch.ponteTest": "Prova",
+  "ch.ponteSteps": "Serve un account Cloudflare e uno GitHub, entrambi gratuiti. Tocca il pulsante, accedi e conferma «Deploy»: alla fine copia qui l'indirizzo che finisce con .workers.dev e salva. Il ponte è tuo: usa solo la tua quota gratuita.",
+  "ch.ponteOk": "Il ponte funziona ✓",
+  "ch.ponteKo": "Il ponte non risponde: {msg}",
+  "new.ponte2": "Ponte per i volantini ufficiali più facile: un pulsante lo crea gratis sul tuo account Cloudflare, e un tasto «Prova» controlla che funzioni."
 }

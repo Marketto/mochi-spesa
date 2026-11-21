@@ -570,5 +570,11 @@
   "new.flyers2": "Oficiální letáky tvých obchodů z odkazu na jejich stránku a více snímků letáku najednou, i přes „Sdílet“.",
   "ch.ponte": "Adresa mostu Cloudflare",
   "ch.ponteHint": "Zkopíruj ji z Cloudflare po vytvoření Workeru (končí na .workers.dev). Stačí ji zadat na jednom telefonu: sdílí se s rodinou.",
-  "new.ponte": "Most pro oficiální letáky jde zapnout bez tokenu: vytvoř Worker na Cloudflare a vlož jeho adresu do nastavení."
+  "new.ponte": "Most pro oficiální letáky jde zapnout bez tokenu: vytvoř Worker na Cloudflare a vlož jeho adresu do nastavení.",
+  "ch.ponteMake": "Vytvoř si vlastní most (zdarma)",
+  "ch.ponteTest": "Vyzkoušet",
+  "ch.ponteSteps": "Potřebuješ účet Cloudflare a GitHub, oba zdarma. Klepni na tlačítko, přihlas se a potvrď „Deploy“: pak sem zkopíruj adresu končící .workers.dev a ulož. Most je tvůj: používá jen tvůj bezplatný limit.",
+  "ch.ponteOk": "Most funguje ✓",
+  "ch.ponteKo": "Most neodpovídá: {msg}",
+  "new.ponte2": "Snazší most pro oficiální letáky: tlačítko ho zdarma vytvoří na tvém účtu Cloudflare a „Vyzkoušet“ ověří, že funguje."
 }
