@@ -12,6 +12,7 @@ import * as importer from "./importer.js";
 import * as op from "./openprices.js";
 import * as flyer from "./flyer.js";
 import * as chains from "./chains.js";
+import * as pricedb from "./pricedb.js";
 
 // ---------- utilità ----------
 const $ = s => document.querySelector(s);
@@ -725,8 +726,10 @@ const OP_CREDIT = () => `<p class="hint op-credit">${ic("info")} ${esc(t("free.c
 const oggiISO = () => new Date().toISOString().slice(0, 10);
 const shortDate = d => new Date(d + "T12:00").toLocaleDateString(locale(), { day: "numeric", month: "short" });
 function savedOptions(nome) {
-  return flyer.bestSaved(nome, live(state.prezzi)).map(x => ({ negozio: x.negozio, prezzo: x.prezzo, prezzoUnit: x.prezzoUnit, offerta: !!(x.validoFino && x.validoFino >= oggiISO()),
-    validoFino: x.validoFino ? shortDate(x.validoFino) : null, fonte: x.fonte || "", nota: t("fl.note", { date: shortDate(x.data) }) + (x.riga ? ` – ${x.riga}` : "") }));
+  const db = pricedb.recent(nome).map(x => ({ negozio: x.negozio || "?", prezzo: x.prezzo, prezzoUnit: x.prezzoUnit, offerta: !!(x.validoFino && x.validoFino >= oggiISO()),
+    validoFino: x.validoFino ? shortDate(x.validoFino) : null, fonte: x.fonte || "", nota: `${t("fl.note", { date: shortDate(x.data) })} – ${x.nome}` }));
+  return [...flyer.bestSaved(nome, live(state.prezzi)).map(x => ({ negozio: x.negozio, prezzo: x.prezzo, prezzoUnit: x.prezzoUnit, offerta: !!(x.validoFino && x.validoFino >= oggiISO()),
+    validoFino: x.validoFino ? shortDate(x.validoFino) : null, fonte: x.fonte || "", nota: t("fl.note", { date: shortDate(x.data) }) + (x.riga ? ` – ${x.riga}` : "") })), ...db];
 }
 /** Un'opzione per negozio: vince la prima (volantini salvati prima dei prezzi della community), poi dalla più economica. */
 function mergeOptions(opts) {
@@ -758,6 +761,7 @@ async function refreshChains({ manual = false } = {}) {
           try {
             const text = await flyer.readFlyer(await ch.pdf(PROXY, f), flyer.ocrLang(lang()), ev => { if (ev.step === "page") msg.textContent = `${t("ch.loading", { chain: ch.nome, name: f.nome })} ${t("fl.page", { page: ev.page, pages: ev.pages })}`; });
             cache[f.id] = { fine: f.fine, text: text.slice(0, 400000), f };
+            try { await ingestFlyer(text, { negozio: ch.nome, validoFino: f.fine, fonte: f.url }); } catch {}
             try { localStorage.setItem(FLY_TXT, JSON.stringify(cache)); } catch { delete cache[f.id]; }
           } catch { errori++; }
           mutate((s, now) => { s.volantini[f.id] = { id: f.id, catena: f.catena, nome: f.nome, fine: f.fine, url: f.url, letto: now, updatedAt: now }; });
@@ -794,6 +798,19 @@ function matchChainTexts() {
   return n;
 }
 $("#ch-refresh").addEventListener("click", () => refreshChains({ manual: true }));
+
+// tutti i prezzi di un volantino nel database locale (con l'IA se c'è una chiave, altrimenti a regole)
+async function ingestFlyer(text, { negozio, validoFino = "", fonte = "", origine = "volantino" }) {
+  let items = [];
+  if (ai.ready(false)) {
+    for (const part of pricedb.chunks(text).slice(0, 10)) {
+      try { items.push(...await ai.estraiPrezzi({ testo: part, lingua: langName() })); }
+      catch { items.push(...pricedb.guessAll(part)); }
+    }
+  } else items = pricedb.guessAll(text);
+  const oggi = oggiISO();
+  return pricedb.add(items.map(x => ({ ...x, negozio, validoFino, fonte, origine, data: oggi })));
+}
 
 // ---------- LEGGI UN VOLANTINO ----------
 const flyerNames = () => [...new Map([...live(state.monitor).map(m => m.nome), ...live(state.items).filter(i => !i.fatto).map(i => i.nome)]
@@ -845,6 +862,7 @@ $("#fl-file").addEventListener("change", async e => {
   finally { btn.disabled = false; btn.classList.remove("loading"); prog.hidden = true; }
   const found = flyer.findProducts(text, flyerNames());
   msg.textContent = "";
+  ingestFlyer(text, { negozio, validoFino: fino }).then(n => { if (n) { renderDb(); toast(t("db.saved", { n }), "store"); } }).catch(() => {});
   if (!found.length) { msg.textContent = t("fl.none"); mochi.mood("sleepy", 2000); mochi.say(frase("niente")); return; }
   mochi.mood("happy", 1500);
   const r = await sheet({
@@ -867,6 +885,37 @@ $("#fl-file").addEventListener("change", async e => {
   });
   toast(t("fl.saved", { n }), "save"); if (n) confetti();
 });
+
+// ---------- I MIEI PREZZI (database locale) ----------
+function renderDb() {
+  const list = pricedb.cached(), q = $("#db-q").value.trim();
+  $("#db-count").textContent = list.length ? "· " + t("db.count", { n: list.length }) : "";
+  $("#db-clear").hidden = !list.length;
+  $("#db-stores").innerHTML = [...new Set(list.map(r => r.negozio).filter(Boolean))].slice(0, 40).map(n => `<option value="${esc(n)}">`).join("");
+  if (!q) { $("#db-out").innerHTML = list.length ? "" : `<p class="hint">${esc(t("db.empty"))}</p>`; return; }
+  const rows = pricedb.search(q);
+  if (!rows.length) { $("#db-out").innerHTML = `<p class="hint">${esc(t("deals.none"))}</p>`; return; }
+  const best = pricedb.byStore(rows);
+  $("#db-out").innerHTML = `<ul class="db-best">${best.map(b => `<li><strong>${esc(b.negozio)}</strong> <span class="fl-p">${money(b.min.prezzo)}</span>
+      <span class="hint">${esc(b.min.nome)} · ${esc(shortDate(b.min.data))}${b.n > 1 ? ` · ${esc(t("db.history"))}: ${b.n}` : ""}</span></li>`).join("")}</ul>
+    <details class="adv"><summary>${esc(t("db.history"))} (${rows.length})</summary><ul class="db-list">${rows.slice(0, 60).map(r => `<li><span>${esc(r.nome)}</span>
+      <span class="hint">${esc(r.negozio || "?")} · ${esc(shortDate(r.data))}</span><span class="fl-p">${money(r.prezzo)}</span>
+      <button class="icon-btn" type="button" data-dbdel="${esc(r.id)}" aria-label="${esc(t("fl.remove", { name: r.nome, store: r.negozio || "?" }))}">${ic("delete")}</button></li>`).join("")}</ul></details>`;
+}
+let dbT; $("#db-q").addEventListener("input", () => { clearTimeout(dbT); dbT = setTimeout(renderDb, 200); });
+$("#db-out").addEventListener("click", async e => { const b = e.target.closest("[data-dbdel]"); if (!b) return; await pricedb.remove(b.dataset.dbdel); renderDb(); toast(t("pref.removed"), "delete"); });
+$("#f-db").addEventListener("submit", async e => {
+  e.preventDefault();
+  const n = await pricedb.add([{ nome: $("#db-nome").value, prezzo: num($("#db-prezzo").value), negozio: $("#db-negozio").value, origine: "manuale" }]);
+  if (!n) { toast(t("err.unreadable"), "warn"); return; }
+  $("#db-q").value = $("#db-nome").value; $("#db-nome").value = ""; $("#db-prezzo").value = "";
+  renderDb(); toast(t("db.saved", { n }), "save"); $("#db-nome").focus();
+});
+$("#db-clear").addEventListener("click", async () => {
+  if (!(await confirmDlg(t("db.clearConfirm"), t("db.clear"), "delete"))) return;
+  await pricedb.clear(); renderDb(); toast(t("db.cleared"), "delete");
+});
+pricedb.all().then(() => pricedb.prune()).then(renderDb).catch(() => {});
 
 // ---------- DOVE CONVIENE? ----------
 const prefOf = (prodotto, negozio) => live(state.preferenze).find(p => pantry.sameProduct(p.prodotto, prodotto) && pantry.norm(p.negozio) === pantry.norm(negozio));
@@ -1084,12 +1133,17 @@ $("#f-val").addEventListener("submit", async e => {
   e.preventDefault();
   const v = readVal(), btn = $("#val-ask"), out = $("#val-out");
   if (!v.testo) { out.innerHTML = `<p class="hint">${ic("info")} ${esc(t("rate.needWhat"))}</p>`; $("#val-testo").focus(); return; }
-  if (!ai.ready()) { out.innerHTML = `<p class="hint">${ic("key")} ${esc(t("deals.needKey"))}</p>`; return; }
+  const webOk = ai.ready(true), textOk = ai.ready(false);
+  if (!webOk && !textOk) { out.innerHTML = `<p class="hint">${ic("key")} ${esc(t("ai.none"))}</p>`; return; }
   btn.classList.add("loading"); btn.setAttribute("aria-busy", "true"); btn.disabled = true;
   out.innerHTML = `<p class="hint">${esc(t("rate.checking"))}</p>`;
   mochi.mood("wow", 0); mochi.say(frase("guardo"), 60000);
   try {
-    const esito = await ai.valuta({ ...v, offerte: state.offerte.list, valuta: currency(), luogo: state.settings.luogo, lingua: langName() });
+    const storico = pricedb.search(v.testo).slice(0, 30).map(r => ({ p: r.nome, n: r.negozio, prezzo: r.prezzo, u: r.prezzoUnit, d: r.data }));
+    let esito;
+    try { esito = webOk ? await ai.valuta({ ...v, offerte: state.offerte.list, valuta: currency(), luogo: state.settings.luogo, lingua: langName() }) : null; }
+    catch (e) { if (!textOk) throw e; }
+    if (!esito) esito = await ai.valutaOffline({ ...v, storico, valuta: currency(), lingua: langName() });
     mutate((s, now) => { const id = uid(); s.valutazioni[id] = { id, ...v, esito, da: me().nome, ts: now, updatedAt: now }; });
     out.innerHTML = `<p class="hint">${ic("ok")} ${esc(t("rate.done"))}</p>`;
     mochi.mood(esito.voto === "conveniente" ? "happy" : "wow", 2500);
@@ -1133,7 +1187,7 @@ function fillSettings() {
   $("#z-valuta").innerHTML = CURRENCIES.map(c => `<option value="${c}">${esc(names ? names.of(c) : c)} (${c})</option>`).join("");
   $("#z-valuta").value = currency();
   ai.setShared(state.settings.aiShared);
-  const a = ai.getCfg(); $("#ai-provider").value = a.provider; fillAi(a.provider);
+  renderAiKeys(); fillProviders();
   $("#dbx-off").hidden = !dbx.isConnected();
   $("#dbx-go-txt").textContent = t(dbx.isConnected() ? "dbx.reconnect" : "dbx.connect");
   $("#about-ver").textContent = t("about.version", { v: APP_VERSION });
@@ -1149,17 +1203,54 @@ async function changeLang(code) {
 $("#me-lang").addEventListener("change", async e => {
   e.stopPropagation(); await changeLang(e.target.value); toast(t("lang.changed"), "lang"); $("#me-lang").focus(); });
 $("#me-lang").addEventListener("input", e => e.stopPropagation());
-// servizio di ricerca: Claude o Mistral (ognuno con la sua chiave)
-function fillAi(provider) {
-  const a = ai.getCfg(provider, { local: true }), sh = state.settings.aiShared;
-  $("#ai-share").checked = !!(sh && sh.key && sh.key === a.key);
-  $("#ai-shared-msg").hidden = !(sh && sh.key && sh.provider === provider && !a.key);
-  $("#ai-key").value = a.key; $("#ai-model").value = a.model;
-  $("#ai-key").placeholder = provider === "mistral" ? "…" : "sk-ant-…";
-  $("#ai-hint").textContent = t(provider === "mistral" ? "ai.mistralHint" : "ai.hint");
-  $("#ai-link").href = provider === "mistral" ? "https://console.mistral.ai/api-keys" : "https://console.anthropic.com/settings/keys";
+// ---------- CHIAVI IA: più servizi e più chiavi, scelti in automatico ----------
+const mask = k => "•••• " + k.slice(-4);
+const until = ms => new Date(ms).toLocaleTimeString(locale(), { hour: "2-digit", minute: "2-digit" });
+function providerInfo(id) {
+  const P = ai.PROVIDERS[id];
+  return [t(P.free === "free" ? "ai.free" : P.free === "quota" ? "ai.freeQuota" : "ai.paid"), t(P.web ? "ai.web" : "ai.noweb")].join(" · ");
 }
-$("#ai-provider").addEventListener("change", e => fillAi(e.target.value));
+function renderAiKeys() {
+  const keys = ai.allKeys();
+  $("#ai-keys").innerHTML = keys.length ? keys.map(k => {
+    const P = ai.PROVIDERS[k.provider], c = ai.cooling(k), n = ai.usage(k);
+    return `<li class="ai-key${c ? " cool" : ""}"><span class="ai-n"><strong>${esc(P.nome)}</strong> <code>${esc(mask(k.key))}</code>${k.shared ? ` <small>${ic("heart")} ${esc(t("zone.shared"))}</small>` : ""}</span>
+      <span class="ai-b"><span class="badge${P.free === "paid" ? " gold" : ""}">${esc(providerInfo(k.provider))}</span></span>
+      <span class="ai-u hint">${esc(t("ai.usage", { n }))}${c ? ` · ${esc(t("ai.cooling", { time: until(c.until) }))}` : ""}</span>
+      ${k.shared ? "" : `<button class="icon-btn danger" type="button" data-aidel="${esc(k.id)}" aria-label="${esc(t("ai.removeKey", { name: P.nome }))}">${ic("delete")}</button>`}</li>`;
+  }).join("") : `<li class="hint">${ic("key")} ${esc(t("ai.none"))}</li>`;
+  const sh = state.settings.aiShared, mine = ai.localKeys();
+  $("#ai-share").checked = Array.isArray(sh) ? sh.length > 0 && mine.every(k => sh.some(x => x.key === k.key)) : !!(sh && sh.key);
+  $("#ai-share").disabled = !mine.length;
+}
+function fillProviders() {
+  const sel = $("#ai-provider"), cur = sel.value || "groq";
+  sel.innerHTML = Object.entries(ai.PROVIDERS).map(([id, P]) => `<option value="${id}">${esc(P.nome)} – ${esc(providerInfo(id))}</option>`).join("");
+  sel.value = cur; fillProvider();
+}
+function fillProvider() {
+  const id = $("#ai-provider").value, P = ai.PROVIDERS[id];
+  $("#ai-link").href = P.link;
+  $("#ai-model").placeholder = P.models.web || P.models.text;
+  $("#ai-pinfo").textContent = t("ai.p." + id);
+}
+$("#ai-provider").addEventListener("change", fillProvider);
+const shareKeys = on => mutate((s, now) => { s.settings = { ...s.settings, aiShared: on ? ai.localKeys().map(({ provider, key, model }) => ({ provider, key, model })) : null, updatedAt: now }; });
+$("#ai-add").addEventListener("click", () => {
+  const key = $("#ai-key").value.trim(); if (!key) { $("#ai-key").focus(); return; }
+  ai.addKey({ provider: $("#ai-provider").value, key, model: $("#ai-model").value });
+  $("#ai-key").value = ""; $("#ai-model").value = "";
+  if ($("#ai-share").checked) shareKeys(true);
+  renderAiKeys(); renderOfferte(); toast(t("common.saved"), "key"); $("#ai-add-box").open = false;
+});
+$("#ai-keys").addEventListener("click", e => {
+  const b = e.target.closest("[data-aidel]"); if (!b) return;
+  ai.removeKey(b.dataset.aidel);
+  if ($("#ai-share").checked) shareKeys(true);
+  renderAiKeys(); renderOfferte(); toast(t("pref.removed"), "delete");
+});
+$("#ai-share").addEventListener("change", e => { shareKeys(e.target.checked); toast(t("common.saved"), "heart"); });
+$("#me-lang").addEventListener("input", e => e.stopPropagation());
 // ---------- IMPOSTAZIONI: una sola barra Salva / Annulla ----------
 let settingsDirty = false;
 function setDirty(v) {
@@ -1181,9 +1272,6 @@ async function saveSettings() {
     setMe({ nome, anim: document.querySelector('input[name="anim"]:checked')?.value || "auto" });
     applyAnim();
     // chiave Claude (solo su questo telefono)
-    const aiCfg = { provider: $("#ai-provider").value, key: $("#ai-key").value.trim(), model: $("#ai-model").value.trim() };
-    ai.setCfg(aiCfg);
-    const aiShared = $("#ai-share").checked && aiCfg.key ? aiCfg : null;
     // zona e dispensa (condivisi)
     const luogo = $("#z-luogo").value.trim(), old = state.settings;
     let coords = luogo === old.luogo && old.lat != null ? { lat: old.lat, lon: old.lon } : { lat: null, lon: null };
@@ -1194,7 +1282,7 @@ async function saveSettings() {
     const ripiani = document.querySelector('input[name="lvdir"]:checked')?.value === "basso" ? "basso" : "alto";
     mutate((s, now) => {
       s.settings = { ...s.settings, luogo, raggioKm: +$("#z-raggio").value, negozi: $("#z-negozi").value.trim(), amazon: $("#z-amz").checked,
-        valuta: $("#z-valuta").value, ripiani, aiShared, catene: [...document.querySelectorAll('#z-chains-list input[name="catena"]:checked')].map(x => x.value), ...coords, updatedAt: now };
+        valuta: $("#z-valuta").value, ripiani, catene: [...document.querySelectorAll('#z-chains-list input[name="catena"]:checked')].map(x => x.value), ...coords, updatedAt: now };
     });
     setDirty(false); fillSettings(); render(); renderOfferte();
     toast(t("set.saved"), "save"); mochi.mood("happy"); mochi.say(nome ? t("phr.nice", { name: nome }) : frase("aggiunto"));
@@ -1383,13 +1471,14 @@ async function checkAway({ ask = false, modal = false } = {}) {
   $("#away-no").addEventListener("click", rifiuta);
 }
 $("#t-offerte").addEventListener("click", () => { checkAway(); refreshChains(); });
+$("#t-imp").addEventListener("click", () => renderAiKeys());
 
 // ---------- PRIVACY E CONDIZIONI ----------
 function legalHtml() {
   const sec = (icon, title, prefix, n) => `<h3>${ic(icon)} ${esc(t(title))}</h3><ul>${
     Array.from({ length: n }, (_, i) => `<li>${esc(t(`${prefix}${i + 1}`))}</li>`).join("")}</ul>`;
   return `<p class="hint">${esc(t("legal.updated", { date: new Date(POLICY_VERSION).toLocaleDateString(locale(), { dateStyle: "long" }) }))}</p>
-    ${sec("privacy", "legal.privacyTitle", "legal.p", 14)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
+    ${sec("privacy", "legal.privacyTitle", "legal.p", 15)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
 }
 function openLegal() { $("#legal-body").innerHTML = legalHtml(); $("#legal").showModal(); }
 
