@@ -481,5 +481,15 @@
   "db.saved": "已保存价格：{n}",
   "db.history": "历史记录",
   "new.multikey": "支持多个 AI 密钥，也包括免费的（Groq、Qwen、OpenRouter、SiliconFlow）：麻糬为每项任务选择最合适的。",
-  "new.pricedb": "「我的价格」：把读取过的促销单中的所有价格存进手机里的可搜索数据库。"
+  "new.pricedb": "「我的价格」：把读取过的促销单中的所有价格存进手机里的可搜索数据库。",
+  "zone.shopsHint": "从 {km} 公里内的商店中勾选你常去的。",
+  "zone.shopsLoading": "正在查找附近商店…",
+  "zone.shopsNeedZone": "设置区域并保存后，这里会显示附近的商店。",
+  "zone.shopsNone": "{km} 公里内没有找到商店：试试更大的范围。",
+  "zone.shopsFail": "无法加载商店：请稍后再试。",
+  "zone.shopsMore": "再显示 {n} 个",
+  "zone.shopsCount": "{n} 家 · {km} 公里",
+  "zone.osm": "商店列表来自 OpenStreetMap（© OpenStreetMap 贡献者）",
+  "legal.p16": "为显示附近商店，区域的中心点（已取整）和半径会发送到 OpenStreetMap（Overpass API）。列表在手机上保存 7 天。",
+  "new.nearshops": "常去商店不用手打：直接从设置范围内的商店中选择。"
 }

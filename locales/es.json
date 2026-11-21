@@ -481,5 +481,15 @@
   "db.saved": "Precios guardados: {n}",
   "db.history": "Historial",
   "new.multikey": "Varias claves de IA, también gratuitas (Groq, Qwen, OpenRouter, SiliconFlow): Mochi elige la mejor para cada tarea.",
-  "new.pricedb": "«Mis precios»: todos los precios de los folletos que lees en una base de datos en el móvil, con búsqueda."
+  "new.pricedb": "«Mis precios»: todos los precios de los folletos que lees en una base de datos en el móvil, con búsqueda.",
+  "zone.shopsHint": "Marca tus favoritos entre las tiendas a menos de {km} km.",
+  "zone.shopsLoading": "Buscando tiendas cerca…",
+  "zone.shopsNeedZone": "Configura la zona y guarda: aquí aparecerán las tiendas cercanas.",
+  "zone.shopsNone": "No hay tiendas a menos de {km} km: prueba un radio mayor.",
+  "zone.shopsFail": "No se pueden cargar las tiendas: inténtalo más tarde.",
+  "zone.shopsMore": "Mostrar {n} más",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Lista de tiendas de OpenStreetMap (© colaboradores de OpenStreetMap)",
+  "legal.p16": "Para mostrar las tiendas cercanas, el centro (redondeado) de tu zona y el radio se envían a OpenStreetMap (Overpass API). La lista se guarda en el móvil 7 días.",
+  "new.nearshops": "Tiendas favoritas sin escribir: elígelas de la lista de tiendas en tu radio."
 }

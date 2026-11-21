@@ -481,5 +481,15 @@
   "db.saved": "Mentett árak: {n}",
   "db.history": "Előzmények",
   "new.multikey": "Több MI-kulcs, ingyenesek is (Groq, Qwen, OpenRouter, SiliconFlow): Mochi minden feladathoz a legjobbat választja.",
-  "new.pricedb": "„Saját árak”: a beolvasott szórólapok összes ára kereshető adatbázisban a telefonon."
+  "new.pricedb": "„Saját árak”: a beolvasott szórólapok összes ára kereshető adatbázisban a telefonon.",
+  "zone.shopsHint": "Jelöld be a kedvenceidet a {km} km-en belüli üzletek közül.",
+  "zone.shopsLoading": "Üzleteket keresek a közelben…",
+  "zone.shopsNeedZone": "Add meg a környéket és ments: itt jelennek meg a közeli üzletek.",
+  "zone.shopsNone": "{km} km-en belül nincs üzlet: próbálj nagyobb sugarat.",
+  "zone.shopsFail": "Nem tudom betölteni az üzleteket: próbáld később.",
+  "zone.shopsMore": "Még {n} mutatása",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Üzletlista az OpenStreetMapből (© OpenStreetMap közreműködők)",
+  "legal.p16": "A közeli üzletek megjelenítéséhez a környék (kerekített) középpontja és a sugár az OpenStreetMaphez (Overpass API) kerül. A lista 7 napig a telefonon marad.",
+  "new.nearshops": "Kedvenc üzletek gépelés nélkül: válassz a sugáron belüli üzletek közül."
 }

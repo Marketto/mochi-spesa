@@ -481,5 +481,15 @@
   "db.saved": "Prețuri salvate: {n}",
   "db.history": "Istoric",
   "new.multikey": "Mai multe chei IA, și gratuite (Groq, Qwen, OpenRouter, SiliconFlow): Mochi alege cea mai bună pentru fiecare sarcină.",
-  "new.pricedb": "„Prețurile mele”: toate prețurile din cataloagele citite într-o bază de date pe telefon, cu căutare."
+  "new.pricedb": "„Prețurile mele”: toate prețurile din cataloagele citite într-o bază de date pe telefon, cu căutare.",
+  "zone.shopsHint": "Bifează preferatele dintre magazinele pe o rază de {km} km.",
+  "zone.shopsLoading": "Caut magazine în apropiere…",
+  "zone.shopsNeedZone": "Setează zona și salvează: aici vor apărea magazinele apropiate.",
+  "zone.shopsNone": "Niciun magazin pe o rază de {km} km: încearcă o rază mai mare.",
+  "zone.shopsFail": "Nu pot încărca magazinele: încearcă mai târziu.",
+  "zone.shopsMore": "Arată încă {n}",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Listă de magazine din OpenStreetMap (© contribuitorii OpenStreetMap)",
+  "legal.p16": "Pentru a arăta magazinele apropiate, centrul (rotunjit) al zonei și raza sunt trimise la OpenStreetMap (Overpass API). Lista rămâne pe telefon 7 zile.",
+  "new.nearshops": "Magazine preferate fără să scrii: alege din lista magazinelor din raza ta."
 }

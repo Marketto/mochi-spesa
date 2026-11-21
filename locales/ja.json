@@ -481,5 +481,15 @@
   "db.saved": "保存した価格：{n}",
   "db.history": "履歴",
   "new.multikey": "複数の AI キーに対応、無料も（Groq、Qwen、OpenRouter、SiliconFlow）：もちっ子がタスクごとに最適なものを選びます。",
-  "new.pricedb": "「マイ価格」：読んだチラシのすべての価格をスマホ内の検索できるデータベースに。"
+  "new.pricedb": "「マイ価格」：読んだチラシのすべての価格をスマホ内の検索できるデータベースに。",
+  "zone.shopsHint": "{km} km 以内のお店からお気に入りを選んでね。",
+  "zone.shopsLoading": "近くのお店を探しています…",
+  "zone.shopsNeedZone": "エリアを設定して保存すると、近くのお店がここに出ます。",
+  "zone.shopsNone": "{km} km 以内にお店が見つかりません：範囲を広げてみてね。",
+  "zone.shopsFail": "お店を読み込めません：あとで試してね。",
+  "zone.shopsMore": "あと {n} 件表示",
+  "zone.shopsCount": "{n} 店 · {km} km",
+  "zone.osm": "お店のリストは OpenStreetMap より（© OpenStreetMap 貢献者）",
+  "legal.p16": "近くのお店を表示するため、エリアの中心（丸めた値）と範囲を OpenStreetMap（Overpass API）に送ります。リストはスマホに 7 日間保存されます。",
+  "new.nearshops": "お気に入りのお店を入力なしで：設定した範囲のお店から選べます。"
 }

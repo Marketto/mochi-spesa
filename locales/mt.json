@@ -481,5 +481,15 @@
   "db.saved": "Prezzijiet salvati: {n}",
   "db.history": "Storja",
   "new.multikey": "Diversi ċwievet tal-IA, anke b'xejn (Groq, Qwen, OpenRouter, SiliconFlow): Mochi jagħżel l-aħjar għal kull kompitu.",
-  "new.pricedb": "“Il-prezzijiet tiegħi”: il-prezzijiet kollha tal-fuljetti li taqra f'database fuq it-telefon, bit-tfittxija."
+  "new.pricedb": "“Il-prezzijiet tiegħi”: il-prezzijiet kollha tal-fuljetti li taqra f'database fuq it-telefon, bit-tfittxija.",
+  "zone.shopsHint": "Immarka l-favoriti tiegħek fost il-ħwienet sa {km} km.",
+  "zone.shopsLoading": "Qed infittex ħwienet fil-qrib…",
+  "zone.shopsNeedZone": "Issettja ż-żona u ssalva: hawn jidhru l-ħwienet fil-qrib.",
+  "zone.shopsNone": "L-ebda ħanut sa {km} km: ipprova raġġ akbar.",
+  "zone.shopsFail": "Ma nistax intella' l-ħwienet: erġa' pprova aktar tard.",
+  "zone.shopsMore": "Uri {n} oħra",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Lista ta' ħwienet minn OpenStreetMap (© kontributuri ta' OpenStreetMap)",
+  "legal.p16": "Biex jintwerew il-ħwienet fil-qrib, iċ-ċentru (arrotondat) taż-żona u r-raġġ jintbagħtu lil OpenStreetMap (Overpass API). Il-lista tibqa' fuq it-telefon għal 7 ijiem.",
+  "new.nearshops": "Ħwienet favoriti mingħajr ma tikteb: agħżel mil-lista tal-ħwienet fir-raġġ tiegħek."
 }

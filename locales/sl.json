@@ -481,5 +481,15 @@
   "db.saved": "Shranjene cene: {n}",
   "db.history": "Zgodovina",
   "new.multikey": "Več ključev UI, tudi brezplačnih (Groq, Qwen, OpenRouter, SiliconFlow): Mochi za vsako nalogo izbere najboljšega.",
-  "new.pricedb": "»Moje cene«: vse cene iz prebranih letakov v podatkovni bazi na telefonu, z iskanjem."
+  "new.pricedb": "»Moje cene«: vse cene iz prebranih letakov v podatkovni bazi na telefonu, z iskanjem.",
+  "zone.shopsHint": "Označi priljubljene med trgovinami do {km} km.",
+  "zone.shopsLoading": "Iščem trgovine v bližini…",
+  "zone.shopsNeedZone": "Nastavi območje in shrani: tu se bodo prikazale bližnje trgovine.",
+  "zone.shopsNone": "Do {km} km ni trgovin: poskusi večji polmer.",
+  "zone.shopsFail": "Trgovin ni mogoče naložiti: poskusi pozneje.",
+  "zone.shopsMore": "Pokaži še {n}",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Seznam trgovin iz OpenStreetMap (© sodelavci OpenStreetMap)",
+  "legal.p16": "Za prikaz bližnjih trgovin se (zaokroženo) središče območja in polmer pošljeta OpenStreetMap (Overpass API). Seznam ostane na telefonu 7 dni.",
+  "new.nearshops": "Priljubljene trgovine brez tipkanja: izberi s seznama trgovin v tvojem polmeru."
 }

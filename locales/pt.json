@@ -481,5 +481,15 @@
   "db.saved": "Preços guardados: {n}",
   "db.history": "Histórico",
   "new.multikey": "Várias chaves de IA, também gratuitas (Groq, Qwen, OpenRouter, SiliconFlow): o Mochi escolhe a melhor para cada tarefa.",
-  "new.pricedb": "«Os meus preços»: todos os preços dos folhetos que lês numa base de dados no telemóvel, com pesquisa."
+  "new.pricedb": "«Os meus preços»: todos os preços dos folhetos que lês numa base de dados no telemóvel, com pesquisa.",
+  "zone.shopsHint": "Marca os teus favoritos entre as lojas a menos de {km} km.",
+  "zone.shopsLoading": "A procurar lojas perto…",
+  "zone.shopsNeedZone": "Define a zona e guarda: aqui aparecem as lojas próximas.",
+  "zone.shopsNone": "Nenhuma loja a menos de {km} km: tenta um raio maior.",
+  "zone.shopsFail": "Não foi possível carregar as lojas: tenta mais tarde.",
+  "zone.shopsMore": "Mostrar mais {n}",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Lista de lojas do OpenStreetMap (© colaboradores do OpenStreetMap)",
+  "legal.p16": "Para mostrar as lojas próximas, o centro (arredondado) da tua zona e o raio são enviados ao OpenStreetMap (Overpass API). A lista fica no telemóvel 7 dias.",
+  "new.nearshops": "Lojas favoritas sem escrever: escolhe da lista de lojas no teu raio."
 }

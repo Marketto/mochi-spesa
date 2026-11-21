@@ -481,5 +481,15 @@
   "db.saved": "Išsaugota kainų: {n}",
   "db.history": "Istorija",
   "new.multikey": "Keli DI raktai, ir nemokami (Groq, Qwen, OpenRouter, SiliconFlow): Moči kiekvienai užduočiai pasirenka geriausią.",
-  "new.pricedb": "„Mano kainos“: visos skaitytų leidinių kainos ieškomoje duomenų bazėje telefone."
+  "new.pricedb": "„Mano kainos“: visos skaitytų leidinių kainos ieškomoje duomenų bazėje telefone.",
+  "zone.shopsHint": "Pažymėkite mėgstamas parduotuves {km} km spinduliu.",
+  "zone.shopsLoading": "Ieškau parduotuvių netoliese…",
+  "zone.shopsNeedZone": "Nustatykite apylinkę ir išsaugokite: čia atsiras netoliese esančios parduotuvės.",
+  "zone.shopsNone": "{km} km spinduliu parduotuvių nėra: išbandykite didesnį spindulį.",
+  "zone.shopsFail": "Nepavyksta įkelti parduotuvių: bandykite vėliau.",
+  "zone.shopsMore": "Rodyti dar {n}",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Parduotuvių sąrašas iš OpenStreetMap (© OpenStreetMap bendraautoriai)",
+  "legal.p16": "Kad būtų rodomos netoliese esančios parduotuvės, apylinkės (suapvalintas) centras ir spindulys siunčiami į OpenStreetMap (Overpass API). Sąrašas telefone lieka 7 dienas.",
+  "new.nearshops": "Mėgstamos parduotuvės be rašymo: rinkitės iš parduotuvių jūsų spinduliu."
 }

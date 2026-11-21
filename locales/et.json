@@ -481,5 +481,15 @@
   "db.saved": "Salvestatud hindu: {n}",
   "db.history": "Ajalugu",
   "new.multikey": "Mitu tehisaru võtit, ka tasuta (Groq, Qwen, OpenRouter, SiliconFlow): Mochi valib igaks ülesandeks parima.",
-  "new.pricedb": "„Minu hinnad”: kõik loetud lehtede hinnad otsitavas andmebaasis telefonis."
+  "new.pricedb": "„Minu hinnad”: kõik loetud lehtede hinnad otsitavas andmebaasis telefonis.",
+  "zone.shopsHint": "Märgi lemmikud poodide seast {km} km raadiuses.",
+  "zone.shopsLoading": "Otsin lähedal poode…",
+  "zone.shopsNeedZone": "Määra piirkond ja salvesta: siis ilmuvad siia lähedal olevad poed.",
+  "zone.shopsNone": "{km} km raadiuses poode pole: proovi suuremat raadiust.",
+  "zone.shopsFail": "Poode ei õnnestu laadida: proovi hiljem.",
+  "zone.shopsMore": "Näita veel {n}",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Poodide nimekiri OpenStreetMapist (© OpenStreetMapi kaastöötajad)",
+  "legal.p16": "Lähedal olevate poodide näitamiseks saadetakse piirkonna (ümardatud) keskpunkt ja raadius OpenStreetMapi (Overpass API). Nimekiri jääb telefoni 7 päevaks.",
+  "new.nearshops": "Lemmikpoed ilma trükkimata: vali oma raadiuse poodide seast."
 }

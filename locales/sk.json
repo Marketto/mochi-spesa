@@ -481,5 +481,15 @@
   "db.saved": "Uložené ceny: {n}",
   "db.history": "História",
   "new.multikey": "Viac kľúčov AI, aj bezplatných (Groq, Qwen, OpenRouter, SiliconFlow): Mochi vyberie najlepší pre každú úlohu.",
-  "new.pricedb": "„Moje ceny“: všetky ceny z prečítaných letákov v databáze v telefóne, s vyhľadávaním."
+  "new.pricedb": "„Moje ceny“: všetky ceny z prečítaných letákov v databáze v telefóne, s vyhľadávaním.",
+  "zone.shopsHint": "Zaškrtni obľúbené z obchodov do {km} km.",
+  "zone.shopsLoading": "Hľadám obchody v okolí…",
+  "zone.shopsNeedZone": "Nastav oblasť a ulož: potom sa tu ukážu obchody v okolí.",
+  "zone.shopsNone": "Do {km} km žiadne obchody: skús väčší okruh.",
+  "zone.shopsFail": "Obchody sa nedajú načítať: skús to neskôr.",
+  "zone.shopsMore": "Zobraziť ďalších {n}",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Zoznam obchodov z OpenStreetMap (© prispievatelia OpenStreetMap)",
+  "legal.p16": "Na zobrazenie obchodov v okolí sa (zaokrúhlený) stred oblasti a okruh posielajú do OpenStreetMap (Overpass API). Zoznam zostane v telefóne 7 dní.",
+  "new.nearshops": "Obľúbené obchody bez písania: vyber zo zoznamu obchodov v tvojom okruhu."
 }

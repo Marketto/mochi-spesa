@@ -481,5 +481,15 @@
   "db.saved": "Zapisane ceny: {n}",
   "db.history": "Historia",
   "new.multikey": "Kilka kluczy AI, także darmowych (Groq, Qwen, OpenRouter, SiliconFlow): Mochi wybiera najlepszy do każdego zadania.",
-  "new.pricedb": "„Moje ceny”: wszystkie ceny z czytanych gazetek w bazie danych na telefonie, z wyszukiwaniem."
+  "new.pricedb": "„Moje ceny”: wszystkie ceny z czytanych gazetek w bazie danych na telefonie, z wyszukiwaniem.",
+  "zone.shopsHint": "Zaznacz ulubione spośród sklepów w promieniu {km} km.",
+  "zone.shopsLoading": "Szukam sklepów w okolicy…",
+  "zone.shopsNeedZone": "Ustaw okolicę i zapisz: tu pojawią się pobliskie sklepy.",
+  "zone.shopsNone": "Brak sklepów w promieniu {km} km: spróbuj większego promienia.",
+  "zone.shopsFail": "Nie mogę wczytać sklepów: spróbuj później.",
+  "zone.shopsMore": "Pokaż jeszcze {n}",
+  "zone.shopsCount": "{n} · {km} km",
+  "zone.osm": "Lista sklepów z OpenStreetMap (© współtwórcy OpenStreetMap)",
+  "legal.p16": "Aby pokazać pobliskie sklepy, (zaokrąglony) środek okolicy i promień są wysyłane do OpenStreetMap (Overpass API). Lista zostaje na telefonie 7 dni.",
+  "new.nearshops": "Ulubione sklepy bez pisania: wybierz z listy sklepów w Twoim promieniu."
 }

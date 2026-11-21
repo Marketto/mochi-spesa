@@ -135,6 +135,7 @@ js/openprices.js      prezzi gratuiti della community (Open Food Facts – Open 
 js/flyer.js           lettura volantini (OCR con tesseract.js, PDF con pdf.js) e storico prezzi
 js/chains.js          catene supportate (adattatori) per i volantini ufficiali
 js/pricedb.js         «I miei prezzi»: database locale (IndexedDB)
+js/shops.js           negozi nel raggio da OpenStreetMap (Overpass API) per i preferiti
 js/claude.js          servizi IA, chiavi multiple e scelta automatica
 worker/               ponte Cloudflare (solo siti ufficiali, nessun salvataggio)
 js/geo.js             posizione, distanza da casa, indirizzi con OpenStreetMap

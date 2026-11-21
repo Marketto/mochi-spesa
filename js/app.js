@@ -13,6 +13,7 @@ import * as op from "./openprices.js";
 import * as flyer from "./flyer.js";
 import * as chains from "./chains.js";
 import * as pricedb from "./pricedb.js";
+import * as shops from "./shops.js";
 
 // ---------- utilità ----------
 const $ = s => document.querySelector(s);
@@ -1179,7 +1180,7 @@ function fillSettings() {
   const s = state.settings;
   $("#z-luogo").value = s.luogo || ""; $("#z-raggio").value = s.raggioKm || 5; $("#z-raggio-v").textContent = s.raggioKm || 5;
   for (const r of document.querySelectorAll('input[name="lvdir"]')) r.checked = r.value === (s.ripiani === "basso" ? "basso" : "alto");
-  $("#z-negozi").value = s.negozi || "";
+  pickedShops = splitShops(s.negozi); shopsAll = false; loadShops();
   const scelte = new Set(s.catene || []);
   $("#z-chains-list").innerHTML = PROXY ? chains.chainList().map(c => `<label class="check"><input type="checkbox" name="catena" value="${c.id}"${scelte.has(c.id) ? " checked" : ""}> ${esc(c.nome)}${c.nazionale ? ` <small>· ${esc(t("ch.national"))}</small>` : ""}</label>`).join("") : "";
   $("#z-chains-hint").textContent = t(PROXY ? "ch.hint" : "ch.none"); $("#z-amz").checked = s.amazon !== false;
@@ -1203,6 +1204,40 @@ async function changeLang(code) {
 $("#me-lang").addEventListener("change", async e => {
   e.stopPropagation(); await changeLang(e.target.value); toast(t("lang.changed"), "lang"); $("#me-lang").focus(); });
 $("#me-lang").addEventListener("input", e => e.stopPropagation());
+// ---------- NEGOZI PREFERITI (dalla zona, OpenStreetMap) ----------
+const splitShops = v => String(v || "").split(",").map(x => x.trim()).filter(Boolean);
+let pickedShops = [], nearShops = [], shopsAll = false, shopsCtl = null;
+const checkedShops = () => [...document.querySelectorAll('#z-shops-list input[name="negozio"]:checked')].map(x => x.value);
+const kmFmt = km => km == null ? "" : km.toLocaleString(locale(), { maximumFractionDigits: 1 });
+function renderShops() {
+  const box = $("#z-shops-list");
+  const sel = box.childElementCount ? checkedShops() : pickedShops; // non perdere le spunte non salvate
+  const extra = sel.filter(n => !nearShops.some(g => shops.sameShop(g.nome, n))).map(nome => ({ nome, n: 0, km: null }));
+  const all = [...extra, ...nearShops];
+  const isSel = n => sel.some(x => shops.sameShop(x, n));
+  const ord = [...all.filter(g => isSel(g.nome)), ...all.filter(g => !isSel(g.nome))];
+  const MAX = 24, show = shopsAll ? ord : ord.slice(0, Math.max(MAX, all.filter(g => isSel(g.nome)).length));
+  box.innerHTML = show.map(g => `<label><input type="checkbox" name="negozio" value="${esc(g.nome)}"${isSel(g.nome) ? " checked" : ""}> ${esc(g.nome)}${g.n ? ` <small>${esc(t("zone.shopsCount", { n: g.n, km: kmFmt(g.km) }))}</small>` : ""}</label>`).join("");
+  const more = $("#z-shops-more"); more.hidden = show.length >= ord.length;
+  more.textContent = t("zone.shopsMore", { n: ord.length - show.length });
+}
+async function loadShops() {
+  const s = state.settings, msg = $("#z-shops-msg");
+  nearShops = []; renderShops();
+  if (s.lat == null || s.lon == null) { msg.textContent = t("zone.shopsNeedZone"); return; }
+  const km = +$("#z-raggio").value || s.raggioKm || 5;
+  if (shopsCtl) shopsCtl.abort(); const ctl = shopsCtl = new AbortController();
+  msg.textContent = t("zone.shopsLoading");
+  try {
+    nearShops = await shops.nearby({ lat: s.lat, lon: s.lon, raggioKm: km }, { signal: ctl.signal });
+    if (ctl !== shopsCtl) return;
+    msg.textContent = nearShops.length ? t("zone.shopsHint", { km }) : t("zone.shopsNone", { km });
+  } catch (e) { if (e.name === "AbortError") return; msg.textContent = t("zone.shopsFail"); }
+  renderShops();
+}
+$("#z-shops-more").addEventListener("click", () => { shopsAll = true; renderShops(); $("#z-shops-list label:last-child input")?.focus(); });
+let shopsTimer; $("#z-raggio").addEventListener("change", () => { clearTimeout(shopsTimer); shopsTimer = setTimeout(loadShops, 400); });
+
 // ---------- CHIAVI IA: più servizi e più chiavi, scelti in automatico ----------
 const mask = k => "•••• " + k.slice(-4);
 const until = ms => new Date(ms).toLocaleTimeString(locale(), { hour: "2-digit", minute: "2-digit" });
@@ -1281,7 +1316,7 @@ async function saveSettings() {
     }
     const ripiani = document.querySelector('input[name="lvdir"]:checked')?.value === "basso" ? "basso" : "alto";
     mutate((s, now) => {
-      s.settings = { ...s.settings, luogo, raggioKm: +$("#z-raggio").value, negozi: $("#z-negozi").value.trim(), amazon: $("#z-amz").checked,
+      s.settings = { ...s.settings, luogo, raggioKm: +$("#z-raggio").value, negozi: checkedShops().join(", "), amazon: $("#z-amz").checked,
         valuta: $("#z-valuta").value, ripiani, catene: [...document.querySelectorAll('#z-chains-list input[name="catena"]:checked')].map(x => x.value), ...coords, updatedAt: now };
     });
     setDirty(false); fillSettings(); render(); renderOfferte();
@@ -1478,7 +1513,7 @@ function legalHtml() {
   const sec = (icon, title, prefix, n) => `<h3>${ic(icon)} ${esc(t(title))}</h3><ul>${
     Array.from({ length: n }, (_, i) => `<li>${esc(t(`${prefix}${i + 1}`))}</li>`).join("")}</ul>`;
   return `<p class="hint">${esc(t("legal.updated", { date: new Date(POLICY_VERSION).toLocaleDateString(locale(), { dateStyle: "long" }) }))}</p>
-    ${sec("privacy", "legal.privacyTitle", "legal.p", 15)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
+    ${sec("privacy", "legal.privacyTitle", "legal.p", 16)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
 }
 function openLegal() { $("#legal-body").innerHTML = legalHtml(); $("#legal").showModal(); }
 
