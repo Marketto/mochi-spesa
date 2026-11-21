@@ -16,6 +16,7 @@ import * as pricedb from "./pricedb.js";
 import * as shops from "./shops.js";
 import { amazonSearch, isAmazon } from "./amazon.js";
 import * as best from "./best.js";
+import * as bridge from "./bridge.js";
 
 // ---------- utilità ----------
 const $ = s => document.querySelector(s);
@@ -489,7 +490,66 @@ async function putAway() {
   homeAsked = true; $("#home-card").innerHTML = "";
   confetti(); mochi.mood("happy", 2500); mochi.say(frase("pulito"));
   toast(t("pantry.putAwayDone", { n: da.length }), "home");
+  if (bridge.installed("kapibo")) setTimeout(() => sendToKapibo(da), 1800);
 }
+
+// ---------- KAPIBO (stesso dominio, nessun server) ----------
+// Preferenza per dispositivo: "ask" (chiedi ogni volta), "always", "never".
+const kapMode = () => lsGet("mochi.kapibo", "ask");
+const KAP_BTNS = ok => [{ value: "yes", label: ok, icon: "ok", primary: true }, { value: "no", label: t("kapibo.no"), icon: "close" }, { value: "never", label: t("kapibo.never"), icon: "unwatch" }];
+function kapNever() { lsSet("mochi.kapibo", "never"); toast(t("kapibo.neverToast"), "unwatch"); }
+async function sendToKapibo(da) {
+  const mode = kapMode(); if (mode === "never") return;
+  if (mode === "ask") {
+    const r = await sheet({ title: t("kapibo.sendT"), icon: "coins", body: `<p>${esc(t("kapibo.sendP", { n: da.length }))}</p><p class="hint">${esc(t("kapibo.hint"))}</p>`, buttons: KAP_BTNS(t("kapibo.yes")) });
+    if (r.value === "never") return kapNever();
+    if (r.value !== "yes") return;
+  }
+  const items = da.map(i => ({ name: i.nome, qty: parseFloat(String(i.qta || "").replace(",", ".")) || 1 }));
+  if (bridge.send("kapibo", { from: "mochi", date: new Date().toISOString().slice(0, 10), items })) toast(t("kapibo.sent", { n: items.length }), "coins");
+}
+let kapBusy = false;
+async function checkKapibo() {
+  if (kapBusy || document.querySelector("dialog[open]")) return;
+  const [m] = bridge.peek("mochi"); if (!m) return;
+  const mode = kapMode();
+  if (mode === "never") { bridge.take("mochi"); return; }
+  kapBusy = true;
+  try {
+    const qta = i => (i.qty && i.qty !== 1 ? String(i.qty).replace(".", ",") : "");
+    let places = m.items.map(i => lastPlace(i.name));
+    if (mode === "ask") {
+      const r = await sheet({
+        title: t("kapibo.getT"), icon: "store-room",
+        body: `<p>${esc(t(m.store ? "kapibo.getPStore" : "kapibo.getP", { n: m.items.length, store: m.store }))}</p>
+          <ul class="putaway">${m.items.map((i, k) => `<li><label for="kp-${k}"><span class="n">${esc(i.name)}</span>${qta(i) ? ` <span class="q">· ${esc(qta(i))}</span>` : ""}</label>
+          <select id="kp-${k}" name="kp-${k}"><option value="">${esc(t("kapibo.skip"))}</option>${placeOpts(places[k])}</select></li>`).join("")}</ul>
+          <p class="hint">${esc(t("kapibo.hint"))}</p>`,
+        buttons: KAP_BTNS(t("pantry.putAwayOk")),
+      });
+      bridge.take("mochi", [m.id]);
+      if (r.value === "never") return kapNever();
+      if (r.value !== "yes") return;
+      places = m.items.map((i, k) => r.form.get("kp-" + k) || "");
+    } else bridge.take("mochi", [m.id]);
+    let n = 0;
+    mutate((s, now) => {
+      m.items.forEach((i, k) => {
+        if (!places[k]) return;
+        const p = pantry.parsePlace(places[k]); n++;
+        const ex = live(s.dispensa).find(d => pantry.sameProduct(d.nome, i.name) && d.luogo === p.luogo && (d.scaffale || "") === p.scaffale && (d.ripiano || "") === p.ripiano);
+        if (ex) s.dispensa[ex.id] = { ...ex, qta: pantry.addQty(ex.qta, qta(i)), updatedAt: now };
+        else { const id = uid(); s.dispensa[id] = { id, nome: i.name, qta: qta(i), cat: catOf(i.name), ...p, ts: now, updatedAt: now }; }
+        // comprato: via dalla lista della spesa
+        for (const it of live(s.items)) if (pantry.sameProduct(it.nome, i.name)) s.items[it.id] = { ...it, deleted: true, updatedAt: now };
+      });
+    });
+    if (n) { confetti(); mochi.mood("happy", 2500); mochi.say(frase("pulito")); toast(t("pantry.putAwayDone", { n }), "home"); }
+  } finally { kapBusy = false; }
+}
+bridge.listen("mochi", checkKapibo);
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") setTimeout(checkKapibo, 700); });
+$("#kap-mode")?.addEventListener("change", e => { lsSet("mochi.kapibo", e.target.value); toast(t("common.saved"), "ok"); });
 $("#putaway").addEventListener("click", putAway);
 
 // A casa con prodotti spuntati? Propone di metterli via (senza chiedere permessi nuovi).
@@ -1310,6 +1370,7 @@ function fillLangSelect(sel) {
   sel.value = lang();
 }
 function fillSettings() {
+  const km = $("#kap-mode"); if (km) km.value = kapMode();
   const m = me();
   fillLangSelect($("#me-lang"));
   $("#about-ver").textContent = t("about.version", { v: APP_VERSION });
@@ -1772,6 +1833,7 @@ $("#wiz-next").addEventListener("click", () => {
   syncSet(dbx.isConnected() ? "busy" : "local", dbx.isConnected() ? "sync.busy" : "sync.local");
   sync();
   setTimeout(checkHome, 1500);
+  setTimeout(checkKapibo, 2500);
 
   // Primo avvio → wizard. Policy cambiata → riaccettazione. Aggiornamento → novità.
   const seenV = lsGet("mochi.seen", null) || (hadState ? "1.0.0" : null);
