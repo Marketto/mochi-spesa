@@ -57,3 +57,13 @@ test("ponte: senza variabili accetta solo l'app pubblica", () => {
   assert.equal(allowedOrigin("https://marketto.github.io", {}), "https://marketto.github.io");
   assert.equal(allowedOrigin("https://altro.it", {}), null);
 });
+test("ponte con chiave privata", async () => {
+  assert.equal(via("https://p.workers.dev/?k=abc", "https://www.lidl.it/x"), "https://p.workers.dev/?k=abc&url=https%3A%2F%2Fwww.lidl.it%2Fx");
+  const worker = (await import("../worker/src/index.js")).default;
+  const req = q => new Request("https://p.workers.dev/?" + q, { headers: { origin: "https://marketto.github.io" } });
+  const env = { CHIAVE: "abc" };
+  assert.equal((await worker.fetch(req("url=https%3A%2F%2Fevil.example%2F"), env)).status, 403);           // senza chiave
+  assert.equal((await worker.fetch(req("k=sbagliata&url=https%3A%2F%2Fevil.example%2F"), env)).status, 403);
+  assert.equal((await worker.fetch(req("k=abc&url=https%3A%2F%2Fevil.example%2F"), env)).status, 400);     // chiave giusta, sito non ammesso
+  assert.equal((await worker.fetch(req("url=https%3A%2F%2Fevil.example%2F"), {})).status, 400);            // senza CHIAVE nel Worker: come prima
+});

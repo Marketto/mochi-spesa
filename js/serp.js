@@ -4,6 +4,8 @@
 // Le ricerche restano in cache 24 ore sul telefono per non consumare la quota.
 // La chiamata parte dal browser; se il browser la blocca (CORS) e il ponte Cloudflare è configurato, passa dal ponte.
 
+import { via } from "./chains.js";
+
 const LS = "mochi.serp", CACHE = "mochi.serpCache", USE = "mochi.serpUse";
 const TTL = 24 * 3600e3;
 const ls = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
@@ -55,7 +57,7 @@ async function get(params, { proxy = "", signal, fetchFn = fetch } = {}) {
   try { r = await fetchFn(url, { signal }); }
   catch (e) {
     if (e.name === "AbortError" || !proxy) throw e;
-    r = await fetchFn(proxy.replace(/\/$/, "") + "/?url=" + encodeURIComponent(url), { signal }); // CORS: via ponte
+    r = await fetchFn(via(proxy, url), { signal }); // CORS: via ponte
   }
   const j = await r.json().catch(() => ({}));
   if (!r.ok || j.error) { const e = new Error(j.error || "SerpApi " + r.status); e.status = r.status; throw e; }
