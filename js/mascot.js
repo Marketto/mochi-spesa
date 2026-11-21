@@ -81,6 +81,7 @@ export function mountMochi(host, bubble) {
 
   // Battito di ciglia ogni tanto (solo un gioco visivo)
   const blink = () => {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { setTimeout(blink, 5000); return; } // R09: niente animazioni
     svg.classList.add("blink");
     setTimeout(() => svg.classList.remove("blink"), 160);
     setTimeout(blink, 2500 + Math.random() * 3500);

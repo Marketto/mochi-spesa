@@ -41,8 +41,8 @@ export async function handleRedirect() {
     body: new URLSearchParams({ code, grant_type: "authorization_code", code_verifier: saved.verifier, client_id: saved.appKey, redirect_uri: redirectUri() }),
   });
   if (!r.ok) throw new Error(t("dbx.rejected"));
-  const t = await r.json();
-  write({ ...read(), appKey: saved.appKey, refresh_token: t.refresh_token, access_token: t.access_token, exp: Date.now() + (t.expires_in - 60) * 1000 });
+  const j = await r.json(); // non "t": coprirebbe la funzione di traduzione usata sopra
+  write({ ...read(), appKey: saved.appKey, refresh_token: j.refresh_token, access_token: j.access_token, exp: Date.now() + (j.expires_in - 60) * 1000 });
   return true;
 }
 
@@ -55,9 +55,9 @@ async function token() {
   });
   if (r.status === 400 || r.status === 401) { disconnect(); throw Object.assign(new Error(t("sync.reconnect")), { code: "auth" }); }
   if (!r.ok) throw new Error(t("sync.retry"));
-  const t = await r.json();
-  write({ ...d, access_token: t.access_token, exp: Date.now() + (t.expires_in - 60) * 1000 });
-  return t.access_token;
+  const j = await r.json();
+  write({ ...d, access_token: j.access_token, exp: Date.now() + (j.expires_in - 60) * 1000 });
+  return j.access_token;
 }
 
 // L'header Dropbox-API-Arg accetta solo ASCII: i caratteri accentati vanno in \uXXXX.

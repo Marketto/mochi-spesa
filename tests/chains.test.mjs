@@ -67,3 +67,24 @@ test("ponte con chiave privata", async () => {
   assert.equal((await worker.fetch(req("k=abc&url=https%3A%2F%2Fevil.example%2F"), env)).status, 400);     // chiave giusta, sito non ammesso
   assert.equal((await worker.fetch(req("url=https%3A%2F%2Fevil.example%2F"), {})).status, 400);            // senza CHIAVE nel Worker: come prima
 });
+
+test("ponte: redirect verso siti non ammessi bloccati, risposte troppo grandi interrotte", async () => {
+  const worker = (await import("../worker/src/index.js")).default;
+  globalThis.caches = { default: { match: async () => null, put: async () => {} } };
+  const ctx = { waitUntil() {} };
+  const req = u => new Request("https://p.workers.dev/?url=" + encodeURIComponent(u), { headers: { origin: "https://marketto.github.io" } });
+  const seen = [];
+  globalThis.fetch = async url => {
+    seen.push(url);
+    if (url.includes("/vai-fuori")) return new Response(null, { status: 302, headers: { location: "https://evil.example/x" } });
+    if (url.includes("/vai-dentro")) return new Response(null, { status: 301, headers: { location: "/volantino.pdf" } });
+    if (url.includes("/grande")) return new Response(new ReadableStream({ start(c) { for (let i = 0; i < 3; i++) c.enqueue(new Uint8Array(20e6)); c.close(); } }));
+    return new Response("ok");
+  };
+  assert.equal((await worker.fetch(req("https://www.todis.it/vai-fuori"), {}, ctx)).status, 502);
+  assert.ok(!seen.some(u => u.includes("evil.example")));                     // il sito non ammesso non viene mai chiamato
+  const ok = await worker.fetch(req("https://www.todis.it/vai-dentro"), {}, ctx);
+  assert.equal(ok.status, 200); assert.equal(await ok.text(), "ok"); assert.equal(seen.at(-1), "https://www.todis.it/volantino.pdf");
+  const big = await worker.fetch(req("https://www.todis.it/grande"), {}, ctx);
+  await assert.rejects(big.arrayBuffer());                                    // oltre 40 MB lo stream si interrompe
+});

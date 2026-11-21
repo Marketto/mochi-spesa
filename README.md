@@ -127,6 +127,8 @@ css/style.css         stile kawaii, temi chiaro/scuro, animazioni, reduced-motio
 js/app.js             interfaccia, sincronizzazione, effetti
 js/mascot.js          Mochi (SVG) con espressioni e frasi
 js/store.js           unione senza conflitti (last-writer-wins per elemento + tombstone)
+js/categories.js      reparti della lista e riconoscimento della categoria dal nome
+js/bridge.js          scambio con Kapibo (app collegata)
 js/dropbox.js         OAuth PKCE e file Dropbox dal browser
 js/voice.js           dettatura con il riconoscimento vocale del browser
 js/pantry.js          dispensa: posti, scaffali, ripiani, quantità
@@ -144,7 +146,7 @@ js/ai/                IA: providers.js (catalogo modelli), keys.js (chiavi e pau
 docs/sync-format.md   formato del file condiviso (Mochi Sync Format v1), per altri client
 schema/               JSON Schema del file condiviso
 tests/vectors/        casi di prova comuni dell'unione, usati anche da altri client
-worker/               ponte Cloudflare (solo siti ufficiali, nessun salvataggio)
+worker/               ponte Cloudflare (solo siti ufficiali; tiene in cache le risposte per 6 ore, non salva dati degli utenti)
 js/geo.js             posizione, distanza da casa, indirizzi con OpenStreetMap
 js/i18n.js            traduzioni, lingua RTL, font per lingua
 js/version.js         versione, novità e versione della policy

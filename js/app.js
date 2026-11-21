@@ -1713,7 +1713,8 @@ async function sync() {
   syncing = true; syncSet("busy", "sync.busy");
   const path = dbxCfg().path;
   try {
-    for (let attempt = 0; attempt < 4; attempt++) {
+    let done = false;
+    for (let attempt = 0; attempt < 4 && !done; attempt++) {
       const remote = await dbx.download(path);
       const remoteState = remote && remote.data ? normalize(remote.data) : null;
       if (remoteState) for (const it of Object.values(remoteState.items)) it.cat = legacyCat(it.cat);
@@ -1737,8 +1738,10 @@ async function sync() {
       }
       if (readOnly) syncSet("err", "sync.newer");
       else syncSet("ok", "sync.ok", { time: new Date().toLocaleTimeString(locale(), { hour: "2-digit", minute: "2-digit" }) });
-      break;
+      done = true;
     }
+    // 4 conflitti di fila (altri stanno scrivendo): riprova più tardi invece di restare su «sincronizzo…»
+    if (!done) { syncSet("err", "sync.retry"); scheduleSync(); }
   } catch (e) {
     if (e.code === "auth") { syncSet("err", "sync.reconnect"); fillSettings(); }
     else syncSet("err", "sync.retry");
@@ -1845,7 +1848,7 @@ $("#t-offerte").addEventListener("click", () => renderBestHow());
 function legalHtml() {
   const sec = (icon, title, prefix, n) => `<h3>${ic(icon)} ${esc(t(title))}</h3><ul>${
     Array.from({ length: n }, (_, i) => `<li>${esc(t(`${prefix}${i + 1}`))}</li>`).join("")}</ul>`;
-  return `<p class="hint">${esc(t("legal.updated", { date: new Date(POLICY_VERSION).toLocaleDateString(locale(), { dateStyle: "long" }) }))}</p>
+  return `<p class="hint">${esc(t("legal.updated", { date: new Date(POLICY_VERSION.slice(0, 10)).toLocaleDateString(locale(), { dateStyle: "long" }) }))}</p>
     ${sec("privacy", "legal.privacyTitle", "legal.p", 16)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
 }
 function openLegal() { $("#legal-body").innerHTML = legalHtml(); $("#legal").showModal(); }

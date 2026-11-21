@@ -12,6 +12,18 @@ export const ALLOWED_HOSTS = [
 // e Mochi scarica il PDF che quella pagina pubblica. Tenere allineato con OFFICIAL in js/chains.js.
 export const OFFICIAL_DOMAINS = ["todis.it", "eurospin.it", "mdspa.it", "conad.it", "pewex.it", "penny.it", "aldi.it", "despar.it", "carrefour.it", "tigota.it", "acquaesapone.it"];
 const official = host => OFFICIAL_DOMAINS.some(d => host === d || host.endsWith("." + d));
+/** Interrompe lo stream oltre "max" byte (anche quando il sito non dichiara la lunghezza). */
+function limit(body, max) {
+  if (!body) return body;
+  let n = 0;
+  return body.pipeThrough(new TransformStream({ transform(chunk, c) { n += chunk.byteLength; if (n > max) c.error(new Error("too big")); else c.enqueue(chunk); } }));
+}
+/** Confronto a tempo costante (non rivela quanti caratteri della chiave sono giusti). */
+function sameKey(a, b) {
+  let d = a.length ^ b.length;
+  for (let i = 0; i < b.length; i++) d |= (a.charCodeAt(i) || 0) ^ b.charCodeAt(i);
+  return d === 0;
+}
 const MAX_BYTES = 40 * 1024 * 1024;
 const CACHE_SECONDS = 6 * 3600;
 const UA = "MochiSpesa/1.0 (+https://github.com/Marketto/mochi-spesa; volantino per uso personale)";
@@ -38,20 +50,25 @@ export default {
     if (!origin) return fail(403, "origin");
     // chiave privata facoltativa: se nel Worker c'è la variabile CHIAVE, il ponte risponde solo a chi la conosce
     const params = new URL(req.url).searchParams;
-    if (env?.CHIAVE && params.get("k") !== env.CHIAVE) return fail(403, "key", origin);
+    if (env?.CHIAVE && !sameKey(params.get("k") || req.headers.get("x-mochi-key") || "", env.CHIAVE)) return fail(403, "key", origin);
     const target = allowedTarget(params.get("url") || "");
     if (!target) return fail(400, "url", origin);
 
     const cache = caches.default, key = new Request("https://cache.mochi/" + encodeURIComponent(target.href));
     let res = await cache.match(key);
     if (!res) {
-      const up = await fetch(target.href, { headers: { "user-agent": UA, accept: "*/*" }, redirect: "follow", cf: { cacheTtl: CACHE_SECONDS } });
-      const final = allowedTarget(up.url || target.href);
-      if (!final) return fail(502, "redirect", origin);
+      // redirect seguiti a mano: ogni passaggio deve restare sui siti ammessi
+      let url = target, up;
+      for (let hop = 0; ; hop++) {
+        up = await fetch(url.href, { headers: { "user-agent": UA, accept: "*/*" }, redirect: "manual", cf: { cacheTtl: CACHE_SECONDS } });
+        if (up.status < 300 || up.status >= 400 || !up.headers.get("location")) break;
+        url = hop < 5 ? allowedTarget(new URL(up.headers.get("location"), url).href) : null;
+        if (!url) return fail(502, "redirect", origin);
+      }
       if (!up.ok) return fail(up.status === 404 ? 404 : 502, "upstream " + up.status, origin);
       const len = +up.headers.get("content-length") || 0;
       if (len > MAX_BYTES) return fail(413, "too big", origin);
-      res = new Response(up.body, { status: 200, headers: {
+      res = new Response(limit(up.body, MAX_BYTES), { status: 200, headers: {
         "content-type": up.headers.get("content-type") || "application/octet-stream",
         "cache-control": `public, max-age=${CACHE_SECONDS}` } });
       ctx.waitUntil(cache.put(key, res.clone()));

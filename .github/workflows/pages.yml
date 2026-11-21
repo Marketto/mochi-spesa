@@ -35,7 +35,7 @@ jobs:
       - name: Controllo che non ci siano dati personali
         run: |
           test ! -f config.local.js || (echo "config.local.js non deve essere nel repo" && exit 1)
-          ! grep -rEn "sk-ant-[A-Za-z0-9_-]{20,}" --include=*.js --include=*.html --include=*.json . || (echo "Trovata una chiave API!" && exit 1)
+          ! grep -rEn "(sk-ant-|sk-or-|sk-proj-|gsk_|sl\.[A-Za-z0-9_-]{20})[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{35}" --include=*.js --include=*.mjs --include=*.html --include=*.json --include=*.md --exclude-dir=node_modules . || (echo "Trovata una chiave API!" && exit 1)
       - name: Prepara il sito
         run: |
           mkdir _site
