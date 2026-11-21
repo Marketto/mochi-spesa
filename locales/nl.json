@@ -542,5 +542,8 @@
   "kapibo.never": "Niet meer vragen",
   "kapibo.neverToast": "Oké, ik vraag het niet meer. Je kunt het weer aanzetten in Instellingen.",
   "kapibo.sent": "Boodschappen naar Kapibo gestuurd 💰 (producten: {n})",
-  "new.kapibo": "Mochi praat met Kapibo: bonnen gelezen door Kapibo gaan in je voorraad en opgeruimde boodschappen kunnen in je budget."
+  "new.kapibo": "Mochi praat met Kapibo: bonnen gelezen door Kapibo gaan in je voorraad en opgeruimde boodschappen kunnen in je budget.",
+  "best.partial": "Sommige bronnen gaven geen antwoord: {msg}",
+  "best.also": "Bekijk ook folders op {site}",
+  "new.bestv2": "Preciezer „Beste prijs vinden”: bekijkt de folders van ketens in de buurt één voor één, folderportalen, online supermarkten en Amazon, en laat andere vormen weg (bv. tabletten als je pods zoekt)."
 }

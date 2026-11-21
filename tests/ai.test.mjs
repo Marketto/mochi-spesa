@@ -97,3 +97,16 @@ test("testo dalle risposte", () => {
   assert.equal(ai.mistralText({ outputs: [{ type: "message.output", content: "ciao" }] }), "ciao");
   assert.equal(ai.chatText({ choices: [{ message: { content: "<think>a</think>ok" } }] }), "ok");
 });
+
+test("limite al minuto: aspetta e riprova la stessa chiave", async () => {
+  reset();
+  ai.addKey({ provider: "groq", key: "g1" });
+  let n = 0;
+  globalThis.fetch = async () => (++n === 1
+    ? new Response(JSON.stringify({ error: { message: "Rate limit reached for model" } }), { status: 429, headers: { "retry-after": "1" } })
+    : ok('```json\n{"risultati":[]}\n```'));
+  const t0 = Date.now();
+  await ai.cercaMigliore({ query: "x", luogo: "", raggioKm: 5, valuta: "EUR", lingua: "Italiano" });
+  assert.equal(n, 2); assert.ok(Date.now() - t0 >= 900);
+  assert.ok(!ai.cooling(ai.localKeys()[0]));
+});

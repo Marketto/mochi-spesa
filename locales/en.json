@@ -542,5 +542,8 @@
   "kapibo.never": "Don't ask again",
   "kapibo.neverToast": "Okay, I won't ask again. You can turn it back on in Settings.",
   "kapibo.sent": "Shopping sent to Kapibo 💰 (products: {n})",
-  "new.kapibo": "Mochi talks to Kapibo: receipts read by Kapibo go into your pantry and shopping you put away can go into your budget."
+  "new.kapibo": "Mochi talks to Kapibo: receipts read by Kapibo go into your pantry and shopping you put away can go into your budget.",
+  "best.partial": "Some sources didn't answer: {msg}",
+  "best.also": "Also browse flyers on {site}",
+  "new.bestv2": "More precise “Find the best price”: it checks the flyers of nearby chains one by one, flyer aggregators, online grocery shops and Amazon, and drops other formats (e.g. tablets when you search pods)."
 }

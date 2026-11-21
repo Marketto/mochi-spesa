@@ -27,21 +27,38 @@ Format:
   return Array.isArray(j.offerte) ? j.offerte.filter(o => o && o.prodotto && typeof o.prezzo === "number") : [];
 }
 
-/** Un solo prodotto: dove costa meno oggi tra negozi vicini (volantini, siti delle catene, spesa online) e Amazon. */
-export async function cercaMigliore({ query, link, luogo, raggioKm, negozi, amazon, valuta, lingua }, opts) {
+/**
+ * Fonti della ricerca «Trova il prezzo migliore». Ogni ricerca web è divisa in più richieste piccole,
+ * una per fonte, eseguite in parallelo: così il modello approfondisce ogni fonte invece di fermarsi al primo risultato.
+ * @typedef {{ tipo: "volantini", catene: string[] } | { tipo: "amazon" } | { tipo: "online" } | { tipo: "aggregatori" }} Fonte
+ */
+const FONTE = {
+  volantini: f => `Look ONLY at the current flyers/promotions of these chains, in their stores within the radius: ${f.catene.join(", ")}.
+Open each chain's official flyer page (and the store page for the home area if prices differ by store).
+Also check the flyer aggregators of that country for those chains (in Italy: PromoQui, DoveConviene, VolantinoFacile, Tiendeo).
+Report the store's in-flyer price for every matching product you find, one result per chain at least when available.`,
+  aggregatori: () => `Search the flyer aggregators of that country (in Italy: promoqui.it/offerte/<product>, DoveConviene, VolantinoFacile, Tiendeo)
+for current offers on this product valid in the home area. Report every matching offer (chain, product, price, validity).`,
+  amazon: () => `Look ONLY at the Amazon store of that country. Report the 2-3 cheapest per unit matching offers sold or shipped by Amazon,
+with their product page URL. online: true.`,
+  online: () => `Look ONLY at online grocery shops of supermarket chains that deliver to the home area (e.g. in Italy Conad, Carrefour,
+Esselunga, Coop, Tigotà online). Report their current price for matching products. online: true.`,
+};
+
+/** Un solo prodotto, una fonte: dove costa meno oggi. */
+export async function cercaMigliore({ query, link, luogo, raggioKm, valuta, lingua, fonte = { tipo: "aggregatori" } }, opts) {
   const oggi = new Date().toISOString().slice(0, 10);
-  const prompt = `Today is ${oggi}. Home area: ${luogo}. Radius: ${raggioKm} km. Favourite shops: ${negozi || "none"}. Currency: ${valuta}.
+  const prompt = `Today is ${oggi}. Home area: ${luogo}. Radius: ${raggioKm} km. Currency: ${valuta}.
 Product the user wants to buy: "${query}"${link ? `\nLink the user shared (open it, it may be an Amazon page): ${link}` : ""}
 
-Find where this product (or an equivalent one: same type, similar quality) costs least TODAY:
-1. current weekly flyers and promotions of supermarkets, discount stores and drugstores within the radius (chain websites, flyer aggregators of that country);
-2. online grocery shops of chains that deliver to the home area;
-${amazon ? "3. the Amazon store of that country (include the best Amazon option, with its product page)." : ""}
-Return up to 8 results, cheapest per unit first. Always give pack size so the unit price can be compared.
-unita: "lavaggi" for washes/pods/tablets, "litri", "kg", or "pezzi". online: true for shipping/online-only offers.
+${FONTE[fonte.tipo](fonte)}
+
+Match the product TYPE exactly: same kind and same format (e.g. "pod/caps" are not "tablets/pastiglie", "gel" is not "powder").
+Brands may differ. Skip anything of a different type. Only prices valid today. Always give pack size so the unit price can be compared.
+unita: "lavaggi" for washes/pods/tablets, "litri", "kg", or "pezzi". Return up to 6 results, cheapest per unit first.
 
 Format:
-{"risultati":[{"negozio":"shop or Amazon","prodotto":"brand, name and pack size","prezzo":number,"quantita":number,"unita":"lavaggi|litri|kg|pezzi",
+{"risultati":[{"negozio":"chain or Amazon","prodotto":"brand, name and pack size","prezzo":number,"quantita":number,"unita":"lavaggi|litri|kg|pezzi",
 "prezzoUnit":number,"offerta":true|false,"validoFino":"YYYY-MM-DD" or null,"online":true|false,"distanzaKm":number or null,"fonte":"url","nota":"max one short sentence or empty"}]}`;
   const j = await ask({ system: SYS(lingua), prompt, tags: [TAG.WEB], signal: opts?.signal });
   return Array.isArray(j.risultati) ? j.risultati.filter(o => o && o.negozio && o.prodotto && typeof o.prezzo === "number") : [];

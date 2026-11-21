@@ -542,5 +542,8 @@
   "kapibo.never": "다시 묻지 않기",
   "kapibo.neverToast": "알겠어요, 다시 묻지 않을게요. 설정에서 다시 켤 수 있어요.",
   "kapibo.sent": "장보기를 Kapibo로 보냈어요 💰 (상품: {n})",
-  "new.kapibo": "Mochi가 Kapibo와 대화해요: Kapibo가 읽은 영수증은 창고로, 정리한 장보기는 가계부로 갈 수 있어요."
+  "new.kapibo": "Mochi가 Kapibo와 대화해요: Kapibo가 읽은 영수증은 창고로, 정리한 장보기는 가계부로 갈 수 있어요.",
+  "best.partial": "일부 출처가 응답하지 않았어요: {msg}",
+  "best.also": "{site}에서도 전단지 보기",
+  "new.bestv2": "더 정확해진 '최저가 찾기': 근처 체인의 전단지를 하나씩, 전단지 모음 사이트, 온라인 마트, 아마존을 확인하고 다른 형태(예: 포드를 찾을 때 태블릿)는 빼요."
 }

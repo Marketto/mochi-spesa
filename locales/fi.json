@@ -542,5 +542,8 @@
   "kapibo.never": "Älä kysy enää",
   "kapibo.neverToast": "Okei, en kysy enää. Voit laittaa sen takaisin päälle Asetuksissa.",
   "kapibo.sent": "Ostokset lähetetty Kapiboon 💰 (tuotteet: {n})",
-  "new.kapibo": "Mochi juttelee Kapibon kanssa: Kapibon lukemat kuitit menevät ruokakaappiin ja paikoilleen laitetut ostokset budjettiin."
+  "new.kapibo": "Mochi juttelee Kapibon kanssa: Kapibon lukemat kuitit menevät ruokakaappiin ja paikoilleen laitetut ostokset budjettiin.",
+  "best.partial": "Osa lähteistä ei vastannut: {msg}",
+  "best.also": "Selaa mainoksia myös palvelussa {site}",
+  "new.bestv2": "Tarkempi ”Etsi paras hinta”: käy läpi lähiketjujen mainokset yksi kerrallaan, mainoskoosteet, verkkokaupat ja Amazonin ja jättää pois muut muodot (esim. tabletit, kun etsit kapseleita)."
 }

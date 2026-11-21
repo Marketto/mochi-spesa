@@ -542,5 +542,8 @@
   "kapibo.never": "Ne kérdezz többet",
   "kapibo.neverToast": "Rendben, nem kérdezek többet. A Beállításokban újra bekapcsolhatod.",
   "kapibo.sent": "Bevásárlás elküldve a Kapibónak 💰 (termékek: {n})",
-  "new.kapibo": "A Mochi beszélget a Kapibóval: a Kapibo által beolvasott blokkok a kamrádba kerülnek, az elpakolt bevásárlás pedig a költségvetésbe."
+  "new.kapibo": "A Mochi beszélget a Kapibóval: a Kapibo által beolvasott blokkok a kamrádba kerülnek, az elpakolt bevásárlás pedig a költségvetésbe.",
+  "best.partial": "Néhány forrás nem válaszolt: {msg}",
+  "best.also": "Lapozd át a szórólapokat itt is: {site}",
+  "new.bestv2": "Pontosabb „Legjobb ár keresése”: egyenként átnézi a közeli láncok szórólapjait, a szórólap-gyűjtőket, az online boltokat és az Amazont, és kihagyja a más kiszereléseket (pl. tablettát, ha kapszulát keresel)."
 }

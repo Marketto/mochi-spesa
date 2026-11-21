@@ -542,5 +542,8 @@
   "kapibo.never": "Nu mai întreba",
   "kapibo.neverToast": "Bine, nu mai întreb. Poți reactiva din Setări.",
   "kapibo.sent": "Cumpărături trimise la Kapibo 💰 (produse: {n})",
-  "new.kapibo": "Mochi vorbește cu Kapibo: bonurile citite de Kapibo intră în cămară, iar cumpărăturile puse la loc pot intra în buget."
+  "new.kapibo": "Mochi vorbește cu Kapibo: bonurile citite de Kapibo intră în cămară, iar cumpărăturile puse la loc pot intra în buget.",
+  "best.partial": "Unele surse nu au răspuns: {msg}",
+  "best.also": "Răsfoiește cataloagele și pe {site}",
+  "new.bestv2": "„Găsește cel mai bun preț” mai precis: verifică pe rând cataloagele lanțurilor din apropiere, agregatoarele de cataloage, cumpărăturile online și Amazon, și elimină alte formate (ex. tablete dacă cauți capsule)."
 }

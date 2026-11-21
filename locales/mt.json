@@ -542,5 +542,8 @@
   "kapibo.never": "Tistaqsix aktar",
   "kapibo.neverToast": "Sewwa, ma nistaqsix aktar. Tista' terġa' tixgħelha f'Settings.",
   "kapibo.sent": "Xiri mibgħut lil Kapibo 💰 (prodotti: {n})",
-  "new.kapibo": "Mochi jitkellem ma' Kapibo: rċevuti li Kapibo jaqra jidħlu fil-kamra tal-ikel u x-xiri f'postu jista' jidħol fil-baġit."
+  "new.kapibo": "Mochi jitkellem ma' Kapibo: rċevuti li Kapibo jaqra jidħlu fil-kamra tal-ikel u x-xiri f'postu jista' jidħol fil-baġit.",
+  "best.partial": "Xi sorsi ma weġbux: {msg}",
+  "best.also": "Ara l-fuljetti wkoll fuq {site}",
+  "new.bestv2": "“Sib l-aħjar prezz” aktar preċiż: jiċċekkja l-fuljetti tal-ktajjen fil-qrib wieħed wieħed, l-aggregaturi tal-fuljetti, ix-xiri online u Amazon, u jħalli barra formati oħra (eż. pilloli meta tfittex kapsuli)."
 }

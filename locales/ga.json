@@ -542,5 +542,8 @@
   "kapibo.never": "Ná fiafraigh arís",
   "kapibo.neverToast": "Ceart go leor, ní fhiafróidh mé arís. Is féidir leat é a chur ar ais air in Socruithe.",
   "kapibo.sent": "Siopadóireacht seolta chuig Kapibo 💰 (táirgí: {n})",
-  "new.kapibo": "Labhraíonn Mochi le Kapibo: téann admhálacha a léann Kapibo isteach sa phantrach agus is féidir le siopadóireacht a chuirtear i gcóir dul isteach sa bhuiséad."
+  "new.kapibo": "Labhraíonn Mochi le Kapibo: téann admhálacha a léann Kapibo isteach sa phantrach agus is féidir le siopadóireacht a chuirtear i gcóir dul isteach sa bhuiséad.",
+  "best.partial": "Níor fhreagair roinnt foinsí: {msg}",
+  "best.also": "Brabhsáil bileoga ar {site} freisin",
+  "new.bestv2": "“Aimsigh an praghas is fearr” níos cruinne: seiceálann sé bileoga na slabhraí in aice láimhe ceann ar cheann, comhbhailitheoirí bileog, siopaí ar líne agus Amazon, agus fágann sé formáidí eile ar lár (m.sh. táibléid nuair a lorgaíonn tú pónairí)."
 }
