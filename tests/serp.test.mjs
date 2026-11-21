@@ -24,3 +24,7 @@ test("ricerca: due chiamate, poi cache; senza chiave non chiama", async () => {
   await serp.search("Pod lavastoviglie", { fetchFn });
   assert.equal(n, 2);
 });
+test("paese Google dalla lingua e prezzi in più formati", () => {
+  assert.equal(serp.country("ar").gl, "ae"); assert.equal(serp.country("cs").gl, "cz"); assert.equal(serp.country("it").gl, "it");
+  assert.deepEqual(serp.parseAmazon({ organic_results: [{ title: "a", price: "$1,234.56" }, { title: "b", price: { raw: "1.299,00 €" } }, { title: "c", price: "12,99 €" }] }).map(r => r.prezzo), [1234.56, 1299, 12.99]);
+});

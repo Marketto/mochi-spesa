@@ -50,7 +50,7 @@ export default {
     if (!origin) return fail(403, "origin");
     // chiave privata facoltativa: se nel Worker c'è la variabile CHIAVE, il ponte risponde solo a chi la conosce
     const params = new URL(req.url).searchParams;
-    if (env?.CHIAVE && !sameKey(params.get("k") || req.headers.get("x-mochi-key") || "", env.CHIAVE)) return fail(403, "key", origin);
+    if (env?.CHIAVE && !sameKey(params.get("k") || "", env.CHIAVE)) return fail(403, "key", origin);
     const target = allowedTarget(params.get("url") || "");
     if (!target) return fail(400, "url", origin);
 
@@ -60,7 +60,7 @@ export default {
       // redirect seguiti a mano: ogni passaggio deve restare sui siti ammessi
       let url = target, up;
       for (let hop = 0; ; hop++) {
-        up = await fetch(url.href, { headers: { "user-agent": UA, accept: "*/*" }, redirect: "manual", cf: { cacheTtl: CACHE_SECONDS } });
+        up = await fetch(url.href, { headers: { "user-agent": UA, accept: "*/*" }, redirect: "manual", cf: { cacheTtlByStatus: { "200-299": CACHE_SECONDS, "300-599": 0 } } });
         if (up.status < 300 || up.status >= 400 || !up.headers.get("location")) break;
         url = hop < 5 ? allowedTarget(new URL(up.headers.get("location"), url).href) : null;
         if (!url) return fail(502, "redirect", origin);

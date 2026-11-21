@@ -81,7 +81,9 @@ export function mountMochi(host, bubble) {
 
   // Battito di ciglia ogni tanto (solo un gioco visivo)
   const blink = () => {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { setTimeout(blink, 5000); return; } // R09: niente animazioni
+    // R09: niente animazioni se l'app (anim-off) o il sistema le spengono; anim-on le forza
+    const h = document.documentElement.classList;
+    if (h.contains("anim-off") || (!h.contains("anim-on") && matchMedia("(prefers-reduced-motion: reduce)").matches)) { setTimeout(blink, 5000); return; }
     svg.classList.add("blink");
     setTimeout(() => svg.classList.remove("blink"), 160);
     setTimeout(blink, 2500 + Math.random() * 3500);

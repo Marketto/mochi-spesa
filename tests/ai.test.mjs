@@ -110,3 +110,12 @@ test("limite al minuto: aspetta e riprova la stessa chiave", async () => {
   assert.equal(n, 2); assert.ok(Date.now() - t0 >= 900);
   assert.ok(!ai.cooling(ai.localKeys()[0]));
 });
+
+test("Groq che non usa la ricerca: pausa breve, non di un giorno", async () => {
+  reset();
+  ai.addKey({ provider: "groq", key: "g1" });
+  globalThis.fetch = async () => new Response(JSON.stringify({ error: { message: "tool_use_failed: model did not call a tool" } }), { status: 400 });
+  await assert.rejects(ai.cercaMigliore({ query: "x", luogo: "", raggioKm: 5, valuta: "EUR", lingua: "Italiano" }));
+  const c = ai.cooling(ai.localKeys()[0], "openai/gpt-oss-120b");
+  assert.ok(c && c.until - Date.now() <= 61e3);
+});

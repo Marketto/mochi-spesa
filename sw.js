@@ -1,5 +1,5 @@
 // Service worker: l'app funziona anche offline (al supermercato senza campo!).
-const CACHE = "mochi-spesa-v29";
+const CACHE = "mochi-spesa-v30";
 const SHELL = [
   "./", "index.html", "css/style.css", "css/icons.css", "fonts/mochi-icons.woff2", "manifest.webmanifest",
   "js/app.js", "js/i18n.js", "js/version.js", "locales/en.json", "js/mascot.js", "js/store.js", "js/categories.js", "js/dropbox.js", "js/ai/index.js", "js/ai/providers.js", "js/ai/keys.js", "js/ai/adapters.js", "js/ai/router.js", "js/ai/tasks.js", "js/geo.js", "js/voice.js", "js/pantry.js", "js/importer.js", "js/openprices.js", "js/flyer.js", "js/chains.js", "js/pricedb.js", "js/shops.js", "js/amazon.js", "js/best.js", "js/serp.js", "js/bridge.js",
@@ -31,6 +31,6 @@ self.addEventListener("fetch", e => {
     fetch(e.request).then(r => {
       if (r.ok) { const copy = r.clone(); caches.open(CACHE).then(c => c.put(e.request, copy)); }
       return r;
-    }).catch(() => caches.match(e.request, { ignoreSearch: true }).then(r => r || caches.match("index.html")))
+    }).catch(() => caches.match(e.request, { ignoreSearch: true }).then(r => r || (e.request.mode === "navigate" ? caches.match("index.html") : Response.error())))
   );
 });

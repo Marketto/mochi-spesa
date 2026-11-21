@@ -815,7 +815,7 @@ function mergeOptions(opts) {
 
 // ---------- TROVA IL PREZZO MIGLIORE (un prodotto, tutte le fonti) ----------
 const BEST_KEY = "mochi.best";
-let bestRun = 0;
+let bestRun = 0, bestCtl = null;
 function renderBestHow() {
   if (document.activeElement?.id === "best-keyin") return;
   const s = state.settings, web = ai.ready(true);
@@ -851,7 +851,8 @@ function renderBest(res) {
   out.innerHTML = `<section class="card best-res" aria-labelledby="best-rt" aria-busy="${busy}">
     <h3 id="best-rt">${esc(t("best.results", { q: res.q }))}</h3>
     <p class="srcs">${chip("mine", t("best.srcMine"))}${chip("op", "Open Prices")}${chip("serp", t("serp.src"))}${chip("web", t("best.srcWeb"))}</p>
-    ${st.web === "err" && res.errore ? `<p class="hint">${ic("warn")} ${esc(res.errore)}</p>` : st.web === "ok" && res.avviso ? `<p class="hint">${ic("info")} ${esc(t("best.partial", { msg: res.avviso }))}</p>` : ""}
+    ${st.web === "err" && res.errore ? `<p class="hint">${ic("warn")} ${esc(res.errore)}</p>` : ""}
+    ${res.avviso && !busy ? `<p class="hint">${ic("info")} ${esc(t("best.partial", { msg: res.avviso }))}</p>` : ""}
     ${righe.length ? `<ol class="best-list">${righe.map((r, i) => bestRow(r, i, i === 0 && !busy)).join("")}</ol>` : `<p class="hint">${esc(busy ? t("best.searching") : t("best.none"))}</p>`}
     ${amzOn() && !righe.some(r => isAmazon(r.negozio)) ? `<p class="cmp">${amzLink(res.q)}</p>` : ""}
     ${lang() === "it" ? `<p class="cmp"><a href="https://www.promoqui.it/offerte/${encodeURIComponent(best.slug(res.q))}" target="_blank" rel="noopener noreferrer">${ic("external")}${esc(t("best.also", { site: "PromoQui" }))}<span class="sr"> ${esc(t("a11y.newTab"))}</span></a></p>` : ""}
@@ -861,8 +862,9 @@ function renderBest(res) {
 }
 async function findBest(q, link = "") {
   q = String(q || "").trim(); if (!q) return;
+  bestCtl?.abort(); const ctl = bestCtl = new AbortController(); // una nuova ricerca ferma la precedente (quote gratuite)
   const run = ++bestRun, s0 = state.settings;
-  const res = { q, at: Date.now(), righe: [], gruppo: null, stato: { mine: "run", op: s0.lat != null ? "run" : "", serp: serp.getKey() ? "run" : "", web: ai.ready(true) ? "run" : "" }, n: {} };
+  const res = { q, at: Date.now(), righe: [], gruppo: null, stato: { mine: "run", op: searchPoint() ? "run" : "", serp: serp.getKey() ? "run" : "", web: ai.ready(true) ? "run" : "" }, n: {} };
   const parts = { mine: [], op: [], serp: [], web: [] };
   const update = () => {
     if (run !== bestRun) return;
@@ -884,19 +886,20 @@ async function findBest(q, link = "") {
   update();
   const jobs = [];
   // 2. Open Prices (community, gratis)
-  if (res.stato.op) jobs.push(op.nearby({ lat: s0.lat, lon: s0.lon, raggioKm: s0.raggioKm || 5 })
+  const pt = searchPoint(); // casa oppure il posto «fuori casa»
+  if (res.stato.op) jobs.push(op.nearby({ lat: pt.lat, lon: pt.lon, raggioKm: s0.raggioKm || 5 })
     .then(list => { parts.op = best.variants(q).flatMap(v => op.bestFor(v, list, 8)).map(x => ({ negozio: x.negozio, nome: [x.marca, x.nome].filter(Boolean).join(" "), prezzo: x.prezzo, quantita: x.quantita, data: x.data, fonte: op.priceUrl(x.id), src: "op" })); res.stato.op = "ok"; res.n.op = parts.op.length; })
     .catch(() => { res.stato.op = "err"; }).then(update));
   // 3. Amazon e negozi online con prezzi veri (SerpApi: Amazon + Google Shopping), se l'utente ha la chiave
-  if (res.stato.serp) jobs.push(serp.search(q, { lang: lang(), proxy: PROXY() })
+  if (res.stato.serp) jobs.push(serp.search(q, { lang: lang(), proxy: PROXY(), signal: ctl.signal })
     .then(r => { parts.serp = [...r.amazon, ...r.shopping].map(x => ({ ...x, src: "serp" })); res.stato.serp = "ok"; res.n.serp = parts.serp.length; renderSerp(); })
     .catch(e => { res.stato.serp = "err"; res.avviso = "SerpApi: " + e.message; }).then(update));
   // 4. ricerca web con l'IA, divisa per fonte: volantini delle catene vicine (a gruppi), aggregatori, spesa online, Amazon
-  if (res.stato.web) jobs.push(webBest(q, link, s0, res, parts, update, !!res.stato.serp));
+  if (res.stato.web) jobs.push(webBest(q, link, s0, res, parts, update, !!res.stato.serp, ctl.signal));
   await Promise.all(jobs);
+  if (run !== bestRun) return; // nel frattempo è partita un'altra ricerca: lo spinner è suo
   btn.classList.remove("loading"); btn.removeAttribute("aria-busy");
-  if (run !== bestRun) return;
-  update(); lsSet(BEST_KEY, { ...res, stato: { mine: res.stato.mine, op: res.stato.op, web: res.stato.web } });
+  update(); lsSet(BEST_KEY, { ...res, stato: { mine: res.stato.mine, op: res.stato.op, serp: res.stato.serp, web: res.stato.web } });
   if (res.righe.length) { mochi.mood("happy", 2000); mochi.say(t("best.say", { store: res.righe[0].negozio, price: money(res.righe[0].prezzo) })); }
   else { mochi.mood("sleepy", 2000); mochi.say(frase("niente")); }
 }
@@ -904,7 +907,8 @@ async function findBest(q, link = "") {
 async function chainsNear(s0) {
   const fav = String(s0.negozi || "").split(",").map(x => x.trim()).filter(Boolean);
   let near = [];
-  if (s0.lat != null) try { near = (await shops.nearby({ lat: s0.lat, lon: s0.lon, raggioKm: s0.raggioKm || 5 })).filter(g => g.n >= 1).map(g => g.nome); } catch {}
+  const pt = searchPoint();
+  if (pt) try { near = (await shops.nearby({ lat: pt.lat, lon: pt.lon, raggioKm: s0.raggioKm || 5 })).filter(g => g.n >= 1).map(g => g.nome); } catch {}
   const out = [];
   for (const n of [...fav, ...near]) if (!out.some(x => shops.sameShop(x, n))) out.push(n);
   return out.slice(0, 9);
@@ -915,7 +919,7 @@ async function pool(tasks, n) {
   await Promise.all(Array.from({ length: Math.min(n, tasks.length) }, async () => { while (i < tasks.length) { const k = i++; out[k] = await tasks[k](); } }));
   return out;
 }
-async function webBest(q, link, s0, res, parts, update, haveSerp) {
+async function webBest(q, link, s0, res, parts, update, haveSerp, signal) {
   const a0 = away();
   const luogo = a0 ? `${a0.nome} (lat ${a0.lat}, lon ${a0.lon})` : s0.lat != null ? `${s0.luogo} (lat ${s0.lat}, lon ${s0.lon})` : s0.luogo || "";
   const catene = res.catene = await chainsNear(s0);
@@ -927,7 +931,7 @@ async function webBest(q, link, s0, res, parts, update, haveSerp) {
   res.web = { tot: fonti.length, done: 0, ok: 0 };
   update();
   const errs = [];
-  await pool(fonti.map(fonte => () => ai.cercaMigliore({ query: q, link: fonte.tipo === "amazon" || fonte.tipo === "aggregatori" ? link : "", luogo, raggioKm: s0.raggioKm || 5, valuta: currency(), lingua: langName(), fonte })
+  await pool(fonti.map(fonte => () => signal?.aborted ? Promise.resolve() : ai.cercaMigliore({ query: q, link: fonte.tipo === "amazon" || fonte.tipo === "aggregatori" ? link : "", luogo, raggioKm: s0.raggioKm || 5, valuta: currency(), lingua: langName(), fonte }, { signal })
     .then(list => {
       const rows = list.map(x => ({ negozio: best.chainName(x.negozio), nome: x.prodotto, prezzo: x.prezzo, quantita: x.quantita, unita: x.unita, prezzoUnit: x.prezzoUnit,
         offerta: !!x.offerta, validoFino: x.validoFino, online: !!x.online || fonte.tipo === "amazon", distanzaKm: x.distanzaKm, fonte: x.fonte, nota: x.nota, src: "web" }));
@@ -1464,9 +1468,6 @@ function fillSettings() {
   $("#z-valuta").value = currency();
   ai.setShared(state.settings.aiShared);
   renderAiKeys(); fillProviders();
-  $("#dbx-off").hidden = !dbx.isConnected();
-  $("#dbx-go-txt").textContent = t(dbx.isConnected() ? "dbx.reconnect" : "dbx.connect");
-  $("#about-ver").textContent = t("about.version", { v: APP_VERSION });
   $("#ver-chip").textContent = "v" + APP_VERSION;
   $("#ver-chip").setAttribute("aria-label", t("about.version", { v: APP_VERSION }) + ". " + t("news.open"));
 }
@@ -1612,7 +1613,6 @@ $("#ai-keys").addEventListener("click", e => {
   renderAiKeys(); renderOfferte(); toast(t("pref.removed"), "delete");
 });
 $("#ai-share").addEventListener("change", e => { shareKeys(e.target.checked); toast(t("common.saved"), "heart"); });
-$("#me-lang").addEventListener("input", e => e.stopPropagation());
 // ---------- IMPOSTAZIONI: una sola barra Salva / Annulla ----------
 let settingsDirty = false;
 function setDirty(v) {
@@ -1633,7 +1633,6 @@ async function saveSettings() {
     const nome = $("#me-nome").value.trim();
     setMe({ nome, anim: document.querySelector('input[name="anim"]:checked')?.value || "auto" });
     applyAnim();
-    // chiave Claude (solo su questo telefono)
     // zona e dispensa (condivisi)
     const luogo = $("#z-luogo").value.trim(), old = state.settings;
     let coords = luogo === old.luogo && old.lat != null ? { lat: old.lat, lon: old.lon } : { lat: null, lon: null };
@@ -1705,6 +1704,7 @@ function syncSet(kind, key, vars) {
   $("#sync-txt").textContent = t(key, vars);
   b.setAttribute("aria-label", t(key, vars) + ". " + t(dbx.isConnected() ? "sync.tapSync" : "sync.tapConnect"));
 }
+let conflictRuns = 0; // conflitti di fila: la nuova prova aspetta 30 s, 60 s, … fino a 5 minuti
 function scheduleSync() { clearTimeout(syncT); syncT = setTimeout(sync, 700); }
 async function sync() {
   if (!dbx.isConnected()) { syncSet("local", "sync.local"); return; }
@@ -1741,7 +1741,8 @@ async function sync() {
       done = true;
     }
     // 4 conflitti di fila (altri stanno scrivendo): riprova più tardi invece di restare su «sincronizzo…»
-    if (!done) { syncSet("err", "sync.retry"); scheduleSync(); }
+    if (!done) { syncSet("err", "sync.retry"); clearTimeout(syncT); syncT = setTimeout(sync, Math.min(300e3, 30e3 * 2 ** conflictRuns++)); }
+    else conflictRuns = 0;
   } catch (e) {
     if (e.code === "auth") { syncSet("err", "sync.reconnect"); fillSettings(); }
     else syncSet("err", "sync.retry");

@@ -97,6 +97,8 @@ function penalize(c, e) {
   if (e.status === 401 || e.status === 403) { cool(k, 24 * 3600e3, "key", e.message); return true; }
   if (e.status === 402 || (e.status === 429 && daily)) { cool(k, midnightUTC() - Date.now(), "quota", e.message); return true; }
   if (e.status === 429) { cool(k, (e.retry || 120) * 1000, "rate", e.message); return true; }
+  // con tool_choice "required" il modello a volte non usa la ricerca: errore passeggero, non un modello spento
+  if (e.status === 400 && /tool_use_failed|did not call|failed to call/i.test(e.message)) { cool(k, 60e3, "error", `${e.status} ${e.message}`, c.model); return false; }
   if (e.status === 404 || (e.status === 400 && MODEL_ERR.test(e.message))) { cool(k, 24 * 3600e3, "model", `${e.status} ${e.message}`, c.model); return false; }
   if (e.status >= 500) { cool(k, 60e3, "server", e.message, c.model); return false; }
   cool(k, 15 * 60e3, "error", `${e.status} ${e.message}`, c.model); return false;

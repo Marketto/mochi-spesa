@@ -24,13 +24,23 @@ function countUse() { const u = ls(USE, {}); lsSet(USE, { m: month(), n: (u.m ==
 // ---------- paese ----------
 const AMZ = { it: "amazon.it", de: "amazon.de", fr: "amazon.fr", es: "amazon.es", nl: "amazon.nl", pl: "amazon.pl", sv: "amazon.se", en: "amazon.co.uk" };
 /** Parametri per il paese dell'utente (dalla lingua). */
+// codice del paese di Google per la lingua (dove la sigla della lingua non è quella del paese)
+const GL = { en: "uk", sv: "se", cs: "cz", da: "dk", el: "gr", et: "ee", ga: "ie", ja: "jp", ko: "kr", sl: "si", zh: "cn", ar: "ae" };
 export function country(lang = "it") {
   const l = String(lang).slice(0, 2);
-  return { gl: l === "en" ? "uk" : l === "sv" ? "se" : l, hl: l, amazon_domain: AMZ[l] || "amazon.com" };
+  return { gl: GL[l] || l, hl: l, amazon_domain: AMZ[l] || "amazon.com" };
 }
 
 // ---------- lettura dei risultati (funzioni pure, testate) ----------
-const num = v => (typeof v === "number" ? v : parseFloat(String(v ?? "").replace(/[^\d,.]/g, "").replace(/\.(?=\d{3}\b)/g, "").replace(",", ".")));
+/** Prezzo da testo, sia "1.299,00 €" sia "$1,234.56": il separatore decimale è l'ultimo tra "," e ".". */
+function num(v) {
+  if (typeof v === "number") return v;
+  let s = String(v ?? "").replace(/[^\d,.]/g, "");
+  const dec = Math.max(s.lastIndexOf(","), s.lastIndexOf("."));
+  if (dec >= 0 && s.length - dec - 1 !== 3) s = s.slice(0, dec).replace(/[,.]/g, "") + "." + s.slice(dec + 1); // decimali
+  else s = s.replace(/[,.]/g, ""); // solo separatori delle migliaia
+  return parseFloat(s);
+}
 
 /** Risultati della ricerca Amazon di SerpApi → righe { negozio, nome, prezzo, fonte, online }. */
 export function parseAmazon(j) {

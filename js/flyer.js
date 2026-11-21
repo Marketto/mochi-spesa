@@ -27,15 +27,16 @@ async function* pages(file, onProgress) {
     pdfjs.GlobalWorkerOptions.workerSrc = PDFJS_WORKER;
     const doc = await pdfjs.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
     const n = Math.min(doc.numPages, MAX_PAGES);
-    for (let i = 1; i <= n; i++) {
+    try { for (let i = 1; i <= n; i++) {
       onProgress?.({ step: "page", page: i, pages: n });
-      const page = await doc.getPage(i), vp = page.getViewport({ scale: 2 });
-      const c = document.createElement("canvas"); c.width = vp.width; c.height = vp.height;
-      await page.render({ canvasContext: c.getContext("2d"), viewport: vp }).promise;
-      // un PDF con testo vero non ha bisogno di OCR
+      const page = await doc.getPage(i);
+      // un PDF con testo vero non ha bisogno di OCR: si disegna la pagina solo quando serve
       const tc = await page.getTextContent(); const txt = tc.items.map(x => x.str + (x.hasEOL ? "\n" : " ")).join("");
-      yield txt.replace(/\s/g, "").length > 200 ? { text: txt } : { image: c };
-    }
+      if (txt.replace(/\s/g, "").length > 200) { yield { text: txt }; continue; }
+      const vp = page.getViewport({ scale: 2 }), c = document.createElement("canvas"); c.width = vp.width; c.height = vp.height;
+      await page.render({ canvasContext: c.getContext("2d"), viewport: vp }).promise;
+      yield { image: c };
+    } } finally { doc.destroy(); } // libera memoria e worker di pdf.js
   } else { onProgress?.({ step: "page", page: 1, pages: 1 }); yield { image: file }; }
 }
 
@@ -68,7 +69,7 @@ export function pricesIn(line) {
   for (const m of line.matchAll(PRICE)) {
     const v = m[1] != null ? +`${m[1]}.${m[2]}` : +`${m[3]}.${m[4]}`;
     if (!(v > 0 && v < 1000)) continue;
-    out.push({ prezzo: v, perUnita: PER_UNIT.test(line.slice(m.index + m[0].length, m.index + m[0].length + 12)) || /€\s*\/\s*(kg|l)/i.test(m[0]) });
+    out.push({ prezzo: v, perUnita: PER_UNIT.test(line.slice(m.index + m[0].length, m.index + m[0].length + 12)) });
   }
   return out;
 }
