@@ -511,3 +511,28 @@ h3.sub { font-size: 15px; margin: 14px 0 6px; }
 .shop-pick label small { color: var(--muted); font-weight: 500; }
 .shop-pick .osm { font-size: 12px; margin-top: 4px; }
 .shop-pick .osm a { color: var(--muted); }
+
+/* trova il prezzo migliore */
+.best-form { display: grid; gap: 8px; }
+.best-row { display: flex; gap: 8px; align-items: center; }
+.best-row input { flex: 1; min-width: 0; }
+.keysetup { border-top: 2px dashed var(--line); padding-top: 8px; }
+.keysetup summary { cursor: pointer; font-weight: 700; }
+.keysetup ol { margin: 8px 0; padding-left: 22px; }
+.keysetup li { margin: 4px 0; }
+.best-res .srcs { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 10px; }
+.src-chip { font-size: 13px; padding: 2px 10px; border-radius: 99px; background: var(--lav-soft); color: var(--ink); }
+.src-chip.err { opacity: .7; }
+.src-chip:not(.ok):not(.run):not(.err) { opacity: .55; }
+.best-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.best-item { border-top: 2px dashed var(--line); padding-top: 10px; }
+.best-item:first-child { border-top: 0; padding-top: 0; }
+.best-item .head { display: flex; justify-content: space-between; gap: 10px; }
+.best-item h3 { margin: 0; font-size: 17px; }
+.best-item .what { margin: 2px 0 0; font-size: 14px; }
+.best-item .price { font-weight: 800; font-size: 18px; text-align: right; white-space: nowrap; }
+.best-item .price small { display: block; font-weight: 500; font-size: 12px; color: var(--muted); }
+.best-item .meta { margin: 6px 0 0; font-size: 13px; color: var(--muted); }
+.best-item .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; gap: 8px; }
+.best-item.win { background: var(--pink-soft); color: var(--ink); border-radius: 16px; padding: 12px; border-top: 0; }
+.best-badge { margin: 0 0 6px; font-weight: 800; color: var(--pink); }

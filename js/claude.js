@@ -183,6 +183,26 @@ Format:
   return Array.isArray(j.offerte) ? j.offerte.filter(o => o && o.prodotto && typeof o.prezzo === "number") : [];
 }
 
+/** Un solo prodotto: dove costa meno oggi tra negozi vicini (volantini, siti delle catene, spesa online) e Amazon. */
+export async function cercaMigliore({ query, link, luogo, raggioKm, negozi, amazon, valuta, lingua }, opts) {
+  const oggi = new Date().toISOString().slice(0, 10);
+  const prompt = `Today is ${oggi}. Home area: ${luogo}. Radius: ${raggioKm} km. Favourite shops: ${negozi || "none"}. Currency: ${valuta}.
+Product the user wants to buy: "${query}"${link ? `\nLink the user shared (open it, it may be an Amazon page): ${link}` : ""}
+
+Find where this product (or an equivalent one: same type, similar quality) costs least TODAY:
+1. current weekly flyers and promotions of supermarkets, discount stores and drugstores within the radius (chain websites, flyer aggregators of that country);
+2. online grocery shops of chains that deliver to the home area;
+${amazon ? "3. the Amazon store of that country (include the best Amazon option, with its product page)." : ""}
+Return up to 8 results, cheapest per unit first. Always give pack size so the unit price can be compared.
+unita: "lavaggi" for washes/pods/tablets, "litri", "kg", or "pezzi". online: true for shipping/online-only offers.
+
+Format:
+{"risultati":[{"negozio":"shop or Amazon","prodotto":"brand, name and pack size","prezzo":number,"quantita":number,"unita":"lavaggi|litri|kg|pezzi",
+"prezzoUnit":number,"offerta":true|false,"validoFino":"YYYY-MM-DD" or null,"online":true|false,"distanzaKm":number or null,"fonte":"url","nota":"max one short sentence or empty"}]}`;
+  const j = await ask(SYS(lingua), prompt, opts);
+  return Array.isArray(j.risultati) ? j.risultati.filter(o => o && o.negozio && o.prodotto && typeof o.prezzo === "number") : [];
+}
+
 /** Valuta qualità/prezzo di un prodotto (nome o link Amazon). */
 export async function valuta({ testo, prezzo, quantita, unita, offerte, valuta, luogo, lingua }, opts) {
   const prompt = `Product (name or Amazon link): ${testo}

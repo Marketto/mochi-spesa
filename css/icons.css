@@ -3,7 +3,7 @@
    Uso: <i class="mi mi-add" aria-hidden="true"></i> sempre con un testo o un aria-label sul controllo. */
 @font-face {
   font-family: "Mochi Icons";
-  src: url("../fonts/mochi-icons.woff2?v=302a5b3d") format("woff2");
+  src: url("../fonts/mochi-icons.woff2?v=557e13e9") format("woff2");
   font-weight: normal; font-style: normal; font-display: block;
 }
 .mi {
@@ -94,7 +94,8 @@
 .mi-edit::before { content: "\e051"; content: "\e051" / ""; } /* modifica / quantità */
 .mi-undo::before { content: "\e052"; content: "\e052" / ""; } /* annulla */
 .mi-mic-on::before { content: "\e053"; content: "\e053" / ""; } /* sto ascoltando */
-.mi-mochi::before { content: "\e054"; content: "\e054" / ""; } /* Mochi */
+.mi-trophy::before { content: "\e054"; content: "\e054" / ""; } /* prezzo migliore */
+.mi-mochi::before { content: "\e055"; content: "\e055" / ""; } /* Mochi */
 :root {
   --mi-add: "\e001";
   --mi-delete: "\e002";
@@ -179,5 +180,6 @@
   --mi-edit: "\e051";
   --mi-undo: "\e052";
   --mi-mic-on: "\e053";
-  --mi-mochi: "\e054";
+  --mi-trophy: "\e054";
+  --mi-mochi: "\e055";
 }

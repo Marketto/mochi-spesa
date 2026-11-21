@@ -104,6 +104,7 @@ const ICONS = {
   "undo": ["bold/arrow-u-up-left", "annulla"],
   "mic-on": ["fill/microphone-fill", "sto ascoltando"],
   // glifo originale
+  "trophy": ["bold/trophy", "prezzo migliore"],
   "mochi": ["custom/mochi", "Mochi"],
 };
 

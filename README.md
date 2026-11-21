@@ -23,6 +23,7 @@ Lista della spesa **condivisa**, **kawaii** e **senza server**, con Mochi che ce
   | OpenRouter (DeepSeek, Qwen, GLM) | modelli `:free`, circa 50 richieste al giorno | no | <https://openrouter.ai/settings/keys> |
   | SiliconFlow (Qwen, GLM, DeepSeek) | modelli gratuiti, può chiedere la verifica dell'identità | no | <https://cloud.siliconflow.com/> |
   | Claude | a pagamento | sì | <https://console.anthropic.com/settings/keys> |
+- 🏆 **Trova il prezzo migliore**: scrivi un prodotto (es. «pod lavastoviglie») e Mochi cerca insieme nei tuoi prezzi, in Open Prices e, con una chiave IA che cerca sul web (Groq è gratis), su Amazon, nei volantini e nei siti dei supermercati vicini. Risultati ordinati per prezzo a pezzo/lavaggio/kg/litro. Dal tasto «Condividi» di un'altra app (Android) puoi mandare a Mochi un link (es. un prodotto Amazon) o uno screenshot.
 - 💾 **I miei prezzi**: tutti i prezzi dei volantini che leggi (letti con l'IA gratuita se c'è una chiave, altrimenti con delle regole) e quelli che aggiungi a mano finiscono in un piccolo database IndexedDB sul telefono, con ricerca, storico e miglior prezzo per negozio. Lo usano "Dove conviene?" e Valuta.
 - 🆓 **Prezzi gratis, senza chiave**: Mochi usa i prezzi segnalati dalla community di [Open Food Facts – Open Prices](https://prices.openfoodfacts.org) (ODbL) vicino a casa, sia in “Dove conviene?” sia in Offerte. Ci sono anche link rapidi per cercare i volantini. La chiave Claude è facoltativa: serve per i volantini aggiornati e per Amazon.
 - 🏷️ **Offerte vicino a casa**: scegli i prodotti da tenere d'occhio (detersivo lavatrice, ammorbidente…), la zona e il raggio. Mochi cerca nei volantini e confronta con Amazon il **prezzo per lavaggio, litro o kg**.
@@ -135,6 +136,7 @@ js/openprices.js      prezzi gratuiti della community (Open Food Facts – Open 
 js/flyer.js           lettura volantini (OCR con tesseract.js, PDF con pdf.js) e storico prezzi
 js/chains.js          catene supportate (adattatori) per i volantini ufficiali
 js/pricedb.js         «I miei prezzi»: database locale (IndexedDB)
+js/best.js            «Trova il prezzo migliore»: unione e ordinamento per prezzo a unità
 js/amazon.js          link di ricerca sul negozio Amazon del paese (nessuna lettura delle pagine)
 js/shops.js           negozi nel raggio da OpenStreetMap (Overpass API) per i preferiti
 js/claude.js          servizi IA, chiavi multiple e scelta automatica
