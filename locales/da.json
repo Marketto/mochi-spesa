@@ -558,5 +558,14 @@
   "serp.key": "SerpApi-nøgle",
   "serp.remove": "Slet SerpApi-nøglen",
   "serp.removeConfirm": "Slette SerpApi-nøglen fra denne telefon?",
-  "new.serp": "Rigtige priser fra Amazon og netbutikker med en gratis SerpApi-nøgle; søgningen fjerner andre formater og butikker uden for din radius."
+  "new.serp": "Rigtige priser fra Amazon og netbutikker med en gratis SerpApi-nøgle; søgningen fjerner andre formater og butikker uden for din radius.",
+  "ch.pagesTitle": "Officielle tilbudsaviser fra dine butikker",
+  "ch.pagesHint": "Åbn din butiks tilbudsavisside på det officielle websted, og indsæt linket her: Mochi tjekker den hver dag og læser den offentliggjorte pdf. Understøttede websteder: {list}.",
+  "ch.pageUrl": "Link til tilbudsavissiden",
+  "ch.pageAdd": "Tilføj",
+  "ch.pageBad": "Linket er ikke fra et understøttet officielt websted ({list}).",
+  "ch.pageAdded": "{chain} tilføjet: gem indstillingerne.",
+  "fl.files": "{n} filer",
+  "fl.fileN": "Fil {i} af {n}",
+  "new.flyers2": "Officielle tilbudsaviser fra dine butikker via linket til deres side, og flere skærmbilleder af tilbudsaviser på én gang, også via “Del”."
 }

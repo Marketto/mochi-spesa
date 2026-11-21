@@ -558,5 +558,14 @@
   "serp.key": "SerpApi ključ",
   "serp.remove": "Obriši SerpApi ključ",
   "serp.removeConfirm": "Obrisati SerpApi ključ s ovog mobitela?",
-  "new.serp": "Prave cijene s Amazona i web trgovina uz besplatan SerpApi ključ; pretraga izostavlja druge oblike i trgovine izvan tvog radijusa."
+  "new.serp": "Prave cijene s Amazona i web trgovina uz besplatan SerpApi ključ; pretraga izostavlja druge oblike i trgovine izvan tvog radijusa.",
+  "ch.pagesTitle": "Službeni katalozi tvojih trgovina",
+  "ch.pagesHint": "Na službenoj stranici otvori stranicu kataloga svoje trgovine i ovdje zalijepi poveznicu: Mochi je provjerava svaki dan i čita objavljeni PDF. Podržane stranice: {list}.",
+  "ch.pageUrl": "Poveznica stranice kataloga",
+  "ch.pageAdd": "Dodaj",
+  "ch.pageBad": "Ova poveznica nije s podržane službene stranice ({list}).",
+  "ch.pageAdded": "{chain} dodan: spremi postavke.",
+  "fl.files": "Datoteka: {n}",
+  "fl.fileN": "Datoteka {i} od {n}",
+  "new.flyers2": "Službeni katalozi tvojih trgovina s poveznice njihove stranice i više snimki kataloga odjednom, i preko „Dijeli”."
 }

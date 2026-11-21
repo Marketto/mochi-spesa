@@ -133,7 +133,7 @@ js/pantry.js          dispensa: posti, scaffali, ripiani, quantità
 js/importer.js        importazione da Invendo (.xlsx/.csv) senza librerie
 js/openprices.js      prezzi gratuiti della community (Open Food Facts – Open Prices)
 js/flyer.js           lettura volantini (OCR con tesseract.js, PDF con pdf.js) e storico prezzi
-js/chains.js          catene supportate (adattatori) per i volantini ufficiali
+js/chains.js          catene supportate (adattatori) e pagine ufficiali dei volantini scelte dall'utente (Todis, Eurospin, MD, Conad…)
 js/pricedb.js         «I miei prezzi»: database locale (IndexedDB)
 js/serp.js            prezzi Amazon e Google Shopping con la chiave SerpApi dell'utente (250 ricerche/mese gratis)
 js/best.js            «Trova il prezzo migliore»: unione e ordinamento per prezzo a unità

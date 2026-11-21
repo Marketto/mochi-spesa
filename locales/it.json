@@ -558,5 +558,14 @@
   "serp.key": "Chiave SerpApi",
   "serp.remove": "Elimina la chiave SerpApi",
   "serp.removeConfirm": "Eliminare la chiave SerpApi da questo telefono?",
-  "new.serp": "Prezzi veri da Amazon e dai negozi online con una chiave SerpApi gratuita; la ricerca scarta i formati diversi e i negozi fuori dal tuo raggio."
+  "new.serp": "Prezzi veri da Amazon e dai negozi online con una chiave SerpApi gratuita; la ricerca scarta i formati diversi e i negozi fuori dal tuo raggio.",
+  "ch.pagesTitle": "Volantini ufficiali dei tuoi negozi",
+  "ch.pagesHint": "Apri sul sito ufficiale la pagina del volantino del tuo negozio e incollane qui il link: Mochi la ricontrolla ogni giorno e legge il PDF che pubblica. Siti supportati: {list}.",
+  "ch.pageUrl": "Link della pagina del volantino",
+  "ch.pageAdd": "Aggiungi",
+  "ch.pageBad": "Questo link non è di un sito ufficiale supportato ({list}).",
+  "ch.pageAdded": "{chain} aggiunto: salva le impostazioni.",
+  "fl.files": "{n} file",
+  "fl.fileN": "File {i} di {n}",
+  "new.flyers2": "Volantini ufficiali dei tuoi negozi (Todis, Eurospin, MD, Conad…) dal link della loro pagina, e più screenshot di volantino letti insieme, anche con «Condividi»."
 }

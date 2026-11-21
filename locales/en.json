@@ -558,5 +558,14 @@
   "serp.key": "SerpApi key",
   "serp.remove": "Delete the SerpApi key",
   "serp.removeConfirm": "Delete the SerpApi key from this phone?",
-  "new.serp": "Real prices from Amazon and online shops with a free SerpApi key; search drops other formats and shops outside your radius."
+  "new.serp": "Real prices from Amazon and online shops with a free SerpApi key; search drops other formats and shops outside your radius.",
+  "ch.pagesTitle": "Official flyers of your shops",
+  "ch.pagesHint": "Open your shop's flyer page on the official website and paste its link here: Mochi checks it every day and reads the PDF it publishes. Supported sites: {list}.",
+  "ch.pageUrl": "Flyer page link",
+  "ch.pageAdd": "Add",
+  "ch.pageBad": "This link isn't from a supported official site ({list}).",
+  "ch.pageAdded": "{chain} added: save the settings.",
+  "fl.files": "{n} files",
+  "fl.fileN": "File {i} of {n}",
+  "new.flyers2": "Official flyers of your shops (Todis, Eurospin, MD, Conad…) from their page link, and several flyer screenshots read together, also via “Share”."
 }

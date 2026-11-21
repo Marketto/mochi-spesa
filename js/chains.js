@@ -46,3 +46,52 @@ export const CHAINS = {
   },
 };
 export const chainList = () => Object.values(CHAINS);
+
+// ---------- pagine ufficiali dei volantini, indicate dall'utente ----------
+// Molte catene pubblicano per ogni negozio una pagina con il link "Scarica il volantino in PDF".
+// L'utente incolla il link di quella pagina; Mochi la rilegge ogni giorno e legge il PDF che la pagina pubblica.
+
+/** Siti ufficiali ammessi (anche dal ponte: OFFICIAL_DOMAINS in worker/src/index.js). */
+export const OFFICIAL = {
+  "todis.it": "Todis", "eurospin.it": "Eurospin", "mdspa.it": "MD", "conad.it": "Conad", "pewex.it": "Pewex", "penny.it": "Penny",
+  "aldi.it": "Aldi", "despar.it": "Despar", "carrefour.it": "Carrefour", "tigota.it": "Tigotà", "acquaesapone.it": "Acqua & Sapone",
+};
+const domainOf = host => Object.keys(OFFICIAL).find(d => host === d || host.endsWith("." + d)) || null;
+
+/** Catena di un indirizzo ufficiale ({ dominio, nome }), o null se il sito non è tra quelli ammessi. */
+export function officialChainOf(url) {
+  let u; try { u = new URL(url); } catch { return null; }
+  if (u.protocol !== "https:") return null;
+  const d = domainOf(u.hostname);
+  return d ? { dominio: d, nome: OFFICIAL[d] } : null;
+}
+
+/** Link ai PDF presenti in una pagina, solo sullo stesso sito ufficiale, nell'ordine della pagina. */
+export function pdfLinks(html, base) {
+  const d = officialChainOf(base)?.dominio, out = [];
+  for (const m of String(html).matchAll(/(?:href|src|data-[a-z-]+)\s*=\s*["']([^"'\s]+?\.pdf(?:\?[^"'\s]*)?)["']/gi)) {
+    let u; try { u = new URL(m[1].replace(/&amp;/g, "&"), base); } catch { continue; }
+    if (u.protocol === "https:" && domainOf(u.hostname) === d && !out.includes(u.href)) out.push(u.href);
+  }
+  return out;
+}
+
+const hash = s => { let h = 5381; for (const c of String(s)) h = (h * 33 + c.charCodeAt(0)) >>> 0; return h.toString(36); };
+const fileName = url => decodeURIComponent(new URL(url).pathname.split("/").pop() || "").replace(/\.pdf$/i, "").replace(/[-_]+/g, " ").trim();
+
+/** Adattatore per una pagina ufficiale scelta dall'utente: { id, url, nome }. */
+export function pageChain(page) {
+  return {
+    id: page.id, nome: page.nome || officialChainOf(page.url)?.nome || "?", pagina: true,
+    async flyers(proxy, signal) {
+      const html = await get(proxy, page.url, "text", signal);
+      return pdfLinks(html, page.url).slice(0, 3).map(pdf => ({ id: page.id + ":" + hash(pdf), catena: page.id, nome: fileName(pdf) || this.nome, inizio: "", fine: "", pdf, url: page.url }));
+    },
+    async pdf(proxy, flyer, signal) {
+      const b = await get(proxy, flyer.pdf, "blob", signal);
+      return new File([b], "volantino.pdf", { type: "application/pdf" });
+    },
+  };
+}
+/** Nuova pagina da un indirizzo (id stabile ricavato dall'indirizzo). */
+export const newPage = url => { const c = officialChainOf(url); return c ? { id: "pg-" + hash(url), url: new URL(url).href, nome: c.nome } : null; };

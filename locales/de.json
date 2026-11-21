@@ -558,5 +558,14 @@
   "serp.key": "SerpApi-Schlüssel",
   "serp.remove": "SerpApi-Schlüssel löschen",
   "serp.removeConfirm": "SerpApi-Schlüssel von diesem Handy löschen?",
-  "new.serp": "Echte Preise von Amazon und Onlineshops mit kostenlosem SerpApi-Schlüssel; die Suche lässt andere Formate und Geschäfte außerhalb deines Radius weg."
+  "new.serp": "Echte Preise von Amazon und Onlineshops mit kostenlosem SerpApi-Schlüssel; die Suche lässt andere Formate und Geschäfte außerhalb deines Radius weg.",
+  "ch.pagesTitle": "Offizielle Prospekte deiner Geschäfte",
+  "ch.pagesHint": "Öffne auf der offiziellen Website die Prospektseite deines Geschäfts und füge den Link hier ein: Mochi prüft sie täglich und liest das veröffentlichte PDF. Unterstützte Seiten: {list}.",
+  "ch.pageUrl": "Link der Prospektseite",
+  "ch.pageAdd": "Hinzufügen",
+  "ch.pageBad": "Dieser Link stammt nicht von einer unterstützten offiziellen Seite ({list}).",
+  "ch.pageAdded": "{chain} hinzugefügt: Einstellungen speichern.",
+  "fl.files": "{n} Dateien",
+  "fl.fileN": "Datei {i} von {n}",
+  "new.flyers2": "Offizielle Prospekte deiner Geschäfte über den Link ihrer Seite und mehrere Prospekt-Screenshots auf einmal, auch per „Teilen“."
 }

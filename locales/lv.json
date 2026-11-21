@@ -558,5 +558,14 @@
   "serp.key": "SerpApi atslēga",
   "serp.remove": "Dzēst SerpApi atslēgu",
   "serp.removeConfirm": "Dzēst SerpApi atslēgu no šī tālruņa?",
-  "new.serp": "Īstas cenas no Amazon un interneta veikaliem ar bezmaksas SerpApi atslēgu; meklēšana izslēdz citas formas un veikalus ārpus tava rādiusa."
+  "new.serp": "Īstas cenas no Amazon un interneta veikaliem ar bezmaksas SerpApi atslēgu; meklēšana izslēdz citas formas un veikalus ārpus tava rādiusa.",
+  "ch.pagesTitle": "Tavu veikalu oficiālie bukleti",
+  "ch.pagesHint": "Oficiālajā vietnē atver sava veikala bukleta lapu un ielīmē saiti šeit: Moči to pārbauda katru dienu un nolasa publicēto PDF. Atbalstītās vietnes: {list}.",
+  "ch.pageUrl": "Bukleta lapas saite",
+  "ch.pageAdd": "Pievienot",
+  "ch.pageBad": "Šī saite nav no atbalstītas oficiālas vietnes ({list}).",
+  "ch.pageAdded": "{chain} pievienots: saglabā iestatījumus.",
+  "fl.files": "{n} faili",
+  "fl.fileN": "Fails {i} no {n}",
+  "new.flyers2": "Tavu veikalu oficiālie bukleti no to lapas saites un vairāki bukleta ekrānuzņēmumi vienlaikus, arī ar “Kopīgot”."
 }

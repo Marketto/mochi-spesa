@@ -128,7 +128,7 @@
       <p class="hint" data-i18n="fl.hint"></p>
       <button class="btn ghost" type="button" id="ch-refresh" hidden><i class="mi mi-refresh" aria-hidden="true"></i> <span data-i18n="ch.refresh"></span></button>
       <button class="btn ghost" type="button" id="fl-btn"><i class="mi mi-scan" aria-hidden="true"></i> <span data-i18n="fl.load"></span></button>
-      <input type="file" id="fl-file" accept="application/pdf,image/*" hidden>
+      <input type="file" id="fl-file" accept="application/pdf,image/*" multiple hidden>
       <progress id="fl-prog" max="1" value="0" hidden data-i18n-attr="aria-label:fl.title"></progress>
       <p class="hint" id="fl-msg" aria-live="polite"></p>
       <h3 class="sub" data-i18n="fl.best"></h3>
@@ -247,6 +247,12 @@
         <legend><i class="mi mi-store" aria-hidden="true"></i> <span data-i18n="ch.title"></span></legend>
         <p class="hint" id="z-chains-hint" data-i18n="ch.hint"></p>
         <div id="z-chains-list"></div>
+        <h3 class="sub" id="pg-t"><span data-i18n="ch.pagesTitle"></span></h3>
+        <p class="hint" id="pg-hint"></p>
+        <div id="pg-list"></div>
+        <label for="pg-url" data-i18n="ch.pageUrl"></label>
+        <div class="best-row"><input id="pg-url" type="url" inputmode="url" placeholder="https://www.todis.it/volantini/…" autocomplete="off">
+          <button class="btn ghost" type="button" id="pg-add"><i class="mi mi-add" aria-hidden="true"></i> <span data-i18n="ch.pageAdd"></span></button></div>
       </fieldset>
     </form>
 

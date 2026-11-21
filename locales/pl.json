@@ -558,5 +558,14 @@
   "serp.key": "Klucz SerpApi",
   "serp.remove": "Usuń klucz SerpApi",
   "serp.removeConfirm": "Usunąć klucz SerpApi z tego telefonu?",
-  "new.serp": "Prawdziwe ceny z Amazona i sklepów online z darmowym kluczem SerpApi; wyszukiwanie pomija inne formy i sklepy poza Twoim promieniem."
+  "new.serp": "Prawdziwe ceny z Amazona i sklepów online z darmowym kluczem SerpApi; wyszukiwanie pomija inne formy i sklepy poza Twoim promieniem.",
+  "ch.pagesTitle": "Oficjalne gazetki Twoich sklepów",
+  "ch.pagesHint": "Otwórz na oficjalnej stronie gazetkę swojego sklepu i wklej tu link: Mochi sprawdza ją codziennie i czyta opublikowany PDF. Obsługiwane strony: {list}.",
+  "ch.pageUrl": "Link do strony gazetki",
+  "ch.pageAdd": "Dodaj",
+  "ch.pageBad": "Ten link nie pochodzi z obsługiwanej oficjalnej strony ({list}).",
+  "ch.pageAdded": "Dodano {chain}: zapisz ustawienia.",
+  "fl.files": "Plików: {n}",
+  "fl.fileN": "Plik {i} z {n}",
+  "new.flyers2": "Oficjalne gazetki Twoich sklepów z linku do ich strony oraz kilka zrzutów gazetki naraz, także przez „Udostępnij”."
 }

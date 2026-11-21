@@ -558,5 +558,14 @@
   "serp.key": "SerpApi-avain",
   "serp.remove": "Poista SerpApi-avain",
   "serp.removeConfirm": "Poistetaanko SerpApi-avain tästä puhelimesta?",
-  "new.serp": "Oikeat hinnat Amazonista ja verkkokaupoista ilmaisella SerpApi-avaimella; haku jättää pois muut muodot ja säteen ulkopuoliset kaupat."
+  "new.serp": "Oikeat hinnat Amazonista ja verkkokaupoista ilmaisella SerpApi-avaimella; haku jättää pois muut muodot ja säteen ulkopuoliset kaupat.",
+  "ch.pagesTitle": "Kauppojesi viralliset mainokset",
+  "ch.pagesHint": "Avaa kauppasi mainossivu virallisella sivustolla ja liitä linkki tähän: Mochi tarkistaa sen päivittäin ja lukee julkaistun PDF:n. Tuetut sivustot: {list}.",
+  "ch.pageUrl": "Mainossivun linkki",
+  "ch.pageAdd": "Lisää",
+  "ch.pageBad": "Linkki ei ole tuetulta viralliselta sivustolta ({list}).",
+  "ch.pageAdded": "{chain} lisätty: tallenna asetukset.",
+  "fl.files": "{n} tiedostoa",
+  "fl.fileN": "Tiedosto {i}/{n}",
+  "new.flyers2": "Kauppojesi viralliset mainokset niiden sivun linkistä ja useita mainoskuvakaappauksia kerralla, myös ”Jaa”-toiminnolla."
 }

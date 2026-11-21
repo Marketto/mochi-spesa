@@ -558,5 +558,14 @@
   "serp.key": "Clave de SerpApi",
   "serp.remove": "Eliminar la clave de SerpApi",
   "serp.removeConfirm": "¿Eliminar la clave de SerpApi de este móvil?",
-  "new.serp": "Precios reales de Amazon y tiendas online con una clave gratuita de SerpApi; la búsqueda descarta otros formatos y tiendas fuera de tu radio."
+  "new.serp": "Precios reales de Amazon y tiendas online con una clave gratuita de SerpApi; la búsqueda descarta otros formatos y tiendas fuera de tu radio.",
+  "ch.pagesTitle": "Folletos oficiales de tus tiendas",
+  "ch.pagesHint": "Abre en la web oficial la página del folleto de tu tienda y pega aquí el enlace: Mochi la revisa cada día y lee el PDF que publica. Sitios admitidos: {list}.",
+  "ch.pageUrl": "Enlace de la página del folleto",
+  "ch.pageAdd": "Añadir",
+  "ch.pageBad": "Este enlace no es de un sitio oficial admitido ({list}).",
+  "ch.pageAdded": "{chain} añadido: guarda los ajustes.",
+  "fl.files": "{n} archivos",
+  "fl.fileN": "Archivo {i} de {n}",
+  "new.flyers2": "Folletos oficiales de tus tiendas desde el enlace de su página, y varias capturas de folleto leídas juntas, también con «Compartir»."
 }

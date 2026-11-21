@@ -558,5 +558,14 @@
   "serp.key": "Ključ SerpApi",
   "serp.remove": "Izbriši ključ SerpApi",
   "serp.removeConfirm": "Izbrišem ključ SerpApi s tega telefona?",
-  "new.serp": "Prave cene z Amazona in spletnih trgovin z brezplačnim ključem SerpApi; iskanje izloči druge oblike in trgovine zunaj tvojega polmera."
+  "new.serp": "Prave cene z Amazona in spletnih trgovin z brezplačnim ključem SerpApi; iskanje izloči druge oblike in trgovine zunaj tvojega polmera.",
+  "ch.pagesTitle": "Uradni letaki tvojih trgovin",
+  "ch.pagesHint": "Na uradni strani odpri stran letaka svoje trgovine in prilepi povezavo sem: Mochi jo vsak dan preveri in prebere objavljeni PDF. Podprte strani: {list}.",
+  "ch.pageUrl": "Povezava do strani letaka",
+  "ch.pageAdd": "Dodaj",
+  "ch.pageBad": "Ta povezava ni s podprte uradne strani ({list}).",
+  "ch.pageAdded": "{chain} dodan: shrani nastavitve.",
+  "fl.files": "Datotek: {n}",
+  "fl.fileN": "Datoteka {i} od {n}",
+  "new.flyers2": "Uradni letaki tvojih trgovin iz povezave do njihove strani in več posnetkov letaka hkrati, tudi z »Deli«."
 }
