@@ -35,7 +35,7 @@ for (const c of codes) {
 
 test("ogni chiave usata nel codice esiste", () => {
   const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
-  const js = ["app.js", "claude.js", "dropbox.js", "mascot.js", "version.js"].map(f => fs.readFileSync(path.join(root, "js", f), "utf8")).join("\n");
+  const js = ["app.js", "ai/router.js", "ai/tasks.js", "dropbox.js", "mascot.js", "version.js"].map(f => fs.readFileSync(path.join(root, "js", f), "utf8")).join("\n");
   const used = new Set([
     ...[...html.matchAll(/data-i18n="([^"]+)"/g)].map(m => m[1]),
     ...[...html.matchAll(/data-i18n-attr="([^"]+)"/g)].flatMap(m => m[1].split("|").map(p => p.split(":")[1])),

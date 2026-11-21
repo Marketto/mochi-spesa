@@ -518,5 +518,11 @@
   "best.none": "Žádné ceny: zkus obecnější slova.",
   "best.check": "Ceny z webu: před nákupem je ověř na stránce.",
   "best.say": "Nejlepší: {store}, {price}!",
-  "new.best": "„Najdi nejlepší cenu“: napiš produkt a Mochi hledá na Amazonu, v letácích a ve tvých cenách. Mochimu můžeš sdílet i odkaz nebo snímek obrazovky z jiné aplikace."
+  "new.best": "„Najdi nejlepší cenu“: napiš produkt a Mochi hledá na Amazonu, v letácích a ve tvých cenách. Mochimu můžeš sdílet i odkaz nebo snímek obrazovky z jiné aplikace.",
+  "ai.errBad": "{name}: neplatný nebo neaktivní klíč.",
+  "ai.errRate": "{name}: dosažen limit, zkus to později.",
+  "ai.errStatus": "{name} neodpověděl ({status}).",
+  "ai.errNet": "Žádné spojení s {name}.",
+  "ai.errRead": "{name}: nečitelná odpověď, zkus to znovu.",
+  "new.router": "Aktualizované hledání Groq a automatická volba nejvhodnějšího modelu pro každý požadavek z tvých klíčů."
 }

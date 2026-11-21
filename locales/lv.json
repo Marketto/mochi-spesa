@@ -518,5 +518,11 @@
   "best.none": "Cenas netika atrastas: mēģini vispārīgākus vārdus.",
   "best.check": "Tīmeklī atrastas cenas: pirms pirkšanas pārbaudi tās vietnē.",
   "best.say": "Labākais: {store}, {price}!",
-  "new.best": "“Atrodi labāko cenu”: ieraksti produktu, un Moči meklē Amazon, bukletos un tavās cenās. Vari arī kopīgot ar Moči saiti vai ekrānuzņēmumu no citas lietotnes."
+  "new.best": "“Atrodi labāko cenu”: ieraksti produktu, un Moči meklē Amazon, bukletos un tavās cenās. Vari arī kopīgot ar Moči saiti vai ekrānuzņēmumu no citas lietotnes.",
+  "ai.errBad": "{name}: atslēga nav derīga vai aktīva.",
+  "ai.errRate": "{name}: sasniegts limits, mēģini vēlāk.",
+  "ai.errStatus": "{name} neatbildēja ({status}).",
+  "ai.errNet": "Nav savienojuma ar {name}.",
+  "ai.errRead": "{name}: nesalasāma atbilde, mēģini vēlreiz.",
+  "new.router": "Atjaunināta Groq tīmekļa meklēšana un automātiska piemērotākā modeļa izvēle katram pieprasījumam no tavām atslēgām."
 }

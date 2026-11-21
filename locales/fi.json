@@ -518,5 +518,11 @@
   "best.none": "Hintoja ei löytynyt: kokeile yleisempiä sanoja.",
   "best.check": "Verkosta löydetyt hinnat: tarkista ne sivulta ennen ostamista.",
   "best.say": "Paras: {store}, {price}!",
-  "new.best": "”Etsi paras hinta”: kirjoita tuote, ja Mochi hakee Amazonista, mainoksista ja hinnoistasi. Voit myös jakaa Mochille linkin tai kuvakaappauksen toisesta sovelluksesta."
+  "new.best": "”Etsi paras hinta”: kirjoita tuote, ja Mochi hakee Amazonista, mainoksista ja hinnoistasi. Voit myös jakaa Mochille linkin tai kuvakaappauksen toisesta sovelluksesta.",
+  "ai.errBad": "{name}: avain ei kelpaa tai ei ole käytössä.",
+  "ai.errRate": "{name}: käyttöraja täynnä, yritä myöhemmin.",
+  "ai.errStatus": "{name} ei vastannut ({status}).",
+  "ai.errNet": "Ei yhteyttä: {name}.",
+  "ai.errRead": "{name}: vastausta ei voi lukea, yritä uudelleen.",
+  "new.router": "Groqin verkkohaku päivitetty, ja jokaiseen pyyntöön valitaan automaattisesti sopivin malli avaimistasi."
 }

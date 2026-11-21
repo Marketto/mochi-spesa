@@ -518,5 +518,11 @@
   "best.none": "Nema cijena: probaj općenitije riječi.",
   "best.check": "Cijene s weba: provjeri ih na stranici prije kupnje.",
   "best.say": "Najbolje: {store}, {price}!",
-  "new.best": "„Pronađi najbolju cijenu”: upiši proizvod i Mochi traži na Amazonu, u katalozima i u tvojim cijenama. Mochiju možeš podijeliti i poveznicu ili snimku zaslona iz druge aplikacije."
+  "new.best": "„Pronađi najbolju cijenu”: upiši proizvod i Mochi traži na Amazonu, u katalozima i u tvojim cijenama. Mochiju možeš podijeliti i poveznicu ili snimku zaslona iz druge aplikacije.",
+  "ai.errBad": "{name}: ključ nije valjan ili aktivan.",
+  "ai.errRate": "{name}: dosegnuto ograničenje, pokušaj kasnije.",
+  "ai.errStatus": "{name} nije odgovorio ({status}).",
+  "ai.errNet": "Nema veze s {name}.",
+  "ai.errRead": "{name}: nečitljiv odgovor, pokušaj ponovno.",
+  "new.router": "Ažurirana web pretraga Groq i automatski odabir najprikladnijeg modela za svaki zahtjev među tvojim ključevima."
 }

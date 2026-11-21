@@ -518,5 +518,11 @@
   "best.none": "Nessun prezzo trovato: prova con parole più generiche.",
   "best.check": "Prezzi trovati sul web: controllali sul sito prima di comprare.",
   "best.say": "Il migliore: {store}, {price}!",
-  "new.best": "«Trova il prezzo migliore»: scrivi un prodotto e Mochi cerca su Amazon, nei volantini e nei tuoi prezzi. Puoi anche condividere a Mochi un link o uno screenshot da un'altra app."
+  "new.best": "«Trova il prezzo migliore»: scrivi un prodotto e Mochi cerca su Amazon, nei volantini e nei tuoi prezzi. Puoi anche condividere a Mochi un link o uno screenshot da un'altra app.",
+  "ai.errBad": "{name}: chiave non valida o non attiva.",
+  "ai.errRate": "{name}: limite di utilizzo raggiunto, riprova più tardi.",
+  "ai.errStatus": "{name} non ha risposto ({status}).",
+  "ai.errNet": "Nessuna connessione con {name}.",
+  "ai.errRead": "{name}: risposta non leggibile, riprova.",
+  "new.router": "Ricerca web di Groq aggiornata e scelta automatica del modello più adatto a ogni richiesta, tra le chiavi che hai."
 }

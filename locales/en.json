@@ -518,5 +518,11 @@
   "best.none": "No prices found: try more general words.",
   "best.check": "Prices found on the web: check them on the site before buying.",
   "best.say": "Best one: {store}, {price}!",
-  "new.best": "“Find the best price”: type a product and Mochi searches Amazon, flyers and your prices. You can also share a link or a screenshot to Mochi from another app."
+  "new.best": "“Find the best price”: type a product and Mochi searches Amazon, flyers and your prices. You can also share a link or a screenshot to Mochi from another app.",
+  "ai.errBad": "{name}: key not valid or not active.",
+  "ai.errRate": "{name}: usage limit reached, try again later.",
+  "ai.errStatus": "{name} didn't answer ({status}).",
+  "ai.errNet": "No connection to {name}.",
+  "ai.errRead": "{name}: unreadable answer, try again.",
+  "new.router": "Groq web search updated, and the best model for each request is picked automatically among your keys."
 }

@@ -518,5 +518,11 @@
   "best.none": "Níor aimsíodh praghsanna: bain triail as focail níos ginearálta.",
   "best.check": "Praghsanna ón ngréasán: seiceáil ar an suíomh iad sula gceannaíonn tú.",
   "best.say": "An ceann is fearr: {store}, {price}!",
-  "new.best": "“Aimsigh an praghas is fearr”: clóscríobh táirge agus cuardaíonn Mochi ar Amazon, i mbileoga agus i do phraghsanna. Is féidir leat nasc nó gabháil scáileáin a roinnt le Mochi ó aip eile freisin."
+  "new.best": "“Aimsigh an praghas is fearr”: clóscríobh táirge agus cuardaíonn Mochi ar Amazon, i mbileoga agus i do phraghsanna. Is féidir leat nasc nó gabháil scáileáin a roinnt le Mochi ó aip eile freisin.",
+  "ai.errBad": "{name}: níl an eochair bailí nó gníomhach.",
+  "ai.errRate": "{name}: teorainn úsáide bainte amach, bain triail eile as níos déanaí.",
+  "ai.errStatus": "Níor fhreagair {name} ({status}).",
+  "ai.errNet": "Gan nasc le {name}.",
+  "ai.errRead": "{name}: freagra doléite, bain triail eile as.",
+  "new.router": "Cuardach gréasáin Groq nuashonraithe, agus roghnaítear an tsamhail is fearr do gach iarratas go huathoibríoch as d'eochracha."
 }

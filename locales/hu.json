@@ -518,5 +518,11 @@
   "best.none": "Nincs ár: próbálj általánosabb szavakat.",
   "best.check": "Weben talált árak: vásárlás előtt ellenőrizd az oldalon.",
   "best.say": "A legjobb: {store}, {price}!",
-  "new.best": "„Legjobb ár keresése”: írj be egy terméket, és Mochi keres az Amazonon, szórólapokban és az áraid között. Más appból linket vagy képernyőképet is megoszthatsz Mochival."
+  "new.best": "„Legjobb ár keresése”: írj be egy terméket, és Mochi keres az Amazonon, szórólapokban és az áraid között. Más appból linket vagy képernyőképet is megoszthatsz Mochival.",
+  "ai.errBad": "{name}: a kulcs érvénytelen vagy nem aktív.",
+  "ai.errRate": "{name}: elérted a korlátot, próbáld később.",
+  "ai.errStatus": "{name} nem válaszolt ({status}).",
+  "ai.errNet": "Nincs kapcsolat: {name}.",
+  "ai.errRead": "{name}: olvashatatlan válasz, próbáld újra.",
+  "new.router": "Frissített Groq webes keresés, és minden kéréshez automatikusan a legjobb modell a kulcsaid közül."
 }
