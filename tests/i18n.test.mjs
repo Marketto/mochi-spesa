@@ -45,8 +45,9 @@ test("ogni chiave usata nel codice esiste", () => {
     ...[...js.matchAll(/"((?:wiz|new|vote|verdict|legal)\.[a-z0-9.]+)"/g)].map(m => m[1]),
   ]);
   for (let i = 1; i <= 5; i++) used.add(`wiz.s${i}.title`);
-  for (let i = 1; i <= 14; i++) used.add("legal.p" + i);
+  for (let i = 1; i <= 15; i++) used.add("legal.p" + i);
   for (let i = 1; i <= 7; i++) used.add("legal.t" + i);
+  for (const p of ["mistral", "groq", "qwen", "openrouter", "siliconflow", "claude"]) used.add("ai.p." + p);
   for (const k of ["place.credenza", "place.cantina", "pref.lineFav", "pref.lineAvoid"]) used.add(k);
   for (const u of ["lavaggi", "litri", "kg", "pezzi"]) { used.add("units." + u); used.add("unitPer." + u); }
   for (const c of ["clean", "body", "veg", "dairy", "meat", "bread", "frozen", "drinks", "pantry", "other"]) used.add("cat." + c);

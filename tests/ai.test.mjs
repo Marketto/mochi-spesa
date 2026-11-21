@@ -1,30 +1,50 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 const store = {};
-globalThis.localStorage = { getItem: k => store[k] ?? null, setItem: (k, v) => { store[k] = String(v); } };
+globalThis.localStorage = { getItem: k => store[k] ?? null, setItem: (k, v) => { store[k] = String(v); }, removeItem: k => { delete store[k]; } };
 const ai = await import("../js/claude.js");
+const reset = () => { for (const k of Object.keys(store)) delete store[k]; ai.setShared(null); };
 
-test("configurazione: vecchio formato Claude e chiavi separate per servizio", () => {
-  store["mochi.claude"] = JSON.stringify({ key: "sk-ant-old", model: "" });
-  assert.deepEqual(ai.getCfg(), { provider: "claude", key: "sk-ant-old", model: "claude-sonnet-5-5" });
-  ai.setCfg({ provider: "mistral", key: "mk", model: "" });
-  assert.equal(ai.getCfg().provider, "mistral"); assert.equal(ai.getCfg().key, "mk"); assert.equal(ai.getCfg().model, "mistral-medium-latest");
-  assert.equal(ai.getCfg("claude").key, "sk-ant-old");
-  assert.ok(ai.ready());
+test("migrazione dal vecchio formato a più chiavi", () => {
+  reset();
+  store["mochi.claude"] = JSON.stringify({ provider: "mistral", keys: { claude: "sk-ant-old", mistral: "mk" }, models: {} });
+  assert.deepEqual(ai.localKeys().map(k => k.provider).sort(), ["claude", "mistral"]);
+  assert.ok(ai.ready(true));
 });
-test("testo dalla risposta Mistral (blocchi e stringa)", () => {
-  const j = { outputs: [{ type: "tool.execution", name: "web_search" },
-    { type: "message.output", content: [{ type: "text", text: "```json\n{\"a\":" }, { type: "tool_reference", url: "u" }, { type: "text", text: "1}\n```" }] }] };
-  assert.deepEqual(ai.extractJson(ai.mistralText(j)), { a: 1 });
+test("scelta: prima i gratuiti e i meno usati, rispettando la ricerca web", () => {
+  reset();
+  ai.addKey({ provider: "claude", key: "c1" });
+  ai.addKey({ provider: "openrouter", key: "o1" });
+  ai.addKey({ provider: "groq", key: "g1" });
+  assert.deepEqual(ai.pick(true).map(k => k.provider), ["groq", "claude"]);          // openrouter non cerca sul web
+  assert.equal(ai.pick(false)[2].provider, "claude");                                  // a pagamento per ultimo
+  assert.ok(["groq", "openrouter"].includes(ai.pick(false)[0].provider));
+});
+test("chiavi condivise via Dropbox, senza doppioni", () => {
+  reset();
+  ai.addKey({ provider: "mistral", key: "mine" });
+  ai.setShared([{ provider: "mistral", key: "mine" }, { provider: "qwen", key: "fam" }]);
+  assert.deepEqual(ai.allKeys().map(k => [k.provider, !!k.shared]), [["mistral", false], ["qwen", true]]);
+  ai.setShared({ provider: "claude", key: "old-format" });
+  assert.equal(ai.allKeys().length, 2);
+});
+test("passa al servizio successivo se il primo è esaurito", async () => {
+  reset();
+  ai.addKey({ provider: "groq", key: "g1" });
+  ai.addKey({ provider: "openrouter", key: "o1" });
+  const calls = [];
+  globalThis.fetch = async (url, o) => {
+    calls.push(url);
+    if (url.includes("groq")) return new Response(JSON.stringify({ error: { message: "Rate limit reached: requests per day" } }), { status: 429 });
+    return new Response(JSON.stringify({ choices: [{ message: { content: "<think>x</think>```json\n{\"prodotti\":[{\"nome\":\"Latte 1 L\",\"prezzo\":0.99}]}\n```" } }] }), { status: 200 });
+  };
+  const r = await ai.estraiPrezzi({ testo: "Latte 1 L 0,99", lingua: "Italiano" });
+  assert.deepEqual(r, [{ nome: "Latte 1 L", prezzo: 0.99 }]);
+  assert.equal(calls.length, 2);
+  assert.ok(ai.cooling(ai.localKeys().find(k => k.provider === "groq")));   // in pausa fino a mezzanotte UTC
+  assert.deepEqual(ai.pick(false).map(k => k.provider), ["openrouter"]);
+});
+test("testo dalle risposte", () => {
   assert.equal(ai.mistralText({ outputs: [{ type: "message.output", content: "ciao" }] }), "ciao");
-});
-
-test("chiave condivisa via Dropbox: usata solo se non ce n'è una propria", () => {
-  for (const k of Object.keys(store)) delete store[k];
-  ai.setShared({ provider: "mistral", key: "family", model: "" });
-  assert.deepEqual(ai.getCfg(), { provider: "mistral", key: "family", model: "mistral-medium-latest", shared: true });
-  assert.equal(ai.getCfg("mistral", { local: true }).key, "");
-  ai.setCfg({ provider: "mistral", key: "mine", model: "" });
-  assert.equal(ai.getCfg().key, "mine");
-  ai.setShared(null);
+  assert.equal(ai.chatText({ choices: [{ message: { content: "<think>a</think>ok" } }] }), "ok");
 });

@@ -44,14 +44,14 @@ export async function readFlyer(file, lang, onProgress) {
   let worker = null, out = "";
   try {
     for await (const pg of pages(file, onProgress)) {
-      if (pg.text) { out += pg.text + "\n"; continue; }
+      if (pg.text) { out += pg.text + "\f"; continue; }
       if (!worker) {
         onProgress?.({ step: "load" });
         await loadScript(TESS);
         worker = await window.Tesseract.createWorker(lang, 1, { logger: m => m.status === "recognizing text" && onProgress?.({ step: "ocr", p: m.progress }) });
       }
       const { data } = await worker.recognize(pg.image);
-      out += data.text + "\n";
+      out += data.text + "\f";
     }
   } finally { await worker?.terminate(); }
   return out;
@@ -78,7 +78,7 @@ export function pricesIn(line) {
  * (stessa riga o fino a 4 righe sotto). Ritorna [{ nome, riga, prezzo, perUnita }].
  */
 export function findProducts(text, nomi) {
-  const lines = String(text).split(/\r?\n/).map(l => l.trim()).filter(Boolean), out = [];
+  const lines = String(text).split(/\r?\n|\f/).map(l => l.trim()).filter(Boolean), out = [];
   for (const nome of nomi) {
     const seen = new Set();
     for (let i = 0; i < lines.length; i++) {

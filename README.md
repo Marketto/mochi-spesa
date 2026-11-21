@@ -13,7 +13,17 @@ Lista della spesa **condivisa**, **kawaii** e **senza server**, con Mochi che ce
 - ☁️ **Sincronizzata con Dropbox**: un file JSON in una cartella condivisa in famiglia. Funziona anche offline e le modifiche si uniscono da sole.
 - 🏬 **Volantini ufficiali in automatico**: in Impostazioni scegli le tue catene (per ora Lidl). Mochi scarica i volantini ufficiali attraverso un piccolo ponte su Cloudflare, gratuito, che accetta solo i siti delle catene e non salva nulla. Il volantino viene letto sul telefono e i prezzi dei tuoi prodotti si salvano da soli. Per pubblicare il ponte servono il secret `CLOUDFLARE_API_TOKEN`, la variabile `CLOUDFLARE_ACCOUNT_ID` e, dopo il primo deploy, la variabile `FLYER_PROXY` con l'indirizzo `https://mochi-spesa-ponte.<tuo-sottodominio>.workers.dev`. Per aggiungere una catena basta un adattatore in `js/chains.js` e il suo dominio in `worker/src/index.js`.
 - 📰 **Leggi un volantino**: carichi il PDF o una foto, anche di un volantino passato. Il testo viene letto sul telefono con tesseract.js e pdf.js. Mochi trova i prodotti della lista e quelli da tenere d'occhio, tu confermi i prezzi e lui li salva nello storico condiviso. I prezzi salvati entrano in “Dove conviene?” e in Offerte.
-- 🤖 **IA gratis con Mistral**: oltre a Claude puoi scegliere Mistral, che ha un piano API gratuito, per cercare nei volantini e nei siti dei negozi.
+- 🤖 **Più chiavi IA, anche gratuite**: si possono aggiungere più chiavi di servizi diversi. Mochi sceglie da solo quella adatta al compito (con o senza ricerca web), usa prima le gratuite e passa alla successiva quando una esaurisce la quota.
+
+  | Servizio | Costo | Ricerca web | Dove si crea la chiave |
+  |---|---|---|---|
+  | Groq (anche Qwen) | gratis con limiti giornalieri | sì (`groq/compound`) | <https://console.groq.com/keys> |
+  | Mistral | piano gratuito con limiti | sì | <https://console.mistral.ai/api-keys> |
+  | Qwen · Alibaba Cloud | credito gratuito per 90 giorni (attiva *Free quota only*) | sì | <https://modelstudio.console.alibabacloud.com/> |
+  | OpenRouter (DeepSeek, Qwen, GLM) | modelli `:free`, circa 50 richieste al giorno | no | <https://openrouter.ai/settings/keys> |
+  | SiliconFlow (Qwen, GLM, DeepSeek) | modelli gratuiti, può chiedere la verifica dell'identità | no | <https://cloud.siliconflow.com/> |
+  | Claude | a pagamento | sì | <https://console.anthropic.com/settings/keys> |
+- 💾 **I miei prezzi**: tutti i prezzi dei volantini che leggi (letti con l'IA gratuita se c'è una chiave, altrimenti con delle regole) e quelli che aggiungi a mano finiscono in un piccolo database IndexedDB sul telefono, con ricerca, storico e miglior prezzo per negozio. Lo usano "Dove conviene?" e Valuta.
 - 🆓 **Prezzi gratis, senza chiave**: Mochi usa i prezzi segnalati dalla community di [Open Food Facts – Open Prices](https://prices.openfoodfacts.org) (ODbL) vicino a casa, sia in “Dove conviene?” sia in Offerte. Ci sono anche link rapidi per cercare i volantini. La chiave Claude è facoltativa: serve per i volantini aggiornati e per Amazon.
 - 🏷️ **Offerte vicino a casa**: scegli i prodotti da tenere d'occhio (detersivo lavatrice, ammorbidente…), la zona e il raggio. Mochi cerca nei volantini e confronta con Amazon il **prezzo per lavaggio, litro o kg**.
 - ⚖️ **È un buon affare?**: incolli un link Amazon o un prezzo. Ottieni subito il prezzo per unità e, se vuoi, un'analisi di qualità e prezzo.
@@ -124,6 +134,8 @@ js/importer.js        importazione da Invendo (.xlsx/.csv) senza librerie
 js/openprices.js      prezzi gratuiti della community (Open Food Facts – Open Prices)
 js/flyer.js           lettura volantini (OCR con tesseract.js, PDF con pdf.js) e storico prezzi
 js/chains.js          catene supportate (adattatori) per i volantini ufficiali
+js/pricedb.js         «I miei prezzi»: database locale (IndexedDB)
+js/claude.js          servizi IA, chiavi multiple e scelta automatica
 worker/               ponte Cloudflare (solo siti ufficiali, nessun salvataggio)
 js/geo.js             posizione, distanza da casa, indirizzi con OpenStreetMap
 js/i18n.js            traduzioni, lingua RTL, font per lingua
