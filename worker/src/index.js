@@ -36,7 +36,10 @@ export default {
     if (req.method === "OPTIONS") return origin ? new Response(null, { status: 204, headers: cors(origin) }) : fail(403, "origin");
     if (req.method !== "GET") return fail(405, "method", origin);
     if (!origin) return fail(403, "origin");
-    const target = allowedTarget(new URL(req.url).searchParams.get("url") || "");
+    // chiave privata facoltativa: se nel Worker c'è la variabile CHIAVE, il ponte risponde solo a chi la conosce
+    const params = new URL(req.url).searchParams;
+    if (env?.CHIAVE && params.get("k") !== env.CHIAVE) return fail(403, "key", origin);
+    const target = allowedTarget(params.get("url") || "");
     if (!target) return fail(400, "url", origin);
 
     const cache = caches.default, key = new Request("https://cache.mochi/" + encodeURIComponent(target.href));

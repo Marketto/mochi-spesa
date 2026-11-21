@@ -3,7 +3,15 @@
 // nulla viene ripubblicato. Per aggiungere una catena: un oggetto con id, nome, paese, flyers(), pdf().
 
 const today = () => new Date().toISOString().slice(0, 10);
-export const via = (proxy, url) => `${proxy.replace(/\/+$/, "")}/?url=${encodeURIComponent(url)}`;
+/**
+ * Indirizzo per scaricare "url" attraverso il ponte. Il ponte può avere una chiave privata
+ * (es. https://ponte.workers.dev/?k=segreta): viene mantenuta, così solo chi la conosce usa la quota.
+ */
+export function via(proxy, url) {
+  const u = new URL(proxy.includes("?") ? proxy : proxy.replace(/\/+$/, "") + "/");
+  u.searchParams.set("url", url);
+  return u.href;
+}
 
 async function get(proxy, url, as = "text", signal) {
   const r = await fetch(via(proxy, url), { signal });
