@@ -542,5 +542,8 @@
   "kapibo.never": "Daugiau neklausti",
   "kapibo.neverToast": "Gerai, daugiau neklausiu. Gali vėl įjungti Nustatymuose.",
   "kapibo.sent": "Pirkiniai išsiųsti į Kapibo 💰 (produktai: {n})",
-  "new.kapibo": "Mochi kalbasi su Kapibo: Kapibo perskaityti čekiai keliauja į sandėliuką, o sudėti pirkiniai gali patekti į biudžetą."
+  "new.kapibo": "Mochi kalbasi su Kapibo: Kapibo perskaityti čekiai keliauja į sandėliuką, o sudėti pirkiniai gali patekti į biudžetą.",
+  "best.partial": "Kai kurie šaltiniai neatsakė: {msg}",
+  "best.also": "Leidinius peržiūrėkite ir {site}",
+  "new.bestv2": "Tikslesnė „Rasti geriausią kainą“: po vieną peržiūri netoliese esančių tinklų leidinius, leidinių agregatorius, internetines parduotuves ir Amazon bei atmeta kitas formas (pvz., tabletes, kai ieškote kapsulių)."
 }

@@ -542,5 +542,8 @@
   "kapibo.never": "Nicht mehr fragen",
   "kapibo.neverToast": "Okay, ich frage nicht mehr. In den Einstellungen kannst du es wieder einschalten.",
   "kapibo.sent": "Einkauf an Kapibo gesendet 💰 (Produkte: {n})",
-  "new.kapibo": "Mochi spricht mit Kapibo: von Kapibo gelesene Bons gehen in deinen Vorrat, und eingeräumter Einkauf kann in dein Budget."
+  "new.kapibo": "Mochi spricht mit Kapibo: von Kapibo gelesene Bons gehen in deinen Vorrat, und eingeräumter Einkauf kann in dein Budget.",
+  "best.partial": "Einige Quellen haben nicht geantwortet: {msg}",
+  "best.also": "Prospekte auch auf {site} ansehen",
+  "new.bestv2": "Genaueres „Besten Preis finden“: prüft die Prospekte der Ketten in der Nähe einzeln, Prospekt-Portale, Online-Supermärkte und Amazon und lässt andere Formate weg (z. B. Tabs, wenn du Pods suchst)."
 }

@@ -114,6 +114,20 @@ function userError(last, name) {
   return mk("ai.errRead", { name });
 }
 
+const sleep = (ms, signal) => new Promise((ok, ko) => {
+  const id = setTimeout(ok, ms);
+  signal?.addEventListener("abort", () => { clearTimeout(id); ko(new DOMException("aborted", "AbortError")); }, { once: true });
+});
+/** Limite al minuto (429 non giornaliero): si aspetta quanto chiede il servizio, al massimo 20 secondi, e si riprova una volta. */
+const shortRate = e => e instanceof ApiError && e.status === 429 && !/day|daily|quota|exceed|insufficient|balance|credit/i.test(e.message) && (e.retry || 5) <= 20;
+
+/** Un tentativo su un candidato, con una seconda prova dopo un limite al minuto. */
+async function attempt(c, { system, prompt, web, signal }) {
+  const once = async () => { countUse(c.key); return extractJson(await call({ provider: c.provider, P: c.P, model: c.model, key: c.key.key, system, prompt, web, signal })); };
+  try { return await once(); }
+  catch (e) { if (!shortRate(e)) throw e; await sleep((e.retry || 5) * 1000, signal); return once(); }
+}
+
 /**
  * Esegue una richiesta sul candidato migliore, poi sui successivi in caso di errore.
  * @param {{ system: string, prompt: string, tags?: string[], signal?: AbortSignal }} req
@@ -126,9 +140,7 @@ export async function ask({ system, prompt, tags = [TAG.WEB], signal }) {
   for (const c of cands) {
     if (skip.has(c.key.id)) continue; // chiave messa in pausa da un tentativo precedente
     try {
-      countUse(c.key);
-      const text = await call({ provider: c.provider, P: c.P, model: c.model, key: c.key.key, system, prompt, web: tags.includes(TAG.WEB), signal });
-      return extractJson(text);
+      return await attempt(c, { system, prompt, web: tags.includes(TAG.WEB), signal });
     } catch (e) {
       if (e.name === "AbortError") throw e;
       last = e; lastName = c.P.nome;

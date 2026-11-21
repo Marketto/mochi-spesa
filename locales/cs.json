@@ -542,5 +542,8 @@
   "kapibo.never": "Už se neptat",
   "kapibo.neverToast": "Dobře, už se nebudu ptát. Můžeš to zapnout v Nastavení.",
   "kapibo.sent": "Nákup odeslán do Kapibo 💰 (produkty: {n})",
-  "new.kapibo": "Mochi mluví s Kapibo: účtenky přečtené Kapibem jdou do spižírny a uklizený nákup může jít do rozpočtu."
+  "new.kapibo": "Mochi mluví s Kapibo: účtenky přečtené Kapibem jdou do spižírny a uklizený nákup může jít do rozpočtu.",
+  "best.partial": "Některé zdroje neodpověděly: {msg}",
+  "best.also": "Prohlédni si letáky i na {site}",
+  "new.bestv2": "Přesnější „Najdi nejlepší cenu“: prochází letáky blízkých řetězců jeden po druhém, agregátory letáků, online nákupy a Amazon a vynechává jiné formy (např. tablety, když hledáš kapsle)."
 }

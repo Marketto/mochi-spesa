@@ -39,10 +39,11 @@ export function withUnit(r) {
  * Ordina le righe: prima quelle con l'unità più comune, per prezzo a unità; poi le altre per prezzo.
  * Toglie i doppioni (stesso negozio, stesso nome, stesso prezzo).
  */
-export function rank(rows) {
+export function rank(rows, q = "") {
   const seen = new Set(), list = [];
   for (const r0 of rows) {
     if (!r0 || !(r0.prezzo > 0) || !r0.nome) continue;
+    if (q && !sameType(q, r0.nome)) continue; // formato diverso da quello cercato
     const r = withUnit(r0), k = [norm(r.negozio || ""), norm(r.nome), r.prezzo].join("|");
     if (seen.has(k)) continue; seen.add(k); list.push(r);
   }
@@ -67,12 +68,29 @@ export function fromShare(title, text, url) {
   return { q, url: link };
 }
 
-// parole che nei volantini si scrivono in modi diversi
+// parole che nei volantini si scrivono in modi diversi (stesso formato di prodotto)
 const SYN = [
-  ["pod", "pods", "capsule", "capsula", "caps", "pastiglie", "pastiglia", "tabs", "tablet", "monodose"],
+  ["pod", "pods", "caps", "capsule", "capsula", "monodose"],
+  ["pastiglie", "pastiglia", "tabs", "tablet", "compresse"],
   ["detersivo", "detergente"], ["ammorbidente", "morbidezza"], ["carta igienica", "rotoli"],
   ["lavastoviglie", "lavapiatti"], ["lavatrice", "bucato"],
 ];
+
+// formati diversi dello stesso prodotto: chi cerca le pod non vuole le pastiglie
+const FORMATS = {
+  pod: /\b(pod|pods|caps|capsul[ae]|monodose|ecodos[ei])\b/i,
+  tabs: /\b(pastigli[ae]|tabs?|tablets?|compresse)\b/i,
+  gel: /\b(gel|liquido|liquid)\b/i,
+  polvere: /\b(polvere|powder)\b/i,
+};
+/** Formati citati in un testo (es. "pod lavastoviglie" → ["pod"]). */
+export const formatsOf = text => Object.keys(FORMATS).filter(f => FORMATS[f].test(String(text || "")));
+/** Il risultato è dello stesso formato cercato? Se uno dei due non dice il formato, si tiene. */
+export function sameType(q, nome) {
+  const a = formatsOf(q), b = formatsOf(nome);
+  return !a.length || !b.length || a.some(f => b.includes(f));
+}
+
 /** La ricerca e le sue varianti con sinonimi (al massimo 8), per trovare più prezzi salvati. */
 export function variants(q) {
   const base = String(q || "").toLowerCase().trim(), out = new Set([base]);
@@ -82,3 +100,6 @@ export function variants(q) {
   }
   return [...out].slice(0, 8);
 }
+
+/** Parte di URL dal nome del prodotto: "Pod lavastoviglie" → "pod-lavastoviglie". */
+export const slug = q => String(q || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");

@@ -542,5 +542,8 @@
   "kapibo.never": "Vairs nejautāt",
   "kapibo.neverToast": "Labi, vairs nejautāšu. Vari to ieslēgt Iestatījumos.",
   "kapibo.sent": "Iepirkumi nosūtīti uz Kapibo 💰 (produkti: {n})",
-  "new.kapibo": "Mochi runā ar Kapibo: Kapibo nolasītie čeki nonāk pieliekamajā, bet novietotie iepirkumi var nonākt budžetā."
+  "new.kapibo": "Mochi runā ar Kapibo: Kapibo nolasītie čeki nonāk pieliekamajā, bet novietotie iepirkumi var nonākt budžetā.",
+  "best.partial": "Daži avoti neatbildēja: {msg}",
+  "best.also": "Šķirsti bukletus arī {site}",
+  "new.bestv2": "Precīzāka “Atrodi labāko cenu”: pa vienam pārbauda tuvējo tīklu bukletus, bukletu apkopotājus, interneta veikalus un Amazon un izslēdz citas formas (piem., tabletes, ja meklē kapsulas)."
 }

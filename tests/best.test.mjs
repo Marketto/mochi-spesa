@@ -35,6 +35,16 @@ test("testo condiviso da Amazon", () => {
 import { variants } from "../js/best.js";
 test("sinonimi", () => {
   const v = variants("pod lavastoviglie");
-  assert.ok(v.includes("pastiglie lavastoviglie")); assert.equal(v[0], "pod lavastoviglie"); assert.ok(v.length <= 8);
+  assert.ok(v.includes("caps lavastoviglie")); assert.equal(v[0], "pod lavastoviglie"); assert.ok(v.length <= 8);
   assert.deepEqual(variants("latte"), ["latte"]);
+});
+import { sameType, formatsOf } from "../js/best.js";
+test("pod e pastiglie non si mescolano", () => {
+  assert.deepEqual(formatsOf("Pod lavastoviglie"), ["pod"]);
+  assert.ok(!sameType("pod lavastoviglie", "Finish Quantum pastiglie 40 pz"));
+  assert.ok(sameType("pod lavastoviglie", "Svelto caps 30 pz"));
+  assert.ok(sameType("pod lavastoviglie", "Detersivo lavastoviglie 30 pz"));   // formato non detto: si tiene
+  assert.ok(sameType("detersivo lavastoviglie", "Finish tabs 40"));
+  assert.ok(!variants("pod lavastoviglie").some(v => /pastigli|tabs/.test(v)));
+  assert.deepEqual(rank([{ negozio: "A", nome: "Pastiglie 40 pz", prezzo: 4 }, { negozio: "B", nome: "Caps 30 pz", prezzo: 5 }], "pod").righe.map(r => r.negozio), ["B"]);
 });

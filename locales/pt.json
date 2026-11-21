@@ -542,5 +542,8 @@
   "kapibo.never": "Não perguntar mais",
   "kapibo.neverToast": "Está bem, não pergunto mais. Podes voltar a ativar em Definições.",
   "kapibo.sent": "Compras enviadas ao Kapibo 💰 (produtos: {n})",
-  "new.kapibo": "O Mochi fala com o Kapibo: os talões lidos pelo Kapibo vão para a despensa e as compras arrumadas podem ir para o orçamento."
+  "new.kapibo": "O Mochi fala com o Kapibo: os talões lidos pelo Kapibo vão para a despensa e as compras arrumadas podem ir para o orçamento.",
+  "best.partial": "Algumas fontes não responderam: {msg}",
+  "best.also": "Vê também os folhetos em {site}",
+  "new.bestv2": "«Encontrar o melhor preço» mais preciso: verifica um a um os folhetos das cadeias próximas, agregadores de folhetos, supermercados online e Amazon, e descarta outros formatos (ex. pastilhas se procuras cápsulas)."
 }

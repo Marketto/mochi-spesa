@@ -542,5 +542,8 @@
   "kapibo.never": "Non chiedermelo più",
   "kapibo.neverToast": "Va bene, non te lo chiedo più. Puoi riattivarlo nelle Impostazioni.",
   "kapibo.sent": "Spesa mandata a Kapibo 💰 (prodotti: {n})",
-  "new.kapibo": "Mochi parla con Kapibo: gli scontrini letti da Kapibo vanno in dispensa e la spesa messa via può finire nei conti."
+  "new.kapibo": "Mochi parla con Kapibo: gli scontrini letti da Kapibo vanno in dispensa e la spesa messa via può finire nei conti.",
+  "best.partial": "Alcune fonti non hanno risposto: {msg}",
+  "best.also": "Sfoglia anche i volantini su {site}",
+  "new.bestv2": "«Trova il prezzo migliore» più preciso: cerca nei volantini delle catene vicine una per una, negli aggregatori di volantini, nella spesa online e su Amazon, e scarta i formati diversi (es. pastiglie se cerchi pod)."
 }
