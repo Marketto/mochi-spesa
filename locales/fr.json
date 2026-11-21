@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} ajouté : enregistre les réglages.",
   "fl.files": "{n} fichiers",
   "fl.fileN": "Fichier {i} sur {n}",
-  "new.flyers2": "Prospectus officiels de tes magasins depuis le lien de leur page, et plusieurs captures de prospectus lues ensemble, aussi via « Partager »."
+  "new.flyers2": "Prospectus officiels de tes magasins depuis le lien de leur page, et plusieurs captures de prospectus lues ensemble, aussi via « Partager ».",
+  "ch.ponte": "Adresse du pont Cloudflare",
+  "ch.ponteHint": "Copie-la depuis Cloudflare après avoir créé le Worker (elle finit par .workers.dev). Il suffit de la saisir sur un téléphone : elle est partagée avec la famille.",
+  "new.ponte": "Le pont pour les prospectus officiels s'active sans jeton : crée le Worker sur Cloudflare et colle son adresse dans les réglages."
 }

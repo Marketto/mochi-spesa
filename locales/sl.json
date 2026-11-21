@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} dodan: shrani nastavitve.",
   "fl.files": "Datotek: {n}",
   "fl.fileN": "Datoteka {i} od {n}",
-  "new.flyers2": "Uradni letaki tvojih trgovin iz povezave do njihove strani in več posnetkov letaka hkrati, tudi z »Deli«."
+  "new.flyers2": "Uradni letaki tvojih trgovin iz povezave do njihove strani in več posnetkov letaka hkrati, tudi z »Deli«.",
+  "ch.ponte": "Naslov mostu Cloudflare",
+  "ch.ponteHint": "Kopiraj ga iz Cloudflara po ustvarjanju Workerja (konča se z .workers.dev). Dovolj je na enem telefonu: deli se z družino.",
+  "new.ponte": "Most za uradne letake vklopiš brez žetona: ustvari Worker v Cloudflaru in prilepi njegov naslov v nastavitve."
 }

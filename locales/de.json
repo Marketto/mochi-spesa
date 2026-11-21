@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} hinzugefügt: Einstellungen speichern.",
   "fl.files": "{n} Dateien",
   "fl.fileN": "Datei {i} von {n}",
-  "new.flyers2": "Offizielle Prospekte deiner Geschäfte über den Link ihrer Seite und mehrere Prospekt-Screenshots auf einmal, auch per „Teilen“."
+  "new.flyers2": "Offizielle Prospekte deiner Geschäfte über den Link ihrer Seite und mehrere Prospekt-Screenshots auf einmal, auch per „Teilen“.",
+  "ch.ponte": "Adresse der Cloudflare-Brücke",
+  "ch.ponteHint": "Kopiere sie aus Cloudflare, nachdem du den Worker erstellt hast (endet auf .workers.dev). Es reicht, sie auf einem Handy einzugeben: sie wird mit der Familie geteilt.",
+  "new.ponte": "Die Brücke für offizielle Prospekte geht ohne Token: Worker bei Cloudflare erstellen und Adresse in den Einstellungen einfügen."
 }

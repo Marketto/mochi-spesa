@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} aggiunto: salva le impostazioni.",
   "fl.files": "{n} file",
   "fl.fileN": "File {i} di {n}",
-  "new.flyers2": "Volantini ufficiali dei tuoi negozi (Todis, Eurospin, MD, Conad…) dal link della loro pagina, e più screenshot di volantino letti insieme, anche con «Condividi»."
+  "new.flyers2": "Volantini ufficiali dei tuoi negozi (Todis, Eurospin, MD, Conad…) dal link della loro pagina, e più screenshot di volantino letti insieme, anche con «Condividi».",
+  "ch.ponte": "Indirizzo del ponte Cloudflare",
+  "ch.ponteHint": "Lo copi da Cloudflare dopo aver creato il Worker (finisce con .workers.dev). Basta inserirlo su un telefono: viene condiviso con la famiglia.",
+  "new.ponte": "Il ponte per i volantini ufficiali si può attivare senza token: crei il Worker su Cloudflare e ne incolli l'indirizzo nelle impostazioni."
 }

@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} tillagd: spara inställningarna.",
   "fl.files": "{n} filer",
   "fl.fileN": "Fil {i} av {n}",
-  "new.flyers2": "Officiella reklamblad från dina butiker via länken till deras sida, och flera skärmbilder av reklamblad på en gång, även via ”Dela”."
+  "new.flyers2": "Officiella reklamblad från dina butiker via länken till deras sida, och flera skärmbilder av reklamblad på en gång, även via ”Dela”.",
+  "ch.ponte": "Adress till Cloudflare-bryggan",
+  "ch.ponteHint": "Kopiera den från Cloudflare när du skapat Workern (slutar på .workers.dev). Räcker på en telefon: den delas med familjen.",
+  "new.ponte": "Bryggan för officiella reklamblad kan slås på utan token: skapa Workern på Cloudflare och klistra in adressen i inställningarna."
 }

@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} adicionado: guarda as definições.",
   "fl.files": "{n} ficheiros",
   "fl.fileN": "Ficheiro {i} de {n}",
-  "new.flyers2": "Folhetos oficiais das tuas lojas a partir do link da página, e várias capturas de folheto lidas juntas, também com «Partilhar»."
+  "new.flyers2": "Folhetos oficiais das tuas lojas a partir do link da página, e várias capturas de folheto lidas juntas, também com «Partilhar».",
+  "ch.ponte": "Endereço da ponte Cloudflare",
+  "ch.ponteHint": "Copia-o do Cloudflare depois de criar o Worker (termina em .workers.dev). Basta pô-lo num telemóvel: é partilhado com a família.",
+  "new.ponte": "A ponte para os folhetos oficiais ativa-se sem token: cria o Worker no Cloudflare e cola o endereço nas definições."
 }

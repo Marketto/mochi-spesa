@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} pievienots: saglabā iestatījumus.",
   "fl.files": "{n} faili",
   "fl.fileN": "Fails {i} no {n}",
-  "new.flyers2": "Tavu veikalu oficiālie bukleti no to lapas saites un vairāki bukleta ekrānuzņēmumi vienlaikus, arī ar “Kopīgot”."
+  "new.flyers2": "Tavu veikalu oficiālie bukleti no to lapas saites un vairāki bukleta ekrānuzņēmumi vienlaikus, arī ar “Kopīgot”.",
+  "ch.ponte": "Cloudflare tilta adrese",
+  "ch.ponteHint": "Nokopē to no Cloudflare pēc Worker izveides (beidzas ar .workers.dev). Pietiek vienā tālrunī: tā tiek kopīgota ar ģimeni.",
+  "new.ponte": "Oficiālo bukletu tiltu var ieslēgt bez žetona: izveido Worker Cloudflare un ielīmē tā adresi iestatījumos."
 }

@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} lisätty: tallenna asetukset.",
   "fl.files": "{n} tiedostoa",
   "fl.fileN": "Tiedosto {i}/{n}",
-  "new.flyers2": "Kauppojesi viralliset mainokset niiden sivun linkistä ja useita mainoskuvakaappauksia kerralla, myös ”Jaa”-toiminnolla."
+  "new.flyers2": "Kauppojesi viralliset mainokset niiden sivun linkistä ja useita mainoskuvakaappauksia kerralla, myös ”Jaa”-toiminnolla.",
+  "ch.ponte": "Cloudflare-sillan osoite",
+  "ch.ponteHint": "Kopioi se Cloudflaresta Workerin luomisen jälkeen (päättyy .workers.dev). Riittää yhdessä puhelimessa: se jaetaan perheen kanssa.",
+  "new.ponte": "Virallisten mainosten silta toimii ilman tunnusta: luo Worker Cloudflaressa ja liitä sen osoite asetuksiin."
 }

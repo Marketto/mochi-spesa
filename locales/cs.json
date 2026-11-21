@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} přidán: ulož nastavení.",
   "fl.files": "Souborů: {n}",
   "fl.fileN": "Soubor {i} z {n}",
-  "new.flyers2": "Oficiální letáky tvých obchodů z odkazu na jejich stránku a více snímků letáku najednou, i přes „Sdílet“."
+  "new.flyers2": "Oficiální letáky tvých obchodů z odkazu na jejich stránku a více snímků letáku najednou, i přes „Sdílet“.",
+  "ch.ponte": "Adresa mostu Cloudflare",
+  "ch.ponteHint": "Zkopíruj ji z Cloudflare po vytvoření Workeru (končí na .workers.dev). Stačí ji zadat na jednom telefonu: sdílí se s rodinou.",
+  "new.ponte": "Most pro oficiální letáky jde zapnout bez tokenu: vytvoř Worker na Cloudflare a vlož jeho adresu do nastavení."
 }

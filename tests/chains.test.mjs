@@ -53,3 +53,7 @@ test("pagine ufficiali: volantini dalla pagina tramite il ponte", async () => {
   assert.equal(fl.length, 1); assert.equal(fl[0].catena, p.id); assert.equal(fl[0].pdf, "https://www.todis.it/wp-content/uploads/V-Roma.pdf"); assert.equal(fl[0].nome, "V Roma");
   assert.deepEqual(urls, ["https://www.todis.it/volantini/volantino-todis-carini/"]);
 });
+test("ponte: senza variabili accetta solo l'app pubblica", () => {
+  assert.equal(allowedOrigin("https://marketto.github.io", {}), "https://marketto.github.io");
+  assert.equal(allowedOrigin("https://altro.it", {}), null);
+});

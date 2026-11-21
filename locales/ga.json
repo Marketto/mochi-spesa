@@ -567,5 +567,8 @@
   "ch.pageAdded": "Cuireadh {chain} leis: sábháil na socruithe.",
   "fl.files": "{n} comhad",
   "fl.fileN": "Comhad {i} as {n}",
-  "new.flyers2": "Bileoga oifigiúla do shiopaí ó nasc a leathanaigh, agus roinnt gabhálacha scáileáin bileoige le chéile, trí “Comhroinn” freisin."
+  "new.flyers2": "Bileoga oifigiúla do shiopaí ó nasc a leathanaigh, agus roinnt gabhálacha scáileáin bileoige le chéile, trí “Comhroinn” freisin.",
+  "ch.ponte": "Seoladh dhroichead Cloudflare",
+  "ch.ponteHint": "Cóipeáil ó Cloudflare é tar éis duit an Worker a chruthú (críochnaíonn sé le .workers.dev). Is leor é ar fhón amháin: roinntear é leis an teaghlach.",
+  "new.ponte": "Is féidir droichead na mbileog oifigiúil a chasadh air gan chomhartha: cruthaigh an Worker ar Cloudflare agus greamaigh a sheoladh sna socruithe."
 }

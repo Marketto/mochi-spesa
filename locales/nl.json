@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} toegevoegd: sla de instellingen op.",
   "fl.files": "{n} bestanden",
   "fl.fileN": "Bestand {i} van {n}",
-  "new.flyers2": "Officiële folders van je winkels via de link van hun pagina, en meerdere folder-screenshots tegelijk, ook via „Delen”."
+  "new.flyers2": "Officiële folders van je winkels via de link van hun pagina, en meerdere folder-screenshots tegelijk, ook via „Delen”.",
+  "ch.ponte": "Adres van de Cloudflare-brug",
+  "ch.ponteHint": "Kopieer het uit Cloudflare na het maken van de Worker (eindigt op .workers.dev). Eén telefoon is genoeg: het wordt gedeeld met het gezin.",
+  "new.ponte": "De brug voor officiële folders kan zonder token: maak de Worker op Cloudflare en plak het adres in de instellingen."
 }

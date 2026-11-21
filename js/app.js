@@ -49,7 +49,9 @@ let LOCAL_CFG = {};
 const isLocal = ["localhost", "127.0.0.1"].includes(location.hostname);
 try { LOCAL_CFG = (await import(isLocal ? "../config.local.js" : "../config.js")).default || {}; } catch {}
 const BUILT_KEY = String(LOCAL_CFG.dropboxAppKey || "");
-const PROXY = /^https:\/\//.test(LOCAL_CFG.flyerProxy || "") ? LOCAL_CFG.flyerProxy : "";
+// ponte Cloudflare: dalla configurazione del deploy oppure scritto dall'utente nelle impostazioni (condiviso in famiglia)
+const okProxy = u => /^https:\/\/[^\s/]+(\/[^\s]*)?$/.test(String(u || "")) ? String(u).replace(/\/+$/, "") : "";
+const PROXY = () => okProxy(LOCAL_CFG.flyerProxy) || okProxy(state.settings?.ponte);
 const DBX_CFG_KEY = "mochi.dbxcfg";
 const dbxCfg = () => {
   const c = { appKey: "", path: LOCAL_CFG.dropboxPath || "/Spesa/mochi-spesa.json", ...lsGet(DBX_CFG_KEY, {}) };
@@ -886,7 +888,7 @@ async function findBest(q, link = "") {
     .then(list => { parts.op = best.variants(q).flatMap(v => op.bestFor(v, list, 8)).map(x => ({ negozio: x.negozio, nome: [x.marca, x.nome].filter(Boolean).join(" "), prezzo: x.prezzo, quantita: x.quantita, data: x.data, fonte: op.priceUrl(x.id), src: "op" })); res.stato.op = "ok"; res.n.op = parts.op.length; })
     .catch(() => { res.stato.op = "err"; }).then(update));
   // 3. Amazon e negozi online con prezzi veri (SerpApi: Amazon + Google Shopping), se l'utente ha la chiave
-  if (res.stato.serp) jobs.push(serp.search(q, { lang: lang(), proxy: PROXY })
+  if (res.stato.serp) jobs.push(serp.search(q, { lang: lang(), proxy: PROXY() })
     .then(r => { parts.serp = [...r.amazon, ...r.shopping].map(x => ({ ...x, src: "serp" })); res.stato.serp = "ok"; res.n.serp = parts.serp.length; renderSerp(); })
     .catch(e => { res.stato.serp = "err"; res.avviso = "SerpApi: " + e.message; }).then(update));
   // 4. ricerca web con l'IA, divisa per fonte: volantini delle catene vicine (a gruppi), aggregatori, spesa online, Amazon
@@ -965,7 +967,7 @@ $("#best-out").addEventListener("click", e => {
 const FLY_TXT = "mochi.flyertext", CH_CHECK = "mochi.chainCheck";
 const simpleHash = str => { let h = 5381; for (const c of str) h = (h * 33 + c.codePointAt(0)) >>> 0; return h.toString(36); };
 // catene attive: quelle con adattatore dedicato scelte dall'utente + le pagine ufficiali dei suoi negozi
-const myChains = () => PROXY ? [...(state.settings.catene || []).map(id => chains.CHAINS[id]).filter(Boolean),
+const myChains = () => PROXY() ? [...(state.settings.catene || []).map(id => chains.CHAINS[id]).filter(Boolean),
   ...(state.settings.pagine || []).filter(p => chains.officialChainOf(p.url)).map(chains.pageChain)] : [];
 const chainOf = id => myChains().find(c => c.id === id) || null;
 let chainRun = null;
@@ -981,12 +983,12 @@ async function refreshChains({ manual = false } = {}) {
     try {
       for (const ch of list) {
         let fl = [];
-        try { fl = await ch.flyers(PROXY); } catch { errori++; toast(t("ch.err", { chain: ch.nome }), "warn"); continue; }
+        try { fl = await ch.flyers(PROXY()); } catch { errori++; toast(t("ch.err", { chain: ch.nome }), "warn"); continue; }
         for (const f of fl) {
           if (cache[f.id]) continue;
           msg.textContent = t("ch.loading", { chain: ch.nome, name: f.nome });
           try {
-            const text = await flyer.readFlyer(await ch.pdf(PROXY, f), flyer.ocrLang(lang()), ev => { if (ev.step === "page") msg.textContent = `${t("ch.loading", { chain: ch.nome, name: f.nome })} ${t("fl.page", { page: ev.page, pages: ev.pages })}`; });
+            const text = await flyer.readFlyer(await ch.pdf(PROXY(), f), flyer.ocrLang(lang()), ev => { if (ev.step === "page") msg.textContent = `${t("ch.loading", { chain: ch.nome, name: f.nome })} ${t("fl.page", { page: ev.page, pages: ev.pages })}`; });
             cache[f.id] = { fine: f.fine, at: Date.now(), text: text.slice(0, 400000), f };
             try { await ingestFlyer(text, { negozio: ch.nome, validoFino: f.fine, fonte: f.url }); } catch {}
             try { localStorage.setItem(FLY_TXT, JSON.stringify(cache)); } catch { delete cache[f.id]; }
@@ -1453,9 +1455,10 @@ function fillSettings() {
   for (const r of document.querySelectorAll('input[name="lvdir"]')) r.checked = r.value === (s.ripiani === "basso" ? "basso" : "alto");
   pickedShops = splitShops(s.negozi); shopsAll = false; loadShops();
   const scelte = new Set(s.catene || []);
-  $("#z-chains-list").innerHTML = PROXY ? chains.chainList().map(c => `<label class="check"><input type="checkbox" name="catena" value="${c.id}"${scelte.has(c.id) ? " checked" : ""}> ${esc(c.nome)}${c.nazionale ? ` <small>· ${esc(t("ch.national"))}</small>` : ""}</label>`).join("") : "";
-  $("#z-chains-hint").textContent = t(PROXY ? "ch.hint" : "ch.none"); $("#z-amz").checked = s.amazon !== false;
+  $("#z-chains-list").innerHTML = PROXY() ? chains.chainList().map(c => `<label class="check"><input type="checkbox" name="catena" value="${c.id}"${scelte.has(c.id) ? " checked" : ""}> ${esc(c.nome)}${c.nazionale ? ` <small>· ${esc(t("ch.national"))}</small>` : ""}</label>`).join("") : "";
+  $("#z-chains-hint").textContent = t(PROXY() ? "ch.hint" : "ch.none"); $("#z-amz").checked = s.amazon !== false;
   renderPages(s.pagine || []);
+  $("#ponte-box").hidden = !!okProxy(LOCAL_CFG.flyerProxy); $("#z-ponte").value = s.ponte || "";
   let names; try { names = new Intl.DisplayNames([locale()], { type: "currency" }); } catch {}
   $("#z-valuta").innerHTML = CURRENCIES.map(c => `<option value="${c}">${esc(names ? names.of(c) : c)} (${c})</option>`).join("");
   $("#z-valuta").value = currency();
@@ -1628,6 +1631,7 @@ async function saveSettings() {
     mutate((s, now) => {
       s.settings = { ...s.settings, luogo, raggioKm: +$("#z-raggio").value, negozi: checkedShops().join(", "), amazon: $("#z-amz").checked,
         valuta: $("#z-valuta").value, ripiani, catene: [...document.querySelectorAll('#z-chains-list input[name="catena"]:checked')].map(x => x.value),
+        ponte: okProxy($("#z-ponte").value.trim()) || "",
         pagine: [...document.querySelectorAll('#pg-list input[name="pagina"]:checked')].map(x => chains.newPage(x.value)).filter(Boolean), ...coords, updatedAt: now };
     });
     setDirty(false); fillSettings(); render(); renderOfferte();

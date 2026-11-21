@@ -567,5 +567,8 @@
   "ch.pageAdded": "已添加 {chain}：请保存设置。",
   "fl.files": "{n} 个文件",
   "fl.fileN": "第 {i} 个，共 {n} 个",
-  "new.flyers2": "通过页面链接读取门店官方促销单，还能一次读取多张促销单截图，也可通过「分享」。"
+  "new.flyers2": "通过页面链接读取门店官方促销单，还能一次读取多张促销单截图，也可通过「分享」。",
+  "ch.ponte": "Cloudflare 中转地址",
+  "ch.ponteHint": "创建 Worker 后从 Cloudflare 复制（以 .workers.dev 结尾）。只需在一台手机上填写：会与家人共享。",
+  "new.ponte": "官方促销单的中转无需令牌即可开启：在 Cloudflare 创建 Worker，并把地址粘贴到设置里。"
 }

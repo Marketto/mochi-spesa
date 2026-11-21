@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} hozzáadva: mentsd a beállításokat.",
   "fl.files": "{n} fájl",
   "fl.fileN": "{i}. fájl / {n}",
-  "new.flyers2": "Üzleteid hivatalos szórólapjai az oldaluk linkjéből, és egyszerre több szórólap-képernyőkép, a „Megosztás” menüből is."
+  "new.flyers2": "Üzleteid hivatalos szórólapjai az oldaluk linkjéből, és egyszerre több szórólap-képernyőkép, a „Megosztás” menüből is.",
+  "ch.ponte": "A Cloudflare-híd címe",
+  "ch.ponteHint": "Másold ki a Cloudflare-ből a Worker létrehozása után (.workers.dev-re végződik). Elég egy telefonon megadni: a családdal megosztva.",
+  "new.ponte": "A hivatalos szórólapok hídja token nélkül is bekapcsolható: hozd létre a Workert a Cloudflare-en, és illeszd be a címét a beállításokba."
 }

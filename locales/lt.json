@@ -567,5 +567,8 @@
   "ch.pageAdded": "{chain} pridėta: išsaugokite nustatymus.",
   "fl.files": "Failų: {n}",
   "fl.fileN": "Failas {i} iš {n}",
-  "new.flyers2": "Jūsų parduotuvių oficialūs leidiniai iš jų puslapio nuorodos ir keli leidinio ekrano vaizdai kartu, taip pat per „Bendrinti“."
+  "new.flyers2": "Jūsų parduotuvių oficialūs leidiniai iš jų puslapio nuorodos ir keli leidinio ekrano vaizdai kartu, taip pat per „Bendrinti“.",
+  "ch.ponte": "Cloudflare tilto adresas",
+  "ch.ponteHint": "Nukopijuokite jį iš Cloudflare sukūrę Worker (baigiasi .workers.dev). Užtenka viename telefone: jis bendrinamas su šeima.",
+  "new.ponte": "Oficialių leidinių tiltą galima įjungti be žetono: sukurkite Worker Cloudflare ir įklijuokite jo adresą nustatymuose."
 }
