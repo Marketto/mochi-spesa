@@ -128,7 +128,6 @@ js/app.js             interfaccia, sincronizzazione, effetti
 js/mascot.js          Mochi (SVG) con espressioni e frasi
 js/store.js           unione senza conflitti (last-writer-wins per elemento + tombstone)
 js/dropbox.js         OAuth PKCE e file Dropbox dal browser
-js/claude.js          ricerca offerte e valutazioni con l'API di Claude
 js/voice.js           dettatura con il riconoscimento vocale del browser
 js/pantry.js          dispensa: posti, scaffali, ripiani, quantità
 js/importer.js        importazione da Invendo (.xlsx/.csv) senza librerie
@@ -139,7 +138,8 @@ js/pricedb.js         «I miei prezzi»: database locale (IndexedDB)
 js/best.js            «Trova il prezzo migliore»: unione e ordinamento per prezzo a unità
 js/amazon.js          link di ricerca sul negozio Amazon del paese (nessuna lettura delle pagine)
 js/shops.js           negozi nel raggio da OpenStreetMap (Overpass API) per i preferiti
-js/claude.js          servizi IA, chiavi multiple e scelta automatica
+js/ai/                IA: providers.js (catalogo modelli), keys.js (chiavi e pause),
+                      adapters.js (formati API), router.js (sceglie il modello per tag), tasks.js (compiti)
 worker/               ponte Cloudflare (solo siti ufficiali, nessun salvataggio)
 js/geo.js             posizione, distanza da casa, indirizzi con OpenStreetMap
 js/i18n.js            traduzioni, lingua RTL, font per lingua

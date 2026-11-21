@@ -518,5 +518,11 @@
   "best.none": "Hindu ei leitud: proovi üldisemaid sõnu.",
   "best.check": "Veebist leitud hinnad: kontrolli neid enne ostmist lehel.",
   "best.say": "Parim: {store}, {price}!",
-  "new.best": "„Leia parim hind”: kirjuta toode ja Mochi otsib Amazonist, kampaanialehtedest ja sinu hindadest. Võid Mochiga jagada ka linki või ekraanipilti teisest rakendusest."
+  "new.best": "„Leia parim hind”: kirjuta toode ja Mochi otsib Amazonist, kampaanialehtedest ja sinu hindadest. Võid Mochiga jagada ka linki või ekraanipilti teisest rakendusest.",
+  "ai.errBad": "{name}: võti ei kehti või pole aktiivne.",
+  "ai.errRate": "{name}: kasutuspiir täis, proovi hiljem.",
+  "ai.errStatus": "{name} ei vastanud ({status}).",
+  "ai.errNet": "Ühendus puudub: {name}.",
+  "ai.errRead": "{name}: loetamatu vastus, proovi uuesti.",
+  "new.router": "Groqi veebiotsing uuendatud ning igale päringule valitakse sinu võtmete seast automaatselt sobivaim mudel."
 }

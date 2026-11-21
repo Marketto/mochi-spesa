@@ -518,5 +518,11 @@
   "best.none": "Kainų nerasta: pabandykite bendresnius žodžius.",
   "best.check": "Internete rastos kainos: prieš pirkdami patikrinkite svetainėje.",
   "best.say": "Geriausia: {store}, {price}!",
-  "new.best": "„Rasti geriausią kainą“: įrašykite prekę ir Moči ieško Amazon, leidiniuose ir jūsų kainose. Taip pat galite pasidalyti su Moči nuoroda ar ekrano kopija iš kitos programėlės."
+  "new.best": "„Rasti geriausią kainą“: įrašykite prekę ir Moči ieško Amazon, leidiniuose ir jūsų kainose. Taip pat galite pasidalyti su Moči nuoroda ar ekrano kopija iš kitos programėlės.",
+  "ai.errBad": "{name}: raktas negalioja arba neaktyvus.",
+  "ai.errRate": "{name}: pasiektas limitas, bandykite vėliau.",
+  "ai.errStatus": "{name} neatsakė ({status}).",
+  "ai.errNet": "Nėra ryšio su {name}.",
+  "ai.errRead": "{name}: neįskaitomas atsakymas, bandykite dar kartą.",
+  "new.router": "Atnaujinta Groq paieška internete ir automatinis tinkamiausio modelio parinkimas kiekvienai užklausai iš jūsų raktų."
 }

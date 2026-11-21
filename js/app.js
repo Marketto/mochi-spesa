@@ -4,7 +4,7 @@ import { emptyState, merge, normalize, same, live, uid } from "./store.js";
 import { t, setLang, detect, lang, locale, langName, LANGS } from "./i18n.js";
 import { APP_VERSION, POLICY_VERSION, CHANGELOG, novitaDopo } from "./version.js";
 import * as dbx from "./dropbox.js";
-import * as ai from "./claude.js";
+import * as ai from "./ai/index.js";
 import * as geo from "./geo.js";
 import * as voice from "./voice.js";
 import * as pantry from "./pantry.js";
@@ -785,6 +785,7 @@ function renderBest(res) {
   out.innerHTML = `<section class="card best-res" aria-labelledby="best-rt" aria-busy="${busy}">
     <h3 id="best-rt">${esc(t("best.results", { q: res.q }))}</h3>
     <p class="srcs">${chip("mine", t("best.srcMine"))}${chip("op", "Open Prices")}${chip("web", t("best.srcWeb"))}</p>
+    ${st.web === "err" && res.errore ? `<p class="hint">${ic("warn")} ${esc(res.errore)}</p>` : ""}
     ${righe.length ? `<ol class="best-list">${righe.map((r, i) => bestRow(r, i, i === 0 && !busy)).join("")}</ol>` : `<p class="hint">${esc(busy ? t("best.searching") : t("best.none"))}</p>`}
     ${amzOn() && !righe.some(r => isAmazon(r.negozio)) ? `<p class="cmp">${amzLink(res.q)}</p>` : ""}
     ${righe.some(r => r.src === "web") ? `<p class="hint">${ic("info")} ${esc(t("best.check"))}</p>` : ""}
@@ -825,7 +826,7 @@ async function findBest(q, link = "") {
         // restano tra i tuoi prezzi: la prossima volta li trovi anche senza rete
         pricedb.add(parts.web.map(x => ({ ...best.withUnit(x), validoFino: /^\d{4}-\d{2}-\d{2}$/.test(x.validoFino || "") ? x.validoFino : "", origine: "web" }))).then(renderDb).catch(() => {});
       })
-      .catch(e => { res.stato.web = "err"; res.errore = e.message; toast(e.message, "warn"); }).then(update));
+      .catch(e => { res.stato.web = "err"; res.errore = e.message; }).then(update));
   }
   await Promise.all(jobs);
   btn.classList.remove("loading"); btn.removeAttribute("aria-busy");
@@ -1386,15 +1387,15 @@ const mask = k => "•••• " + k.slice(-4);
 const until = ms => new Date(ms).toLocaleTimeString(locale(), { hour: "2-digit", minute: "2-digit" });
 function providerInfo(id) {
   const P = ai.PROVIDERS[id];
-  return [t(P.free === "free" ? "ai.free" : P.free === "quota" ? "ai.freeQuota" : "ai.paid"), t(P.web ? "ai.web" : "ai.noweb")].join(" · ");
+  return [t(P.tier === "free" ? "ai.free" : P.tier === "quota" ? "ai.freeQuota" : "ai.paid"), t(ai.canWeb(id) ? "ai.web" : "ai.noweb")].join(" · ");
 }
 function renderAiKeys() {
   const keys = ai.allKeys();
   $("#ai-keys").innerHTML = keys.length ? keys.map(k => {
     const P = ai.PROVIDERS[k.provider], c = ai.cooling(k), n = ai.usage(k);
     return `<li class="ai-key${c ? " cool" : ""}"><span class="ai-n"><strong>${esc(P.nome)}</strong> <code>${esc(mask(k.key))}</code>${k.shared ? ` <small>${ic("heart")} ${esc(t("zone.shared"))}</small>` : ""}</span>
-      <span class="ai-b"><span class="badge${P.free === "paid" ? " gold" : ""}">${esc(providerInfo(k.provider))}</span></span>
-      <span class="ai-u hint">${esc(t("ai.usage", { n }))}${c ? ` · ${esc(t("ai.cooling", { time: until(c.until) }))}` : ""}</span>
+      <span class="ai-b"><span class="badge${P.tier === "paid" ? " gold" : ""}">${esc(providerInfo(k.provider))}</span></span>
+      <span class="ai-u hint">${esc(t("ai.usage", { n }))}${c ? ` · ${esc(t("ai.cooling", { time: until(c.until) }))}${c.msg ? ` – ${esc(c.msg)}` : ""}` : ""}</span>
       ${k.shared ? "" : `<button class="icon-btn danger" type="button" data-aidel="${esc(k.id)}" aria-label="${esc(t("ai.removeKey", { name: P.nome }))}">${ic("delete")}</button>`}</li>`;
   }).join("") : `<li class="hint">${ic("key")} ${esc(t("ai.none"))}</li>`;
   const sh = state.settings.aiShared, mine = ai.localKeys();
@@ -1410,7 +1411,7 @@ function fillProviders() {
 function fillProvider() {
   const id = $("#ai-provider").value, P = ai.PROVIDERS[id];
   $("#ai-link").href = P.link;
-  $("#ai-model").placeholder = P.models.web || P.models.text;
+  $("#ai-model").placeholder = P.models[0].id;
   $("#ai-pinfo").textContent = t("ai.p." + id);
 }
 $("#ai-provider").addEventListener("change", fillProvider);

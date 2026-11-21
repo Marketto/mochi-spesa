@@ -518,5 +518,11 @@
   "best.none": "Niciun preț găsit: încearcă cuvinte mai generale.",
   "best.check": "Prețuri găsite pe web: verifică-le pe site înainte să cumperi.",
   "best.say": "Cel mai bun: {store}, {price}!",
-  "new.best": "„Găsește cel mai bun preț”: scrie un produs și Mochi caută pe Amazon, în cataloage și în prețurile tale. Poți și trimite lui Mochi un link sau o captură dintr-o altă aplicație."
+  "new.best": "„Găsește cel mai bun preț”: scrie un produs și Mochi caută pe Amazon, în cataloage și în prețurile tale. Poți și trimite lui Mochi un link sau o captură dintr-o altă aplicație.",
+  "ai.errBad": "{name}: cheie nevalidă sau inactivă.",
+  "ai.errRate": "{name}: limită de utilizare atinsă, încearcă mai târziu.",
+  "ai.errStatus": "{name} nu a răspuns ({status}).",
+  "ai.errNet": "Nicio conexiune cu {name}.",
+  "ai.errRead": "{name}: răspuns ilizibil, încearcă din nou.",
+  "new.router": "Căutarea web Groq actualizată și alegerea automată a celui mai potrivit model pentru fiecare cerere, dintre cheile tale."
 }

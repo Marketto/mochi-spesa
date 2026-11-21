@@ -518,5 +518,11 @@
   "best.none": "Ingen priser fundet: prøv mere generelle ord.",
   "best.check": "Priser fra nettet: tjek dem på siden før du køber.",
   "best.say": "Bedst: {store}, {price}!",
-  "new.best": "“Find den bedste pris”: skriv et produkt, og Mochi søger på Amazon, i tilbudsaviser og i dine priser. Du kan også dele et link eller et skærmbillede til Mochi fra en anden app."
+  "new.best": "“Find den bedste pris”: skriv et produkt, og Mochi søger på Amazon, i tilbudsaviser og i dine priser. Du kan også dele et link eller et skærmbillede til Mochi fra en anden app.",
+  "ai.errBad": "{name}: nøglen er ugyldig eller ikke aktiv.",
+  "ai.errRate": "{name}: forbrugsgrænse nået, prøv senere.",
+  "ai.errStatus": "{name} svarede ikke ({status}).",
+  "ai.errNet": "Ingen forbindelse til {name}.",
+  "ai.errRead": "{name}: ulæseligt svar, prøv igen.",
+  "new.router": "Groqs websøgning opdateret, og den bedste model til hver forespørgsel vælges automatisk blandt dine nøgler."
 }

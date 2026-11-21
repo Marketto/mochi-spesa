@@ -518,5 +518,11 @@
   "best.none": "Geen prijzen gevonden: probeer algemenere woorden.",
   "best.check": "Prijzen van het web: controleer ze op de site voor je koopt.",
   "best.say": "De beste: {store}, {price}!",
-  "new.best": "„Beste prijs vinden”: typ een product en Mochi zoekt op Amazon, in folders en in je prijzen. Je kunt Mochi ook een link of screenshot uit een andere app delen."
+  "new.best": "„Beste prijs vinden”: typ een product en Mochi zoekt op Amazon, in folders en in je prijzen. Je kunt Mochi ook een link of screenshot uit een andere app delen.",
+  "ai.errBad": "{name}: sleutel ongeldig of niet actief.",
+  "ai.errRate": "{name}: gebruikslimiet bereikt, probeer het later.",
+  "ai.errStatus": "{name} gaf geen antwoord ({status}).",
+  "ai.errNet": "Geen verbinding met {name}.",
+  "ai.errRead": "{name}: onleesbaar antwoord, probeer opnieuw.",
+  "new.router": "Webzoeken van Groq bijgewerkt en automatische keuze van het beste model per verzoek, uit je sleutels."
 }

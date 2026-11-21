@@ -518,5 +518,11 @@
   "best.none": "Ma nstabu l-ebda prezzijiet: ipprova kliem aktar ġenerali.",
   "best.check": "Prezzijiet mill-web: iċċekkjahom fuq is-sit qabel tixtri.",
   "best.say": "L-aħjar: {store}, {price}!",
-  "new.best": "“Sib l-aħjar prezz”: ikteb prodott u Mochi jfittex fuq Amazon, fil-fuljetti u fil-prezzijiet tiegħek. Tista' wkoll taqsam ma' Mochi link jew screenshot minn app oħra."
+  "new.best": "“Sib l-aħjar prezz”: ikteb prodott u Mochi jfittex fuq Amazon, fil-fuljetti u fil-prezzijiet tiegħek. Tista' wkoll taqsam ma' Mochi link jew screenshot minn app oħra.",
+  "ai.errBad": "{name}: iċ-ċavetta mhix valida jew attiva.",
+  "ai.errRate": "{name}: intlaħaq il-limitu, erġa' pprova aktar tard.",
+  "ai.errStatus": "{name} ma wieġebx ({status}).",
+  "ai.errNet": "L-ebda konnessjoni ma' {name}.",
+  "ai.errRead": "{name}: tweġiba li ma tinqarax, erġa' pprova.",
+  "new.router": "It-tfittxija fuq il-web ta' Groq aġġornata, u l-aħjar mudell għal kull talba jintgħażel awtomatikament mill-ċwievet tiegħek."
 }
