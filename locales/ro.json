@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi vorbește cu Kapibo: bonurile citite de Kapibo intră în cămară, iar cumpărăturile puse la loc pot intra în buget.",
   "best.partial": "Unele surse nu au răspuns: {msg}",
   "best.also": "Răsfoiește cataloagele și pe {site}",
-  "new.bestv2": "„Găsește cel mai bun preț” mai precis: verifică pe rând cataloagele lanțurilor din apropiere, agregatoarele de cataloage, cumpărăturile online și Amazon, și elimină alte formate (ex. tablete dacă cauți capsule)."
+  "new.bestv2": "„Găsește cel mai bun preț” mai precis: verifică pe rând cataloagele lanțurilor din apropiere, agregatoarele de cataloage, cumpărăturile online și Amazon, și elimină alte formate (ex. tablete dacă cauți capsule).",
+  "sync.newer": "Listă creată cu o versiune mai nouă: actualizează aplicația ca să salvezi",
+  "new.syncformat": "Sincronizare mai solidă: datele din alte aplicații și versiuni nu se mai pierd"
 }

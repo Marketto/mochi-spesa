@@ -1,0 +1,74 @@
+{
+  "nome": "01-chiave-sconosciuta-conservata",
+  "descrizione": "Chiavi in cima sconosciute: una mappa (unita per elemento) e due valori semplici (vince updatedAt più alto; senza updatedAt vince il remoto).",
+  "local": {
+    "schema": 1,
+    "items": {},
+    "sensori": {
+      "s1": {
+        "id": "s1",
+        "t": 21,
+        "updatedAt": 1000
+      }
+    },
+    "profilo": {
+      "tema": "chiaro",
+      "updatedAt": 2000
+    },
+    "nota": "locale"
+  },
+  "remote": {
+    "schema": 1,
+    "items": {},
+    "sensori": {
+      "s1": {
+        "id": "s1",
+        "t": 19,
+        "updatedAt": 900
+      },
+      "s2": {
+        "id": "s2",
+        "t": 5,
+        "updatedAt": 950
+      }
+    },
+    "profilo": {
+      "tema": "scuro",
+      "updatedAt": 1500
+    },
+    "nota": "remota",
+    "extra": [
+      1,
+      2
+    ]
+  },
+  "now": 1800000000000,
+  "atteso": {
+    "scrivi": true,
+    "stato": {
+      "schema": 1,
+      "items": {},
+      "sensori": {
+        "s1": {
+          "id": "s1",
+          "t": 21,
+          "updatedAt": 1000
+        },
+        "s2": {
+          "id": "s2",
+          "t": 5,
+          "updatedAt": 950
+        }
+      },
+      "profilo": {
+        "tema": "chiaro",
+        "updatedAt": 2000
+      },
+      "nota": "remota",
+      "extra": [
+        1,
+        2
+      ]
+    }
+  }
+}

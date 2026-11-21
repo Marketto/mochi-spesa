@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi habla con Kapibo: los tickets leídos por Kapibo van a tu despensa y la compra que guardes puede ir a tu presupuesto.",
   "best.partial": "Algunas fuentes no respondieron: {msg}",
   "best.also": "Mira también los folletos en {site}",
-  "new.bestv2": "«Encuentra el mejor precio» más preciso: revisa los folletos de las cadenas cercanas una a una, agregadores de folletos, supermercados online y Amazon, y descarta otros formatos (p. ej. pastillas si buscas cápsulas)."
+  "new.bestv2": "«Encuentra el mejor precio» más preciso: revisa los folletos de las cadenas cercanas una a una, agregadores de folletos, supermercados online y Amazon, y descarta otros formatos (p. ej. pastillas si buscas cápsulas).",
+  "sync.newer": "Lista creada con una versión más nueva: actualiza la app para guardar",
+  "new.syncformat": "Sincronización más robusta: ya no se pierden datos de otras apps y versiones"
 }

@@ -1,0 +1,40 @@
+{
+  "nome": "07-schema-piu-nuovo",
+  "descrizione": "Il file remoto ha uno schema più nuovo: l'unione lo conserva (mai abbassare schema) e un client con SCHEMA 1 non scrive.",
+  "local": {
+    "schema": 1,
+    "items": {
+      "a": {
+        "id": "a",
+        "nome": "Caffè",
+        "updatedAt": 5000
+      }
+    }
+  },
+  "remote": {
+    "schema": 2,
+    "items": {
+      "a": {
+        "id": "a",
+        "nome": "Caffè",
+        "updatedAt": 4000
+      }
+    },
+    "nuovaMappa": {}
+  },
+  "now": 1800000000000,
+  "atteso": {
+    "scrivi": false,
+    "stato": {
+      "schema": 2,
+      "items": {
+        "a": {
+          "id": "a",
+          "nome": "Caffè",
+          "updatedAt": 5000
+        }
+      },
+      "nuovaMappa": {}
+    }
+  }
+}

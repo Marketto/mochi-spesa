@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi runā ar Kapibo: Kapibo nolasītie čeki nonāk pieliekamajā, bet novietotie iepirkumi var nonākt budžetā.",
   "best.partial": "Daži avoti neatbildēja: {msg}",
   "best.also": "Šķirsti bukletus arī {site}",
-  "new.bestv2": "Precīzāka “Atrodi labāko cenu”: pa vienam pārbauda tuvējo tīklu bukletus, bukletu apkopotājus, interneta veikalus un Amazon un izslēdz citas formas (piem., tabletes, ja meklē kapsulas)."
+  "new.bestv2": "Precīzāka “Atrodi labāko cenu”: pa vienam pārbauda tuvējo tīklu bukletus, bukletu apkopotājus, interneta veikalus un Amazon un izslēdz citas formas (piem., tabletes, ja meklē kapsulas).",
+  "sync.newer": "Saraksts no jaunākas versijas: atjaunini lietotni, lai saglabātu",
+  "new.syncformat": "Drošāka sinhronizācija: citu lietotņu un versiju dati vairs nepazūd"
 }

@@ -30,3 +30,5 @@ export function parseAdd(txt) {
   const m = txt.match(/^(\d+[.,]?\d*\s*(?:kg|g|gr|l|lt|ml|pz|pcs|x|confezion\w*|pacc\w*|bottigli\w*|pack\w*|bottle\w*)?)\s+(.+)$/i);
   return m ? { nome: m[2].trim(), qta: m[1].trim() } : { nome: txt, qta: "" };
 }
+// Converte solo i vecchi nomi della 1.0; valori sconosciuti (es. scritti da altri client) restano com'erano.
+export const legacyCat = c => LEGACY[c] || c;

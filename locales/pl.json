@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi rozmawia z Kapibo: paragony odczytane przez Kapibo trafiają do spiżarni, a odłożone zakupy mogą trafić do budżetu.",
   "best.partial": "Niektóre źródła nie odpowiedziały: {msg}",
   "best.also": "Przejrzyj też gazetki na {site}",
-  "new.bestv2": "Dokładniejsze „Znajdź najlepszą cenę”: sprawdza po kolei gazetki pobliskich sieci, agregatory gazetek, sklepy online i Amazon oraz pomija inne formy (np. tabletki, gdy szukasz kapsułek)."
+  "new.bestv2": "Dokładniejsze „Znajdź najlepszą cenę”: sprawdza po kolei gazetki pobliskich sieci, agregatory gazetek, sklepy online i Amazon oraz pomija inne formy (np. tabletki, gdy szukasz kapsułek).",
+  "sync.newer": "Lista z nowszej wersji: zaktualizuj aplikację, aby zapisać",
+  "new.syncformat": "Solidniejsza synchronizacja: dane z innych aplikacji i wersji już nie giną"
 }

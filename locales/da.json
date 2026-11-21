@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi taler med Kapibo: kvitteringer Kapibo har læst kommer i spisekammeret, og udpakkede indkøb kan komme i budgettet.",
   "best.partial": "Nogle kilder svarede ikke: {msg}",
   "best.also": "Se også tilbudsaviser på {site}",
-  "new.bestv2": "Mere præcis “Find den bedste pris”: gennemgår kæderne i nærheden én ad gangen, tilbudsavis-portaler, netbutikker og Amazon og fjerner andre formater (fx tabs når du søger pods)."
+  "new.bestv2": "Mere præcis “Find den bedste pris”: gennemgår kæderne i nærheden én ad gangen, tilbudsavis-portaler, netbutikker og Amazon og fjerner andre formater (fx tabs når du søger pods).",
+  "sync.newer": "Liste fra en nyere version: opdater appen for at gemme",
+  "new.syncformat": "Mere robust synkronisering: data fra andre apps og versioner går ikke længere tabt"
 }

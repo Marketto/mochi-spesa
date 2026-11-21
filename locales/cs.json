@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi mluví s Kapibo: účtenky přečtené Kapibem jdou do spižírny a uklizený nákup může jít do rozpočtu.",
   "best.partial": "Některé zdroje neodpověděly: {msg}",
   "best.also": "Prohlédni si letáky i na {site}",
-  "new.bestv2": "Přesnější „Najdi nejlepší cenu“: prochází letáky blízkých řetězců jeden po druhém, agregátory letáků, online nákupy a Amazon a vynechává jiné formy (např. tablety, když hledáš kapsle)."
+  "new.bestv2": "Přesnější „Najdi nejlepší cenu“: prochází letáky blízkých řetězců jeden po druhém, agregátory letáků, online nákupy a Amazon a vynechává jiné formy (např. tablety, když hledáš kapsle).",
+  "sync.newer": "Seznam z novější verze: aktualizuj aplikaci, aby šlo ukládat",
+  "new.syncformat": "Spolehlivější synchronizace: data z jiných aplikací a verzí se už neztrácejí"
 }

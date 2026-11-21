@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://marketto.github.io/mochi-spesa/schema/mochi-spesa.v1.schema.json",
+  "title": "Mochi Sync Format v1",
+  "description": "File condiviso di Mochi Spesa (es. /Spesa/mochi-spesa.json su Dropbox). Le chiavi e i campi non elencati sono ammessi e vanno conservati. Regole di unione in docs/sync-format.md.",
+  "type": "object",
+  "required": ["schema"],
+  "properties": {
+    "schema": { "type": "integer", "minimum": 1, "description": "Versione del formato. Mai abbassarla. Un client che trova un valore maggiore del suo legge e non scrive." },
+    "items": { "$ref": "#/$defs/mapOf/items", "description": "Lista della spesa. Scrivibile anche da client esterni." },
+    "dispensa": { "$ref": "#/$defs/mapOf/dispensa", "description": "Dispensa. Scrivibile anche da client esterni." },
+    "monitor": { "$ref": "#/$defs/map", "description": "Solo Mochi." },
+    "valutazioni": { "$ref": "#/$defs/map", "description": "Solo Mochi." },
+    "luoghi": { "$ref": "#/$defs/mapOf/luoghi", "description": "Solo Mochi. I client esterni lo leggono per i valori di dispensa.luogo." },
+    "preferenze": { "$ref": "#/$defs/map", "description": "Solo Mochi." },
+    "prezzi": { "$ref": "#/$defs/map", "description": "Solo Mochi." },
+    "volantini": { "$ref": "#/$defs/map", "description": "Solo Mochi." },
+    "offerte": { "$ref": "#/$defs/single", "description": "Solo Mochi." },
+    "confronto": { "$ref": "#/$defs/single", "description": "Solo Mochi." },
+    "settings": { "$ref": "#/$defs/single", "description": "Solo Mochi. Può contenere chiavi IA condivise (aiShared): non registrarle nei log." }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "timestamp": { "type": "number", "minimum": 0, "description": "Millisecondi UTC dall'epoca Unix." },
+    "by": { "type": "string", "pattern": "^[a-z0-9-]+:.+$", "description": "Autore dell'ultima modifica: \"<client>:<id stabile>\", es. \"phone:lx3k9a2b\"." },
+    "element": {
+      "type": "object",
+      "required": ["id", "updatedAt"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "updatedAt": { "$ref": "#/$defs/timestamp" },
+        "by": { "$ref": "#/$defs/by" },
+        "deleted": { "type": "boolean", "description": "true = tombstone (eliminato). Tolto dopo 30 giorni." }
+      },
+      "additionalProperties": true
+    },
+    "map": {
+      "type": "object",
+      "description": "Oggetto di elementi; la chiave è uguale all'id dell'elemento.",
+      "additionalProperties": { "$ref": "#/$defs/element" }
+    },
+    "single": {
+      "type": "object",
+      "properties": { "updatedAt": { "$ref": "#/$defs/timestamp" }, "by": { "$ref": "#/$defs/by" } },
+      "additionalProperties": true
+    },
+    "category": {
+      "type": "string",
+      "description": "clean, body, veg, dairy, meat, bread, frozen, drinks, pantry, other. Valori sconosciuti sono conservati e mostrati come other."
+    },
+    "item": {
+      "allOf": [{ "$ref": "#/$defs/element" }],
+      "properties": {
+        "nome": { "type": "string" },
+        "qta": { "type": "string", "description": "Testo libero con unità, es. \"2 l\", \"500 g\", \"6\" o \"\"." },
+        "cat": { "$ref": "#/$defs/category" },
+        "fatto": { "type": "boolean", "description": "Spuntato nel carrello." },
+        "da": { "type": "string", "description": "Nome di chi l'ha aggiunto." },
+        "nota": { "type": "string" },
+        "negozio": { "type": "string" },
+        "prezzo": { "type": ["number", "string", "null"] },
+        "prendi": {
+          "type": ["object", "null"],
+          "description": "Da prendere dalla dispensa invece che comprare.",
+          "properties": { "dispId": { "type": "string" }, "luogo": { "type": "string" }, "label": { "type": "string" } }
+        },
+        "ts": { "$ref": "#/$defs/timestamp", "description": "Creazione." }
+      }
+    },
+    "pantryItem": {
+      "allOf": [{ "$ref": "#/$defs/element" }],
+      "properties": {
+        "nome": { "type": "string" },
+        "qta": { "type": "string", "description": "Testo libero con unità, es. \"1 kg\", \"3\" o \"\"." },
+        "cat": { "$ref": "#/$defs/category" },
+        "luogo": { "type": "string", "description": "id in luoghi (\"credenza\" esiste sempre)." },
+        "scaffale": { "type": "string" },
+        "ripiano": { "type": "string" },
+        "scad": { "type": "string", "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$", "description": "Scadenza AAAA-MM-GG o vuoto." },
+        "ts": { "$ref": "#/$defs/timestamp", "description": "Creazione." }
+      }
+    },
+    "place": {
+      "allOf": [{ "$ref": "#/$defs/element" }],
+      "properties": {
+        "nome": { "type": "string", "description": "Vuoto = nome tradotto di default." },
+        "base": { "type": "boolean" },
+        "ordine": { "type": "number" },
+        "scaffali": { "type": "array" }
+      }
+    },
+    "mapOf": {
+      "items": { "type": "object", "additionalProperties": { "$ref": "#/$defs/item" } },
+      "dispensa": { "type": "object", "additionalProperties": { "$ref": "#/$defs/pantryItem" } },
+      "luoghi": { "type": "object", "additionalProperties": { "$ref": "#/$defs/place" } }
+    }
+  }
+}

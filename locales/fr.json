@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi parle avec Kapibo : les tickets lus par Kapibo vont dans ton garde-manger et les courses rangées peuvent aller dans ton budget.",
   "best.partial": "Certaines sources n'ont pas répondu : {msg}",
   "best.also": "Feuillette aussi les prospectus sur {site}",
-  "new.bestv2": "« Trouver le meilleur prix » plus précis : il vérifie un par un les prospectus des enseignes proches, les agrégateurs de prospectus, les courses en ligne et Amazon, et écarte les autres formats (ex. pastilles si tu cherches des capsules)."
+  "new.bestv2": "« Trouver le meilleur prix » plus précis : il vérifie un par un les prospectus des enseignes proches, les agrégateurs de prospectus, les courses en ligne et Amazon, et écarte les autres formats (ex. pastilles si tu cherches des capsules).",
+  "sync.newer": "Liste créée avec une version plus récente : mets l'app à jour pour enregistrer",
+  "new.syncformat": "Synchro plus solide : les données d'autres apps et versions ne se perdent plus"
 }

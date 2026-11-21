@@ -545,5 +545,7 @@
   "new.kapibo": "Mochi pratar med Kapibo: kvitton som Kapibo läst hamnar i skafferiet och uppackade inköp kan gå till budgeten.",
   "best.partial": "Vissa källor svarade inte: {msg}",
   "best.also": "Bläddra även bland reklamblad på {site}",
-  "new.bestv2": "Exaktare ”Hitta bästa priset”: går igenom närliggande kedjors reklamblad en i taget, reklambladsportaler, nätbutiker och Amazon, och tar bort andra format (t.ex. tabletter när du söker pods)."
+  "new.bestv2": "Exaktare ”Hitta bästa priset”: går igenom närliggande kedjors reklamblad en i taget, reklambladsportaler, nätbutiker och Amazon, och tar bort andra format (t.ex. tabletter när du söker pods).",
+  "sync.newer": "Lista från en nyare version: uppdatera appen för att spara",
+  "new.syncformat": "Stabilare synk: data från andra appar och versioner försvinner inte längre"
 }
