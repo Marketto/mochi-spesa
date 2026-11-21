@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Lista sklepów z OpenStreetMap (© współtwórcy OpenStreetMap)",
   "legal.p16": "Aby pokazać pobliskie sklepy, (zaokrąglony) środek okolicy i promień są wysyłane do OpenStreetMap (Overpass API). Lista zostaje na telefonie 7 dni.",
-  "new.nearshops": "Ulubione sklepy bez pisania: wybierz z listy sklepów w Twoim promieniu."
+  "new.nearshops": "Ulubione sklepy bez pisania: wybierz z listy sklepów w Twoim promieniu.",
+  "amz.search": "Porównaj na Amazonie",
+  "amz.searchName": "Szukaj {name} na Amazonie",
+  "amz.mine": "Twoja cena z {date}",
+  "new.amazon": "Porównanie z Amazonem: jedno dotknięcie otwiera produkt na Amazonie, a ceny z Amazona zapisane w „Moich cenach” trafiają do porównań."
 }

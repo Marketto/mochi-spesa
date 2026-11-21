@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Lista ta' ħwienet minn OpenStreetMap (© kontributuri ta' OpenStreetMap)",
   "legal.p16": "Biex jintwerew il-ħwienet fil-qrib, iċ-ċentru (arrotondat) taż-żona u r-raġġ jintbagħtu lil OpenStreetMap (Overpass API). Il-lista tibqa' fuq it-telefon għal 7 ijiem.",
-  "new.nearshops": "Ħwienet favoriti mingħajr ma tikteb: agħżel mil-lista tal-ħwienet fir-raġġ tiegħek."
+  "new.nearshops": "Ħwienet favoriti mingħajr ma tikteb: agħżel mil-lista tal-ħwienet fir-raġġ tiegħek.",
+  "amz.search": "Qabbel fuq Amazon",
+  "amz.searchName": "Fittex {name} fuq Amazon",
+  "amz.mine": "il-prezz tiegħek tal-{date}",
+  "new.amazon": "Tqabbil ma' Amazon: mess wieħed jiftaħ il-prodott fuq Amazon, u l-prezzijiet ta' Amazon li tissalva f'“Il-prezzijiet tiegħi” jidħlu fit-tqabbil."
 }

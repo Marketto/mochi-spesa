@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} 家 · {km} 公里",
   "zone.osm": "商店列表来自 OpenStreetMap（© OpenStreetMap 贡献者）",
   "legal.p16": "为显示附近商店，区域的中心点（已取整）和半径会发送到 OpenStreetMap（Overpass API）。列表在手机上保存 7 天。",
-  "new.nearshops": "常去商店不用手打：直接从设置范围内的商店中选择。"
+  "new.nearshops": "常去商店不用手打：直接从设置范围内的商店中选择。",
+  "amz.search": "在亚马逊比价",
+  "amz.searchName": "在亚马逊搜索 {name}",
+  "amz.mine": "你在 {date} 记录的价格",
+  "new.amazon": "与亚马逊比价：点一下即可在亚马逊打开商品，保存在「我的价格」中的亚马逊价格也会参与比较。"
 }

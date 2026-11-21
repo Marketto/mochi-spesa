@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Popis trgovina iz OpenStreetMapa (© suradnici OpenStreetMapa)",
   "legal.p16": "Za prikaz obližnjih trgovina (zaokruženo) središte područja i radijus šalju se OpenStreetMapu (Overpass API). Popis ostaje na mobitelu 7 dana.",
-  "new.nearshops": "Omiljene trgovine bez tipkanja: odaberi s popisa trgovina u svom radijusu."
+  "new.nearshops": "Omiljene trgovine bez tipkanja: odaberi s popisa trgovina u svom radijusu.",
+  "amz.search": "Usporedi na Amazonu",
+  "amz.searchName": "Traži {name} na Amazonu",
+  "amz.mine": "tvoja cijena od {date}",
+  "new.amazon": "Usporedba s Amazonom: jedan dodir otvara proizvod na Amazonu, a cijene s Amazona spremljene u „Moje cijene” ulaze u usporedbe."
 }

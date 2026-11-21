@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Lista de tiendas de OpenStreetMap (© colaboradores de OpenStreetMap)",
   "legal.p16": "Para mostrar las tiendas cercanas, el centro (redondeado) de tu zona y el radio se envían a OpenStreetMap (Overpass API). La lista se guarda en el móvil 7 días.",
-  "new.nearshops": "Tiendas favoritas sin escribir: elígelas de la lista de tiendas en tu radio."
+  "new.nearshops": "Tiendas favoritas sin escribir: elígelas de la lista de tiendas en tu radio.",
+  "amz.search": "Comparar en Amazon",
+  "amz.searchName": "Buscar {name} en Amazon",
+  "amz.mine": "tu precio del {date}",
+  "new.amazon": "Comparación con Amazon: un toque abre el producto en Amazon y los precios de Amazon que guardas en «Mis precios» entran en las comparaciones."
 }

@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Seznam obchodů z OpenStreetMap (© přispěvatelé OpenStreetMap)",
   "legal.p16": "Kvůli zobrazení obchodů v okolí se (zaokrouhlený) střed oblasti a okruh posílají do OpenStreetMap (Overpass API). Seznam zůstane v telefonu 7 dní.",
-  "new.nearshops": "Oblíbené obchody bez psaní: vyber ze seznamu obchodů ve tvém okruhu."
+  "new.nearshops": "Oblíbené obchody bez psaní: vyber ze seznamu obchodů ve tvém okruhu.",
+  "amz.search": "Porovnat na Amazonu",
+  "amz.searchName": "Hledat {name} na Amazonu",
+  "amz.mine": "tvoje cena z {date}",
+  "new.amazon": "Porovnání s Amazonem: jedno klepnutí otevře produkt na Amazonu a ceny z Amazonu uložené v „Moje ceny“ se započítají do porovnání."
 }

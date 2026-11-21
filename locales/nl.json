@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Winkellijst van OpenStreetMap (© OpenStreetMap-bijdragers)",
   "legal.p16": "Om winkels in de buurt te tonen, worden het (afgeronde) midden van je buurt en de straal naar OpenStreetMap (Overpass API) gestuurd. De lijst blijft 7 dagen op je telefoon.",
-  "new.nearshops": "Favoriete winkels zonder typen: kies uit de winkels binnen je straal."
+  "new.nearshops": "Favoriete winkels zonder typen: kies uit de winkels binnen je straal.",
+  "amz.search": "Vergelijken op Amazon",
+  "amz.searchName": "{name} zoeken op Amazon",
+  "amz.mine": "jouw prijs van {date}",
+  "new.amazon": "Vergelijken met Amazon: één tik opent het product op Amazon, en Amazon-prijzen in „Mijn prijzen” tellen mee in vergelijkingen."
 }

@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Üzletlista az OpenStreetMapből (© OpenStreetMap közreműködők)",
   "legal.p16": "A közeli üzletek megjelenítéséhez a környék (kerekített) középpontja és a sugár az OpenStreetMaphez (Overpass API) kerül. A lista 7 napig a telefonon marad.",
-  "new.nearshops": "Kedvenc üzletek gépelés nélkül: válassz a sugáron belüli üzletek közül."
+  "new.nearshops": "Kedvenc üzletek gépelés nélkül: válassz a sugáron belüli üzletek közül.",
+  "amz.search": "Összehasonlítás az Amazonon",
+  "amz.searchName": "{name} keresése az Amazonon",
+  "amz.mine": "saját árad ({date})",
+  "new.amazon": "Összehasonlítás az Amazonnal: egy koppintás megnyitja a terméket az Amazonon, a „Saját árak”-ba mentett Amazon-árak pedig bekerülnek az összehasonlításba."
 }

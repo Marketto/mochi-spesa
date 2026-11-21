@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Kauppalista OpenStreetMapista (© OpenStreetMapin tekijät)",
   "legal.p16": "Lähikauppojen näyttämiseksi alueesi (pyöristetty) keskipiste ja säde lähetetään OpenStreetMapiin (Overpass API). Lista säilyy puhelimessa 7 päivää.",
-  "new.nearshops": "Suosikkikaupat ilman kirjoittamista: valitse säteelläsi olevista kaupoista."
+  "new.nearshops": "Suosikkikaupat ilman kirjoittamista: valitse säteelläsi olevista kaupoista.",
+  "amz.search": "Vertaa Amazonissa",
+  "amz.searchName": "Hae {name} Amazonista",
+  "amz.mine": "oma hintasi {date}",
+  "new.amazon": "Vertailu Amazoniin: yksi napautus avaa tuotteen Amazonissa, ja ”Omiin hintoihin” tallentamasi Amazon-hinnat ovat mukana vertailuissa."
 }

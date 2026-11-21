@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Butikslista från OpenStreetMap (© OpenStreetMap-bidragsgivare)",
   "legal.p16": "För att visa butiker i närheten skickas områdets (avrundade) mittpunkt och radien till OpenStreetMap (Overpass API). Listan sparas på telefonen i 7 dagar.",
-  "new.nearshops": "Favoritbutiker utan att skriva: välj bland butikerna inom din radie."
+  "new.nearshops": "Favoritbutiker utan att skriva: välj bland butikerna inom din radie.",
+  "amz.search": "Jämför på Amazon",
+  "amz.searchName": "Sök {name} på Amazon",
+  "amz.mine": "ditt pris från {date}",
+  "new.amazon": "Jämförelse med Amazon: ett tryck öppnar produkten på Amazon, och Amazonpriser du sparar i ”Mina priser” räknas med i jämförelserna."
 }
