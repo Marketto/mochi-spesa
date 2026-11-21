@@ -1530,6 +1530,20 @@ $("#pg-add").addEventListener("click", () => {
   toast(t("ch.pageAdded", { chain: p.nome }), "store");
 });
 
+// ---------- PROVA DEL PONTE ----------
+/** Prova il ponte scritto nel campo: chiede la pagina ufficiale dei volantini Lidl. */
+async function testPonte() {
+  const p = okProxy($("#z-ponte").value.trim()) || PROXY(), st = $("#ponte-st"), b = $("#ponte-test");
+  if (!p) { st.textContent = t("ch.ponteKo", { msg: "https://…workers.dev" }); $("#z-ponte").focus(); return; }
+  b.classList.add("loading"); st.textContent = "…";
+  try {
+    const r = await fetch(chains.via(p, "https://www.lidl.it/c/volantino-lidl/s10018048"), { signal: AbortSignal.timeout(20000) });
+    st.textContent = r.ok ? t("ch.ponteOk") : t("ch.ponteKo", { msg: `${r.status} ${(await r.text()).slice(0, 40)}` });
+  } catch (e) { st.textContent = t("ch.ponteKo", { msg: e.name === "TimeoutError" ? "timeout" : e.message }); }
+  finally { b.classList.remove("loading"); }
+}
+$("#ponte-test").addEventListener("click", testPonte);
+
 // ---------- SERPAPI: prezzi veri da Amazon e Google Shopping (chiave dell'utente) ----------
 function renderSerp() {
   const k = serp.getKey();

@@ -570,5 +570,11 @@
   "new.flyers2": "Folhetos oficiais das tuas lojas a partir do link da página, e várias capturas de folheto lidas juntas, também com «Partilhar».",
   "ch.ponte": "Endereço da ponte Cloudflare",
   "ch.ponteHint": "Copia-o do Cloudflare depois de criar o Worker (termina em .workers.dev). Basta pô-lo num telemóvel: é partilhado com a família.",
-  "new.ponte": "A ponte para os folhetos oficiais ativa-se sem token: cria o Worker no Cloudflare e cola o endereço nas definições."
+  "new.ponte": "A ponte para os folhetos oficiais ativa-se sem token: cria o Worker no Cloudflare e cola o endereço nas definições.",
+  "ch.ponteMake": "Cria a tua ponte (grátis)",
+  "ch.ponteTest": "Testar",
+  "ch.ponteSteps": "Precisas de uma conta Cloudflare e de uma GitHub, ambas grátis. Toca no botão, inicia sessão e confirma «Deploy»: depois copia aqui o endereço que acaba em .workers.dev e guarda. A ponte é tua: só usa a tua quota gratuita.",
+  "ch.ponteOk": "A ponte funciona ✓",
+  "ch.ponteKo": "A ponte não responde: {msg}",
+  "new.ponte2": "Ponte para folhetos oficiais mais fácil: um botão cria-a grátis na tua conta Cloudflare e «Testar» verifica que funciona."
 }

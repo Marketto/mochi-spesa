@@ -570,5 +570,11 @@
   "new.flyers2": "通过页面链接读取门店官方促销单，还能一次读取多张促销单截图，也可通过「分享」。",
   "ch.ponte": "Cloudflare 中转地址",
   "ch.ponteHint": "创建 Worker 后从 Cloudflare 复制（以 .workers.dev 结尾）。只需在一台手机上填写：会与家人共享。",
-  "new.ponte": "官方促销单的中转无需令牌即可开启：在 Cloudflare 创建 Worker，并把地址粘贴到设置里。"
+  "new.ponte": "官方促销单的中转无需令牌即可开启：在 Cloudflare 创建 Worker，并把地址粘贴到设置里。",
+  "ch.ponteMake": "创建你自己的中转（免费）",
+  "ch.ponteTest": "测试",
+  "ch.ponteSteps": "需要一个 Cloudflare 账号和一个 GitHub 账号，都免费。点按钮、登录并确认「Deploy」：完成后把以 .workers.dev 结尾的地址复制到这里并保存。中转是你自己的：只用你自己的免费额度。",
+  "ch.ponteOk": "中转正常 ✓",
+  "ch.ponteKo": "中转没有响应：{msg}",
+  "new.ponte2": "官方促销单中转更简单：一个按钮即可在你的 Cloudflare 账号免费创建，「测试」可检查是否正常。"
 }

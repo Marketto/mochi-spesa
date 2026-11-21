@@ -540,3 +540,5 @@ h3.sub { font-size: 15px; margin: 14px 0 6px; }
 /* SerpApi */
 .serp-steps { margin: 6px 0 10px; padding-left: 22px; }
 .serp-steps li { margin: 4px 0; }
+
+a.btn { text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }

@@ -570,5 +570,11 @@
   "new.flyers2": "Cataloage oficiale ale magazinelor tale din linkul paginii lor și mai multe capturi de catalog citite împreună, și prin „Partajare”.",
   "ch.ponte": "Adresa podului Cloudflare",
   "ch.ponteHint": "Copiaz-o din Cloudflare după ce creezi Worker-ul (se termină cu .workers.dev). Ajunge pe un telefon: e partajată cu familia.",
-  "new.ponte": "Podul pentru cataloagele oficiale se activează fără token: creezi Worker-ul pe Cloudflare și lipești adresa în setări."
+  "new.ponte": "Podul pentru cataloagele oficiale se activează fără token: creezi Worker-ul pe Cloudflare și lipești adresa în setări.",
+  "ch.ponteMake": "Creează-ți podul (gratuit)",
+  "ch.ponteTest": "Testează",
+  "ch.ponteSteps": "Ai nevoie de un cont Cloudflare și unul GitHub, gratuite. Atinge butonul, autentifică-te și confirmă „Deploy”: apoi copiază aici adresa care se termină cu .workers.dev și salvează. Podul e al tău: folosește doar cota ta gratuită.",
+  "ch.ponteOk": "Podul funcționează ✓",
+  "ch.ponteKo": "Podul nu răspunde: {msg}",
+  "new.ponte2": "Pod mai simplu pentru cataloagele oficiale: un buton îl creează gratuit în contul tău Cloudflare, iar „Testează” verifică dacă merge."
 }

@@ -570,5 +570,11 @@
   "new.flyers2": "Tavu veikalu oficiālie bukleti no to lapas saites un vairāki bukleta ekrānuzņēmumi vienlaikus, arī ar “Kopīgot”.",
   "ch.ponte": "Cloudflare tilta adrese",
   "ch.ponteHint": "Nokopē to no Cloudflare pēc Worker izveides (beidzas ar .workers.dev). Pietiek vienā tālrunī: tā tiek kopīgota ar ģimeni.",
-  "new.ponte": "Oficiālo bukletu tiltu var ieslēgt bez žetona: izveido Worker Cloudflare un ielīmē tā adresi iestatījumos."
+  "new.ponte": "Oficiālo bukletu tiltu var ieslēgt bez žetona: izveido Worker Cloudflare un ielīmē tā adresi iestatījumos.",
+  "ch.ponteMake": "Izveido savu tiltu (bez maksas)",
+  "ch.ponteTest": "Pārbaudīt",
+  "ch.ponteSteps": "Vajag Cloudflare un GitHub kontu, abi bez maksas. Pieskaries pogai, pieslēdzies un apstiprini “Deploy”: pēc tam iekopē šeit adresi, kas beidzas ar .workers.dev, un saglabā. Tilts ir tavs: tas izmanto tikai tavu bezmaksas kvotu.",
+  "ch.ponteOk": "Tilts darbojas ✓",
+  "ch.ponteKo": "Tilts neatbild: {msg}",
+  "new.ponte2": "Vienkāršāks tilts oficiālajiem bukletiem: poga to bez maksas izveido tavā Cloudflare kontā, bet “Pārbaudīt” pārbauda darbību."
 }

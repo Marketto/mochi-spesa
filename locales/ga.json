@@ -570,5 +570,11 @@
   "new.flyers2": "Bileoga oifigiúla do shiopaí ó nasc a leathanaigh, agus roinnt gabhálacha scáileáin bileoige le chéile, trí “Comhroinn” freisin.",
   "ch.ponte": "Seoladh dhroichead Cloudflare",
   "ch.ponteHint": "Cóipeáil ó Cloudflare é tar éis duit an Worker a chruthú (críochnaíonn sé le .workers.dev). Is leor é ar fhón amháin: roinntear é leis an teaghlach.",
-  "new.ponte": "Is féidir droichead na mbileog oifigiúil a chasadh air gan chomhartha: cruthaigh an Worker ar Cloudflare agus greamaigh a sheoladh sna socruithe."
+  "new.ponte": "Is féidir droichead na mbileog oifigiúil a chasadh air gan chomhartha: cruthaigh an Worker ar Cloudflare agus greamaigh a sheoladh sna socruithe.",
+  "ch.ponteMake": "Cruthaigh do dhroichead féin (saor in aisce)",
+  "ch.ponteTest": "Tástáil",
+  "ch.ponteSteps": "Teastaíonn cuntas Cloudflare agus cuntas GitHub uait, iad araon saor in aisce. Tapáil an cnaipe, sínigh isteach agus deimhnigh “Deploy”: ansin cóipeáil anseo an seoladh a chríochnaíonn le .workers.dev agus sábháil. Is leatsa an droichead: ní úsáideann sé ach do chuóta saor in aisce.",
+  "ch.ponteOk": "Oibríonn an droichead ✓",
+  "ch.ponteKo": "Níl an droichead ag freagairt: {msg}",
+  "new.ponte2": "Droichead níos éasca do bhileoga oifigiúla: cruthaíonn cnaipe é saor in aisce ar do chuntas Cloudflare, agus seiceálann “Tástáil” go n-oibríonn sé."
 }

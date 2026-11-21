@@ -570,5 +570,11 @@
   "new.flyers2": "Folletos oficiales de tus tiendas desde el enlace de su página, y varias capturas de folleto leídas juntas, también con «Compartir».",
   "ch.ponte": "Dirección del puente de Cloudflare",
   "ch.ponteHint": "Cópiala de Cloudflare tras crear el Worker (termina en .workers.dev). Basta ponerla en un móvil: se comparte con la familia.",
-  "new.ponte": "El puente para los folletos oficiales se activa sin token: crea el Worker en Cloudflare y pega su dirección en los ajustes."
+  "new.ponte": "El puente para los folletos oficiales se activa sin token: crea el Worker en Cloudflare y pega su dirección en los ajustes.",
+  "ch.ponteMake": "Crea tu puente (gratis)",
+  "ch.ponteTest": "Probar",
+  "ch.ponteSteps": "Necesitas una cuenta de Cloudflare y una de GitHub, ambas gratis. Toca el botón, inicia sesión y confirma «Deploy»: luego copia aquí la dirección que termina en .workers.dev y guarda. El puente es tuyo: solo usa tu cuota gratuita.",
+  "ch.ponteOk": "El puente funciona ✓",
+  "ch.ponteKo": "El puente no responde: {msg}",
+  "new.ponte2": "Puente para folletos oficiales más fácil: un botón lo crea gratis en tu cuenta de Cloudflare y «Probar» comprueba que funciona."
 }

@@ -570,5 +570,11 @@
   "new.flyers2": "Prospectus officiels de tes magasins depuis le lien de leur page, et plusieurs captures de prospectus lues ensemble, aussi via « Partager ».",
   "ch.ponte": "Adresse du pont Cloudflare",
   "ch.ponteHint": "Copie-la depuis Cloudflare après avoir créé le Worker (elle finit par .workers.dev). Il suffit de la saisir sur un téléphone : elle est partagée avec la famille.",
-  "new.ponte": "Le pont pour les prospectus officiels s'active sans jeton : crée le Worker sur Cloudflare et colle son adresse dans les réglages."
+  "new.ponte": "Le pont pour les prospectus officiels s'active sans jeton : crée le Worker sur Cloudflare et colle son adresse dans les réglages.",
+  "ch.ponteMake": "Crée ton pont (gratuit)",
+  "ch.ponteTest": "Tester",
+  "ch.ponteSteps": "Il faut un compte Cloudflare et un compte GitHub, gratuits. Touche le bouton, connecte-toi et confirme « Deploy » : copie ensuite ici l'adresse qui finit par .workers.dev et enregistre. Le pont est à toi : il n'utilise que ton quota gratuit.",
+  "ch.ponteOk": "Le pont fonctionne ✓",
+  "ch.ponteKo": "Le pont ne répond pas : {msg}",
+  "new.ponte2": "Pont pour les prospectus officiels plus simple : un bouton le crée gratuitement sur ton compte Cloudflare, et « Tester » vérifie qu'il marche."
 }

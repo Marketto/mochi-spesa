@@ -570,5 +570,11 @@
   "new.flyers2": "Jūsų parduotuvių oficialūs leidiniai iš jų puslapio nuorodos ir keli leidinio ekrano vaizdai kartu, taip pat per „Bendrinti“.",
   "ch.ponte": "Cloudflare tilto adresas",
   "ch.ponteHint": "Nukopijuokite jį iš Cloudflare sukūrę Worker (baigiasi .workers.dev). Užtenka viename telefone: jis bendrinamas su šeima.",
-  "new.ponte": "Oficialių leidinių tiltą galima įjungti be žetono: sukurkite Worker Cloudflare ir įklijuokite jo adresą nustatymuose."
+  "new.ponte": "Oficialių leidinių tiltą galima įjungti be žetono: sukurkite Worker Cloudflare ir įklijuokite jo adresą nustatymuose.",
+  "ch.ponteMake": "Susikurkite savo tiltą (nemokamai)",
+  "ch.ponteTest": "Patikrinti",
+  "ch.ponteSteps": "Reikia Cloudflare ir GitHub paskyrų, abi nemokamos. Palieskite mygtuką, prisijunkite ir patvirtinkite „Deploy“: tada nukopijuokite čia adresą, kuris baigiasi .workers.dev, ir išsaugokite. Tiltas jūsų: naudoja tik jūsų nemokamą kvotą.",
+  "ch.ponteOk": "Tiltas veikia ✓",
+  "ch.ponteKo": "Tiltas neatsako: {msg}",
+  "new.ponte2": "Paprastesnis tiltas oficialiems leidiniams: mygtukas jį nemokamai sukuria jūsų Cloudflare paskyroje, o „Patikrinti“ patikrina veikimą."
 }

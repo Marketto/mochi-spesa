@@ -7,6 +7,9 @@ export const APP_VERSION = "2.4.2";
 export const POLICY_VERSION = "2026-11-21b";
 
 export const CHANGELOG = [
+  { v: "2.4.2", items: [
+    ["magic", "new.ponte2"],
+  ] },
   { v: "2.4.1", items: [
     ["store", "new.ponte"],
   ] },

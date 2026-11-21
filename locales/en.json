@@ -570,5 +570,11 @@
   "new.flyers2": "Official flyers of your shops (Todis, Eurospin, MD, Conad…) from their page link, and several flyer screenshots read together, also via “Share”.",
   "ch.ponte": "Cloudflare bridge address",
   "ch.ponteHint": "Copy it from Cloudflare after creating the Worker (it ends with .workers.dev). Enter it on one phone: it's shared with the family.",
-  "new.ponte": "The bridge for official flyers can be turned on without a token: create the Worker on Cloudflare and paste its address in the settings."
+  "new.ponte": "The bridge for official flyers can be turned on without a token: create the Worker on Cloudflare and paste its address in the settings.",
+  "ch.ponteMake": "Create your bridge (free)",
+  "ch.ponteTest": "Test",
+  "ch.ponteSteps": "You need a Cloudflare and a GitHub account, both free. Tap the button, sign in and confirm “Deploy”: then copy here the address ending in .workers.dev and save. The bridge is yours: it only uses your free quota.",
+  "ch.ponteOk": "The bridge works ✓",
+  "ch.ponteKo": "The bridge doesn't answer: {msg}",
+  "new.ponte2": "Easier bridge for official flyers: one button creates it for free on your Cloudflare account, and “Test” checks it works."
 }

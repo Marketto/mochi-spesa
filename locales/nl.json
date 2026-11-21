@@ -570,5 +570,11 @@
   "new.flyers2": "Officiële folders van je winkels via de link van hun pagina, en meerdere folder-screenshots tegelijk, ook via „Delen”.",
   "ch.ponte": "Adres van de Cloudflare-brug",
   "ch.ponteHint": "Kopieer het uit Cloudflare na het maken van de Worker (eindigt op .workers.dev). Eén telefoon is genoeg: het wordt gedeeld met het gezin.",
-  "new.ponte": "De brug voor officiële folders kan zonder token: maak de Worker op Cloudflare en plak het adres in de instellingen."
+  "new.ponte": "De brug voor officiële folders kan zonder token: maak de Worker op Cloudflare en plak het adres in de instellingen.",
+  "ch.ponteMake": "Maak je eigen brug (gratis)",
+  "ch.ponteTest": "Testen",
+  "ch.ponteSteps": "Je hebt een Cloudflare- en een GitHub-account nodig, beide gratis. Tik op de knop, log in en bevestig „Deploy”: kopieer daarna hier het adres dat eindigt op .workers.dev en sla op. De brug is van jou: alleen je eigen gratis tegoed.",
+  "ch.ponteOk": "De brug werkt ✓",
+  "ch.ponteKo": "De brug antwoordt niet: {msg}",
+  "new.ponte2": "Makkelijkere brug voor officiële folders: één knop maakt hem gratis in je Cloudflare-account, „Testen” controleert hem."
 }
