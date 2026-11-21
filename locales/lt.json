@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Parduotuvių sąrašas iš OpenStreetMap (© OpenStreetMap bendraautoriai)",
   "legal.p16": "Kad būtų rodomos netoliese esančios parduotuvės, apylinkės (suapvalintas) centras ir spindulys siunčiami į OpenStreetMap (Overpass API). Sąrašas telefone lieka 7 dienas.",
-  "new.nearshops": "Mėgstamos parduotuvės be rašymo: rinkitės iš parduotuvių jūsų spinduliu."
+  "new.nearshops": "Mėgstamos parduotuvės be rašymo: rinkitės iš parduotuvių jūsų spinduliu.",
+  "amz.search": "Palyginti Amazon",
+  "amz.searchName": "Ieškoti {name} Amazon",
+  "amz.mine": "jūsų kaina iš {date}",
+  "new.amazon": "Palyginimas su Amazon: vienas palietimas atidaro prekę Amazon, o „Mano kainose“ išsaugotos Amazon kainos įtraukiamos į palyginimus."
 }

@@ -198,7 +198,7 @@ Format:
 }
 
 /** Dove conviene comprare ogni prodotto della lista: 2-4 negozi per prodotto, con prezzi verificati. */
-export async function confrontaPrezzi({ prodotti, luogo, raggioKm, negozi, valuta, lingua, preferiti, evitati }, opts) {
+export async function confrontaPrezzi({ prodotti, luogo, raggioKm, negozi, amazon, valuta, lingua, preferiti, evitati }, opts) {
   const oggi = new Date().toISOString().slice(0, 10);
   const prompt = `Today is ${oggi}. Home area: ${luogo}. Radius: ${raggioKm} km. Usual shops: ${negozi || "none"}. Currency: ${valuta}.
 Shopping list (id, name, quantity): ${JSON.stringify(prodotti)}
@@ -207,7 +207,8 @@ Combinations to AVOID (never propose them): ${JSON.stringify(evitati || [])}
 
 For each product find where to buy it at the best price within the radius: supermarkets, discount stores, drugstores,
 using current flyers, chain websites and online grocery prices of that country. Give 2 to 4 options per product, cheapest first,
-for a typical pack (state brand/size in "nota" if relevant). Mark "offerta": true for promotions valid today.
+for a typical pack (state brand/size in "nota" if relevant). Mark "offerta": true for promotions valid today.${amazon ? `
+Also add Amazon (that country's Amazon store, delivered home) as one more option when it sells a comparable product: negozio "Amazon", fonte = the product page.` : ""}
 unita must be one of: lavaggi, litri, kg, pezzi.
 
 Format:

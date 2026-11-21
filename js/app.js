@@ -14,6 +14,7 @@ import * as flyer from "./flyer.js";
 import * as chains from "./chains.js";
 import * as pricedb from "./pricedb.js";
 import * as shops from "./shops.js";
+import { amazonSearch, isAmazon } from "./amazon.js";
 
 // ---------- utilità ----------
 const $ = s => document.querySelector(s);
@@ -29,6 +30,10 @@ const quando = ts => new Date(ts).toLocaleString(locale(), { day: "numeric", mon
 const CURRENCIES = ["EUR", "GBP", "CHF", "SEK", "DKK", "NOK", "PLN", "CZK", "HUF", "RON", "USD", "RUB", "CNY", "JPY", "KRW", "AED", "SAR", "EGP", "MAD"];
 const CUR_BY_LANG = { sv: "SEK", da: "DKK", pl: "PLN", cs: "CZK", hu: "HUF", ro: "RON", ru: "RUB", zh: "CNY", ja: "JPY", ko: "KRW", ar: "AED", en: "GBP" };
 const currency = () => state.settings.valuta || CUR_BY_LANG[lang()] || "EUR";
+const amzOn = () => state.settings.amazon !== false;
+const amzLink = (nome, cls = "") => `<a class="${cls}" href="${esc(amazonSearch(nome, currency(), lang()))}" target="_blank" rel="noopener noreferrer" aria-label="${esc(t("amz.searchName", { name: nome }))} ${esc(t("a11y.newTab"))}">${ic("external")}${cls.includes("icon-btn") ? "" : esc(t("amz.search"))}</a>`;
+// ultimo prezzo Amazon che l'utente ha salvato in «I miei prezzi»
+const amzSaved = nome => pricedb.recent(nome, 365).filter(r => isAmazon(r.negozio)).sort((a, b) => (b.data || "").localeCompare(a.data || ""))[0] || null;
 const fmt = (n, d) => new Intl.NumberFormat(locale(), { style: "currency", currency: currency(), ...(d ? { minimumFractionDigits: 2, maximumFractionDigits: 3 } : {}) }).format(n);
 const money = n => (typeof n === "number" && isFinite(n)) ? fmt(n) : "–";
 const money3 = n => (typeof n === "number" && isFinite(n)) ? fmt(n, true) : "–";
@@ -194,7 +199,7 @@ function renderMonitor() {
   const m = live(state.monitor).sort((a, b) => a.nome.localeCompare(b.nome));
   $("#monitor").innerHTML = m.length ? m.map(x =>
     `<li class="chip">${esc(x.nome)}<small>${esc(t("unitPer." + x.unita))}</small>
-      <button class="icon-btn" type="button" data-mdel="${esc(x.id)}" aria-label="${esc(t("deals.unwatch", { name: x.nome }))}">${ic("unwatch")}</button></li>`).join("")
+      ${amzOn() ? amzLink(x.nome, "icon-btn") : ""}<button class="icon-btn" type="button" data-mdel="${esc(x.id)}" aria-label="${esc(t("deals.unwatch", { name: x.nome }))}">${ic("unwatch")}</button></li>`).join("")
     : `<li class="hint">${esc(t("deals.noneWatched"))}</li>`;
 }
 
@@ -216,7 +221,8 @@ function renderOfferte() {
   const list = [...o.list].sort((a, b) => (a.categoria || a.prodotto).localeCompare(b.categoria || b.prodotto) || (a.prezzoUnit ?? 1e9) - (b.prezzoUnit ?? 1e9));
   const nt = `<span class="sr"> ${esc(t("a11y.newTab"))}</span>`;
   $("#offerte").innerHTML = list.map((x, i) => {
-    const v = VOTO[x.voto], az = x.amazon || null;
+    const v = VOTO[x.voto], sv = !x.amazon && amzOn() ? amzSaved(x.prodotto) : null;
+    const az = x.amazon || (sv && { prezzo: sv.prezzo, prezzoUnit: sv.prezzoUnit, url: amazonSearch(x.prodotto, currency(), lang()), mio: sv.data }) || null;
     let diff = "";
     if (az && az.prezzoUnit > 0 && x.prezzoUnit > 0) {
       const p = Math.round((x.prezzoUnit / az.prezzoUnit - 1) * 100);
@@ -228,7 +234,8 @@ function renderOfferte() {
         <div class="where">${ic("store")} ${esc(x.negozio || "")}${x.distanzaKm != null ? ` · ${esc(x.distanzaKm)} km` : ""}${x.validoFino ? ` · ${esc(t("deals.until", { date: x.validoFino }))}` : ""}</div></div>
         <div class="price">${money(x.prezzo)}<small>${x.quantita ? esc(x.quantita) + " " + esc(t("units." + (x.unita || "pezzi"))) : ""}</small></div></div>
       <div class="badges">${v ? `<span class="badge ${v[1]}">${ic(v[2])} ${esc(t(v[0]))}</span>` : ""}${x.prezzoUnit ? `<span class="unit">${esc(perUnit(x.prezzoUnit, x.unita))}</span>` : ""}</div>
-      ${az ? `<p class="cmp">Amazon: ${money(az.prezzo)}${az.prezzoUnit ? ` (${esc(perUnit(az.prezzoUnit, x.unita))})` : ""}${diff ? " · " + diff : ""}${azu ? ` · <a href="${esc(azu)}" target="_blank" rel="noopener noreferrer">${ic("external")}${esc(t("deals.seeAmazon"))}${nt}</a>` : ""}</p>` : ""}
+      ${!az && amzOn() ? `<p class="cmp">${amzLink(x.prodotto)}</p>` : ""}
+      ${az ? `<p class="cmp">Amazon${az.mio ? ` (${esc(t("amz.mine", { date: shortDate(az.mio) }))})` : ""}: ${money(az.prezzo)}${az.prezzoUnit ? ` (${esc(perUnit(az.prezzoUnit, x.unita))})` : ""}${diff ? " · " + diff : ""}${azu ? ` · <a href="${esc(azu)}" target="_blank" rel="noopener noreferrer">${ic("external")}${esc(t("deals.seeAmazon"))}${nt}</a>` : ""}</p>` : ""}
       ${x.nota ? `<p class="hint">${esc(x.nota)}</p>` : ""}
       <div class="foot">${src ? `<a href="${esc(src)}" target="_blank" rel="noopener noreferrer">${ic(x.gratis ? "external" : "flyer")}${esc(t(x.gratis ? "free.source" : "deals.flyer"))}${nt}</a>` : "<span></span>"}
         <button class="btn ghost" type="button" data-addoff="${i}" data-fk="o${i}" aria-label="${esc(t("deals.addToList", { name: x.prodotto }))}">${ic("list-add")} ${esc(t("deals.addList"))}</button></div>
@@ -892,7 +899,7 @@ function renderDb() {
   const list = pricedb.cached(), q = $("#db-q").value.trim();
   $("#db-count").textContent = list.length ? "· " + t("db.count", { n: list.length }) : "";
   $("#db-clear").hidden = !list.length;
-  $("#db-stores").innerHTML = [...new Set(list.map(r => r.negozio).filter(Boolean))].slice(0, 40).map(n => `<option value="${esc(n)}">`).join("");
+  $("#db-stores").innerHTML = [...new Set([...(amzOn() ? ["Amazon"] : []), ...list.map(r => r.negozio).filter(Boolean)])].slice(0, 40).map(n => `<option value="${esc(n)}">`).join("");
   if (!q) { $("#db-out").innerHTML = list.length ? "" : `<p class="hint">${esc(t("db.empty"))}</p>`; return; }
   const rows = pricedb.search(q);
   if (!rows.length) { $("#db-out").innerHTML = `<p class="hint">${esc(t("deals.none"))}</p>`; return; }
@@ -910,13 +917,13 @@ $("#f-db").addEventListener("submit", async e => {
   const n = await pricedb.add([{ nome: $("#db-nome").value, prezzo: num($("#db-prezzo").value), negozio: $("#db-negozio").value, origine: "manuale" }]);
   if (!n) { toast(t("err.unreadable"), "warn"); return; }
   $("#db-q").value = $("#db-nome").value; $("#db-nome").value = ""; $("#db-prezzo").value = "";
-  renderDb(); toast(t("db.saved", { n }), "save"); $("#db-nome").focus();
+  renderDb(); renderOfferte(); toast(t("db.saved", { n }), "save"); $("#db-nome").focus();
 });
 $("#db-clear").addEventListener("click", async () => {
   if (!(await confirmDlg(t("db.clearConfirm"), t("db.clear"), "delete"))) return;
   await pricedb.clear(); renderDb(); toast(t("db.cleared"), "delete");
 });
-pricedb.all().then(() => pricedb.prune()).then(renderDb).catch(() => {});
+pricedb.all().then(() => pricedb.prune()).then(() => { renderDb(); renderOfferte(); }).catch(() => {});
 
 // ---------- DOVE CONVIENE? ----------
 const prefOf = (prodotto, negozio) => live(state.preferenze).find(p => pantry.sameProduct(p.prodotto, prodotto) && pantry.norm(p.negozio) === pantry.norm(negozio));
@@ -934,6 +941,8 @@ function compareBody() {
   for (const it of items) {
     const r = res.find(x => x.id === it.id) || res.find(x => pantry.sameProduct(x.nome || "", it.nome));
     let ops = (r && Array.isArray(r.opzioni) ? r.opzioni : []).filter(o => o && o.negozio && typeof o.prezzo === "number");
+    const az = amzOn() && !ops.some(o => isAmazon(o.negozio)) ? amzSaved(it.nome) : null;
+    if (az) ops = [...ops, { negozio: "Amazon", prezzo: az.prezzo, prezzoUnit: az.prezzoUnit, fonte: amazonSearch(it.nome, currency(), lang()), validoFino: null }];
     const evitati = ops.filter(o => prefOf(it.nome, o.negozio)?.tipo === "evita");
     ops = ops.filter(o => !evitati.includes(o)).sort((a, b) => (prefOf(it.nome, b.negozio)?.tipo === "preferito") - (prefOf(it.nome, a.negozio)?.tipo === "preferito") || a.prezzo - b.prezzo);
     const sel = $("#sheet-body").querySelector(`input[name="${CSS.escape(it.id)}"]:checked`)?.value
@@ -951,6 +960,7 @@ function compareBody() {
         <button class="icon-btn" type="button" data-fav="${esc(it.id)}|${esc(o.negozio)}" aria-pressed="${pf}" aria-label="${esc(t("pref.fav", { product: it.nome, store: o.negozio }))}">${ic(pf ? "star" : "star-line")}</button>
         <button class="icon-btn danger" type="button" data-avoid="${esc(it.id)}|${esc(o.negozio)}" aria-label="${esc(t("pref.avoid", { product: it.nome, store: o.negozio }))}">${ic("avoid")}</button></div>`;
     });
+    if (amzOn() && !ops.some(o => isAmazon(o.negozio))) h += `<p class="cmp">${amzLink(it.nome)}</p>`;
     if (evitati.length) h += `<p class="hint">${ic("avoid")} ${esc(t("cmp.hidden", { n: evitati.length, stores: evitati.map(o => o.negozio).join(", ") }))}</p>`;
     h += `</fieldset>`;
   }
@@ -1016,7 +1026,7 @@ async function runCompare() {
     const a0 = away();
     const luogo = a0 ? `${a0.nome} (lat ${a0.lat}, lon ${a0.lon})` : s0.lat != null ? `${s0.luogo} (lat ${s0.lat}, lon ${s0.lon})` : s0.luogo;
     const prefs = live(state.preferenze);
-    const res = await ai.confrontaPrezzi({ prodotti, luogo, raggioKm: s0.raggioKm, negozi: s0.negozi, valuta: currency(), lingua: langName(),
+    const res = await ai.confrontaPrezzi({ prodotti, luogo, raggioKm: s0.raggioKm, negozi: s0.negozi, amazon: s0.amazon !== false, valuta: currency(), lingua: langName(),
       preferiti: prefs.filter(p => p.tipo === "preferito").map(p => ({ prodotto: p.prodotto, negozio: p.negozio })),
       evitati: prefs.filter(p => p.tipo === "evita").map(p => ({ prodotto: p.prodotto, negozio: p.negozio })) });
     // i volantini ufficiali letti sul telefono vincono sulle stime dell'IA per lo stesso negozio

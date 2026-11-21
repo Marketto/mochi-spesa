@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Liosta siopaí ó OpenStreetMap (© rannpháirtithe OpenStreetMap)",
   "legal.p16": "Chun siopaí in aice láimhe a thaispeáint, seoltar lár (slánaithe) do cheantair agus an ga chuig OpenStreetMap (Overpass API). Fanann an liosta ar an bhfón ar feadh 7 lá.",
-  "new.nearshops": "Siopaí is fearr leat gan clóscríobh: roghnaigh ó na siopaí i do gha."
+  "new.nearshops": "Siopaí is fearr leat gan clóscríobh: roghnaigh ó na siopaí i do gha.",
+  "amz.search": "Déan comparáid ar Amazon",
+  "amz.searchName": "Cuardaigh {name} ar Amazon",
+  "amz.mine": "do phraghas ó {date}",
+  "new.amazon": "Comparáid le Amazon: osclaíonn tapáil amháin an táirge ar Amazon, agus cuirtear praghsanna Amazon a shábhálann tú i “Mo phraghsanna” san áireamh sna comparáidí."
 }

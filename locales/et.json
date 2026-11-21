@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Poodide nimekiri OpenStreetMapist (© OpenStreetMapi kaastöötajad)",
   "legal.p16": "Lähedal olevate poodide näitamiseks saadetakse piirkonna (ümardatud) keskpunkt ja raadius OpenStreetMapi (Overpass API). Nimekiri jääb telefoni 7 päevaks.",
-  "new.nearshops": "Lemmikpoed ilma trükkimata: vali oma raadiuse poodide seast."
+  "new.nearshops": "Lemmikpoed ilma trükkimata: vali oma raadiuse poodide seast.",
+  "amz.search": "Võrdle Amazonis",
+  "amz.searchName": "Otsi {name} Amazonist",
+  "amz.mine": "sinu hind {date}",
+  "new.amazon": "Võrdlus Amazoniga: üks puudutus avab toote Amazonis ja „Minu hindadesse” salvestatud Amazoni hinnad lähevad võrdlustesse."
 }

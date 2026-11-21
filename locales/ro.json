@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Listă de magazine din OpenStreetMap (© contribuitorii OpenStreetMap)",
   "legal.p16": "Pentru a arăta magazinele apropiate, centrul (rotunjit) al zonei și raza sunt trimise la OpenStreetMap (Overpass API). Lista rămâne pe telefon 7 zile.",
-  "new.nearshops": "Magazine preferate fără să scrii: alege din lista magazinelor din raza ta."
+  "new.nearshops": "Magazine preferate fără să scrii: alege din lista magazinelor din raza ta.",
+  "amz.search": "Compară pe Amazon",
+  "amz.searchName": "Caută {name} pe Amazon",
+  "amz.mine": "prețul tău din {date}",
+  "new.amazon": "Comparație cu Amazon: o atingere deschide produsul pe Amazon, iar prețurile Amazon salvate în „Prețurile mele” intră în comparații."
 }

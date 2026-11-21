@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Veikalu saraksts no OpenStreetMap (© OpenStreetMap līdzautori)",
   "legal.p16": "Lai parādītu tuvējos veikalus, apkārtnes (noapaļotais) centrs un rādiuss tiek nosūtīti uz OpenStreetMap (Overpass API). Saraksts paliek tālrunī 7 dienas.",
-  "new.nearshops": "Iecienītie veikali bez rakstīšanas: izvēlies no veikaliem tavā rādiusā."
+  "new.nearshops": "Iecienītie veikali bez rakstīšanas: izvēlies no veikaliem tavā rādiusā.",
+  "amz.search": "Salīdzināt Amazon",
+  "amz.searchName": "Meklēt {name} Amazon",
+  "amz.mine": "tava cena no {date}",
+  "new.amazon": "Salīdzināšana ar Amazon: viens pieskāriens atver produktu Amazon, un sadaļā “Manas cenas” saglabātās Amazon cenas iekļaujas salīdzinājumos."
 }

@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} · {km} km",
   "zone.osm": "Shop list from OpenStreetMap (© OpenStreetMap contributors)",
   "legal.p16": "To show nearby shops, the (rounded) centre of your area and the radius are sent to OpenStreetMap (Overpass API). The list is kept on your phone for 7 days.",
-  "new.nearshops": "Favourite shops without typing: pick from the shops within your radius."
+  "new.nearshops": "Favourite shops without typing: pick from the shops within your radius.",
+  "amz.search": "Compare on Amazon",
+  "amz.searchName": "Search {name} on Amazon",
+  "amz.mine": "your price from {date}",
+  "new.amazon": "Amazon comparison: one tap opens the product on Amazon, and Amazon prices you save in “My prices” join the comparisons."
 }

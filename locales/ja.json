@@ -491,5 +491,9 @@
   "zone.shopsCount": "{n} 店 · {km} km",
   "zone.osm": "お店のリストは OpenStreetMap より（© OpenStreetMap 貢献者）",
   "legal.p16": "近くのお店を表示するため、エリアの中心（丸めた値）と範囲を OpenStreetMap（Overpass API）に送ります。リストはスマホに 7 日間保存されます。",
-  "new.nearshops": "お気に入りのお店を入力なしで：設定した範囲のお店から選べます。"
+  "new.nearshops": "お気に入りのお店を入力なしで：設定した範囲のお店から選べます。",
+  "amz.search": "Amazon で比べる",
+  "amz.searchName": "Amazon で {name} を検索",
+  "amz.mine": "{date} に保存した価格",
+  "new.amazon": "Amazon と比較：タップで Amazon の商品を開けます。「マイ価格」に保存した Amazon の価格も比較に入ります。"
 }
