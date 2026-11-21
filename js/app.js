@@ -964,7 +964,10 @@ $("#best-out").addEventListener("click", e => {
 // ---------- VOLANTINI UFFICIALI DELLE CATENE (via ponte) ----------
 const FLY_TXT = "mochi.flyertext", CH_CHECK = "mochi.chainCheck";
 const simpleHash = str => { let h = 5381; for (const c of str) h = (h * 33 + c.codePointAt(0)) >>> 0; return h.toString(36); };
-const myChains = () => PROXY ? (state.settings.catene || []).map(id => chains.CHAINS[id]).filter(Boolean) : [];
+// catene attive: quelle con adattatore dedicato scelte dall'utente + le pagine ufficiali dei suoi negozi
+const myChains = () => PROXY ? [...(state.settings.catene || []).map(id => chains.CHAINS[id]).filter(Boolean),
+  ...(state.settings.pagine || []).filter(p => chains.officialChainOf(p.url)).map(chains.pageChain)] : [];
+const chainOf = id => myChains().find(c => c.id === id) || null;
 let chainRun = null;
 async function refreshChains({ manual = false } = {}) {
   const list = myChains(); if (!list.length || chainRun) return chainRun;
@@ -973,7 +976,8 @@ async function refreshChains({ manual = false } = {}) {
   chainRun = (async () => {
     btn.disabled = true; btn.classList.add("loading"); prog.hidden = false; prog.removeAttribute("value");
     const cache = lsGet(FLY_TXT, {}), oggi = oggiISO(); let errori = 0;
-    for (const k of Object.keys(cache)) if (cache[k].fine && cache[k].fine < oggi) delete cache[k];
+    // scaduti; i PDF senza date (pagine ufficiali) valgono al massimo 14 giorni
+    for (const k of Object.keys(cache)) if ((cache[k].fine && cache[k].fine < oggi) || (!cache[k].fine && Date.now() - (cache[k].at || 0) > 14 * 864e5)) delete cache[k];
     try {
       for (const ch of list) {
         let fl = [];
@@ -983,7 +987,7 @@ async function refreshChains({ manual = false } = {}) {
           msg.textContent = t("ch.loading", { chain: ch.nome, name: f.nome });
           try {
             const text = await flyer.readFlyer(await ch.pdf(PROXY, f), flyer.ocrLang(lang()), ev => { if (ev.step === "page") msg.textContent = `${t("ch.loading", { chain: ch.nome, name: f.nome })} ${t("fl.page", { page: ev.page, pages: ev.pages })}`; });
-            cache[f.id] = { fine: f.fine, text: text.slice(0, 400000), f };
+            cache[f.id] = { fine: f.fine, at: Date.now(), text: text.slice(0, 400000), f };
             try { await ingestFlyer(text, { negozio: ch.nome, validoFino: f.fine, fonte: f.url }); } catch {}
             try { localStorage.setItem(FLY_TXT, JSON.stringify(cache)); } catch { delete cache[f.id]; }
           } catch { errori++; }
@@ -1002,9 +1006,9 @@ async function refreshChains({ manual = false } = {}) {
 function matchChainTexts() {
   const cache = lsGet(FLY_TXT, {}), names = flyerNames(), oggi = oggiISO(); let n = 0;
   const nuovi = {};
-  for (const { text, f, fine } of Object.values(cache)) {
-    if (!f || (fine && fine < oggi)) continue;
-    const ch = chains.CHAINS[f.catena]; if (!ch || !(state.settings.catene || []).includes(f.catena)) continue;
+  for (const { text, f, fine, at } of Object.values(cache)) {
+    if (!f || (fine && fine < oggi) || (!fine && Date.now() - (at || 0) > 14 * 864e5)) continue;
+    const ch = chainOf(f.catena); if (!ch) continue;
     for (const x of flyer.findProducts(text, names)) {
       const id = "auto-" + simpleHash(`${f.id}|${x.nome}|${x.prezzo}`);
       nuovi[id] = { id, nome: x.nome, riga: x.riga, prezzo: x.prezzo, prezzoUnit: x.prezzoUnit, negozio: ch.nome, validoFino: f.fine, data: oggi, fonte: f.url, auto: f.id };
@@ -1059,11 +1063,12 @@ $("#fl-btn").addEventListener("click", () => {
 });
 let sharedStore = "";
 $("#fl-file").addEventListener("change", async e => {
-  const file = e.target.files[0]; e.target.value = ""; if (!file) return;
+  // uno o più file: PDF del volantino o screenshot delle pagine (es. dalla condivisione di più immagini)
+  const files = [...e.target.files]; e.target.value = ""; if (!files.length) return;
   const negozi = [...new Set([sharedStore, ...live(state.prezzi).map(p => p.negozio), ...String(state.settings.negozi || "").split(",").map(x => x.trim())].filter(Boolean))];
   const q = await sheet({
     title: t("fl.title"), icon: "scan",
-    body: `<p class="hint">${ic("flyer")} ${esc(file.name)}</p>
+    body: `<p class="hint">${ic("flyer")} ${esc(files.length > 1 ? t("fl.files", { n: files.length }) : files[0].name)}</p>
       <label for="fl-store">${esc(t("fl.store"))}</label><input id="fl-store" name="negozio" list="fl-stores" maxlength="40" required autocomplete="off" value="${esc(negozi[0] || "")}">
       <datalist id="fl-stores">${negozi.map(n => `<option value="${esc(n)}">`).join("")}</datalist>
       <label for="fl-until">${esc(t("fl.until"))}</label><input id="fl-until" name="fino" type="date">`,
@@ -1078,11 +1083,15 @@ $("#fl-file").addEventListener("change", async e => {
   mochi.mood("wow", 0); mochi.say(frase("guardo"), 120000);
   let text = "";
   try {
-    text = await flyer.readFlyer(file, flyer.ocrLang(lang()), ev => {
-      if (ev.step === "load") { msg.textContent = t("fl.loading"); prog.removeAttribute("value"); }
-      if (ev.step === "page") { msg.textContent = t("fl.page", { page: ev.page, pages: ev.pages }); prog.value = (ev.page - 1) / ev.pages; }
-      if (ev.step === "ocr" && ev.p != null && prog.max) { /* avanzamento della pagina corrente */ }
-    });
+    const parts = [];
+    for (const [i, file] of files.entries()) {
+      const pre = files.length > 1 ? t("fl.fileN", { i: i + 1, n: files.length }) + " · " : "";
+      parts.push(await flyer.readFlyer(file, flyer.ocrLang(lang()), ev => {
+        if (ev.step === "load") { msg.textContent = pre + t("fl.loading"); prog.removeAttribute("value"); }
+        if (ev.step === "page") { msg.textContent = pre + t("fl.page", { page: ev.page, pages: ev.pages }); prog.value = (i + (ev.page - 1) / ev.pages) / files.length; }
+      }));
+    }
+    text = parts.join("\f"); // una "pagina" per file: l'estrazione con l'IA lavora pagina per pagina
   } catch (err) { msg.textContent = t("fl.err"); toast(t("fl.err"), "warn"); mochi.mood("sleepy", 2000); return; }
   finally { btn.disabled = false; btn.classList.remove("loading"); prog.hidden = true; }
   const found = flyer.findProducts(text, flyerNames());
@@ -1150,10 +1159,20 @@ async function takeShare() {
   const tx = await c.match("./shared-text"), fr = await c.match("./shared-file");
   await c.delete("./shared-text"); await c.delete("./shared-file");
   selectTab($("#t-offerte"));
-  if (fr) {
-    const blob = await fr.blob(), name = decodeURIComponent(fr.headers.get("x-name") || "screenshot");
-    sharedStore = blob.type.startsWith("image/") && amzOn() ? "Amazon" : "";
-    const dt = new DataTransfer(); dt.items.add(new File([blob], name, { type: blob.type }));
+  // file condivisi: ./shared-file-0, -1, … (anche tante pagine di volantino insieme)
+  const dt = new DataTransfer();
+  for (let i = 0; i < 30; i++) {
+    const r = await c.match("./shared-file-" + i); if (!r) break;
+    await c.delete("./shared-file-" + i);
+    const blob = await r.blob();
+    dt.items.add(new File([blob], decodeURIComponent(r.headers.get("x-name") || "screenshot-" + (i + 1)), { type: blob.type }));
+  }
+  if (fr) { const blob = await fr.blob(); dt.items.add(new File([blob], decodeURIComponent(fr.headers.get("x-name") || "screenshot"), { type: blob.type })); }
+  if (dt.files.length) {
+    const d = tx ? await tx.clone().json().catch(() => ({})) : {};
+    const txt = [d.title, d.text, d.url].join(" ").toLowerCase();
+    // screenshot da Amazon: negozio già proposto; altrimenti l'ultimo usato
+    sharedStore = /amazon|amzn/.test(txt) ? "Amazon" : "";
     const inp = $("#fl-file"); inp.files = dt.files; inp.dispatchEvent(new Event("change"));
     return;
   }
@@ -1436,6 +1455,7 @@ function fillSettings() {
   const scelte = new Set(s.catene || []);
   $("#z-chains-list").innerHTML = PROXY ? chains.chainList().map(c => `<label class="check"><input type="checkbox" name="catena" value="${c.id}"${scelte.has(c.id) ? " checked" : ""}> ${esc(c.nome)}${c.nazionale ? ` <small>· ${esc(t("ch.national"))}</small>` : ""}</label>`).join("") : "";
   $("#z-chains-hint").textContent = t(PROXY ? "ch.hint" : "ch.none"); $("#z-amz").checked = s.amazon !== false;
+  renderPages(s.pagine || []);
   let names; try { names = new Intl.DisplayNames([locale()], { type: "currency" }); } catch {}
   $("#z-valuta").innerHTML = CURRENCIES.map(c => `<option value="${c}">${esc(names ? names.of(c) : c)} (${c})</option>`).join("");
   $("#z-valuta").value = currency();
@@ -1489,6 +1509,23 @@ async function loadShops() {
 }
 $("#z-shops-more").addEventListener("click", () => { shopsAll = true; renderShops(); $("#z-shops-list label:last-child input")?.focus(); });
 let shopsTimer; $("#z-raggio").addEventListener("change", () => { clearTimeout(shopsTimer); shopsTimer = setTimeout(loadShops, 400); });
+
+// ---------- PAGINE UFFICIALI DEI VOLANTINI (scelte dall'utente) ----------
+const OFFICIAL_LIST = () => Object.values(chains.OFFICIAL).join(", ");
+function renderPages(pagine) {
+  $("#pg-hint").textContent = t("ch.pagesHint", { list: OFFICIAL_LIST() });
+  $("#pg-list").innerHTML = pagine.map(p => `<label class="check"><input type="checkbox" name="pagina" value="${esc(p.url)}" checked>
+    <span><strong>${esc(p.nome)}</strong> <small class="hint">${esc(new URL(p.url).pathname.replace(/\/$/, "").split("/").pop() || p.url)}</small></span></label>`).join("");
+}
+$("#pg-add").addEventListener("click", () => {
+  const url = $("#pg-url").value.trim(), p = chains.newPage(url);
+  if (!p) { toast(t("ch.pageBad", { list: OFFICIAL_LIST() }), "warn"); $("#pg-url").focus(); return; }
+  const cur = [...document.querySelectorAll('#pg-list input[name="pagina"]')].map(x => ({ url: x.value, nome: chains.officialChainOf(x.value)?.nome, on: x.checked }));
+  if (!cur.some(c => c.url === p.url)) renderPages([...cur.filter(c => c.on), p]);
+  $("#pg-url").value = "";
+  $("#pg-list").dispatchEvent(new Event("change", { bubbles: true })); // segna le impostazioni come modificate
+  toast(t("ch.pageAdded", { chain: p.nome }), "store");
+});
 
 // ---------- SERPAPI: prezzi veri da Amazon e Google Shopping (chiave dell'utente) ----------
 function renderSerp() {
@@ -1590,7 +1627,8 @@ async function saveSettings() {
     const ripiani = document.querySelector('input[name="lvdir"]:checked')?.value === "basso" ? "basso" : "alto";
     mutate((s, now) => {
       s.settings = { ...s.settings, luogo, raggioKm: +$("#z-raggio").value, negozi: checkedShops().join(", "), amazon: $("#z-amz").checked,
-        valuta: $("#z-valuta").value, ripiani, catene: [...document.querySelectorAll('#z-chains-list input[name="catena"]:checked')].map(x => x.value), ...coords, updatedAt: now };
+        valuta: $("#z-valuta").value, ripiani, catene: [...document.querySelectorAll('#z-chains-list input[name="catena"]:checked')].map(x => x.value),
+        pagine: [...document.querySelectorAll('#pg-list input[name="pagina"]:checked')].map(x => chains.newPage(x.value)).filter(Boolean), ...coords, updatedAt: now };
     });
     setDirty(false); fillSettings(); render(); renderOfferte();
     toast(t("set.saved"), "save"); mochi.mood("happy"); mochi.say(nome ? t("phr.nice", { name: nome }) : frase("aggiunto"));

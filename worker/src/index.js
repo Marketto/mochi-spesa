@@ -1,4 +1,4 @@
-// Ponte di Mochi Spesa: scarica i volantini SOLO dai siti ufficiali delle catene supportate,
+// Ponte di Mochi Spesa: scarica i volantini SOLO dai siti ufficiali delle catene supportate (e SerpApi),
 // per conto dell'app (il browser da solo non può: CORS). Non salva e non ripubblica nulla:
 // passa la risposta al telefono che l'ha chiesta, con una cache breve per non pesare sui siti.
 
@@ -8,6 +8,10 @@ export const ALLOWED_HOSTS = [
   "assets.leaflets.schwarz",    // PDF ufficiale del volantino (download abilitato da Lidl)
   "serpapi.com",                // ricerche Amazon / Google Shopping con la chiave SerpApi dell'utente (se il browser blocca la chiamata diretta)
 ];
+// siti ufficiali delle catene (con i loro sottodomini): l'utente indica la pagina del volantino del suo negozio
+// e Mochi scarica il PDF che quella pagina pubblica. Tenere allineato con OFFICIAL in js/chains.js.
+export const OFFICIAL_DOMAINS = ["todis.it", "eurospin.it", "mdspa.it", "conad.it", "pewex.it", "penny.it", "aldi.it", "despar.it", "carrefour.it", "tigota.it", "acquaesapone.it"];
+const official = host => OFFICIAL_DOMAINS.some(d => host === d || host.endsWith("." + d));
 const MAX_BYTES = 40 * 1024 * 1024;
 const CACHE_SECONDS = 6 * 3600;
 const UA = "MochiSpesa/1.0 (+https://github.com/Marketto/mochi-spesa; volantino per uso personale)";
@@ -16,7 +20,7 @@ const UA = "MochiSpesa/1.0 (+https://github.com/Marketto/mochi-spesa; volantino 
 export function allowedTarget(raw) {
   let u; try { u = new URL(raw); } catch { return null; }
   if (u.protocol !== "https:" || u.username || u.password || u.port) return null;
-  return ALLOWED_HOSTS.includes(u.hostname) ? u : null;
+  return ALLOWED_HOSTS.includes(u.hostname) || official(u.hostname) ? u : null;
 }
 export function allowedOrigin(origin, env) {
   const list = String(env.ALLOWED_ORIGINS || "").split(",").map(s => s.trim()).filter(Boolean);

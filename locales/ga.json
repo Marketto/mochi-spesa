@@ -558,5 +558,14 @@
   "serp.key": "Eochair SerpApi",
   "serp.remove": "Scrios an eochair SerpApi",
   "serp.removeConfirm": "Scrios an eochair SerpApi ón bhfón seo?",
-  "new.serp": "Praghsanna fíora ó Amazon agus ó shiopaí ar líne le heochair SerpApi saor in aisce; fágann an cuardach formáidí eile agus siopaí lasmuigh de do gha ar lár."
+  "new.serp": "Praghsanna fíora ó Amazon agus ó shiopaí ar líne le heochair SerpApi saor in aisce; fágann an cuardach formáidí eile agus siopaí lasmuigh de do gha ar lár.",
+  "ch.pagesTitle": "Bileoga oifigiúla do shiopaí",
+  "ch.pagesHint": "Oscail leathanach bileoige do shiopa ar an suíomh oifigiúil agus greamaigh an nasc anseo: seiceálann Mochi é gach lá agus léann sé an PDF a fhoilsítear. Suíomhanna tacaithe: {list}.",
+  "ch.pageUrl": "Nasc leathanach na bileoige",
+  "ch.pageAdd": "Cuir leis",
+  "ch.pageBad": "Níl an nasc seo ó shuíomh oifigiúil tacaithe ({list}).",
+  "ch.pageAdded": "Cuireadh {chain} leis: sábháil na socruithe.",
+  "fl.files": "{n} comhad",
+  "fl.fileN": "Comhad {i} as {n}",
+  "new.flyers2": "Bileoga oifigiúla do shiopaí ó nasc a leathanaigh, agus roinnt gabhálacha scáileáin bileoige le chéile, trí “Comhroinn” freisin."
 }

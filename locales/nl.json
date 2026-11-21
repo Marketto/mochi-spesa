@@ -558,5 +558,14 @@
   "serp.key": "SerpApi-sleutel",
   "serp.remove": "SerpApi-sleutel verwijderen",
   "serp.removeConfirm": "SerpApi-sleutel van deze telefoon verwijderen?",
-  "new.serp": "Echte prijzen van Amazon en webwinkels met een gratis SerpApi-sleutel; zoeken laat andere vormen en winkels buiten je straal weg."
+  "new.serp": "Echte prijzen van Amazon en webwinkels met een gratis SerpApi-sleutel; zoeken laat andere vormen en winkels buiten je straal weg.",
+  "ch.pagesTitle": "Officiële folders van je winkels",
+  "ch.pagesHint": "Open op de officiële site de folderpagina van je winkel en plak hier de link: Mochi controleert die dagelijks en leest de gepubliceerde pdf. Ondersteunde sites: {list}.",
+  "ch.pageUrl": "Link van de folderpagina",
+  "ch.pageAdd": "Toevoegen",
+  "ch.pageBad": "Deze link is niet van een ondersteunde officiële site ({list}).",
+  "ch.pageAdded": "{chain} toegevoegd: sla de instellingen op.",
+  "fl.files": "{n} bestanden",
+  "fl.fileN": "Bestand {i} van {n}",
+  "new.flyers2": "Officiële folders van je winkels via de link van hun pagina, en meerdere folder-screenshots tegelijk, ook via „Delen”."
 }

@@ -558,5 +558,14 @@
   "serp.key": "SerpApi キー",
   "serp.remove": "SerpApi キーを削除",
   "serp.removeConfirm": "このスマホから SerpApi キーを削除しますか？",
-  "new.serp": "無料の SerpApi キーで Amazon とネットショップの実際の価格を取得。別の形状や範囲外のお店は除外します。"
+  "new.serp": "無料の SerpApi キーで Amazon とネットショップの実際の価格を取得。別の形状や範囲外のお店は除外します。",
+  "ch.pagesTitle": "よく行くお店の公式チラシ",
+  "ch.pagesHint": "公式サイトでお店のチラシページを開き、そのリンクをここに貼り付けてね：もちっ子が毎日確認して、公開されている PDF を読みます。対応サイト：{list}。",
+  "ch.pageUrl": "チラシページのリンク",
+  "ch.pageAdd": "追加",
+  "ch.pageBad": "対応している公式サイトのリンクではありません（{list}）。",
+  "ch.pageAdded": "{chain} を追加しました：設定を保存してね。",
+  "fl.files": "{n} ファイル",
+  "fl.fileN": "{n} 件中 {i} 件目",
+  "new.flyers2": "お店のページのリンクから公式チラシを読み込み、チラシのスクショを複数まとめて読めるように（「共有」からも）。"
 }

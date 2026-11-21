@@ -558,5 +558,14 @@
   "serp.key": "SerpApi 密钥",
   "serp.remove": "删除 SerpApi 密钥",
   "serp.removeConfirm": "要从这台手机删除 SerpApi 密钥吗？",
-  "new.serp": "用免费的 SerpApi 密钥获取亚马逊和网店的真实价格；搜索会排除其他形态和范围外的商店。"
+  "new.serp": "用免费的 SerpApi 密钥获取亚马逊和网店的真实价格；搜索会排除其他形态和范围外的商店。",
+  "ch.pagesTitle": "你常去商店的官方促销单",
+  "ch.pagesHint": "在官网打开你常去门店的促销单页面，把链接粘贴到这里：麻糬每天检查一次并读取页面发布的 PDF。支持的网站：{list}。",
+  "ch.pageUrl": "促销单页面链接",
+  "ch.pageAdd": "添加",
+  "ch.pageBad": "这个链接不是受支持的官方网站（{list}）。",
+  "ch.pageAdded": "已添加 {chain}：请保存设置。",
+  "fl.files": "{n} 个文件",
+  "fl.fileN": "第 {i} 个，共 {n} 个",
+  "new.flyers2": "通过页面链接读取门店官方促销单，还能一次读取多张促销单截图，也可通过「分享」。"
 }

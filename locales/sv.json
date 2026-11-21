@@ -558,5 +558,14 @@
   "serp.key": "SerpApi-nyckel",
   "serp.remove": "Ta bort SerpApi-nyckeln",
   "serp.removeConfirm": "Ta bort SerpApi-nyckeln från den här telefonen?",
-  "new.serp": "Riktiga priser från Amazon och nätbutiker med en gratis SerpApi-nyckel; sökningen tar bort andra format och butiker utanför din radie."
+  "new.serp": "Riktiga priser från Amazon och nätbutiker med en gratis SerpApi-nyckel; sökningen tar bort andra format och butiker utanför din radie.",
+  "ch.pagesTitle": "Officiella reklamblad från dina butiker",
+  "ch.pagesHint": "Öppna din butiks reklambladssida på den officiella webbplatsen och klistra in länken här: Mochi kollar den varje dag och läser den publicerade pdf:en. Webbplatser som stöds: {list}.",
+  "ch.pageUrl": "Länk till reklambladssidan",
+  "ch.pageAdd": "Lägg till",
+  "ch.pageBad": "Länken kommer inte från en officiell webbplats som stöds ({list}).",
+  "ch.pageAdded": "{chain} tillagd: spara inställningarna.",
+  "fl.files": "{n} filer",
+  "fl.fileN": "Fil {i} av {n}",
+  "new.flyers2": "Officiella reklamblad från dina butiker via länken till deras sida, och flera skärmbilder av reklamblad på en gång, även via ”Dela”."
 }

@@ -558,5 +558,14 @@
   "serp.key": "SerpApi-kulcs",
   "serp.remove": "SerpApi-kulcs törlése",
   "serp.removeConfirm": "Törlöd a SerpApi-kulcsot erről a telefonról?",
-  "new.serp": "Valódi árak az Amazonról és webáruházakból ingyenes SerpApi-kulccsal; a keresés kihagyja a más kiszereléseket és a sugáron kívüli boltokat."
+  "new.serp": "Valódi árak az Amazonról és webáruházakból ingyenes SerpApi-kulccsal; a keresés kihagyja a más kiszereléseket és a sugáron kívüli boltokat.",
+  "ch.pagesTitle": "Üzleteid hivatalos szórólapjai",
+  "ch.pagesHint": "Nyisd meg a hivatalos oldalon az üzleted szórólapjának oldalát, és illeszd be ide a linkjét: Mochi naponta ellenőrzi, és beolvassa a közzétett PDF-et. Támogatott oldalak: {list}.",
+  "ch.pageUrl": "A szórólapoldal linkje",
+  "ch.pageAdd": "Hozzáadás",
+  "ch.pageBad": "Ez a link nem egy támogatott hivatalos oldalról való ({list}).",
+  "ch.pageAdded": "{chain} hozzáadva: mentsd a beállításokat.",
+  "fl.files": "{n} fájl",
+  "fl.fileN": "{i}. fájl / {n}",
+  "new.flyers2": "Üzleteid hivatalos szórólapjai az oldaluk linkjéből, és egyszerre több szórólap-képernyőkép, a „Megosztás” menüből is."
 }

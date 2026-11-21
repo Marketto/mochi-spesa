@@ -558,5 +558,14 @@
   "serp.key": "Klíč SerpApi",
   "serp.remove": "Smazat klíč SerpApi",
   "serp.removeConfirm": "Smazat klíč SerpApi z tohoto telefonu?",
-  "new.serp": "Skutečné ceny z Amazonu a e-shopů s bezplatným klíčem SerpApi; hledání vynechá jiné formy a obchody mimo tvůj okruh."
+  "new.serp": "Skutečné ceny z Amazonu a e-shopů s bezplatným klíčem SerpApi; hledání vynechá jiné formy a obchody mimo tvůj okruh.",
+  "ch.pagesTitle": "Oficiální letáky tvých obchodů",
+  "ch.pagesHint": "Otevři na oficiálním webu stránku letáku svého obchodu a vlož sem odkaz: Mochi ji denně kontroluje a čte zveřejněné PDF. Podporované weby: {list}.",
+  "ch.pageUrl": "Odkaz na stránku letáku",
+  "ch.pageAdd": "Přidat",
+  "ch.pageBad": "Tento odkaz není z podporovaného oficiálního webu ({list}).",
+  "ch.pageAdded": "{chain} přidán: ulož nastavení.",
+  "fl.files": "Souborů: {n}",
+  "fl.fileN": "Soubor {i} z {n}",
+  "new.flyers2": "Oficiální letáky tvých obchodů z odkazu na jejich stránku a více snímků letáku najednou, i přes „Sdílet“."
 }

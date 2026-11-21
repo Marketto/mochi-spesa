@@ -558,5 +558,14 @@
   "serp.key": "SerpApi võti",
   "serp.remove": "Kustuta SerpApi võti",
   "serp.removeConfirm": "Kas kustutada SerpApi võti sellest telefonist?",
-  "new.serp": "Päris hinnad Amazonist ja e-poodidest tasuta SerpApi võtmega; otsing jätab välja muud vormid ja raadiusest väljas olevad poed."
+  "new.serp": "Päris hinnad Amazonist ja e-poodidest tasuta SerpApi võtmega; otsing jätab välja muud vormid ja raadiusest väljas olevad poed.",
+  "ch.pagesTitle": "Sinu poodide ametlikud kampaanialehed",
+  "ch.pagesHint": "Ava ametlikul lehel oma poe kampaanialehe leht ja kleebi link siia: Mochi kontrollib seda iga päev ja loeb avaldatud PDF-i. Toetatud lehed: {list}.",
+  "ch.pageUrl": "Kampaanialehe lehe link",
+  "ch.pageAdd": "Lisa",
+  "ch.pageBad": "See link ei ole toetatud ametlikult lehelt ({list}).",
+  "ch.pageAdded": "{chain} lisatud: salvesta seaded.",
+  "fl.files": "{n} faili",
+  "fl.fileN": "Fail {i}/{n}",
+  "new.flyers2": "Sinu poodide ametlikud kampaanialehed nende lehe lingist ning mitu kampaanialehe ekraanipilti korraga, ka „Jaga” kaudu."
 }

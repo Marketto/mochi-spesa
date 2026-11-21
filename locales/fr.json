@@ -558,5 +558,14 @@
   "serp.key": "Clé SerpApi",
   "serp.remove": "Supprimer la clé SerpApi",
   "serp.removeConfirm": "Supprimer la clé SerpApi de ce téléphone ?",
-  "new.serp": "Vrais prix d'Amazon et des boutiques en ligne avec une clé SerpApi gratuite ; la recherche écarte les autres formats et les magasins hors de ton rayon."
+  "new.serp": "Vrais prix d'Amazon et des boutiques en ligne avec une clé SerpApi gratuite ; la recherche écarte les autres formats et les magasins hors de ton rayon.",
+  "ch.pagesTitle": "Prospectus officiels de tes magasins",
+  "ch.pagesHint": "Ouvre sur le site officiel la page du prospectus de ton magasin et colle son lien ici : Mochi la vérifie chaque jour et lit le PDF publié. Sites pris en charge : {list}.",
+  "ch.pageUrl": "Lien de la page du prospectus",
+  "ch.pageAdd": "Ajouter",
+  "ch.pageBad": "Ce lien ne vient pas d'un site officiel pris en charge ({list}).",
+  "ch.pageAdded": "{chain} ajouté : enregistre les réglages.",
+  "fl.files": "{n} fichiers",
+  "fl.fileN": "Fichier {i} sur {n}",
+  "new.flyers2": "Prospectus officiels de tes magasins depuis le lien de leur page, et plusieurs captures de prospectus lues ensemble, aussi via « Partager »."
 }

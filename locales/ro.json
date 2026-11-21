@@ -558,5 +558,14 @@
   "serp.key": "Cheie SerpApi",
   "serp.remove": "Șterge cheia SerpApi",
   "serp.removeConfirm": "Ștergi cheia SerpApi de pe acest telefon?",
-  "new.serp": "Prețuri reale de la Amazon și magazine online cu o cheie SerpApi gratuită; căutarea elimină alte formate și magazinele din afara razei tale."
+  "new.serp": "Prețuri reale de la Amazon și magazine online cu o cheie SerpApi gratuită; căutarea elimină alte formate și magazinele din afara razei tale.",
+  "ch.pagesTitle": "Cataloage oficiale ale magazinelor tale",
+  "ch.pagesHint": "Deschide pe site-ul oficial pagina catalogului magazinului tău și lipește aici linkul: Mochi o verifică zilnic și citește PDF-ul publicat. Site-uri acceptate: {list}.",
+  "ch.pageUrl": "Linkul paginii catalogului",
+  "ch.pageAdd": "Adaugă",
+  "ch.pageBad": "Linkul nu e de pe un site oficial acceptat ({list}).",
+  "ch.pageAdded": "{chain} adăugat: salvează setările.",
+  "fl.files": "{n} fișiere",
+  "fl.fileN": "Fișierul {i} din {n}",
+  "new.flyers2": "Cataloage oficiale ale magazinelor tale din linkul paginii lor și mai multe capturi de catalog citite împreună, și prin „Partajare”."
 }

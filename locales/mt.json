@@ -558,5 +558,14 @@
   "serp.key": "Ċavetta SerpApi",
   "serp.remove": "Ħassar iċ-ċavetta SerpApi",
   "serp.removeConfirm": "Tħassar iċ-ċavetta SerpApi minn dan it-telefon?",
-  "new.serp": "Prezzijiet veri minn Amazon u ħwienet online b'ċavetta SerpApi b'xejn; it-tfittxija tħalli barra formati oħra u ħwienet barra r-raġġ tiegħek."
+  "new.serp": "Prezzijiet veri minn Amazon u ħwienet online b'ċavetta SerpApi b'xejn; it-tfittxija tħalli barra formati oħra u ħwienet barra r-raġġ tiegħek.",
+  "ch.pagesTitle": "Fuljetti uffiċjali tal-ħwienet tiegħek",
+  "ch.pagesHint": "Iftaħ fuq is-sit uffiċjali l-paġna tal-fuljett tal-ħanut tiegħek u waħħal il-link hawn: Mochi jiċċekkjaha kuljum u jaqra l-PDF li tippubblika. Siti appoġġjati: {list}.",
+  "ch.pageUrl": "Link tal-paġna tal-fuljett",
+  "ch.pageAdd": "Żid",
+  "ch.pageBad": "Dan il-link mhux minn sit uffiċjali appoġġjat ({list}).",
+  "ch.pageAdded": "{chain} miżjud: issalva s-settings.",
+  "fl.files": "{n} fajls",
+  "fl.fileN": "Fajl {i} minn {n}",
+  "new.flyers2": "Fuljetti uffiċjali tal-ħwienet tiegħek mil-link tal-paġna tagħhom, u diversi screenshots tal-fuljett flimkien, anke b'“Aqsam”."
 }
