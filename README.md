@@ -176,4 +176,4 @@ Ognuno usa il proprio ponte e quindi la propria quota gratuita di Cloudflare (10
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Marketto/mochi-spesa/tree/main/worker)
 
 Dopo il deploy, incolla l'indirizzo `https://…workers.dev` in Impostazioni → Le tue catene e tocca «Prova».
-Per renderlo privato, aggiungi al Worker la variabile `CHIAVE` e usa l'indirizzo `https://…workers.dev/?k=<CHIAVE>`.
+**Consigliato: rendilo privato con una chiave.** Il ponte accetta solo l'origine dell'app, ma un controllo sull'origine si aggira con poco: senza chiave qualcun altro potrebbe usare la tua quota. In Cloudflare apri il Worker → *Settings* → *Variables and Secrets* → *Add*: tipo **Secret**, nome `CHIAVE`, valore una parola lunga a caso (es. 30 lettere e numeri). Poi in Mochi usa l'indirizzo `https://…workers.dev/?k=<CHIAVE>`. «Prova» ti avvisa se il ponte non ha ancora la chiave.

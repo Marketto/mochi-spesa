@@ -12,7 +12,7 @@ export function legalHtml() {
     Array.from({ length: n }, (_, i) => `<li>${linkify(esc(t(`${prefix}${i + 1}`)))}</li>`).join("")}</ul>`;
   const linkify = h => h.replace(/github\.com\/Marketto\/mochi-spesa\/issues/, m => `<a href="https://${m}" target="_blank" rel="noopener">${m}</a>`);
   return `<p class="hint">${esc(t("legal.updated", { date: new Date(POLICY_VERSION.slice(0, 10)).toLocaleDateString(locale(), { dateStyle: "long" }) }))}</p>
-    ${sec("privacy", "legal.privacyTitle", "legal.p", 17)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
+    ${sec("privacy", "legal.privacyTitle", "legal.p", 19)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
 }
 export function openLegal() { $("#legal-body").innerHTML = legalHtml(); $("#legal").showModal(); }
 

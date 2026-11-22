@@ -26,13 +26,23 @@ export const CUR_BY_COUNTRY = { se: "SEK", dk: "DKK", no: "NOK", is: "ISK", pl: 
 export const CURRENCIES = [...new Set(["EUR", ...Object.values(CUR_BY_COUNTRY), "MAD"])];
 /** Paese (ISO 2) dove si fa la spesa: quello «fuori casa» se attivo, altrimenti quello di casa. "" se non ancora impostato. */
 export const paese = () => (away()?.paese || state.settings.paese || "").toLowerCase();
-export const currency = () => state.settings.valuta || CUR_BY_COUNTRY[paese()] || "EUR";
+/** Valuta di casa: quella scelta a mano, altrimenti quella del paese di casa. I prezzi salvati si mostrano in questa. */
+export const currency = () => state.settings.valuta || CUR_BY_COUNTRY[(state.settings.paese || "").toLowerCase()] || "EUR";
+/** Valuta per cercare dove sei: fuori casa quella del paese in cui ti trovi. */
+export const searchCurrency = () => { const a = away()?.paese; return a && a.toLowerCase() !== (state.settings.paese || "").toLowerCase() ? CUR_BY_COUNTRY[a.toLowerCase()] || currency() : currency(); };
+/** Luogo da mandare all'IA: solo quartiere e città (mai l'indirizzo scritto) e coordinate arrotondate a ~1 km. */
+export const zonaAI = () => {
+  const a = away(), s = state.settings;
+  if (a) return `${a.nome} (lat ${a.lat}, lon ${a.lon})`;
+  if (s.lat == null) return s.zona || "";
+  return `${s.zona ? s.zona + " " : ""}(lat ${s.lat}, lon ${s.lon})`;
+};
 export const amzOn = () => state.settings.amazon !== false;
 export const amzLink = (nome, cls = "") => `<a class="${cls}" href="${esc(amazonSearch(nome, paese()))}" target="_blank" rel="noopener noreferrer" aria-label="${esc(t("amz.searchName", { name: nome }))} ${esc(t("a11y.newTab"))}">${ic("external")}${cls.includes("icon-btn") ? "" : esc(t("amz.search"))}</a>`;
 // ultimo prezzo Amazon che l'utente ha salvato in «I miei prezzi»
 export const amzSaved = nome => pricedb.recent(nome, 365).filter(r => isAmazon(r.negozio)).sort((a, b) => (b.data || "").localeCompare(a.data || ""))[0] || null;
-export const fmt = (n, d) => new Intl.NumberFormat(locale(), { style: "currency", currency: currency(), ...(d ? { minimumFractionDigits: 2, maximumFractionDigits: 3 } : {}) }).format(n);
-export const money = n => (typeof n === "number" && isFinite(n)) ? fmt(n) : "–";
+export const fmt = (n, d, cur = currency()) => new Intl.NumberFormat(locale(), { style: "currency", currency: cur, ...(d ? { minimumFractionDigits: 2, maximumFractionDigits: 3 } : {}) }).format(n);
+export const money = (n, cur) => (typeof n === "number" && isFinite(n)) ? fmt(n, false, cur) : "–";
 export const money3 = n => (typeof n === "number" && isFinite(n)) ? fmt(n, true) : "–";
 export const curSymbol = () => new Intl.NumberFormat(locale(), { style: "currency", currency: currency() }).formatToParts(0).find(p => p.type === "currency")?.value || currency();
 export const perUnit = (n, u) => `${money3(n)} ${t("unitPer." + (u || "pezzi"))}`;
@@ -85,7 +95,7 @@ export function toast(msg, icon = "heart", action) {
   el.classList.toggle("has-action", !!action);
   if (action) {
     const b = document.createElement("button");
-    b.type = "button"; b.className = "toast-act"; b.innerHTML = `${ic("undo")} ${esc(action.label)}`;
+    b.type = "button"; b.className = "toast-act"; b.innerHTML = `${ic(action.icon || "undo")} ${esc(action.label)}`;
     b.addEventListener("click", () => { action.run(); el.classList.remove("show"); }, { once: true });
     el.appendChild(b);
   }

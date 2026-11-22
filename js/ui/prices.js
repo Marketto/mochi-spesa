@@ -15,7 +15,7 @@ import * as best from "../best.js";
 import * as serp from "../serp.js";
 import { hash } from "../util.js";
 import { away, checkAway, fillCountry, renderAiKeys, renderOfferte, renderSerp } from "../app.js";
-import { $, PROXY, amzLink, amzOn, amzSaved, confetti, confirmDlg, currency, esc, ic, lsGet, lsSet, me, mochi, money, money3, motionOk, mutate, num, paese, perUnit, quando, safeUrl, selectTab, sheet, sparkles, state, toast } from "./core.js";
+import { $, amzLink, amzOn, amzSaved, confetti, confirmDlg, currency, esc, ic, lsGet, lsSet, me, mochi, money, money3, motionOk, mutate, num, paese, perUnit, PROXY, quando, safeUrl, searchCurrency, selectTab, sheet, sparkles, state, toast, zonaAI } from "./core.js";
 import { OP_CREDIT, mergeOptions, oggiISO, opNote, savedOptions, searchPoint, shortDate } from "./pantry.js";
 
 // ---------- TROVA IL PREZZO MIGLIORE (un prodotto, tutte le fonti) ----------
@@ -39,7 +39,7 @@ export function bestRow(r, i, top) {
   return `<li class="best-item${top ? " win" : ""}">
     ${top ? `<p class="best-badge">${ic("trophy")} ${esc(t("best.winner"))}</p>` : ""}
     <div class="head"><div><h3>${esc(r.negozio || "?")}</h3><p class="what">${esc(r.nome)}</p></div>
-      <div class="price">${money(r.prezzo)}${r.prezzoUnit ? `<small>${esc(perUnit(r.prezzoUnit, r.unita))}</small>` : ""}</div></div>
+      <div class="price">${money(r.prezzo, r.src === "mine" ? undefined : searchCurrency())}${r.prezzoUnit ? `<small>${esc(perUnit(r.prezzoUnit, r.unita))}</small>` : ""}</div></div>
     <p class="meta"><span class="badge">${esc(srcLabel(r))}</span>${r.offerta ? ` <span class="badge gold">${esc(t("cmp.deal"))}</span>` : ""}${r.online ? ` · ${esc(t("best.online"))}` : r.distanzaKm != null ? ` · ${esc(r.distanzaKm)} km` : ""}${fino ? ` · ${esc(t("deals.until", { date: fino }))}` : ""}${r.data && r.src !== "web" ? ` · ${esc(t("fl.note", { date: shortDate(r.data) }))}` : ""}</p>
     ${r.nota ? `<p class="hint">${esc(r.nota)}</p>` : ""}
     <div class="foot">${src ? `<a href="${esc(src)}" target="_blank" rel="noopener noreferrer">${ic("external")}${esc(t("best.open"))}${nt}</a>` : "<span></span>"}
@@ -105,7 +105,7 @@ export async function findBest(q, link = "") {
   if (run !== bestRun) return; // nel frattempo è partita un'altra ricerca: lo spinner è suo
   btn.classList.remove("loading"); btn.removeAttribute("aria-busy");
   update(); lsSet(BEST_KEY, { ...res, stato: { mine: res.stato.mine, op: res.stato.op, serp: res.stato.serp, web: res.stato.web } });
-  if (res.righe.length) { mochi.mood("happy", 2000); mochi.say(t("best.say", { store: res.righe[0].negozio, price: money(res.righe[0].prezzo) })); }
+  if (res.righe.length) { mochi.mood("happy", 2000); mochi.say(t("best.say", { store: res.righe[0].negozio, price: money(res.righe[0].prezzo, res.righe[0].src === "mine" ? undefined : searchCurrency()) })); }
   else { mochi.mood("sleepy", 2000); mochi.say(frase("niente")); }
 }
 /** Catene da cercare: prima le preferite, poi le più diffuse nel raggio (da OpenStreetMap). */
@@ -125,8 +125,7 @@ export async function pool(tasks, n) {
   return out;
 }
 export async function webBest(q, link, s0, res, parts, update, haveSerp, signal) {
-  const a0 = away();
-  const luogo = a0 ? `${a0.nome} (lat ${a0.lat}, lon ${a0.lon})` : s0.lat != null ? `${s0.luogo} (lat ${s0.lat}, lon ${s0.lon})` : s0.luogo || "";
+  const luogo = zonaAI();
   const catene = res.catene = await chainsNear(s0);
   const fonti = [];
   for (let i = 0; i < catene.length; i += 3) fonti.push({ tipo: "volantini", catene: catene.slice(i, i + 3) });
@@ -138,7 +137,7 @@ export async function webBest(q, link, s0, res, parts, update, haveSerp, signal)
   const servizi = [...new Set(ai.route([ai.TAG.WEB]).map(c => c.provider))];
   update();
   const errs = [];
-  await pool(fonti.map((fonte, i) => () => signal?.aborted ? Promise.resolve() : ai.cercaMigliore({ query: q, link: fonte.tipo === "amazon" || fonte.tipo === "aggregatori" ? link : "", luogo, raggioKm: s0.raggioKm || 5, valuta: currency(), lingua: langName(), fonte }, { signal, prefer: servizi[i % servizi.length] })
+  await pool(fonti.map((fonte, i) => () => signal?.aborted ? Promise.resolve() : ai.cercaMigliore({ query: q, link: fonte.tipo === "amazon" || fonte.tipo === "aggregatori" ? link : "", luogo, raggioKm: s0.raggioKm || 5, valuta: searchCurrency(), lingua: langName(), fonte }, { signal, prefer: servizi[i % servizi.length] })
     .then(list => {
       const rows = list.map(x => ({ negozio: best.chainName(x.negozio), nome: x.prodotto, prezzo: x.prezzo, quantita: x.quantita, unita: x.unita, prezzoUnit: x.prezzoUnit,
         offerta: !!x.offerta, validoFino: x.validoFino, online: !!x.online || fonte.tipo === "amazon", distanzaKm: x.distanzaKm, fonte: x.fonte, nota: x.nota, src: "web" }));
@@ -425,7 +424,7 @@ export function compareBody() {
       const src = safeUrl(o.fonte);
       h += `<div class="cmp-opt${pf ? " fav" : ""}"><label><input type="radio" name="${esc(it.id)}" value="${i}" data-price="${o.prezzo}"${String(i) === sel ? " checked" : ""}>
         <span class="txt"><span class="n">${pf ? ic("star") + " " : ""}${esc(o.negozio)}</span>
-        <span class="meta">${money(o.prezzo)}${o.prezzoUnit ? " · " + esc(perUnit(o.prezzoUnit, o.unita)) : ""}${o.offerta ? ` · <strong>${esc(t("cmp.deal"))}</strong>` : ""}${o.validoFino ? " · " + esc(t("deals.until", { date: o.validoFino })) : ""}</span></span></label>
+        <span class="meta">${money(o.prezzo, searchCurrency())}${o.prezzoUnit ? " · " + esc(perUnit(o.prezzoUnit, o.unita)) : ""}${o.offerta ? ` · <strong>${esc(t("cmp.deal"))}</strong>` : ""}${o.validoFino ? " · " + esc(t("deals.until", { date: o.validoFino })) : ""}</span></span></label>
         ${src ? `<a class="icon-btn" href="${esc(src)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(t("deals.flyer"))} ${esc(o.negozio)} ${esc(t("a11y.newTab"))}">${ic("external")}</a>` : ""}
         <button class="icon-btn" type="button" data-fav="${esc(it.id)}|${esc(o.negozio)}" aria-pressed="${pf}" aria-label="${esc(t("pref.fav", { product: it.nome, store: o.negozio }))}">${ic(pf ? "star" : "star-line")}</button>
         <button class="icon-btn danger" type="button" data-avoid="${esc(it.id)}|${esc(o.negozio)}" aria-label="${esc(t("pref.avoid", { product: it.nome, store: o.negozio }))}">${ic("avoid")}</button></div>`;
@@ -434,7 +433,7 @@ export function compareBody() {
     if (evitati.length) h += `<p class="hint">${ic("avoid")} ${esc(t("cmp.hidden", { n: evitati.length, stores: evitati.map(o => o.negozio).join(", ") }))}</p>`;
     h += `</fieldset>`;
   }
-  h += `<p class="cmp-total" aria-live="polite">${esc(t("cmp.total", { total: money(tot) }))}</p>
+  h += `<p class="cmp-total" aria-live="polite">${esc(t("cmp.total", { total: money(tot, searchCurrency()) }))}</p>
     <p class="hint">${esc(t("cmp.when", { when: state.confronto.updatedAt ? quando(state.confronto.updatedAt) : "–" }))}</p>${state.confronto.fonte === "openprices" && (state.confronto.prodotti || []).some(r => (r.opzioni || []).some(o => o.op)) ? OP_CREDIT() + `<p class="hint">${ic("key")} ${esc(t("free.moreWithKey"))}</p>` : ""}`;
   return h;
 }
@@ -449,7 +448,7 @@ $("#sheet-body").addEventListener("click", e => {
 $("#sheet-body").addEventListener("change", e => {
   if (!e.target.matches('.cmp-item input[type="radio"]')) return;
   const tot = [...$("#sheet-body").querySelectorAll('.cmp-item input[type="radio"]:checked')].reduce((n, r) => n + (+r.dataset.price || 0), 0);
-  const el = $("#sheet-body").querySelector(".cmp-total"); if (el) el.textContent = t("cmp.total", { total: money(tot) });
+  const el = $("#sheet-body").querySelector(".cmp-total"); if (el) el.textContent = t("cmp.total", { total: money(tot, searchCurrency()) });
 });
 export async function openCompare() {
   const r = await sheet({
@@ -493,10 +492,9 @@ export async function runCompare() {
   btn.classList.add("loading"); btn.setAttribute("aria-busy", "true"); mochi.mood("wow", 0); mochi.say(frase("cerco"), 90000);
   toast(t("cmp.searching"), "search");
   try {
-    const a0 = away();
-    const luogo = a0 ? `${a0.nome} (lat ${a0.lat}, lon ${a0.lon})` : s0.lat != null ? `${s0.luogo} (lat ${s0.lat}, lon ${s0.lon})` : s0.luogo;
+    const luogo = zonaAI();
     const prefs = live(state.preferenze);
-    const res = await ai.confrontaPrezzi({ prodotti, luogo, raggioKm: s0.raggioKm, negozi: s0.negozi, amazon: s0.amazon !== false, valuta: currency(), lingua: langName(),
+    const res = await ai.confrontaPrezzi({ prodotti, luogo, raggioKm: s0.raggioKm, negozi: s0.negozi, amazon: s0.amazon !== false, valuta: searchCurrency(), lingua: langName(),
       preferiti: prefs.filter(p => p.tipo === "preferito").map(p => ({ prodotto: p.prodotto, negozio: p.negozio })),
       evitati: prefs.filter(p => p.tipo === "evita").map(p => ({ prodotto: p.prodotto, negozio: p.negozio })) });
     // i volantini ufficiali letti sul telefono vincono sulle stime dell'IA per lo stesso negozio
@@ -564,10 +562,9 @@ $("#cerca").addEventListener("click", async () => {
   searching = new AbortController();
   try {
     await checkAway({ ask: true, modal: true });
-    const s0 = state.settings, a0 = away();
-    const luogo = a0 ? `${a0.nome} (lat ${a0.lat}, lon ${a0.lon})` : s0.lat != null ? `${s0.luogo} (lat ${s0.lat}, lon ${s0.lon})` : s0.luogo;
+    const s0 = state.settings, luogo = zonaAI();
     let offerte;
-    if (ai.ready()) offerte = await ai.cercaOfferte({ prodotti: live(state.monitor), ...s0, luogo, valuta: currency(), lingua: langName() }, { signal: searching.signal });
+    if (ai.ready()) offerte = await ai.cercaOfferte({ prodotti: live(state.monitor), ...s0, luogo, valuta: searchCurrency(), lingua: langName() }, { signal: searching.signal });
     else {
       const pt = searchPoint(); if (!pt) throw new Error(t("geo.ask"));
       let prices = []; try { prices = await op.nearby({ ...pt, raggioKm: Math.max(s0.raggioKm || 5, 10) }, { signal: searching.signal }); } catch (e) { if (e.name === "AbortError") throw e; }
@@ -622,7 +619,7 @@ $("#f-val").addEventListener("submit", async e => {
   try {
     const storico = pricedb.search(v.testo).slice(0, 30).map(r => ({ p: r.nome, n: r.negozio, prezzo: r.prezzo, u: r.prezzoUnit, d: r.data }));
     let esito;
-    try { esito = webOk ? await ai.valuta({ ...v, offerte: state.offerte.list, valuta: currency(), luogo: state.settings.luogo, lingua: langName() }) : null; }
+    try { esito = webOk ? await ai.valuta({ ...v, offerte: state.offerte.list, valuta: currency(), luogo: zonaAI(), lingua: langName() }) : null; }
     catch (e) { if (!textOk) throw e; }
     if (!esito) esito = await ai.valutaOffline({ ...v, storico, valuta: currency(), lingua: langName() });
     mutate((s, now) => { const id = uid(); s.valutazioni[id] = { id, ...v, esito, da: me().nome, ts: now, updatedAt: now }; });

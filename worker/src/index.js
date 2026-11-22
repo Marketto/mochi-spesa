@@ -39,7 +39,7 @@ export function allowedOrigin(origin, env) {
   const list = String(env?.ALLOWED_ORIGINS || "https://marketto.github.io").split(",").map(s => s.trim()).filter(Boolean);
   return origin && list.includes(origin) ? origin : null;
 }
-const cors = origin => ({ "access-control-allow-origin": origin, "access-control-allow-methods": "GET, OPTIONS", "access-control-max-age": "86400", vary: "Origin" });
+const cors = origin => ({ "access-control-allow-origin": origin, "access-control-allow-methods": "GET, OPTIONS", "access-control-max-age": "86400", "access-control-expose-headers": "x-mochi-chiave", vary: "Origin" });
 const fail = (status, msg, origin) => new Response(msg, { status, headers: { "content-type": "text/plain; charset=utf-8", ...(origin ? cors(origin) : {}) } });
 
 export default {
@@ -77,6 +77,7 @@ export default {
     const out = new Response(res.body, res);
     for (const [k, v] of Object.entries(cors(origin))) out.headers.set(k, v);
     out.headers.set("x-content-type-options", "nosniff");
+    out.headers.set("x-mochi-chiave", env?.CHIAVE ? "si" : "no"); // l'app consiglia la chiave se manca
     return out;
   },
 };

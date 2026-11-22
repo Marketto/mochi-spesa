@@ -12,7 +12,7 @@ import * as chains from "./chains.js";
 import * as shops from "./shops.js";
 import { amazonSearch } from "./amazon.js";
 import * as serp from "./serp.js";
-import { $, BUILT_KEY, CURRENCIES, DBX_CFG_KEY, LOCAL_CFG, PROXY, amzLink, amzOn, amzSaved, applyAnim, confetti, confirmDlg, connectDropbox, curSymbol, currency, dbxCfg, esc, hadState, ic, lsGet, lsSet, me, mochi, money, mutate, okProxy, paese, perUnit, quando, safeUrl, save, seen, selectTab, setMe, setState, sparkles, state, tabs, toast } from "./ui/core.js";
+import { $, BUILT_KEY, CUR_BY_COUNTRY, CURRENCIES, DBX_CFG_KEY, LOCAL_CFG, PROXY, amzLink, amzOn, amzSaved, applyAnim, confetti, confirmDlg, connectDropbox, curSymbol, currency, dbxCfg, esc, hadState, ic, lsGet, lsSet, me, mochi, money, mutate, okProxy, paese, perUnit, quando, safeUrl, save, seen, selectTab, setMe, setState, sparkles, state, tabs, toast } from "./ui/core.js";
 import { WIZ, openLegal, openNews, openWizard, policyOk, startTour } from "./ui/onboarding.js";
 import { OP_CREDIT, addToList, checkHome, checkKapibo, editQty, kapMode, placeName, renderPantry, shortDate, takenFromStore } from "./ui/pantry.js";
 import { refreshChains, renderBestHow, renderDb, renderFlyerBest, renderPrefs } from "./ui/prices.js";
@@ -276,9 +276,10 @@ export function fillSettings() {
   renderPages(s.pagine || []);
   $("#ponte-box").hidden = !!okProxy(LOCAL_CFG.flyerProxy); $("#z-ponte").value = s.ponte || "";
   let names; try { names = new Intl.DisplayNames([locale()], { type: "currency" }); } catch {}
-  $("#z-valuta").innerHTML = CURRENCIES.map(c => `<option value="${c}">${esc(names ? names.of(c) : c)} (${c})</option>`).join("");
-  $("#z-valuta").value = currency();
-  $("#z-valuta").dataset.auto = state.settings.valuta ? "" : currency(); // non scelta a mano: resta automatica (dal paese)
+  // prima voce «automatica»: segue il paese di casa; le altre fissano la valuta
+  $("#z-valuta").innerHTML = `<option value="">${esc(t("cur.auto", { cur: CUR_BY_COUNTRY[(state.settings.paese || "").toLowerCase()] || "EUR" }))}</option>`
+    + CURRENCIES.map(c => `<option value="${c}">${esc(names ? names.of(c) : c)} (${c})</option>`).join("");
+  $("#z-valuta").value = state.settings.valuta || "";
   renderSerp();
   ai.setShared(state.settings.aiShared);
   renderAiKeys(); fillProviders();
@@ -353,7 +354,7 @@ export async function testPonte() {
   b.classList.add("loading"); st.textContent = "…";
   try {
     const r = await fetch(chains.via(p, "https://www.lidl.it/c/volantino-lidl/s10018048"), { signal: AbortSignal.timeout(20000) });
-    st.textContent = r.ok ? t("ch.ponteOk") : t("ch.ponteKo", { msg: `${r.status} ${(await r.text()).slice(0, 40)}` });
+    st.textContent = r.ok ? t("ch.ponteOk") + (r.headers.get("x-mochi-chiave") === "no" ? " " + t("ch.ponteNoKey") : "") : t("ch.ponteKo", { msg: `${r.status} ${(await r.text()).slice(0, 40)}` });
   } catch (e) { st.textContent = t("ch.ponteKo", { msg: e.name === "TimeoutError" ? "timeout" : e.message }); }
   finally { b.classList.remove("loading"); }
 }
@@ -449,15 +450,17 @@ export async function saveSettings() {
     applyAnim();
     // zona e dispensa (condivisi)
     const luogo = $("#z-luogo").value.trim(), old = state.settings;
-    let coords = luogo === old.luogo && old.lat != null ? { lat: old.lat, lon: old.lon, paese: old.paese || "" } : { lat: null, lon: null, paese: "" };
+    let coords = luogo === old.luogo && old.lat != null ? { lat: old.lat, lon: old.lon, paese: old.paese || "", zona: old.zona || "" } : { lat: null, lon: null, paese: "", zona: "" };
     if (luogo && coords.lat == null) {
       const g = await geo.geocode(luogo, lang());
-      if (g) coords = { lat: g.lat, lon: g.lon, paese: g.paese }; else $("#geo-msg").textContent = t("geo.geocodeFail");
+      // all'IA va solo quartiere e città (zona), mai l'indirizzo scritto
+      if (g) coords = { lat: g.lat, lon: g.lon, paese: g.paese, zona: (await geo.placeInfo(g, lang()).catch(() => null))?.nome || "" };
+      else $("#geo-msg").textContent = t("geo.geocodeFail");
     }
     const ripiani = document.querySelector('input[name="lvdir"]:checked')?.value === "basso" ? "basso" : "alto";
     mutate((s, now) => {
       s.settings = { ...s.settings, luogo, raggioKm: +$("#z-raggio").value, negozi: checkedShops().join(", "), amazon: $("#z-amz").checked,
-        valuta: $("#z-valuta").value === $("#z-valuta").dataset.auto ? "" : $("#z-valuta").value, ripiani, catene: [...document.querySelectorAll('#z-chains-list input[name="catena"]:checked')].map(x => x.value),
+        valuta: $("#z-valuta").value, ripiani, catene: [...document.querySelectorAll('#z-chains-list input[name="catena"]:checked')].map(x => x.value),
         ponte: okProxy($("#z-ponte").value.trim()) || "",
         pagine: [...document.querySelectorAll('#pg-list input[name="pagina"]:checked')].map(x => chains.newPage(x.value)).filter(Boolean), ...coords, updatedAt: now };
     });
@@ -629,9 +632,9 @@ export const away = () => lsGet(AWAY_KEY, null);          // { lat, lon, nome, p
 // chi aveva già la zona prima della 2.5.0: il paese si ricava una volta dalle coordinate di casa
 export async function fillCountry() {
   const s = state.settings;
-  if (s.paese || s.lat == null || !navigator.onLine) return;
+  if ((s.paese && s.zona) || s.lat == null || !navigator.onLine) return;
   const info = await geo.placeInfo({ lat: s.lat, lon: s.lon }, lang());
-  if (info?.paese) mutate((st, now) => { st.settings = { ...st.settings, paese: info.paese, updatedAt: now }; });
+  if (info?.paese || info?.nome) mutate((st, now) => { st.settings = { ...st.settings, paese: st.settings.paese || info.paese || "", zona: st.settings.zona || info.nome || "", updatedAt: now }; });
 }
 export let awayAsked = null;                              // posizione per cui l'utente ha già risposto "no" in questa sessione
 export const home = () => state.settings.lat != null ? { lat: state.settings.lat, lon: state.settings.lon } : null;
@@ -643,7 +646,7 @@ export async function usaPosizione(btn) {
   try {
     const pos = await geo.here();
     const info = await geo.placeInfo(pos, lang()), nome = info?.nome || t("geo.label", pos);
-    mutate((s, now) => { s.settings = { ...s.settings, ...pos, paese: info?.paese || "", luogo: nome, updatedAt: now }; });
+    mutate((s, now) => { s.settings = { ...s.settings, ...pos, paese: info?.paese || "", zona: info?.nome || "", luogo: nome, updatedAt: now }; });
     lsSet(AWAY_KEY, null);
     $("#z-luogo").value = nome; fillSettings(); msg.textContent = t("geo.ok"); toast(t("geo.ok"), "pin"); mochi.mood("happy"); mochi.say(frase("guardo"));
   } catch (err) {
@@ -724,6 +727,50 @@ $("#t-imp").addEventListener("click", () => { renderAiKeys(); renderSerp(); });
     } else afterPolicy();
   }
 
-  if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol === "https:") watchUpdates();
 })();
+
+// ---------- ESPORTA / IMPORTA (file JSON nel formato condiviso, docs/sync-format.md) ----------
+$("#data-export").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(state, null, 1)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = `mochi-spesa-${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+$("#data-import-btn").addEventListener("click", () => $("#data-import").click());
+$("#data-import").addEventListener("change", async e => {
+  const f = e.target.files?.[0]; e.target.value = "";
+  if (!f) return;
+  try {
+    const raw = JSON.parse(await f.text());
+    if (!raw || typeof raw !== "object" || !raw.items) throw new Error("format"); // non è un file di Mochi Spesa
+    const data = normalize(raw);
+    for (const it of Object.values(data.items)) it.cat = legacyCat(it.cat);
+    if (!canWrite(merge(state, data))) throw new Error("format");
+    // si unisce come con Dropbox: niente va perso, vince la modifica più recente
+    setState(merge(state, data)); save(); render(); fillSettings(); scheduleSync();
+    toast(t("data.imported"), "import"); mochi.mood("happy", 1500);
+  } catch { toast(t("data.importFail"), "warn"); }
+});
+
+// ---------- AGGIORNAMENTI ----------
+// L'app aperta a lungo controlla ogni ora (e quando torna in primo piano) se c'è una versione nuova.
+// Il service worker nuovo prende subito il controllo: si avvisa con un pulsante «Ricarica»; se l'app va in
+// secondo piano senza lavoro in sospeso, si ricarica da sola al ritorno.
+function watchUpdates() {
+  const hadController = !!navigator.serviceWorker.controller;
+  let pending = false;
+  navigator.serviceWorker.register("sw.js").then(reg => {
+    setInterval(() => reg.update().catch(() => {}), 3600e3);
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") reg.update().catch(() => {}); });
+  }).catch(() => {});
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (!hadController || pending) return; // prima installazione: niente da ricaricare
+    pending = true;
+    toast(t("upd.ready"), "magic", { label: t("upd.reload"), icon: "refresh", run: () => location.reload() });
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (pending && document.visibilityState === "visible" && !settingsDirty && !flyer.busy()) location.reload();
+  });
+}
 

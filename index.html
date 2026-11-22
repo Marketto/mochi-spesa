@@ -333,6 +333,15 @@
       <p class="hint" data-i18n="kapibo.settingHint"></p>
     </section>
 
+    <section class="card" aria-labelledby="data-t">
+      <h2 class="in" id="data-t"><i class="mi mi-save" aria-hidden="true"></i> <span data-i18n="data.title"></span></h2>
+      <p class="hint" id="data-h" data-i18n="data.hint"></p>
+      <div class="best-row">
+        <button class="btn ghost" type="button" id="data-export" aria-describedby="data-h"><i class="mi mi-save" aria-hidden="true"></i> <span data-i18n="data.export"></span></button>
+        <button class="btn ghost" type="button" id="data-import-btn" aria-describedby="data-h"><i class="mi mi-import" aria-hidden="true"></i> <span data-i18n="data.import"></span></button>
+        <input type="file" id="data-import" accept="application/json,.json" hidden>
+      </div>
+    </section>
     <div class="card">
       <h2 class="in"><i class="mi mi-info" aria-hidden="true"></i> <span data-i18n="about.title"></span></h2>
       <p class="hint" id="about-ver"></p>
