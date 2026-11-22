@@ -1863,9 +1863,10 @@ $("#t-offerte").addEventListener("click", () => renderBestHow());
 // ---------- PRIVACY E CONDIZIONI ----------
 function legalHtml() {
   const sec = (icon, title, prefix, n) => `<h3>${ic(icon)} ${esc(t(title))}</h3><ul>${
-    Array.from({ length: n }, (_, i) => `<li>${esc(t(`${prefix}${i + 1}`))}</li>`).join("")}</ul>`;
+    Array.from({ length: n }, (_, i) => `<li>${linkify(esc(t(`${prefix}${i + 1}`)))}</li>`).join("")}</ul>`;
+  const linkify = h => h.replace(/github\.com\/Marketto\/mochi-spesa\/issues/, m => `<a href="https://${m}" target="_blank" rel="noopener">${m}</a>`);
   return `<p class="hint">${esc(t("legal.updated", { date: new Date(POLICY_VERSION.slice(0, 10)).toLocaleDateString(locale(), { dateStyle: "long" }) }))}</p>
-    ${sec("privacy", "legal.privacyTitle", "legal.p", 16)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
+    ${sec("privacy", "legal.privacyTitle", "legal.p", 17)}${sec("terms", "legal.termsTitle", "legal.t", 7)}`;
 }
 function openLegal() { $("#legal-body").innerHTML = legalHtml(); $("#legal").showModal(); }
 
@@ -1900,6 +1901,7 @@ function wizBody(id) {
       ${bullets([["phone", "wiz.s5.b1"], ["privacy", "wiz.s5.b2"], ["key", "wiz.s5.b3"], ["warn", "wiz.s5.b4"]])}
       <button class="btn ghost" type="button" id="wiz-read">${ic("terms")} ${esc(t("wiz.s5.read"))}</button>
       <label class="check accept"><input type="checkbox" id="wiz-accept" aria-describedby="wiz-err"${wiz.accepted ? " checked" : ""}> <span>${esc(t("wiz.s5.accept"))}</span></label>
+      <label class="check accept"><input type="checkbox" id="wiz-disc" aria-describedby="wiz-err"${wiz.disc ? " checked" : ""}> <span>${esc(t("wiz.s5.disclaimer"))}</span></label>
       <p class="err" id="wiz-err" role="alert"></p>`;
   }
   return "";
@@ -1920,11 +1922,12 @@ function renderWizard(focusTitle = true) {
   if (sel) { fillLangSelect(sel); sel.addEventListener("change", async () => { await changeLang(sel.value); renderWizard(false); $("#wiz-lang").focus(); }); }
   $("#wiz-read")?.addEventListener("click", openLegal);
   $("#wiz-accept")?.addEventListener("change", e => { wiz.accepted = e.target.checked; if (e.target.checked) $("#wiz-err").textContent = ""; });
+  $("#wiz-disc")?.addEventListener("change", e => { wiz.disc = e.target.checked; if (e.target.checked) $("#wiz-err").textContent = ""; });
   $("#wiz-name")?.addEventListener("change", e => setMe({ nome: e.target.value.trim() }));
   if (focusTitle) $("#wiz-title").focus();
 }
 function openWizard({ required, steps = WIZ }) {
-  wiz = { step: 0, steps, required, accepted: policyOk() };
+  wiz = { step: 0, steps, required, accepted: policyOk(), disc: policyOk() };
   renderWizard(false);
   $("#wiz").showModal();
   $("#wiz-title").focus();
@@ -1942,6 +1945,9 @@ $("#wiz-next").addEventListener("click", () => {
   }
   if (s.id === "privacy" && !$("#wiz-accept").checked) {
     $("#wiz-err").textContent = t("wiz.s5.must"); $("#wiz-accept").focus(); mochi.mood("wow"); return;
+  }
+  if (s.id === "privacy" && !$("#wiz-disc").checked) {
+    $("#wiz-err").textContent = t("wiz.s5.mustDisc"); $("#wiz-disc").focus(); mochi.mood("wow"); return;
   }
   if (s.id === "privacy") lsSet("mochi.policy", POLICY_VERSION);
   if (wiz.steps.length > 1) lsSet("mochi.seen", APP_VERSION);

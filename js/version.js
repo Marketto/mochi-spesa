@@ -4,7 +4,7 @@
 // Se cambiano privacy o condizioni d'uso, alza anche POLICY_VERSION: verrà chiesta di nuovo l'accettazione.
 
 export const APP_VERSION = "2.4.4";
-export const POLICY_VERSION = "2026-11-21b";
+export const POLICY_VERSION = "2026-11-22";
 
 export const CHANGELOG = [
   { v: "2.4.2", items: [
