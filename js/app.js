@@ -17,6 +17,7 @@ import * as shops from "./shops.js";
 import { amazonSearch, isAmazon } from "./amazon.js";
 import * as best from "./best.js";
 import * as serp from "./serp.js";
+import { hash } from "./util.js";
 import * as bridge from "./bridge.js";
 
 // ---------- utilità ----------
@@ -934,9 +935,11 @@ async function webBest(q, link, s0, res, parts, update, haveSerp, signal) {
   // con SerpApi Amazon e spesa online hanno già prezzi veri: l'IA si concentra sui volantini
   if (!haveSerp) { fonti.push({ tipo: "online" }); if (amzOn()) fonti.push({ tipo: "amazon" }); }
   res.web = { tot: fonti.length, done: 0, ok: 0 };
+  // ogni fonte va preferibilmente a un servizio diverso (a rotazione), così le richieste in parallelo non finiscono tutte sullo stesso
+  const servizi = [...new Set(ai.route([ai.TAG.WEB]).map(c => c.provider))];
   update();
   const errs = [];
-  await pool(fonti.map(fonte => () => signal?.aborted ? Promise.resolve() : ai.cercaMigliore({ query: q, link: fonte.tipo === "amazon" || fonte.tipo === "aggregatori" ? link : "", luogo, raggioKm: s0.raggioKm || 5, valuta: currency(), lingua: langName(), fonte }, { signal })
+  await pool(fonti.map((fonte, i) => () => signal?.aborted ? Promise.resolve() : ai.cercaMigliore({ query: q, link: fonte.tipo === "amazon" || fonte.tipo === "aggregatori" ? link : "", luogo, raggioKm: s0.raggioKm || 5, valuta: currency(), lingua: langName(), fonte }, { signal, prefer: servizi[i % servizi.length] })
     .then(list => {
       const rows = list.map(x => ({ negozio: best.chainName(x.negozio), nome: x.prodotto, prezzo: x.prezzo, quantita: x.quantita, unita: x.unita, prezzoUnit: x.prezzoUnit,
         offerta: !!x.offerta, validoFino: x.validoFino, online: !!x.online || fonte.tipo === "amazon", distanzaKm: x.distanzaKm, fonte: x.fonte, nota: x.nota, src: "web" }));
@@ -947,7 +950,7 @@ async function webBest(q, link, s0, res, parts, update, haveSerp, signal) {
     .catch(e => { if (e.name !== "AbortError") errs.push(e.message); })
     .then(() => { res.web.done++; res.n.web = parts.web.length; update(); })),
     // una richiesta alla volta per ogni servizio con ricerca web: i piani gratuiti hanno limiti al minuto
-    Math.max(1, Math.min(3, new Set(ai.route([ai.TAG.WEB]).map(c => c.provider)).size)));
+    Math.max(1, Math.min(3, servizi.length)));
   res.stato.web = res.web.ok ? "ok" : "err";
   if (!res.web.ok) res.errore = errs[0] || "";
   else if (errs.length) res.avviso = errs[0];
@@ -974,7 +977,6 @@ $("#best-out").addEventListener("click", e => {
 
 // ---------- VOLANTINI UFFICIALI DELLE CATENE (via ponte) ----------
 const FLY_TXT = "mochi.flyertext", CH_CHECK = "mochi.chainCheck";
-const simpleHash = str => { let h = 5381; for (const c of str) h = (h * 33 + c.codePointAt(0)) >>> 0; return h.toString(36); };
 // catene attive: quelle con adattatore dedicato scelte dall'utente + le pagine ufficiali dei suoi negozi
 const myChains = () => PROXY() ? [...(state.settings.catene || []).map(id => chains.CHAINS[id]).filter(Boolean),
   ...(state.settings.pagine || []).filter(p => chains.officialChainOf(p.url)).map(chains.pageChain)] : [];
@@ -1021,7 +1023,7 @@ function matchChainTexts() {
     if (!f || (fine && fine < oggi) || (!fine && Date.now() - (at || 0) > 14 * 864e5)) continue;
     const ch = chainOf(f.catena); if (!ch) continue;
     for (const x of flyer.findProducts(text, names)) {
-      const id = "auto-" + simpleHash(`${f.id}|${x.nome}|${x.prezzo}`);
+      const id = "auto-" + hash(`${f.id}|${x.nome}|${x.prezzo}`);
       nuovi[id] = { id, nome: x.nome, riga: x.riga, prezzo: x.prezzo, prezzoUnit: x.prezzoUnit, negozio: ch.nome, validoFino: f.fine, data: oggi, fonte: f.url, auto: f.id };
     }
   }

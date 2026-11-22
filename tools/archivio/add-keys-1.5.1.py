@@ -33,7 +33,7 @@ T = {
 "ko": ["칸 번호 세기", "위에서부터", "아래에서부터", "설정에서 칸을 위에서부터 셀지 아래에서부터 셀지 고를 수 있어요."],
 "ar": ["ترقيم الطبقات", "من الأعلى", "من الأسفل", "اختر في الإعدادات ترقيم الطبقات من الأعلى أو من الأسفل."],
 }
-root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "locales")
+root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "locales")
 assert len(T) == 29
 for code, vals in T.items():
     assert len(vals) == len(K), code

@@ -33,7 +33,7 @@ T = {
 "ko": ["더 새로운 버전으로 만든 목록이에요: 저장하려면 앱을 업데이트하세요","더 튼튼한 동기화: 다른 앱과 버전의 데이터가 더 이상 사라지지 않아요"],
 "ar": ["قائمة من إصدار أحدث: حدّث التطبيق لتتمكن من الحفظ","مزامنة أمتن: لم تعد تضيع بيانات التطبيقات والإصدارات الأخرى"],
 }
-root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "locales")
+root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "locales")
 assert len(T) == 29
 for code, vals in T.items():
     p = os.path.join(root, code + ".json"); d = json.load(open(p, encoding="utf-8")); d.update(dict(zip(K, vals)))

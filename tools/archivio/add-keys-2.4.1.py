@@ -33,7 +33,7 @@ T = {
 "ko": ["Cloudflare 브리지 주소","Worker를 만든 뒤 Cloudflare에서 복사하세요(.workers.dev로 끝나요). 휴대폰 한 대에만 입력하면 가족과 공유돼요.","공식 전단지 브리지를 토큰 없이 켤 수 있어요: Cloudflare에서 Worker를 만들고 주소를 설정에 붙여넣으세요."],
 "ar": ["عنوان جسر Cloudflare","انسخه من Cloudflare بعد إنشاء الـ Worker (ينتهي بـ .workers.dev). يكفي إدخاله على هاتف واحد: يُشارك مع العائلة.","يمكن تفعيل جسر النشرات الرسمية دون رمز: أنشئ الـ Worker على Cloudflare والصق عنوانه في الإعدادات."],
 }
-root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "locales")
+root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "locales")
 assert len(T) == 29
 for code, vals in T.items():
     assert len(vals) == len(K), code

@@ -34,7 +34,7 @@ T = {
 "ko": ["Invendo에서 가져오기", "팬트리 가져오기", "{places}곳에서 상품 {n}개를 찾았어요. 장소·선반·칸은 자동으로 만들어져요.", "{n}개는 이미 팬트리에 있어요: 수량과 유통기한을 업데이트해요.", "가져오기", "상품 {n}개를 가져왔어요", "파일을 읽을 수 없어요. Invendo에서 Excel(.xlsx)이나 CSV로 내보내 주세요.", "{date}까지", "Invendo에서 팬트리 가져오기(Excel 또는 CSV): 장소·선반·칸·유통기한 포함."],
 "ar": ["استيراد من Invendo", "استيراد المؤونة", "وُجد {n} منتجًا في {places} أماكن. تُنشأ الأماكن والرفوف والطبقات تلقائيًا.", "{n} موجودة مسبقًا: سأحدّث الكمية وتاريخ الانتهاء.", "استيراد", "تم استيراد {n} منتجًا", "لا يمكن قراءة الملف. صدّره من Invendo بصيغة Excel (.xlsx) أو CSV.", "ينتهي في {date}", "استورد المؤونة من Invendo (Excel أو CSV) مع الأماكن والرفوف والطبقات وتواريخ الانتهاء."],
 }
-root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "locales")
+root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "locales")
 assert len(T) == 29, len(T)
 for code, vals in T.items():
     assert len(vals) == len(K), code

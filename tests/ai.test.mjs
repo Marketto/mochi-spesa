@@ -119,3 +119,13 @@ test("Groq che non usa la ricerca: pausa breve, non di un giorno", async () => {
   const c = ai.cooling(ai.localKeys()[0], "openai/gpt-oss-120b");
   assert.ok(c && c.until - Date.now() <= 61e3);
 });
+
+test("prefer: un servizio scelto viene provato per primo, gli altri restano di riserva", async () => {
+  reset();
+  ai.addKey({ provider: "groq", key: "g1" });
+  ai.addKey({ provider: "mistral", key: "m1" });
+  const hosts = [];
+  globalThis.fetch = async url => { hosts.push(new URL(url).host); return ok('```json\n{"risultati":[]}\n```'); };
+  await ai.cercaMigliore({ query: "x", luogo: "", raggioKm: 5, valuta: "EUR", lingua: "Italiano" }, { prefer: "mistral" });
+  assert.equal(hosts[0], "api.mistral.ai");
+});

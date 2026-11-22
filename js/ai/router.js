@@ -132,11 +132,12 @@ async function attempt(c, { system, prompt, web, signal }) {
 
 /**
  * Esegue una richiesta sul candidato migliore, poi sui successivi in caso di errore.
- * @param {{ system: string, prompt: string, tags?: string[], signal?: AbortSignal }} req
+ * @param {{ system: string, prompt: string, tags?: string[], signal?: AbortSignal, prefer?: string }} req
+ *   prefer: servizio da provare per primo (es. per distribuire richieste in parallelo); gli altri restano come ripiego
  * @returns {Promise<any>} JSON della risposta
  */
-export async function ask({ system, prompt, tags = [TAG.WEB], signal }) {
-  const cands = route(tags);
+export async function ask({ system, prompt, tags = [TAG.WEB], signal, prefer }) {
+  const all = route(tags), cands = prefer ? [...all.filter(c => c.provider === prefer), ...all.filter(c => c.provider !== prefer)] : all;
   if (!cands.length) throw Object.assign(new Error(t(ready(tags) ? "ai.allBusy" : "ai.none")), { code: "ai.none" });
   let last = null, lastName = "", skip = new Set();
   for (const c of cands) {

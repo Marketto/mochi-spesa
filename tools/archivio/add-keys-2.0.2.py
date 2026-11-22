@@ -33,7 +33,7 @@ T = {
 "ko": ["아마존에서 비교","아마존에서 {name} 검색","{date}에 저장한 가격","아마존 비교: 한 번 탭하면 아마존에서 상품이 열리고, '내 가격'에 저장한 아마존 가격도 비교에 들어가요."],
 "ar": ["قارن على أمازون","ابحث عن {name} على أمازون","سعرك بتاريخ {date}","مقارنة مع أمازون: لمسة واحدة تفتح المنتج على أمازون، وتدخل أسعار أمازون التي تحفظها في «أسعاري» في المقارنات."],
 }
-root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "locales")
+root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "locales")
 assert len(T) == 29
 for code, vals in T.items():
     assert len(vals) == len(K), code

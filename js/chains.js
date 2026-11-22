@@ -1,6 +1,7 @@
 // Catene supportate: ogni "adattatore" sa trovare i volantini ufficiali in corso e scaricarli
 // attraverso il ponte Cloudflare (solo siti ufficiali ammessi). Il volantino viene letto sul telefono;
 // nulla viene ripubblicato. Per aggiungere una catena: un oggetto con id, nome, paese, flyers(), pdf().
+import { hash } from "./util.js";
 
 const today = () => new Date().toISOString().slice(0, 10);
 /**
@@ -84,7 +85,7 @@ export function pdfLinks(html, base) {
   return out;
 }
 
-const hash = s => { let h = 5381; for (const c of String(s)) h = (h * 33 + c.charCodeAt(0)) >>> 0; return h.toString(36); };
+
 const fileName = url => decodeURIComponent(new URL(url).pathname.split("/").pop() || "").replace(/\.pdf$/i, "").replace(/[-_]+/g, " ").trim();
 
 /** Adattatore per una pagina ufficiale scelta dall'utente: { id, url, nome }. */

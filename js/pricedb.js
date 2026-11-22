@@ -1,11 +1,12 @@
 // "I miei prezzi": piccolo database locale (IndexedDB) dei prezzi raccolti dall'utente per sé
 // dai volantini che legge, dagli inserimenti a mano e dalle valutazioni. Resta solo sul telefono.
 import { norm } from "./pantry.js";
+import { hash } from "./util.js";
 import { matches } from "./openprices.js";
 
 const DB = "mochi-prezzi", STORE = "prezzi";
 let dbp = null, cache = null;
-const hash = s => { let h = 5381; for (const c of s) h = (h * 33 + c.codePointAt(0)) >>> 0; return h.toString(36); };
+
 export const recId = r => hash([norm(r.nome), norm(r.negozio || ""), r.prezzo, r.data || "", r.validoFino || ""].join("|"));
 
 function open() {

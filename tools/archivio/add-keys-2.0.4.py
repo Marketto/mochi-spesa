@@ -33,7 +33,7 @@ T = {
 "ko": ["{name}: 키가 유효하지 않거나 활성화되지 않았어요.","{name}: 사용 한도에 도달했어요. 나중에 다시 시도하세요.","{name}이(가) 응답하지 않았어요 ({status}).","{name}에 연결할 수 없어요.","{name}: 응답을 읽을 수 없어요. 다시 시도하세요.","Groq 웹 검색을 업데이트했고, 요청마다 내 키 중에서 가장 알맞은 모델을 자동으로 골라요."],
 "ar": ["{name}: المفتاح غير صالح أو غير مفعّل.","{name}: بلغت حد الاستخدام، حاول لاحقًا.","لم يستجب {name} ({status}).","لا اتصال بـ {name}.","{name}: رد غير مقروء، حاول مجددًا.","تم تحديث بحث Groq على الويب، ويُختار تلقائيًا أنسب نموذج لكل طلب من مفاتيحك."],
 }
-root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "locales")
+root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "locales")
 assert len(T) == 29
 for code, vals in T.items():
     assert len(vals) == len(K), code

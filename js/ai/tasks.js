@@ -63,7 +63,7 @@ unita: "lavaggi" for washes/pods/tablets, "litri", "kg", or "pezzi". Return up t
 Format:
 {"risultati":[{"negozio":"chain or Amazon","prodotto":"brand, name and pack size","prezzo":number,"quantita":number,"unita":"lavaggi|litri|kg|pezzi",
 "prezzoUnit":number,"offerta":true|false,"validoFino":"YYYY-MM-DD" or null,"online":true|false,"distanzaKm":number or null,"fonte":"url","nota":"max one short sentence or empty"}]}`;
-  const j = await ask({ system: SYS(lingua), prompt, tags: [TAG.WEB], signal: opts?.signal });
+  const j = await ask({ system: SYS(lingua), prompt, tags: [TAG.WEB], signal: opts?.signal, prefer: opts?.prefer });
   return Array.isArray(j.risultati) ? j.risultati.filter(o => o && o.negozio && o.prodotto && typeof o.prezzo === "number") : [];
 }
 

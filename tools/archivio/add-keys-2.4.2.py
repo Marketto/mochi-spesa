@@ -33,7 +33,7 @@ T = {
 "ko": ["내 브리지 만들기 (무료)","테스트","Cloudflare와 GitHub 계정이 필요해요(둘 다 무료). 버튼을 누르고 로그인한 뒤 'Deploy'를 확인하세요. 끝나면 .workers.dev로 끝나는 주소를 여기에 붙여넣고 저장하세요. 브리지는 내 것이라 내 무료 할당량만 써요.","브리지가 작동해요 ✓","브리지가 응답하지 않아요: {msg}","공식 전단지 브리지가 쉬워졌어요: 버튼 하나로 내 Cloudflare 계정에 무료로 만들고 '테스트'로 확인해요."],
 "ar": ["أنشئ جسرك الخاص (مجانًا)","اختبر","تحتاج إلى حساب Cloudflare وحساب GitHub، كلاهما مجاني. اضغط الزر وسجّل الدخول وأكّد «Deploy»: ثم انسخ هنا العنوان المنتهي بـ .workers.dev واحفظ. الجسر لك: يستخدم حصتك المجانية فقط.","الجسر يعمل ✓","الجسر لا يستجيب: {msg}","جسر أسهل للنشرات الرسمية: زر واحد ينشئه مجانًا في حسابك على Cloudflare، و«اختبر» يتحقق من عمله."],
 }
-root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "locales")
+root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "locales")
 assert len(T) == 29
 for code, vals in T.items():
     assert len(vals) == len(K), code
