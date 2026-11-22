@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Vajag Cloudflare un GitHub kontu, abi bez maksas. Pieskaries pogai, pieslēdzies un apstiprini “Deploy”: pēc tam iekopē šeit adresi, kas beidzas ar .workers.dev, un saglabā. Tilts ir tavs: tas izmanto tikai tavu bezmaksas kvotu.",
   "ch.ponteOk": "Tilts darbojas ✓",
   "ch.ponteKo": "Tilts neatbild: {msg}",
-  "new.ponte2": "Vienkāršāks tilts oficiālajiem bukletiem: poga to bez maksas izveido tavā Cloudflare kontā, bet “Pārbaudīt” pārbauda darbību."
+  "new.ponte2": "Vienkāršāks tilts oficiālajiem bukletiem: poga to bez maksas izveido tavā Cloudflare kontā, bet “Pārbaudīt” pārbauda darbību.",
+  "dbx.setupConfirm": "Tu atvēri iestatīšanas saiti. Izmantot to? Saraksts tiks sinhronizēts Dropbox failā {path} (App key {key}). Piekrīti tikai tad, ja saite ir no uzticama cilvēka.",
+  "dbx.setupUse": "Izmantot šo iestatījumu",
+  "dbx.setupKeyBuilt": "lietotnes"
 }

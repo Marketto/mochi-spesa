@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Potřebuješ účet Cloudflare a GitHub, oba zdarma. Klepni na tlačítko, přihlas se a potvrď „Deploy“: pak sem zkopíruj adresu končící .workers.dev a ulož. Most je tvůj: používá jen tvůj bezplatný limit.",
   "ch.ponteOk": "Most funguje ✓",
   "ch.ponteKo": "Most neodpovídá: {msg}",
-  "new.ponte2": "Snazší most pro oficiální letáky: tlačítko ho zdarma vytvoří na tvém účtu Cloudflare a „Vyzkoušet“ ověří, že funguje."
+  "new.ponte2": "Snazší most pro oficiální letáky: tlačítko ho zdarma vytvoří na tvém účtu Cloudflare a „Vyzkoušet“ ověří, že funguje.",
+  "dbx.setupConfirm": "Otevřel jsi odkaz s nastavením. Použít? Seznam se bude synchronizovat do souboru {path} na Dropboxu (App key {key}). Přijmi jen, pokud odkaz pochází od důvěryhodné osoby.",
+  "dbx.setupUse": "Použít toto nastavení",
+  "dbx.setupKeyBuilt": "aplikace"
 }

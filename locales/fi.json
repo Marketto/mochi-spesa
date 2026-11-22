@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Tarvitset Cloudflare- ja GitHub-tilin, molemmat ilmaisia. Napauta painiketta, kirjaudu ja vahvista ”Deploy”: kopioi sitten tähän .workers.dev-päätteinen osoite ja tallenna. Silta on sinun: se käyttää vain omaa ilmaiskiintiötäsi.",
   "ch.ponteOk": "Silta toimii ✓",
   "ch.ponteKo": "Silta ei vastaa: {msg}",
-  "new.ponte2": "Helpompi silta virallisille mainoksille: painike luo sen ilmaiseksi Cloudflare-tilillesi, ja ”Testaa” tarkistaa toiminnan."
+  "new.ponte2": "Helpompi silta virallisille mainoksille: painike luo sen ilmaiseksi Cloudflare-tilillesi, ja ”Testaa” tarkistaa toiminnan.",
+  "dbx.setupConfirm": "Avasit asetuslinkin. Käytetäänkö sitä? Lista synkronoidaan Dropboxin tiedostoon {path} (App key {key}). Hyväksy vain, jos linkki on luotettavalta henkilöltä.",
+  "dbx.setupUse": "Käytä näitä asetuksia",
+  "dbx.setupKeyBuilt": "sovelluksen"
 }

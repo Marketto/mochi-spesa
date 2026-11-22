@@ -148,7 +148,9 @@ schema/               JSON Schema del file condiviso
 tests/vectors/        casi di prova comuni dell'unione, usati anche da altri client
 worker/               ponte Cloudflare (solo siti ufficiali; tiene in cache le risposte per 6 ore, non salva dati degli utenti)
 js/geo.js             posizione, distanza da casa, indirizzi con OpenStreetMap
-js/i18n.js            traduzioni, lingua RTL, font per lingua
+js/i18n.js            traduzioni, lingua RTL
+vendor/               pdf.js e tesseract.js serviti dal sito (versioni fisse, vedi vendor/README.md)
+css/fonts.css         font serviti dal sito (tools/build-fonts.py)
 js/version.js         versione, novità e versione della policy
 locales/              29 file di traduzione
 css/icons.css         classi delle icone (generato)

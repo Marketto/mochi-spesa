@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Je hebt een Cloudflare- en een GitHub-account nodig, beide gratis. Tik op de knop, log in en bevestig „Deploy”: kopieer daarna hier het adres dat eindigt op .workers.dev en sla op. De brug is van jou: alleen je eigen gratis tegoed.",
   "ch.ponteOk": "De brug werkt ✓",
   "ch.ponteKo": "De brug antwoordt niet: {msg}",
-  "new.ponte2": "Makkelijkere brug voor officiële folders: één knop maakt hem gratis in je Cloudflare-account, „Testen” controleert hem."
+  "new.ponte2": "Makkelijkere brug voor officiële folders: één knop maakt hem gratis in je Cloudflare-account, „Testen” controleert hem.",
+  "dbx.setupConfirm": "Je hebt een instellingslink geopend. Gebruiken? De lijst wordt gesynchroniseerd in het bestand {path} op Dropbox (App key {key}). Accepteer alleen als de link van iemand komt die je vertrouwt.",
+  "dbx.setupUse": "Deze instelling gebruiken",
+  "dbx.setupKeyBuilt": "van de app"
 }

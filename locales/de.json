@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Du brauchst ein Cloudflare- und ein GitHub-Konto, beide kostenlos. Tippe auf den Knopf, melde dich an und bestätige „Deploy“: dann die Adresse mit .workers.dev hier einfügen und speichern. Die Brücke gehört dir: sie nutzt nur dein Gratiskontingent.",
   "ch.ponteOk": "Die Brücke funktioniert ✓",
   "ch.ponteKo": "Die Brücke antwortet nicht: {msg}",
-  "new.ponte2": "Einfachere Brücke für offizielle Prospekte: ein Knopf erstellt sie gratis in deinem Cloudflare-Konto, „Testen“ prüft sie."
+  "new.ponte2": "Einfachere Brücke für offizielle Prospekte: ein Knopf erstellt sie gratis in deinem Cloudflare-Konto, „Testen“ prüft sie.",
+  "dbx.setupConfirm": "Du hast einen Einrichtungslink geöffnet. Verwenden? Die Liste wird in der Datei {path} in Dropbox synchronisiert (App key {key}). Nur annehmen, wenn der Link von einer Vertrauensperson stammt.",
+  "dbx.setupUse": "Diese Einrichtung verwenden",
+  "dbx.setupKeyBuilt": "der App"
 }

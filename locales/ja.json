@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Cloudflare と GitHub のアカウント（どちらも無料）が必要です。ボタンを押してログインし「Deploy」を確認。最後に .workers.dev で終わるアドレスをここに貼って保存してね。ブリッジはあなた専用で、あなたの無料枠だけを使います。",
   "ch.ponteOk": "ブリッジは正常です ✓",
   "ch.ponteKo": "ブリッジが応答しません：{msg}",
-  "new.ponte2": "公式チラシ用ブリッジがもっと簡単に：ボタンひとつで自分の Cloudflare アカウントに無料で作成、「テスト」で動作確認。"
+  "new.ponte2": "公式チラシ用ブリッジがもっと簡単に：ボタンひとつで自分の Cloudflare アカウントに無料で作成、「テスト」で動作確認。",
+  "dbx.setupConfirm": "設定リンクを開きました。使いますか？リストは Dropbox のファイル {path} に同期されます（App key {key}）。信頼できる人からのリンクのときだけ受け入れてね。",
+  "dbx.setupUse": "この設定を使う",
+  "dbx.setupKeyBuilt": "アプリ標準"
 }

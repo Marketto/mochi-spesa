@@ -552,5 +552,8 @@
   "ch.ponteSteps": "You need a Cloudflare and a GitHub account, both free. Tap the button, sign in and confirm “Deploy”: then copy here the address ending in .workers.dev and save. The bridge is yours: it only uses your free quota.",
   "ch.ponteOk": "The bridge works ✓",
   "ch.ponteKo": "The bridge doesn't answer: {msg}",
-  "new.ponte2": "Easier bridge for official flyers: one button creates it for free on your Cloudflare account, and “Test” checks it works."
+  "new.ponte2": "Easier bridge for official flyers: one button creates it for free on your Cloudflare account, and “Test” checks it works.",
+  "dbx.setupConfirm": "You opened a setup link. Use it? The list will be synced to the file {path} on Dropbox (App key {key}). Only accept if the link comes from someone you trust.",
+  "dbx.setupUse": "Use this setup",
+  "dbx.setupKeyBuilt": "of the app"
 }

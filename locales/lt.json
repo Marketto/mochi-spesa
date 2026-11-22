@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Reikia Cloudflare ir GitHub paskyrų, abi nemokamos. Palieskite mygtuką, prisijunkite ir patvirtinkite „Deploy“: tada nukopijuokite čia adresą, kuris baigiasi .workers.dev, ir išsaugokite. Tiltas jūsų: naudoja tik jūsų nemokamą kvotą.",
   "ch.ponteOk": "Tiltas veikia ✓",
   "ch.ponteKo": "Tiltas neatsako: {msg}",
-  "new.ponte2": "Paprastesnis tiltas oficialiems leidiniams: mygtukas jį nemokamai sukuria jūsų Cloudflare paskyroje, o „Patikrinti“ patikrina veikimą."
+  "new.ponte2": "Paprastesnis tiltas oficialiems leidiniams: mygtukas jį nemokamai sukuria jūsų Cloudflare paskyroje, o „Patikrinti“ patikrina veikimą.",
+  "dbx.setupConfirm": "Atidarėte sąrankos nuorodą. Naudoti? Sąrašas bus sinchronizuojamas Dropbox faile {path} (App key {key}). Sutikite tik jei nuoroda iš patikimo žmogaus.",
+  "dbx.setupUse": "Naudoti šią sąranką",
+  "dbx.setupKeyBuilt": "programėlės"
 }

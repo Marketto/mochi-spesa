@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Serve un account Cloudflare e uno GitHub, entrambi gratuiti. Tocca il pulsante, accedi e conferma «Deploy»: alla fine copia qui l'indirizzo che finisce con .workers.dev e salva. Il ponte è tuo: usa solo la tua quota gratuita.",
   "ch.ponteOk": "Il ponte funziona ✓",
   "ch.ponteKo": "Il ponte non risponde: {msg}",
-  "new.ponte2": "Ponte per i volantini ufficiali più facile: un pulsante lo crea gratis sul tuo account Cloudflare, e un tasto «Prova» controlla che funzioni."
+  "new.ponte2": "Ponte per i volantini ufficiali più facile: un pulsante lo crea gratis sul tuo account Cloudflare, e un tasto «Prova» controlla che funzioni.",
+  "dbx.setupConfirm": "Hai aperto un link di configurazione. Usarlo? La lista verrà sincronizzata nel file {path} su Dropbox (App key {key}). Accetta solo se il link viene da una persona di fiducia.",
+  "dbx.setupUse": "Usa questa configurazione",
+  "dbx.setupKeyBuilt": "dell'app"
 }

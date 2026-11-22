@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Du behöver ett Cloudflare- och ett GitHub-konto, båda gratis. Tryck på knappen, logga in och bekräfta ”Deploy”: kopiera sedan hit adressen som slutar på .workers.dev och spara. Bryggan är din: den använder bara din gratiskvot.",
   "ch.ponteOk": "Bryggan fungerar ✓",
   "ch.ponteKo": "Bryggan svarar inte: {msg}",
-  "new.ponte2": "Enklare brygga för officiella reklamblad: en knapp skapar den gratis på ditt Cloudflare-konto och ”Testa” kontrollerar att den fungerar."
+  "new.ponte2": "Enklare brygga för officiella reklamblad: en knapp skapar den gratis på ditt Cloudflare-konto och ”Testa” kontrollerar att den fungerar.",
+  "dbx.setupConfirm": "Du öppnade en inställningslänk. Använda den? Listan synkas till filen {path} i Dropbox (App key {key}). Godkänn bara om länken kommer från någon du litar på.",
+  "dbx.setupUse": "Använd den här inställningen",
+  "dbx.setupKeyBuilt": "appens"
 }

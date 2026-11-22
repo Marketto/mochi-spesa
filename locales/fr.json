@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Il faut un compte Cloudflare et un compte GitHub, gratuits. Touche le bouton, connecte-toi et confirme « Deploy » : copie ensuite ici l'adresse qui finit par .workers.dev et enregistre. Le pont est à toi : il n'utilise que ton quota gratuit.",
   "ch.ponteOk": "Le pont fonctionne ✓",
   "ch.ponteKo": "Le pont ne répond pas : {msg}",
-  "new.ponte2": "Pont pour les prospectus officiels plus simple : un bouton le crée gratuitement sur ton compte Cloudflare, et « Tester » vérifie qu'il marche."
+  "new.ponte2": "Pont pour les prospectus officiels plus simple : un bouton le crée gratuitement sur ton compte Cloudflare, et « Tester » vérifie qu'il marche.",
+  "dbx.setupConfirm": "Tu as ouvert un lien de configuration. L'utiliser ? La liste sera synchronisée dans le fichier {path} sur Dropbox (App key {key}). Accepte seulement si le lien vient d'une personne de confiance.",
+  "dbx.setupUse": "Utiliser cette configuration",
+  "dbx.setupKeyBuilt": "de l'app"
 }

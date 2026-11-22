@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Potrebuješ račun Cloudflare in GitHub, oba brezplačna. Tapni gumb, se prijavi in potrdi »Deploy«: nato sem kopiraj naslov, ki se konča z .workers.dev, in shrani. Most je tvoj: porablja samo tvojo brezplačno kvoto.",
   "ch.ponteOk": "Most deluje ✓",
   "ch.ponteKo": "Most ne odgovarja: {msg}",
-  "new.ponte2": "Lažji most za uradne letake: gumb ga brezplačno ustvari v tvojem računu Cloudflare, »Preizkusi« pa preveri delovanje."
+  "new.ponte2": "Lažji most za uradne letake: gumb ga brezplačno ustvari v tvojem računu Cloudflare, »Preizkusi« pa preveri delovanje.",
+  "dbx.setupConfirm": "Odprl si povezavo z nastavitvami. Jo uporabim? Seznam se bo sinhroniziral v datoteko {path} na Dropboxu (App key {key}). Sprejmi samo, če povezava prihaja od nekoga, ki mu zaupaš.",
+  "dbx.setupUse": "Uporabi te nastavitve",
+  "dbx.setupKeyBuilt": "aplikacije"
 }

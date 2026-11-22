@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Vaja on Cloudflare'i ja GitHubi kontot, mõlemad tasuta. Puuduta nuppu, logi sisse ja kinnita „Deploy”: seejärel kopeeri siia .workers.dev-ga lõppev aadress ja salvesta. Sild on sinu: kasutab ainult sinu tasuta kvooti.",
   "ch.ponteOk": "Sild töötab ✓",
   "ch.ponteKo": "Sild ei vasta: {msg}",
-  "new.ponte2": "Lihtsam sild ametlikele kampaanialehtedele: nupp loob selle tasuta sinu Cloudflare'i kontole ja „Proovi” kontrollib, kas töötab."
+  "new.ponte2": "Lihtsam sild ametlikele kampaanialehtedele: nupp loob selle tasuta sinu Cloudflare'i kontole ja „Proovi” kontrollib, kas töötab.",
+  "dbx.setupConfirm": "Avasid seadistuslingi. Kas kasutada? Nimekiri sünkroonitakse Dropboxi faili {path} (App key {key}). Nõustu ainult siis, kui link on usaldusväärselt inimeselt.",
+  "dbx.setupUse": "Kasuta seda seadistust",
+  "dbx.setupKeyBuilt": "rakenduse"
 }

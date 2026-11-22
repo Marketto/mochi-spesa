@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Du skal bruge en Cloudflare- og en GitHub-konto, begge gratis. Tryk på knappen, log ind og bekræft “Deploy”: kopiér derefter adressen, der ender på .workers.dev, herind og gem. Broen er din: den bruger kun din gratis kvote.",
   "ch.ponteOk": "Broen virker ✓",
   "ch.ponteKo": "Broen svarer ikke: {msg}",
-  "new.ponte2": "Nemmere bro til officielle tilbudsaviser: én knap opretter den gratis på din Cloudflare-konto, og “Test” tjekker den."
+  "new.ponte2": "Nemmere bro til officielle tilbudsaviser: én knap opretter den gratis på din Cloudflare-konto, og “Test” tjekker den.",
+  "dbx.setupConfirm": "Du åbnede et opsætningslink. Bruge det? Listen synkroniseres til filen {path} på Dropbox (App key {key}). Accepter kun, hvis linket kommer fra en, du stoler på.",
+  "dbx.setupUse": "Brug denne opsætning",
+  "dbx.setupKeyBuilt": "appens"
 }

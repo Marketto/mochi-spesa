@@ -1958,18 +1958,22 @@ $("#wiz-next").addEventListener("click", () => {
   applyAnim();
   // Link di configurazione condiviso: #setup=… (app key, percorso, lingua)
   const m = location.hash.match(/^#setup=(.+)$/);
-  let setupOk = false;
+  let setup = null;
   if (m) {
-    try {
-      const c = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
-      lsSet(DBX_CFG_KEY, { appKey: String(c.k || ""), path: normPath(c.p) }); // c.k vuota se la chiave è nel sito
-      if (c.l && LANGS[c.l] && !me().lang) setMe({ lang: c.l });
-      setupOk = true;
-    } catch {}
+    try { setup = JSON.parse(decodeURIComponent(escape(atob(m[1])))); } catch {}
     history.replaceState(null, "", dbx.redirectUri() + "#imp");
+    if (setup?.l && LANGS[setup.l] && !me().lang) setMe({ lang: setup.l });
   }
   await setLang(detect(me().lang));
-  if (setupOk) toast(t("dbx.configReceived"), "send-love");
+  // il link può arrivare da chiunque: si chiede conferma mostrando dove verrebbe salvata la lista
+  if (setup) {
+    const cfg = { appKey: String(setup.k || ""), path: normPath(setup.p) }; // appKey vuota se la chiave è già nel sito
+    const cur = lsGet(DBX_CFG_KEY, null);
+    const same = cur && cur.path === cfg.path && (cur.appKey || "") === cfg.appKey;
+    if (!same && await confirmDlg(t("dbx.setupConfirm", { path: cfg.path, key: cfg.appKey ? "…" + cfg.appKey.slice(-4) : t("dbx.setupKeyBuilt") }), t("dbx.setupUse"), "cloud-ok")) {
+      lsSet(DBX_CFG_KEY, cfg); toast(t("dbx.configReceived"), "send-love");
+    }
+  }
   try { if (await dbx.handleRedirect()) { toast(t("dbx.connected"), "cloud-ok"); mochi.mood("happy", 2500); mochi.say(frase("connesso")); } }
   catch (e) { toast(e.message, "warn"); }
 

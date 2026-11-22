@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Potrzebne konto Cloudflare i GitHub, oba darmowe. Dotknij przycisku, zaloguj się i potwierdź „Deploy”: potem wklej tu adres kończący się na .workers.dev i zapisz. Most jest Twój: używa tylko Twojego darmowego limitu.",
   "ch.ponteOk": "Most działa ✓",
   "ch.ponteKo": "Most nie odpowiada: {msg}",
-  "new.ponte2": "Łatwiejszy most do oficjalnych gazetek: przycisk tworzy go za darmo na Twoim koncie Cloudflare, a „Sprawdź” testuje działanie."
+  "new.ponte2": "Łatwiejszy most do oficjalnych gazetek: przycisk tworzy go za darmo na Twoim koncie Cloudflare, a „Sprawdź” testuje działanie.",
+  "dbx.setupConfirm": "Otwarto link konfiguracyjny. Użyć go? Lista będzie synchronizowana w pliku {path} na Dropboxie (App key {key}). Akceptuj tylko, jeśli link pochodzi od zaufanej osoby.",
+  "dbx.setupUse": "Użyj tej konfiguracji",
+  "dbx.setupKeyBuilt": "aplikacji"
 }

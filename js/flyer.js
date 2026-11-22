@@ -1,10 +1,13 @@
 // Lettura dei volantini (PDF o foto) con OCR nel browser: tesseract.js + pdf.js, caricati solo quando servono.
-// Il file non lascia il telefono: si scaricano solo le librerie e il modello della lingua dal CDN.
+// Il file non lascia il telefono: dal CDN si scaricano solo il motore OCR e il modello della lingua.
 import { matches } from "./openprices.js";
 
-const TESS = "https://cdn.jsdelivr.net/npm/tesseract.js@7.0.0/dist/tesseract.min.js";
-const PDFJS = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs";
-const PDFJS_WORKER = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs";
+// librerie servite dal sito (vendor/, versioni fisse); dal CDN solo il motore WebAssembly a versione fissa e i dati delle lingue
+const TESS = new URL("../vendor/tesseract/tesseract.min.js", import.meta.url).href;
+const TESS_WORKER = new URL("../vendor/tesseract/worker.min.js", import.meta.url).href;
+const TESS_CORE = "https://cdn.jsdelivr.net/npm/tesseract.js-core@7.0.0";
+const PDFJS = new URL("../vendor/pdfjs/pdf.min.mjs", import.meta.url).href;
+const PDFJS_WORKER = new URL("../vendor/pdfjs/pdf.worker.min.mjs", import.meta.url).href;
 export const MAX_PAGES = 24;
 
 // lingua dell'app → modello Tesseract
@@ -15,7 +18,7 @@ export const ocrLang = l => OCR_LANG[l] || "eng";
 function loadScript(src) {
   return new Promise((ok, ko) => {
     if (document.querySelector(`script[src="${src}"]`)) return ok();
-    const s = document.createElement("script"); s.src = src; s.async = true; s.crossOrigin = "anonymous";
+    const s = document.createElement("script"); s.src = src; s.async = true;
     s.onload = () => ok(); s.onerror = () => ko(new Error("load " + src)); document.head.append(s);
   });
 }
@@ -49,7 +52,7 @@ export async function readFlyer(file, lang, onProgress) {
       if (!worker) {
         onProgress?.({ step: "load" });
         await loadScript(TESS);
-        worker = await window.Tesseract.createWorker(lang, 1, { logger: m => m.status === "recognizing text" && onProgress?.({ step: "ocr", p: m.progress }) });
+        worker = await window.Tesseract.createWorker(lang, 1, { workerPath: TESS_WORKER, corePath: TESS_CORE, logger: m => m.status === "recognizing text" && onProgress?.({ step: "ocr", p: m.progress }) });
       }
       const { data } = await worker.recognize(pg.image);
       out += data.text + "\f";

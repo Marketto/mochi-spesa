@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Għandek bżonn kont Cloudflare u kont GitHub, it-tnejn b'xejn. Agħfas il-buttuna, idħol u kkonferma “Deploy”: imbagħad ikkopja hawn l-indirizz li jispiċċa b'.workers.dev u ssalva. Il-pont huwa tiegħek: juża biss il-kwota b'xejn tiegħek.",
   "ch.ponteOk": "Il-pont jaħdem ✓",
   "ch.ponteKo": "Il-pont mhux qed iwieġeb: {msg}",
-  "new.ponte2": "Pont aktar faċli għall-fuljetti uffiċjali: buttuna toħolqu b'xejn fuq il-kont Cloudflare tiegħek, u “Ipprova” jiċċekkja li jaħdem."
+  "new.ponte2": "Pont aktar faċli għall-fuljetti uffiċjali: buttuna toħolqu b'xejn fuq il-kont Cloudflare tiegħek, u “Ipprova” jiċċekkja li jaħdem.",
+  "dbx.setupConfirm": "Ftaħt link tas-setup. Tużah? Il-lista tiġi sinkronizzata fil-fajl {path} fuq Dropbox (App key {key}). Aċċetta biss jekk il-link ġej minn xi ħadd ta' fiduċja.",
+  "dbx.setupUse": "Uża dan is-setup",
+  "dbx.setupKeyBuilt": "tal-app"
 }

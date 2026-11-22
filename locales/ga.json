@@ -552,5 +552,8 @@
   "ch.ponteSteps": "Teastaíonn cuntas Cloudflare agus cuntas GitHub uait, iad araon saor in aisce. Tapáil an cnaipe, sínigh isteach agus deimhnigh “Deploy”: ansin cóipeáil anseo an seoladh a chríochnaíonn le .workers.dev agus sábháil. Is leatsa an droichead: ní úsáideann sé ach do chuóta saor in aisce.",
   "ch.ponteOk": "Oibríonn an droichead ✓",
   "ch.ponteKo": "Níl an droichead ag freagairt: {msg}",
-  "new.ponte2": "Droichead níos éasca do bhileoga oifigiúla: cruthaíonn cnaipe é saor in aisce ar do chuntas Cloudflare, agus seiceálann “Tástáil” go n-oibríonn sé."
+  "new.ponte2": "Droichead níos éasca do bhileoga oifigiúla: cruthaíonn cnaipe é saor in aisce ar do chuntas Cloudflare, agus seiceálann “Tástáil” go n-oibríonn sé.",
+  "dbx.setupConfirm": "D'oscail tú nasc socraithe. É a úsáid? Sioncrónófar an liosta leis an gcomhad {path} ar Dropbox (App key {key}). Ná glac leis ach má tháinig an nasc ó dhuine iontaofa.",
+  "dbx.setupUse": "Úsáid an socrú seo",
+  "dbx.setupKeyBuilt": "na haipe"
 }
