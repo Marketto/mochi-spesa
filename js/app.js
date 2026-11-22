@@ -279,7 +279,7 @@ export function fillSettings() {
   ai.setShared(state.settings.aiShared);
   renderAiKeys(); fillProviders();
   $("#ver-chip").textContent = "v" + APP_VERSION;
-  $("#ver-chip").setAttribute("aria-label", t("about.version", { v: APP_VERSION }) + ". " + t("news.open"));
+  $("#ver-chip").setAttribute("aria-label", `v${APP_VERSION}. ${t("news.open")}`); // il nome contiene il testo visibile (WCAG 2.5.3)
 }
 $("#z-raggio").addEventListener("input", e => $("#z-raggio-v").textContent = e.target.value);
 export async function changeLang(code) {

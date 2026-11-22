@@ -5,10 +5,13 @@
   "description": "Lista della spesa condivisa kawaii",
   "scripts": {
     "icons": "node tools/build-icons.mjs",
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "ui": "node tools/ui-audit.mjs"
   },
   "devDependencies": {
     "@phosphor-icons/core": "2.1.1",
+    "axe-core": "^4.14.1",
+    "playwright": "^1.65.1",
     "svg2ttf": "6.1.0",
     "svgicons2svgfont": "16.0.0",
     "wawoff2": "2.0.1"

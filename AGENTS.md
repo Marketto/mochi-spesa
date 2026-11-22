@@ -5,6 +5,7 @@ Rispondi all'utente in italiano, con tono semplice.
 
 ## Comandi
 - Test: `node --test tests/*.test.mjs` (devono passare tutti prima di ogni commit).
+- Controllo interfaccia: `npm ci` poi `npm run ui` (Playwright + axe; `CHROMIUM_PATH=/usr/bin/google-chrome` se il browser di Playwright manca). Gira anche nel deploy.
 - Controllo regole app: `npx -y github:Marketto/app-forge controlla`.
 - Icone: `npm run icons` (font da Phosphor, elenco in `tools/build-icons.mjs`).
 - Prova nel browser: `python3 -m http.server 8765` e apri http://localhost:8765/.
