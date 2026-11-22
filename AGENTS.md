@@ -13,7 +13,7 @@ Rispondi all'utente in italiano, con tono semplice.
 - `js/version.js`: `APP_VERSION` e una voce in `CHANGELOG` (chiave `new.*` tradotta). Le versioni di sole correzioni possono non avere la voce.
 - `sw.js`: aumenta `CACHE` (`mochi-spesa-vNN`) e aggiungi ogni nuovo modulo a `SHELL` (c'è un test).
 - Testi nuovi: chiave in **tutte** le lingue di `locales/` con `python3 tools/add-keys.py testi.json` (controlla lingue e segnaposto; anche il test i18n lo verifica). I vecchi script sono in `tools/archivio/`.
-- Cambi alla privacy (`legal.p*`): aggiorna `POLICY_VERSION` (inizia con la data `AAAA-MM-GG`) e il numero di paragrafi in `app.js` e `tests/i18n.test.mjs`.
+- Cambi alla privacy (`legal.p*`): aggiorna `POLICY_VERSION` (inizia con la data `AAAA-MM-GG`) e il numero di paragrafi in `js/ui/onboarding.js` e `tests/i18n.test.mjs`.
 - Dopo il push: verifica che https://marketto.github.io/mochi-spesa/js/version.js mostri la nuova versione.
 
 ## Regole

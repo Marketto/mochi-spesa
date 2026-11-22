@@ -19,3 +19,15 @@ test("nessuna risorsa da Google Fonts o librerie JS da CDN nella pagina", () => 
   assert.match(html, /Content-Security-Policy/);
   assert.ok(!/cdn\.jsdelivr\.net\/npm\/(tesseract\.js|pdfjs-dist)@/.test(flyer)); // librerie JS servite da vendor/
 });
+
+test("gli import dinamici puntano a file esistenti (config.js e config.local.js non sono nel repo)", async () => {
+  const { readdirSync } = await import("node:fs");
+  const files = d => readdirSync(new URL(d, root), { withFileTypes: true }).flatMap(e => e.isDirectory() ? files(d + e.name + "/") : e.name.endsWith(".js") ? [d + e.name] : []);
+  for (const f of files("js/")) {
+    for (const [, a, b] of readFileSync(new URL(f, root), "utf8").matchAll(/import\(\s*(?:\w+\s*\?\s*)?"([^"]+)"(?:\s*:\s*"([^"]+)")?/g))
+      for (const p of [a, b].filter(Boolean)) {
+        const u = new URL(p, new URL(f, root)), ex = /\/config(\.local)?\.js$/.test(u.pathname) ? new URL("config.example.js", u) : u;
+        assert.ok(existsSync(ex), `${f}: ${p}`);
+      }
+  }
+});
