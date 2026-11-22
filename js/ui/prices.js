@@ -362,8 +362,6 @@ $("#db-clear").addEventListener("click", async () => {
   await pricedb.clear(); renderDb(); toast(t("db.cleared"), "delete");
 });
 pricedb.all().then(() => pricedb.prune()).then(() => { renderDb(); renderOfferte(); }).catch(() => {});
-renderBestHow();
-fillCountry().catch(() => {});
 // arrivo da "Condividi" di un'altra app: link/testo → ricerca; screenshot o PDF → lettura prezzi
 export async function takeShare() {
   if (!new URLSearchParams(location.search).has("share") || !("caches" in window)) return;

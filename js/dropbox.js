@@ -63,13 +63,30 @@ async function token() {
 // L'header Dropbox-API-Arg accetta solo ASCII: i caratteri accentati vanno in \uXXXX.
 const apiArg = o => JSON.stringify(o).replace(/[\u007f-￿]/g, c => "\\u" + c.charCodeAt(0).toString(16).padStart(4, "0"));
 
+// Chiamata con il token: su 401 (token scaduto prima del previsto, orologio sfasato) si rinnova una volta prima di scollegare.
+async function call(url, headers, body) {
+  for (let i = 0; i < 2; i++) {
+    const r = await fetch(url, { method: "POST", headers: { Authorization: "Bearer " + await token(), ...headers }, body });
+    if (r.status !== 401) return r;
+    if (i === 0) write({ ...read(), access_token: "", exp: 0 });
+  }
+  disconnect(); throw Object.assign(new Error(t("sync.reconnect")), { code: "auth" });
+}
+// 409 di Dropbox: solo «path/not_found» vuol dire che il file non c'è ancora
+const notFound = async r => { try { return /not_found/.test((await r.clone().json()).error_summary || ""); } catch { return false; } };
+
+/** Revisione attuale del file, senza scaricarlo (null se non esiste). */
+export async function currentRev(path) {
+  const r = await call("https://api.dropboxapi.com/2/files/get_metadata", { "Content-Type": "application/json" }, JSON.stringify({ path }));
+  if (r.status === 409 && await notFound(r)) return null;
+  if (!r.ok) throw new Error(t("sync.retry"));
+  return (await r.json()).rev || null;
+}
+
 /** Scarica il file. Restituisce { data, rev } oppure null se non esiste ancora. */
 export async function download(path) {
-  const r = await fetch("https://content.dropboxapi.com/2/files/download", {
-    method: "POST", headers: { Authorization: "Bearer " + await token(), "Dropbox-API-Arg": apiArg({ path }) },
-  });
-  if (r.status === 409) return null;
-  if (r.status === 401) { disconnect(); throw Object.assign(new Error(t("sync.reconnect")), { code: "auth" }); }
+  const r = await call("https://content.dropboxapi.com/2/files/download", { "Dropbox-API-Arg": apiArg({ path }) });
+  if (r.status === 409 && await notFound(r)) return null;
   if (!r.ok) throw new Error(t("sync.retry"));
   const meta = JSON.parse(r.headers.get("Dropbox-API-Result") || "{}");
   let data = null; try { data = JSON.parse(await r.text()); } catch {}
@@ -78,14 +95,10 @@ export async function download(path) {
 
 /** Carica il file. Con rev fa un aggiornamento "sicuro": se nel frattempo è cambiato, lancia code=conflict. */
 export async function upload(path, data, rev) {
-  const r = await fetch("https://content.dropboxapi.com/2/files/upload", {
-    method: "POST",
-    headers: {
-      Authorization: "Bearer " + await token(), "Content-Type": "application/octet-stream",
-      "Dropbox-API-Arg": apiArg({ path, mode: rev ? { ".tag": "update", update: rev } : "add", autorename: false, mute: true }),
-    },
-    body: JSON.stringify(data),
-  });
+  const r = await call("https://content.dropboxapi.com/2/files/upload", {
+    "Content-Type": "application/octet-stream",
+    "Dropbox-API-Arg": apiArg({ path, mode: rev ? { ".tag": "update", update: rev } : "add", autorename: false, mute: true }),
+  }, JSON.stringify(data));
   if (r.status === 409) throw Object.assign(new Error("conflict"), { code: "conflict" });
   if (!r.ok) throw new Error(t("sync.retry"));
   return (await r.json()).rev;

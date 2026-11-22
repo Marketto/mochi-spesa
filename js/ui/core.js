@@ -18,12 +18,12 @@ export const lsGet = (k, d) => { try { const v = JSON.parse(localStorage.getItem
 export const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
 export const quando = ts => new Date(ts).toLocaleString(locale(), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
-// Valuta: impostazione condivisa, con un valore iniziale sensato per la lingua
-export const CURRENCIES = ["EUR", "GBP", "CHF", "SEK", "DKK", "NOK", "PLN", "CZK", "HUF", "RON", "USD", "RUB", "CNY", "JPY", "KRW", "AED", "SAR", "EGP", "MAD"];
 // Paese e valuta vengono dalla posizione (GPS o città scritta nelle impostazioni), mai dalla lingua.
 export const CUR_BY_COUNTRY = { se: "SEK", dk: "DKK", no: "NOK", is: "ISK", pl: "PLN", cz: "CZK", hu: "HUF", ro: "RON", bg: "BGN", ch: "CHF", li: "CHF",
   gb: "GBP", us: "USD", ca: "CAD", au: "AUD", jp: "JPY", cn: "CNY", kr: "KRW", ae: "AED", sa: "SAR", eg: "EGP", tr: "TRY", ru: "RUB",
   ua: "UAH", by: "BYN", rs: "RSD", ba: "BAM", mk: "MKD", al: "ALL", in: "INR", mx: "MXN", br: "BRL", sg: "SGD" };
+// Valute del menu: tutte quelle che il paese può dare, più qualche altra comune
+export const CURRENCIES = [...new Set(["EUR", ...Object.values(CUR_BY_COUNTRY), "MAD"])];
 /** Paese (ISO 2) dove si fa la spesa: quello «fuori casa» se attivo, altrimenti quello di casa. "" se non ancora impostato. */
 export const paese = () => (away()?.paese || state.settings.paese || "").toLowerCase();
 export const currency = () => state.settings.valuta || CUR_BY_COUNTRY[paese()] || "EUR";
@@ -99,13 +99,13 @@ export function sparkles(el) {
   for (let i = 0; i < 8; i++) {
     const s = document.createElement("span"), a = (Math.PI * 2 * i) / 8, d = 34 + Math.random() * 18;
     s.className = "spark mi mi-" + sym[i % sym.length];
-    s.style.cssText = `left:${r.left + r.width / 2 - 8}px;top:${r.top + r.height / 2 - 10}px;--dx:${Math.cos(a) * d}px;--dy:${Math.sin(a) * d}px;--rot:${Math.random() * 180}deg;color:${["#ff7eb3", "#b08cff", "#6fcf97", "#ffc94d"][i % 4]}`;
+    s.style.cssText = `left:${r.left + r.width / 2 - 8}px;top:${r.top + r.height / 2 - 10}px;--dx:${Math.cos(a) * d}px;--dy:${Math.sin(a) * d}px;--rot:${Math.random() * 180}deg;color:var(${["--pink", "--lav", "--mint", "--gold"][i % 4]})`;
     fx.appendChild(s); setTimeout(() => s.remove(), 900);
   }
 }
 export function confetti() {
   if (!motionOk()) return;
-  const fx = $("#fx"), sym = ["heart", "star", "magic", "mochi", "heart-line"], col = ["#ff7eb3", "#b08cff", "#6fcf97", "#ffc94d", "#ff9cc5"];
+  const fx = $("#fx"), sym = ["heart", "star", "magic", "mochi", "heart-line"], col = ["var(--pink)", "var(--lav)", "var(--mint)", "var(--gold)", "var(--pink)"];
   for (let i = 0; i < 36; i++) {
     const c = document.createElement("span");
     c.className = "confetti mi mi-" + sym[i % sym.length];

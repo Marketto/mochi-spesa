@@ -11,7 +11,7 @@ Lista della spesa **condivisa**, **kawaii** e **senza server**, con Mochi che ce
 - 📥 **Importa da Invendo**: carichi l'export Excel (.xlsx) o CSV. “Cantina | Angolo | 3” diventa posto › scaffale › ripiano, con quantità, categorie e scadenze. Se reimporti, i prodotti vengono aggiornati e non duplicati. Quelli a quantità 0 vengono tolti.
 - 🏪 **Dove conviene?**: per la lista scegli il negozio più economico di ogni prodotto. I preferiti ★ e i negozi da evitare ⦸ valgono anche per le ricerche successive.
 - ☁️ **Sincronizzata con Dropbox**: un file JSON in una cartella condivisa in famiglia. Funziona anche offline e le modifiche si uniscono da sole.
-- 🏬 **Volantini ufficiali in automatico**: in Impostazioni scegli le tue catene (per ora Lidl). Mochi scarica i volantini ufficiali attraverso un piccolo ponte su Cloudflare, gratuito, che accetta solo i siti delle catene e non salva nulla. Il volantino viene letto sul telefono e i prezzi dei tuoi prodotti si salvano da soli. Per pubblicare il ponte servono il secret `CLOUDFLARE_API_TOKEN`, la variabile `CLOUDFLARE_ACCOUNT_ID` e, dopo il primo deploy, la variabile `FLYER_PROXY` con l'indirizzo `https://mochi-spesa-ponte.<tuo-sottodominio>.workers.dev`. Per aggiungere una catena basta un adattatore in `js/chains.js` e il suo dominio in `worker/src/index.js`.
+- 🏬 **Volantini ufficiali in automatico**: in Impostazioni scegli le tue catene. Mochi scarica i volantini ufficiali attraverso il tuo ponte su Cloudflare (gratuito, creato con un pulsante: vedi «Ponte per i volantini ufficiali»), che accetta solo i siti delle catene e SerpApi. Il volantino viene letto sul telefono e i prezzi dei tuoi prodotti si salvano da soli. Per aggiungere una catena basta un adattatore in `js/chains.js` e il suo dominio in `worker/src/index.js`.
 - 📰 **Leggi un volantino**: carichi il PDF o una foto, anche di un volantino passato. Il testo viene letto sul telefono con tesseract.js e pdf.js. Mochi trova i prodotti della lista e quelli da tenere d'occhio, tu confermi i prezzi e lui li salva nello storico condiviso. I prezzi salvati entrano in “Dove conviene?” e in Offerte.
 - 🤖 **Più chiavi IA, anche gratuite**: si possono aggiungere più chiavi di servizi diversi. Mochi sceglie da solo quella adatta al compito (con o senza ricerca web), usa prima le gratuite e passa alla successiva quando una esaurisce la quota.
 
@@ -152,7 +152,7 @@ js/ai/                IA: providers.js (catalogo modelli), keys.js (chiavi e pau
 docs/sync-format.md   formato del file condiviso (Mochi Sync Format v1), per altri client
 schema/               JSON Schema del file condiviso
 tests/vectors/        casi di prova comuni dell'unione, usati anche da altri client
-worker/               ponte Cloudflare (solo siti ufficiali; tiene in cache le risposte per 6 ore, non salva dati degli utenti)
+worker/               ponte Cloudflare (solo siti ufficiali e SerpApi; tiene in cache i volantini per 6 ore, non le ricerche; non salva dati degli utenti)
 js/geo.js             posizione, distanza da casa, indirizzi con OpenStreetMap
 js/i18n.js            traduzioni, lingua RTL
 vendor/               pdf.js e tesseract.js serviti dal sito (versioni fisse, vedi vendor/README.md)

@@ -23,17 +23,17 @@ async function load(code) {
 }
 
 export function detect(saved) {
-  if (saved && LANGS[saved]) return saved;
+  if (saved && Object.hasOwn(LANGS, saved)) return saved;
   for (const l of navigator.languages || [navigator.language || "en"]) {
     const c = (l || "").toLowerCase().split("-")[0];
     if (c === "nb" || c === "nn") return "no"; // norvegese: bokmål
-    if (LANGS[c]) return c;
+    if (Object.hasOwn(LANGS, c)) return c;
   }
   return "en";
 }
 
 export async function setLang(code) {
-  if (!LANGS[code]) code = "en";
+  if (!Object.hasOwn(LANGS, code)) code = "en";
   [fallback, dict] = await Promise.all([load("en"), load(code)]);
   cur = code;
   const html = document.documentElement;

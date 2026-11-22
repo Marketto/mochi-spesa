@@ -55,7 +55,8 @@ export default {
     if (!target) return fail(400, "url", origin);
 
     const cache = caches.default, key = new Request("https://cache.mochi/" + encodeURIComponent(target.href));
-    let res = await cache.match(key);
+    const noCache = target.hostname === "serpapi.com"; // le ricerche contengono la chiave SerpApi: niente cache
+    let res = noCache ? null : await cache.match(key);
     if (!res) {
       // redirect seguiti a mano: ogni passaggio deve restare sui siti ammessi
       let url = target, up;

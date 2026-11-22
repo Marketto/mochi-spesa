@@ -47,7 +47,7 @@ jobs:
       - name: Controllo che non ci siano dati personali
         run: |
           test ! -f config.local.js || (echo "config.local.js non deve essere nel repo" && exit 1)
-          ! grep -rEn "(sk-ant-|sk-or-|sk-proj-|gsk_|sl\.[A-Za-z0-9_-]{20})[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{35}" --include=*.js --include=*.mjs --include=*.html --include=*.json --include=*.md --include=*.toml --include=*.yml --include=*.py --include=*.webmanifest --exclude-dir=node_modules . || (echo "Trovata una chiave API!" && exit 1)
+          node tools/privacy-check.mjs
       - name: Prepara il sito
         run: |
           mkdir _site
@@ -56,9 +56,9 @@ jobs:
       - name: Configurazione dal deploy (App key Dropbox da variabile del repo)
         env:
           DROPBOX_APP_KEY: ${{ vars.DROPBOX_APP_KEY }}
-          FLYER_PROXY: ${{ vars.FLYER_PROXY }}
         run: |
-          printf 'export default { dropboxAppKey: "%s", flyerProxy: "%s" };\n' "$DROPBOX_APP_KEY" "$FLYER_PROXY" > _site/config.js
+          # niente ponte nel sito pubblico: ognuno usa il proprio (impostazioni) o config.local.js in locale
+          printf 'export default { dropboxAppKey: "%s" };\n' "$DROPBOX_APP_KEY" > _site/config.js
           test -n "$DROPBOX_APP_KEY" || echo "::warning::Variabile DROPBOX_APP_KEY non impostata: l'app chiederà la App key agli utenti"
       - uses: actions/configure-pages@v5
         with:

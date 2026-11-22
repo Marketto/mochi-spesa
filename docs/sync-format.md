@@ -24,7 +24,7 @@ Il file è un oggetto JSON. In cima ci sono:
 | qualsiasi altra chiave | qualsiasi | chi l'ha creata |
 
 Un client esterno **non modifica** le chiavi "solo Mochi", ma le deve **conservare così come sono** quando riscrive il file.
-`settings` può contenere chiavi di servizi IA condivise in famiglia (`aiShared`): non vanno scritte nei log.
+`settings` può contenere chiavi di servizi IA condivise in famiglia (`aiShared`) e l'indirizzo del ponte Cloudflare (`ponte`, con l'eventuale chiave `?k=`): non vanno scritti nei log.
 
 ### Mappa ed elemento
 

@@ -276,6 +276,8 @@ export function fillSettings() {
   let names; try { names = new Intl.DisplayNames([locale()], { type: "currency" }); } catch {}
   $("#z-valuta").innerHTML = CURRENCIES.map(c => `<option value="${c}">${esc(names ? names.of(c) : c)} (${c})</option>`).join("");
   $("#z-valuta").value = currency();
+  $("#z-valuta").dataset.auto = state.settings.valuta ? "" : currency(); // non scelta a mano: resta automatica (dal paese)
+  renderSerp();
   ai.setShared(state.settings.aiShared);
   renderAiKeys(); fillProviders();
   $("#ver-chip").textContent = "v" + APP_VERSION;
@@ -373,7 +375,6 @@ $("#serp-del").addEventListener("click", async () => {
   if (!(await confirmDlg(t("serp.removeConfirm"), t("serp.remove"), "delete"))) return;
   serp.setKey(""); renderSerp(); $("#serp-key").focus();
 });
-renderSerp();
 
 // ---------- CHIAVI IA: più servizi e più chiavi, scelti in automatico ----------
 export const mask = k => "•••• " + k.slice(-4);
@@ -454,7 +455,7 @@ export async function saveSettings() {
     const ripiani = document.querySelector('input[name="lvdir"]:checked')?.value === "basso" ? "basso" : "alto";
     mutate((s, now) => {
       s.settings = { ...s.settings, luogo, raggioKm: +$("#z-raggio").value, negozi: checkedShops().join(", "), amazon: $("#z-amz").checked,
-        valuta: $("#z-valuta").value, ripiani, catene: [...document.querySelectorAll('#z-chains-list input[name="catena"]:checked')].map(x => x.value),
+        valuta: $("#z-valuta").value === $("#z-valuta").dataset.auto ? "" : $("#z-valuta").value, ripiani, catene: [...document.querySelectorAll('#z-chains-list input[name="catena"]:checked')].map(x => x.value),
         ponte: okProxy($("#z-ponte").value.trim()) || "",
         pagine: [...document.querySelectorAll('#pg-list input[name="pagina"]:checked')].map(x => chains.newPage(x.value)).filter(Boolean), ...coords, updatedAt: now };
     });
@@ -516,7 +517,8 @@ export function syncSet(kind, key, vars) {
   b.setAttribute("aria-label", t(key, vars) + ". " + t(dbx.isConnected() ? "sync.tapSync" : "sync.tapConnect"));
 }
 export let conflictRuns = 0; // conflitti di fila: la nuova prova aspetta 30 s, 60 s, … fino a 5 minuti
-export function scheduleSync() { clearTimeout(syncT); syncT = setTimeout(sync, 700); }
+let localChanged = true; // modifiche locali non ancora inviate: senza, basta confrontare la revisione del file
+export function scheduleSync() { localChanged = true; clearTimeout(syncT); syncT = setTimeout(sync, 700); }
 export async function sync() {
   if (!dbx.isConnected()) { syncSet("local", "sync.local"); return; }
   if (!navigator.onLine) { syncSet("err", "sync.offline"); return; }
@@ -525,6 +527,12 @@ export async function sync() {
   const path = dbxCfg().path;
   try {
     let done = false;
+    // nessuna modifica qui e file uguale all'ultima volta: niente da scaricare
+    if (!localChanged && rev && await dbx.currentRev(path) === rev) {
+      syncSet("ok", "sync.ok", { time: new Date().toLocaleTimeString(locale(), { hour: "2-digit", minute: "2-digit" }) });
+      return;
+    }
+    localChanged = false;
     for (let attempt = 0; attempt < 4 && !done; attempt++) {
       const remote = await dbx.download(path);
       const remoteState = remote && remote.data ? normalize(remote.data) : null;
@@ -552,9 +560,10 @@ export async function sync() {
       done = true;
     }
     // 4 conflitti di fila (altri stanno scrivendo): riprova più tardi invece di restare su «sincronizzo…»
-    if (!done) { syncSet("err", "sync.retry"); clearTimeout(syncT); syncT = setTimeout(sync, Math.min(300e3, 30e3 * 2 ** conflictRuns++)); }
+    if (!done) { localChanged = true; syncSet("err", "sync.retry"); clearTimeout(syncT); syncT = setTimeout(sync, Math.min(300e3, 30e3 * 2 ** conflictRuns++)); }
     else conflictRuns = 0;
   } catch (e) {
+    localChanged = true;
     if (e.code === "auth") { syncSet("err", "sync.reconnect"); fillSettings(); }
     else syncSet("err", "sync.retry");
   } finally {
@@ -659,9 +668,8 @@ export async function checkAway({ ask = false, modal = false } = {}) {
   $("#away-yes").addEventListener("click", accetta);
   $("#away-no").addEventListener("click", rifiuta);
 }
-$("#t-offerte").addEventListener("click", () => { checkAway(); refreshChains(); });
+$("#t-offerte").addEventListener("click", () => { checkAway(); refreshChains(); renderBestHow(); });
 $("#t-imp").addEventListener("click", () => { renderAiKeys(); renderSerp(); });
-$("#t-offerte").addEventListener("click", () => renderBestHow());
 
 // ---------- avvio ----------
 (async function start() {
@@ -672,7 +680,7 @@ $("#t-offerte").addEventListener("click", () => renderBestHow());
   if (m) {
     try { setup = JSON.parse(decodeURIComponent(escape(atob(m[1])))); } catch {}
     history.replaceState(null, "", dbx.redirectUri() + "#imp");
-    if (setup?.l && LANGS[setup.l] && !me().lang) setMe({ lang: setup.l });
+    if (setup?.l && Object.hasOwn(LANGS, setup.l) && !me().lang) setMe({ lang: setup.l });
   }
   await setLang(detect(me().lang));
   // il link può arrivare da chiunque: si chiede conferma mostrando dove verrebbe salvata la lista
@@ -687,7 +695,7 @@ $("#t-offerte").addEventListener("click", () => renderBestHow());
   try { if (await dbx.handleRedirect()) { toast(t("dbx.connected"), "cloud-ok"); mochi.mood("happy", 2500); mochi.say(frase("connesso")); } }
   catch (e) { toast(e.message, "warn"); }
 
-  fillSettings(); renderOnboard(); render();
+  fillSettings(); renderOnboard(); render(); renderBestHow(); fillCountry().catch(() => {});
   selectTab(tabs.find(x => "#" + x.id.slice(2) === location.hash) || tabs[0], false);
   syncSet(dbx.isConnected() ? "busy" : "local", dbx.isConnected() ? "sync.busy" : "sync.local");
   sync();
