@@ -564,3 +564,28 @@ h3.sub { font-size: 15px; margin: 14px 0 6px; }
 .serp-steps li { margin: 4px 0; }
 
 a.btn { text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+
+/* ---------- guida sugli elementi ---------- */
+.tour { position: fixed; inset: 0; z-index: 90; }
+.tour::before { content: ""; position: absolute; inset: 0; background: rgba(33, 26, 39, .55); }
+.tour.spot::before { display: none; }
+.tour-hole { position: fixed; border-radius: 16px; box-shadow: 0 0 0 200vmax rgba(33, 26, 39, .55); outline: 3px solid var(--pink); pointer-events: none; }
+@media (prefers-reduced-motion: no-preference) { .tour-hole { transition: left .25s ease, top .25s ease, width .25s ease, height .25s ease; } }
+.tour-card { position: fixed; left: 50%; transform: translateX(-50%); top: 50%; width: min(380px, calc(100vw - 24px));
+  background: var(--card); color: var(--ink); border: 2px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow);
+  padding: 14px; display: grid; grid-template-columns: 56px 1fr; gap: 6px 12px; }
+.tour:not(.spot) .tour-card { transform: translate(-50%, -50%); }
+.tour-card.pop { animation: tour-pop .35s var(--ease-bounce); }
+@keyframes tour-pop { from { scale: .9; opacity: 0; } }
+.tour-mascot { grid-row: span 2; width: 56px; height: 56px; }
+.tour-mascot svg { width: 100%; height: 100%; }
+.tour-card h2 { margin: 0; font-size: 1.05rem; align-self: end; }
+.tour-card p { margin: 0; }
+.tour-btns, .tour-dots { grid-column: 1 / -1; }
+.tour-btns { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.tour-dots { display: flex; gap: 6px; justify-content: center; }
+.tour-dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+.tour-dots i.on { background: var(--pink); }
+.help-btn { font-weight: 800; font-size: 20px; color: var(--pink); }
+:root[data-theme="contrast"] .tour-hole { outline-color: var(--pink); }
+@media (forced-colors: active) { .tour-hole { outline: 3px solid Highlight; } }

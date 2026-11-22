@@ -1,3 +1,4 @@
+import * as tour from "./tour.js";
 import { getTheme, setTheme, applyTheme } from "./theme.js";
 import { mountMochi, frase, MOCHI_SVG } from "./mascot.js";
 import { catOf, catId, legacyCat, iconOf, ORDER, parseAdd } from "./categories.js";
@@ -1958,7 +1959,16 @@ $("#wiz-next").addEventListener("click", () => {
   if (wiz.steps.length > 1) confetti();
   renderInstall();
   $("#add-nome").focus();
+  if (wiz.steps.length > 1) setTimeout(() => startTour(), 900);
 });
+
+// ---------- GUIDA SUGLI ELEMENTI ----------
+function startTour(all = false) {
+  const steps = all ? tour.STEPS : tour.pick(tour.seen(), APP_VERSION);
+  if (all) selectTab(tabs[0], false);
+  tour.runTour(steps, { mascotSvg: MOCHI_SVG, motion: motionOk, onEnd: () => tour.markSeen(APP_VERSION) });
+}
+$("#help").addEventListener("click", () => startTour(true));
 
 // ---------- avvio ----------
 (async function start() {
@@ -1996,7 +2006,11 @@ $("#wiz-next").addEventListener("click", () => {
   if (!seenV) openWizard({ required: true });
   else {
     const nuove = novitaDopo(seenV);
-    const afterPolicy = () => { lsSet("mochi.seen", APP_VERSION); if (nuove.length) openNews(nuove); else setTimeout(() => mochi.say(frase("ciao")), 600); };
+    const afterPolicy = () => {
+      lsSet("mochi.seen", APP_VERSION);
+      if (nuove.length) { openNews(nuove); $("#news").addEventListener("close", () => setTimeout(startTour, 400), { once: true }); }
+      else { setTimeout(() => mochi.say(frase("ciao")), 600); setTimeout(startTour, 1200); }
+    };
     if (!policyOk()) {
       openWizard({ required: true, steps: WIZ.filter(w => w.id === "privacy") });
       $("#wiz").addEventListener("close", afterPolicy, { once: true });
