@@ -61,7 +61,7 @@ export default {
       // redirect seguiti a mano: ogni passaggio deve restare sui siti ammessi
       let url = target, up;
       for (let hop = 0; ; hop++) {
-        up = await fetch(url.href, { headers: { "user-agent": UA, accept: "*/*" }, redirect: "manual", cf: { cacheTtlByStatus: { "200-299": CACHE_SECONDS, "300-599": 0 } } });
+        up = await fetch(url.href, { headers: { "user-agent": UA, accept: "*/*" }, redirect: "manual", cf: noCache ? { cacheTtl: 0 } : { cacheTtlByStatus: { "200-299": CACHE_SECONDS, "300-599": 0 } } });
         if (up.status < 300 || up.status >= 400 || !up.headers.get("location")) break;
         url = hop < 5 ? allowedTarget(new URL(up.headers.get("location"), url).href) : null;
         if (!url) return fail(502, "redirect", origin);
@@ -71,8 +71,8 @@ export default {
       if (len > MAX_BYTES) return fail(413, "too big", origin);
       res = new Response(limit(up.body, MAX_BYTES), { status: 200, headers: {
         "content-type": up.headers.get("content-type") || "application/octet-stream",
-        "cache-control": `public, max-age=${CACHE_SECONDS}` } });
-      ctx.waitUntil(cache.put(key, res.clone()));
+        "cache-control": noCache ? "no-store" : `public, max-age=${CACHE_SECONDS}` } });
+      if (!noCache) ctx.waitUntil(cache.put(key, res.clone()));
     }
     const out = new Response(res.body, res);
     for (const [k, v] of Object.entries(cors(origin))) out.headers.set(k, v);

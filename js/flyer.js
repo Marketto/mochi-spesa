@@ -45,8 +45,12 @@ async function* pages(file, onProgress) {
 }
 
 /** Testo del volantino. onProgress({step, page, pages, p}) per la barra di avanzamento. */
+let reading = 0;
+/** Lettura di un volantino in corso (per avvisare prima di chiudere la pagina). */
+export const busy = () => reading > 0;
 export async function readFlyer(file, lang, onProgress) {
   let worker = null, out = "";
+  reading++;
   try {
     for await (const pg of pages(file, onProgress)) {
       if (pg.text) { out += pg.text + "\f"; continue; }
@@ -58,7 +62,8 @@ export async function readFlyer(file, lang, onProgress) {
       const { data } = await worker.recognize(pg.image);
       out += data.text + "\f";
     }
-  } finally { await worker?.terminate(); }
+  } finally {
+    reading--; await worker?.terminate(); }
   return out;
 }
 

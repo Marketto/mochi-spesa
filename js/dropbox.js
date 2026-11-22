@@ -99,7 +99,11 @@ export async function upload(path, data, rev) {
     "Content-Type": "application/octet-stream",
     "Dropbox-API-Arg": apiArg({ path, mode: rev ? { ".tag": "update", update: rev } : "add", autorename: false, mute: true }),
   }, JSON.stringify(data));
-  if (r.status === 409) throw Object.assign(new Error("conflict"), { code: "conflict" });
+  if (r.status === 409) {
+    let why = ""; try { why = (await r.json()).error_summary || ""; } catch {}
+    if (/conflict/.test(why)) throw Object.assign(new Error("conflict"), { code: "conflict" });
+    throw new Error(t("sync.retry")); // spazio esaurito, percorso non valido…
+  }
   if (!r.ok) throw new Error(t("sync.retry"));
   return (await r.json()).rev;
 }

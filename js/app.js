@@ -15,7 +15,9 @@ import * as serp from "./serp.js";
 import { $, BUILT_KEY, CURRENCIES, DBX_CFG_KEY, LOCAL_CFG, PROXY, amzLink, amzOn, amzSaved, applyAnim, confetti, confirmDlg, connectDropbox, curSymbol, currency, dbxCfg, esc, hadState, ic, lsGet, lsSet, me, mochi, money, mutate, okProxy, paese, perUnit, quando, safeUrl, save, seen, selectTab, setMe, setState, sparkles, state, tabs, toast } from "./ui/core.js";
 import { WIZ, openLegal, openNews, openWizard, policyOk, startTour } from "./ui/onboarding.js";
 import { OP_CREDIT, addToList, checkHome, checkKapibo, editQty, kapMode, placeName, renderPantry, shortDate, takenFromStore } from "./ui/pantry.js";
-import { refreshChains, renderBestHow, renderFlyerBest, renderPrefs } from "./ui/prices.js";
+import { refreshChains, renderBestHow, renderDb, renderFlyerBest, renderPrefs } from "./ui/prices.js";
+import * as pricedb from "./pricedb.js";
+import * as flyer from "./flyer.js";
 
 
 // ---------- RENDER ----------
@@ -287,7 +289,7 @@ $("#z-raggio").addEventListener("input", e => $("#z-raggio-v").textContent = e.t
 export async function changeLang(code) {
   setMe({ lang: code });
   await setLang(code);
-  fillSettings(); renderOnboard(); render(); syncSet(syncKind, syncKey, syncVars); setMic(!!stopVoice);
+  fillSettings(); renderOnboard(); render(); renderDb(); renderOfferte(); syncSet(syncKind, syncKey, syncVars); setMic(!!stopVoice);
 }
 $("#me-lang").addEventListener("change", async e => {
   e.stopPropagation(); await changeLang(e.target.value); toast(t("lang.changed"), "lang"); $("#me-lang").focus(); });
@@ -465,7 +467,7 @@ export async function saveSettings() {
 }
 $("#set-save").addEventListener("click", saveSettings);
 $("#set-cancel").addEventListener("click", () => { setDirty(false); fillSettings(); toast(t("set.reverted"), "undo"); $("#p-imp").querySelector("input, select")?.focus(); });
-window.addEventListener("beforeunload", e => { if (settingsDirty) { e.preventDefault(); e.returnValue = ""; } });
+window.addEventListener("beforeunload", e => { if (settingsDirty || flyer.busy()) { e.preventDefault(); e.returnValue = ""; } });
 export const normPath = p => { p = (p || "").trim() || "/Spesa/mochi-spesa.json"; if (!p.startsWith("/")) p = "/" + p; if (!/\.json$/i.test(p)) p += ".json"; return p; };
 $("#f-dbx").addEventListener("submit", async e => {
   e.preventDefault();
@@ -517,6 +519,7 @@ export function syncSet(kind, key, vars) {
   b.setAttribute("aria-label", t(key, vars) + ". " + t(dbx.isConnected() ? "sync.tapSync" : "sync.tapConnect"));
 }
 export let conflictRuns = 0; // conflitti di fila: la nuova prova aspetta 30 s, 60 s, … fino a 5 minuti
+let readOnlyFile = false; // file scritto da una versione più nuova: si legge e basta
 let localChanged = true; // modifiche locali non ancora inviate: senza, basta confrontare la revisione del file
 export function scheduleSync() { localChanged = true; clearTimeout(syncT); syncT = setTimeout(sync, 700); }
 export async function sync() {
@@ -529,6 +532,7 @@ export async function sync() {
     let done = false;
     // nessuna modifica qui e file uguale all'ultima volta: niente da scaricare
     if (!localChanged && rev && await dbx.currentRev(path) === rev) {
+      if (readOnlyFile) { syncSet("err", "sync.newer"); return; }
       syncSet("ok", "sync.ok", { time: new Date().toLocaleTimeString(locale(), { hour: "2-digit", minute: "2-digit" }) });
       return;
     }
@@ -555,6 +559,7 @@ export async function sync() {
           mochi.mood("wow"); mochi.say(frase("novita"));
         }
       }
+      readOnlyFile = readOnly;
       if (readOnly) syncSet("err", "sync.newer");
       else syncSet("ok", "sync.ok", { time: new Date().toLocaleTimeString(locale(), { hour: "2-digit", minute: "2-digit" }) });
       done = true;
@@ -696,6 +701,7 @@ $("#t-imp").addEventListener("click", () => { renderAiKeys(); renderSerp(); });
   catch (e) { toast(e.message, "warn"); }
 
   fillSettings(); renderOnboard(); render(); renderBestHow(); fillCountry().catch(() => {});
+  pricedb.all().then(() => pricedb.prune()).then(() => { renderDb(); renderOfferte(); }).catch(() => {});
   selectTab(tabs.find(x => "#" + x.id.slice(2) === location.hash) || tabs[0], false);
   syncSet(dbx.isConnected() ? "busy" : "local", dbx.isConnected() ? "sync.busy" : "sync.local");
   sync();

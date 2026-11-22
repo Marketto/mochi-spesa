@@ -19,7 +19,7 @@ export const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)
 export const quando = ts => new Date(ts).toLocaleString(locale(), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
 // Paese e valuta vengono dalla posizione (GPS o città scritta nelle impostazioni), mai dalla lingua.
-export const CUR_BY_COUNTRY = { se: "SEK", dk: "DKK", no: "NOK", is: "ISK", pl: "PLN", cz: "CZK", hu: "HUF", ro: "RON", bg: "BGN", ch: "CHF", li: "CHF",
+export const CUR_BY_COUNTRY = { se: "SEK", dk: "DKK", no: "NOK", is: "ISK", pl: "PLN", cz: "CZK", hu: "HUF", ro: "RON", ch: "CHF", li: "CHF",
   gb: "GBP", us: "USD", ca: "CAD", au: "AUD", jp: "JPY", cn: "CNY", kr: "KRW", ae: "AED", sa: "SAR", eg: "EGP", tr: "TRY", ru: "RUB",
   ua: "UAH", by: "BYN", rs: "RSD", ba: "BAM", mk: "MKD", al: "ALL", in: "INR", mx: "MXN", br: "BRL", sg: "SGD" };
 // Valute del menu: tutte quelle che il paese può dare, più qualche altra comune
