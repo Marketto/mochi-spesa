@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "tal-app",
   "legal.p17": "Għal mistoqsijiet jew rapporti iftaħ issue fuq GitHub: github.com/Marketto/mochi-spesa/issues. L-issues huma pubbliċi: tiktibx data personali.",
   "wiz.s5.disclaimer": "Nifhem li l-prezzijiet, l-offerti u l-valutazzjonijiet jistgħu jkunu żbaljati u li l-awturi mhumiex responsabbli għal xiri, telf jew ħsara.",
-  "wiz.s5.mustDisc": "Biex tkompli, immarka wkoll iċ-ċaħda tar-responsabbiltà."
+  "wiz.s5.mustDisc": "Biex tkompli, immarka wkoll iċ-ċaħda tar-responsabbiltà.",
+  "theme.title": "Tema",
+  "theme.auto": "Bħall-mowbajl",
+  "theme.light": "Ċar",
+  "theme.dark": "Skur",
+  "theme.contrast": "Kuntrast għoli",
+  "theme.cb": "Għal min hu daltoniku"
 }

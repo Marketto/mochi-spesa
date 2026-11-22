@@ -1,3 +1,4 @@
+import { getTheme, setTheme, applyTheme } from "./theme.js";
 import { mountMochi, frase, MOCHI_SVG } from "./mascot.js";
 import { catOf, catId, legacyCat, iconOf, ORDER, parseAdd } from "./categories.js";
 import { emptyState, merge, normalize, same, live, uid, stamp, canWrite } from "./store.js";
@@ -353,11 +354,8 @@ $("#clear-done").addEventListener("click", async () => {
 });
 
 // colore barre di sistema allineato al tema
-(function themeBars() {
-  const mq = matchMedia("(prefers-color-scheme: dark)");
-  const set = () => { const c = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim(); for (const m of document.querySelectorAll('meta[name="theme-color"]')) m.content = c; };
-  set(); mq.addEventListener("change", set);
-})();
+applyTheme(getTheme());
+for (const r of document.querySelectorAll('input[name="theme"]')) r.addEventListener("change", () => applyTheme(r.value)); // anteprima; si salva con «Salva»
 
 // ---------- DETTATURA ----------
 let stopVoice = null;
@@ -1459,6 +1457,8 @@ function fillSettings() {
   if (settingsDirty) return; // non cancellare quello che stai scrivendo
   $("#me-nome").value = m.nome || "";
   for (const r of document.querySelectorAll('input[name="anim"]')) r.checked = r.value === (m.anim || "auto");
+  for (const r of document.querySelectorAll('input[name="theme"]')) r.checked = r.value === getTheme();
+  applyTheme(getTheme());
   const c = dbxCfg(); $("#dbx-key").value = BUILT_KEY ? "" : (c.appKey || ""); $("#dbx-path").value = c.path || "";
   $("#dbx-key-wrap").hidden = !!BUILT_KEY;
   if (!BUILT_KEY && !c.appKey) $("#dbx-adv").open = true;
@@ -1640,6 +1640,7 @@ async function saveSettings() {
     // tu: nome e animazioni (solo su questo telefono)
     const nome = $("#me-nome").value.trim();
     setMe({ nome, anim: document.querySelector('input[name="anim"]:checked')?.value || "auto" });
+    setTheme(document.querySelector('input[name="theme"]:checked')?.value || "auto");
     applyAnim();
     // zona e dispensa (condivisi)
     const luogo = $("#z-luogo").value.trim(), old = state.settings;

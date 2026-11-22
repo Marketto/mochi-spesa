@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "アプリ標準",
   "legal.p17": "質問や報告は GitHub の issue へ：github.com/Marketto/mochi-spesa/issues。issue は公開されるので個人情報は書かないでください。",
   "wiz.s5.disclaimer": "価格・特売・評価が間違っている可能性があること、また作者は購入・損失・損害に責任を負わないことを理解しました。",
-  "wiz.s5.mustDisc": "続けるには免責事項にもチェックを入れてください。"
+  "wiz.s5.mustDisc": "続けるには免責事項にもチェックを入れてください。",
+  "theme.title": "テーマ",
+  "theme.auto": "スマホに合わせる",
+  "theme.light": "ライト",
+  "theme.dark": "ダーク",
+  "theme.contrast": "ハイコントラスト",
+  "theme.cb": "色覚サポート"
 }

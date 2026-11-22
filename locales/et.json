@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "rakenduse",
   "legal.p17": "Küsimuste või teadete jaoks ava GitHubis issue: github.com/Marketto/mochi-spesa/issues. Issue'd on avalikud: ära kirjuta isikuandmeid.",
   "wiz.s5.disclaimer": "Saan aru, et hinnad, pakkumised ja hinnangud võivad olla valed ning autorid ei vastuta ostude, kahjude ega kahjustuste eest.",
-  "wiz.s5.mustDisc": "Jätkamiseks märgi ka vastutusest loobumine."
+  "wiz.s5.mustDisc": "Jätkamiseks märgi ka vastutusest loobumine.",
+  "theme.title": "Teema",
+  "theme.auto": "Nagu telefonis",
+  "theme.light": "Hele",
+  "theme.dark": "Tume",
+  "theme.contrast": "Kõrge kontrast",
+  "theme.cb": "Värvipimedatele"
 }

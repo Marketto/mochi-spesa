@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "de la app",
   "legal.p17": "Para dudas o avisos abre una issue en GitHub: github.com/Marketto/mochi-spesa/issues. Las issues son públicas: no escribas datos personales.",
   "wiz.s5.disclaimer": "Entiendo que precios, ofertas y valoraciones pueden ser erróneos y que los autores no responden de compras, pérdidas o daños.",
-  "wiz.s5.mustDisc": "Para continuar marca también la exención de responsabilidad."
+  "wiz.s5.mustDisc": "Para continuar marca también la exención de responsabilidad.",
+  "theme.title": "Tema",
+  "theme.auto": "Como el móvil",
+  "theme.light": "Claro",
+  "theme.dark": "Oscuro",
+  "theme.contrast": "Alto contraste",
+  "theme.cb": "Daltónicos"
 }

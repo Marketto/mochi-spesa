@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "aplikacji",
   "legal.p17": "Pytania lub zgłoszenia: otwórz issue na GitHubie: github.com/Marketto/mochi-spesa/issues. Issue są publiczne: nie wpisuj danych osobowych.",
   "wiz.s5.disclaimer": "Rozumiem, że ceny, oferty i oceny mogą być błędne i że autorzy nie odpowiadają za zakupy, straty ani szkody.",
-  "wiz.s5.mustDisc": "Aby kontynuować, zaznacz też wyłączenie odpowiedzialności."
+  "wiz.s5.mustDisc": "Aby kontynuować, zaznacz też wyłączenie odpowiedzialności.",
+  "theme.title": "Motyw",
+  "theme.auto": "Jak w telefonie",
+  "theme.light": "Jasny",
+  "theme.dark": "Ciemny",
+  "theme.contrast": "Wysoki kontrast",
+  "theme.cb": "Dla daltonistów"
 }

@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "aplikace",
   "legal.p17": "Dotazy nebo hlášení: založ issue na GitHubu: github.com/Marketto/mochi-spesa/issues. Issues jsou veřejné: nepiš osobní údaje.",
   "wiz.s5.disclaimer": "Rozumím, že ceny, nabídky a hodnocení mohou být chybné a že autoři neodpovídají za nákupy, ztráty ani škody.",
-  "wiz.s5.mustDisc": "Pro pokračování zaškrtni i vyloučení odpovědnosti."
+  "wiz.s5.mustDisc": "Pro pokračování zaškrtni i vyloučení odpovědnosti.",
+  "theme.title": "Motiv",
+  "theme.auto": "Jako telefon",
+  "theme.light": "Světlý",
+  "theme.dark": "Tmavý",
+  "theme.contrast": "Vysoký kontrast",
+  "theme.cb": "Pro barvoslepé"
 }

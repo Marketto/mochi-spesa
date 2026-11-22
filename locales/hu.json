@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "az appé",
   "legal.p17": "Kérdésekhez vagy bejelentésekhez nyiss issue-t a GitHubon: github.com/Marketto/mochi-spesa/issues. Az issue-k nyilvánosak: ne írj személyes adatot.",
   "wiz.s5.disclaimer": "Megértettem, hogy az árak, ajánlatok és értékelések tévesek lehetnek, és hogy a szerzők nem felelnek vásárlásokért, veszteségekért vagy károkért.",
-  "wiz.s5.mustDisc": "A folytatáshoz pipáld be a felelősségkizárást is."
+  "wiz.s5.mustDisc": "A folytatáshoz pipáld be a felelősségkizárást is.",
+  "theme.title": "Téma",
+  "theme.auto": "Mint a telefon",
+  "theme.light": "Világos",
+  "theme.dark": "Sötét",
+  "theme.contrast": "Nagy kontraszt",
+  "theme.cb": "Színtévesztőknek"
 }

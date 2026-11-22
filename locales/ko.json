@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "앱 기본",
   "legal.p17": "질문이나 신고는 GitHub issue로: github.com/Marketto/mochi-spesa/issues. issue는 공개되므로 개인정보를 쓰지 마세요.",
   "wiz.s5.disclaimer": "가격, 할인, 평가가 틀릴 수 있으며 제작자가 구매, 손실, 피해에 책임지지 않음을 이해합니다.",
-  "wiz.s5.mustDisc": "계속하려면 면책 조항에도 체크하세요."
+  "wiz.s5.mustDisc": "계속하려면 면책 조항에도 체크하세요.",
+  "theme.title": "테마",
+  "theme.auto": "휴대폰 설정",
+  "theme.light": "밝게",
+  "theme.dark": "어둡게",
+  "theme.contrast": "고대비",
+  "theme.cb": "색각 이상"
 }

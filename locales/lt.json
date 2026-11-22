@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "programėlės",
   "legal.p17": "Klausimams ar pranešimams atidaryk issue GitHub: github.com/Marketto/mochi-spesa/issues. Issue yra vieši: nerašyk asmens duomenų.",
   "wiz.s5.disclaimer": "Suprantu, kad kainos, pasiūlymai ir vertinimai gali būti klaidingi ir kad autoriai neatsako už pirkinius, nuostolius ar žalą.",
-  "wiz.s5.mustDisc": "Norėdamas tęsti, pažymėk ir atsakomybės atsisakymą."
+  "wiz.s5.mustDisc": "Norėdamas tęsti, pažymėk ir atsakomybės atsisakymą.",
+  "theme.title": "Tema",
+  "theme.auto": "Kaip telefone",
+  "theme.light": "Šviesi",
+  "theme.dark": "Tamsi",
+  "theme.contrast": "Didelis kontrastas",
+  "theme.cb": "Daltonikams"
 }

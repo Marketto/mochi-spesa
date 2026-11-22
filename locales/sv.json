@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "appens",
   "legal.p17": "För frågor eller rapporter, öppna ett issue på GitHub: github.com/Marketto/mochi-spesa/issues. Issues är offentliga: skriv inga personuppgifter.",
   "wiz.s5.disclaimer": "Jag förstår att priser, erbjudanden och bedömningar kan vara fel och att upphovsmännen inte ansvarar för köp, förluster eller skador.",
-  "wiz.s5.mustDisc": "Kryssa även i ansvarsfriskrivningen för att fortsätta."
+  "wiz.s5.mustDisc": "Kryssa även i ansvarsfriskrivningen för att fortsätta.",
+  "theme.title": "Tema",
+  "theme.auto": "Som telefonen",
+  "theme.light": "Ljust",
+  "theme.dark": "Mörkt",
+  "theme.contrast": "Hög kontrast",
+  "theme.cb": "Färgblind"
 }

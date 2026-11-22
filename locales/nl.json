@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "van de app",
   "legal.p17": "Voor vragen of meldingen open je een issue op GitHub: github.com/Marketto/mochi-spesa/issues. Issues zijn openbaar: schrijf geen persoonsgegevens.",
   "wiz.s5.disclaimer": "Ik begrijp dat prijzen, aanbiedingen en beoordelingen fout kunnen zijn en dat de makers niet aansprakelijk zijn voor aankopen, verliezen of schade.",
-  "wiz.s5.mustDisc": "Vink om door te gaan ook de disclaimer aan."
+  "wiz.s5.mustDisc": "Vink om door te gaan ook de disclaimer aan.",
+  "theme.title": "Thema",
+  "theme.auto": "Zoals de telefoon",
+  "theme.light": "Licht",
+  "theme.dark": "Donker",
+  "theme.contrast": "Hoog contrast",
+  "theme.cb": "Kleurenblind"
 }

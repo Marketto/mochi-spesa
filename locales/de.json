@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "der App",
   "legal.p17": "Für Fragen oder Meldungen eröffne ein Issue auf GitHub: github.com/Marketto/mochi-spesa/issues. Issues sind öffentlich: keine persönlichen Daten schreiben.",
   "wiz.s5.disclaimer": "Ich habe verstanden, dass Preise, Angebote und Bewertungen falsch sein können und die Autoren nicht für Käufe, Verluste oder Schäden haften.",
-  "wiz.s5.mustDisc": "Bitte hake zum Fortfahren auch den Haftungsausschluss an."
+  "wiz.s5.mustDisc": "Bitte hake zum Fortfahren auch den Haftungsausschluss an.",
+  "theme.title": "Design",
+  "theme.auto": "Wie das Handy",
+  "theme.light": "Hell",
+  "theme.dark": "Dunkel",
+  "theme.contrast": "Hoher Kontrast",
+  "theme.cb": "Farbenblind"
 }

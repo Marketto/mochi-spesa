@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "sovelluksen",
   "legal.p17": "Kysymykset ja ilmoitukset: avaa issue GitHubissa: github.com/Marketto/mochi-spesa/issues. Issuet ovat julkisia: älä kirjoita henkilötietoja.",
   "wiz.s5.disclaimer": "Ymmärrän, että hinnat, tarjoukset ja arviot voivat olla vääriä eivätkä tekijät vastaa ostoista, menetyksistä tai vahingoista.",
-  "wiz.s5.mustDisc": "Jatkaaksesi rastita myös vastuuvapauslauseke."
+  "wiz.s5.mustDisc": "Jatkaaksesi rastita myös vastuuvapauslauseke.",
+  "theme.title": "Teema",
+  "theme.auto": "Kuten puhelin",
+  "theme.light": "Vaalea",
+  "theme.dark": "Tumma",
+  "theme.contrast": "Suuri kontrasti",
+  "theme.cb": "Värisokeille"
 }

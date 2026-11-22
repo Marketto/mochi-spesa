@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "aplikacije",
   "legal.p17": "Za pitanja ili prijave otvori issue na GitHubu: github.com/Marketto/mochi-spesa/issues. Issueji su javni: ne piši osobne podatke.",
   "wiz.s5.disclaimer": "Razumijem da cijene, ponude i ocjene mogu biti pogrešne i da autori ne odgovaraju za kupnje, gubitke ili štete.",
-  "wiz.s5.mustDisc": "Za nastavak označi i izjavu o odricanju odgovornosti."
+  "wiz.s5.mustDisc": "Za nastavak označi i izjavu o odricanju odgovornosti.",
+  "theme.title": "Tema",
+  "theme.auto": "Kao mobitel",
+  "theme.light": "Svijetla",
+  "theme.dark": "Tamna",
+  "theme.contrast": "Visoki kontrast",
+  "theme.cb": "Za daltoniste"
 }

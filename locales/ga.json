@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "na haipe",
   "legal.p17": "Le haghaidh ceisteanna nó tuairiscí oscail issue ar GitHub: github.com/Marketto/mochi-spesa/issues. Tá issues poiblí: ná scríobh sonraí pearsanta.",
   "wiz.s5.disclaimer": "Tuigim go bhféadfadh praghsanna, tairiscintí agus measúnuithe a bheith mícheart agus nach bhfuil na húdair freagrach as ceannacháin, caillteanais ná damáistí.",
-  "wiz.s5.mustDisc": "Chun leanúint ar aghaidh, cuir tic freisin leis an séanadh."
+  "wiz.s5.mustDisc": "Chun leanúint ar aghaidh, cuir tic freisin leis an séanadh.",
+  "theme.title": "Téama",
+  "theme.auto": "Cosúil leis an bhfón",
+  "theme.light": "Geal",
+  "theme.dark": "Dorcha",
+  "theme.contrast": "Ardchodarsnacht",
+  "theme.cb": "Dathdhall"
 }

@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "lietotnes",
   "legal.p17": "Jautājumiem vai ziņojumiem atver issue GitHub: github.com/Marketto/mochi-spesa/issues. Issue ir publiski: neraksti personas datus.",
   "wiz.s5.disclaimer": "Saprotu, ka cenas, piedāvājumi un vērtējumi var būt kļūdaini un ka autori neatbild par pirkumiem, zaudējumiem vai kaitējumu.",
-  "wiz.s5.mustDisc": "Lai turpinātu, atzīmē arī atrunu par atbildību."
+  "wiz.s5.mustDisc": "Lai turpinātu, atzīmē arī atrunu par atbildību.",
+  "theme.title": "Motīvs",
+  "theme.auto": "Kā tālrunī",
+  "theme.light": "Gaišs",
+  "theme.dark": "Tumšs",
+  "theme.contrast": "Augsts kontrasts",
+  "theme.cb": "Daltoniķiem"
 }

@@ -558,5 +558,11 @@
   "dbx.setupKeyBuilt": "a aplicației",
   "legal.p17": "Pentru întrebări sau semnalări deschide un issue pe GitHub: github.com/Marketto/mochi-spesa/issues. Issue-urile sunt publice: nu scrie date personale.",
   "wiz.s5.disclaimer": "Înțeleg că prețurile, ofertele și evaluările pot fi greșite și că autorii nu răspund pentru cumpărături, pierderi sau daune.",
-  "wiz.s5.mustDisc": "Ca să continui, bifează și declinarea responsabilității."
+  "wiz.s5.mustDisc": "Ca să continui, bifează și declinarea responsabilității.",
+  "theme.title": "Temă",
+  "theme.auto": "Ca telefonul",
+  "theme.light": "Luminoasă",
+  "theme.dark": "Întunecată",
+  "theme.contrast": "Contrast ridicat",
+  "theme.cb": "Daltoniști"
 }
