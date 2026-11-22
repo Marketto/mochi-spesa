@@ -10,8 +10,8 @@ import * as op from "../openprices.js";
 import * as flyer from "../flyer.js";
 import * as pricedb from "../pricedb.js";
 import * as bridge from "../bridge.js";
-import { away, home } from "../app.js";
 import { $, confetti, esc, ic, lsGet, lsSet, me, mochi, mutate, sheet, sparkles, state, toast } from "./core.js";
+import { away, home } from "./location.js";
 
 // ---------- DISPENSA: nomi dei luoghi ----------
 export const nameOf = l => l ? (l.nome || (["credenza", "cantina"].includes(l.id) ? t("place." + l.id) : l.id)) : "";

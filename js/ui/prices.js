@@ -14,9 +14,11 @@ import { amazonSearch, isAmazon } from "../amazon.js";
 import * as best from "../best.js";
 import * as serp from "../serp.js";
 import { hash } from "../util.js";
-import { away, checkAway, fillCountry, renderAiKeys, renderOfferte, renderSerp } from "../app.js";
+import { renderOfferte } from "../app.js";
 import { $, amzLink, amzOn, amzSaved, confetti, confirmDlg, currency, esc, ic, lsGet, lsSet, me, mochi, money, money3, motionOk, mutate, num, paese, perUnit, PROXY, quando, safeUrl, searchCurrency, selectTab, sheet, sparkles, state, toast, zonaAI } from "./core.js";
 import { OP_CREDIT, mergeOptions, oggiISO, opNote, savedOptions, searchPoint, shortDate } from "./pantry.js";
+import { checkAway } from "./location.js";
+import { renderAiKeys, renderSerp } from "./settings.js";
 
 // ---------- TROVA IL PREZZO MIGLIORE (un prodotto, tutte le fonti) ----------
 export const BEST_KEY = "mochi.best";

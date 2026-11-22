@@ -1,23 +1,24 @@
-import { getTheme, setTheme, applyTheme } from "./theme.js";
+import { getTheme, applyTheme } from "./theme.js";
 import { frase } from "./mascot.js";
-import { catId, legacyCat, iconOf, ORDER, parseAdd } from "./categories.js";
-import { merge, normalize, same, live, canWrite } from "./store.js";
+import { catId, iconOf, ORDER, parseAdd } from "./categories.js";
+import { live } from "./store.js";
 import { t, setLang, detect, lang, locale, LANGS } from "./i18n.js";
-import { APP_VERSION, CHANGELOG, novitaDopo } from "./version.js";
+import { APP_VERSION, novitaDopo } from "./version.js";
 import * as dbx from "./dropbox.js";
 import * as ai from "./ai/index.js";
-import * as geo from "./geo.js";
 import * as voice from "./voice.js";
-import * as chains from "./chains.js";
-import * as shops from "./shops.js";
 import { amazonSearch } from "./amazon.js";
-import * as serp from "./serp.js";
-import { $, BUILT_KEY, CUR_BY_COUNTRY, CURRENCIES, DBX_CFG_KEY, LOCAL_CFG, PROXY, amzLink, amzOn, amzSaved, applyAnim, confetti, confirmDlg, connectDropbox, curSymbol, currency, dbxCfg, esc, hadState, ic, lsGet, lsSet, me, mochi, money, mutate, okProxy, paese, perUnit, quando, safeUrl, save, seen, selectTab, setMe, setState, sparkles, state, tabs, toast } from "./ui/core.js";
-import { WIZ, openLegal, openNews, openWizard, policyOk, startTour } from "./ui/onboarding.js";
-import { OP_CREDIT, addToList, checkHome, checkKapibo, editQty, kapMode, placeName, renderPantry, shortDate, takenFromStore } from "./ui/pantry.js";
-import { refreshChains, renderBestHow, renderDb, renderFlyerBest, renderPrefs } from "./ui/prices.js";
+import { $, DBX_CFG_KEY, amzLink, amzOn, amzSaved, applyAnim, confetti, confirmDlg, connectDropbox, curSymbol, esc, hadState, ic, lsGet, lsSet, me, mochi, money, mutate, paese, perUnit, quando, safeUrl, seen, selectTab, setMe, sparkles, state, tabs, toast } from "./ui/core.js";
+import { WIZ, openNews, openWizard, policyOk, startTour } from "./ui/onboarding.js";
+import { OP_CREDIT, addToList, checkHome, checkKapibo, editQty, placeName, renderPantry, shortDate, takenFromStore } from "./ui/pantry.js";
+import { renderBestHow, renderDb, renderFlyerBest, renderPrefs } from "./ui/prices.js";
 import * as pricedb from "./pricedb.js";
 import * as flyer from "./flyer.js";
+import { fillSettings, normPath, settingsDirty } from "./ui/settings.js";
+import { away, AWAY_KEY, fillCountry, usaPosizione } from "./ui/location.js";
+import { sync, syncSet } from "./ui/sync.js";
+export { away } from "./ui/location.js";
+export { scheduleSync } from "./ui/sync.js";
 
 
 // ---------- RENDER ----------
@@ -246,256 +247,6 @@ $("#mic").addEventListener("click", () => {
 });
 $("#f-add").addEventListener("submit", () => { $("#voice-msg").textContent = ""; });
 
-// ---------- IMPOSTAZIONI ----------
-export function fillLangSelect(sel) {
-  sel.innerHTML = Object.entries(LANGS).sort((a, b) => a[1].localeCompare(b[1], "en")).map(([c, n]) => `<option value="${c}" lang="${c}">${esc(n)}</option>`).join("");
-  sel.value = lang();
-}
-export function fillSettings() {
-  const km = $("#kap-mode"); if (km) km.value = kapMode();
-  const m = me();
-  fillLangSelect($("#me-lang"));
-  $("#about-ver").textContent = t("about.version", { v: APP_VERSION });
-  $("#dbx-off").hidden = !dbx.isConnected();
-  $("#dbx-go-txt").textContent = t(dbx.isConnected() ? "dbx.reconnect" : "dbx.connect");
-  if (settingsDirty) return; // non cancellare quello che stai scrivendo
-  $("#me-nome").value = m.nome || "";
-  for (const r of document.querySelectorAll('input[name="anim"]')) r.checked = r.value === (m.anim || "auto");
-  for (const r of document.querySelectorAll('input[name="theme"]')) r.checked = r.value === getTheme();
-  applyTheme(getTheme());
-  const c = dbxCfg(); $("#dbx-key").value = BUILT_KEY ? "" : (c.appKey || ""); $("#dbx-path").value = c.path || "";
-  $("#dbx-key-wrap").hidden = !!BUILT_KEY;
-  if (!BUILT_KEY && !c.appKey) $("#dbx-adv").open = true;
-  const s = state.settings;
-  $("#z-luogo").value = s.luogo || ""; $("#z-raggio").value = s.raggioKm || 5; $("#z-raggio-v").textContent = s.raggioKm || 5;
-  for (const r of document.querySelectorAll('input[name="lvdir"]')) r.checked = r.value === (s.ripiani === "basso" ? "basso" : "alto");
-  pickedShops = splitShops(s.negozi); shopsAll = false; loadShops();
-  const scelte = new Set(s.catene || []);
-  $("#z-chains-list").innerHTML = PROXY() ? chains.chainList().map(c => `<label class="check"><input type="checkbox" name="catena" value="${c.id}"${scelte.has(c.id) ? " checked" : ""}> ${esc(c.nome)}${c.nazionale ? ` <small>· ${esc(t("ch.national"))}</small>` : ""}</label>`).join("") : "";
-  $("#z-chains-hint").textContent = t(PROXY() ? "ch.hint" : "ch.none"); $("#z-amz").checked = s.amazon !== false;
-  renderPages(s.pagine || []);
-  $("#ponte-box").hidden = !!okProxy(LOCAL_CFG.flyerProxy); $("#z-ponte").value = s.ponte || "";
-  let names; try { names = new Intl.DisplayNames([locale()], { type: "currency" }); } catch {}
-  // prima voce «automatica»: segue il paese di casa; le altre fissano la valuta
-  $("#z-valuta").innerHTML = `<option value="">${esc(t("cur.auto", { cur: CUR_BY_COUNTRY[(state.settings.paese || "").toLowerCase()] || "EUR" }))}</option>`
-    + CURRENCIES.map(c => `<option value="${c}">${esc(names ? names.of(c) : c)} (${c})</option>`).join("");
-  $("#z-valuta").value = state.settings.valuta || "";
-  renderSerp();
-  ai.setShared(state.settings.aiShared);
-  renderAiKeys(); fillProviders();
-  $("#ver-chip").textContent = "v" + APP_VERSION;
-  $("#ver-chip").setAttribute("aria-label", `v${APP_VERSION}. ${t("news.open")}`); // il nome contiene il testo visibile (WCAG 2.5.3)
-}
-$("#z-raggio").addEventListener("input", e => $("#z-raggio-v").textContent = e.target.value);
-export async function changeLang(code) {
-  setMe({ lang: code });
-  await setLang(code);
-  fillSettings(); renderOnboard(); render(); renderDb(); renderOfferte(); syncSet(syncKind, syncKey, syncVars); setMic(!!stopVoice);
-}
-$("#me-lang").addEventListener("change", async e => {
-  e.stopPropagation(); await changeLang(e.target.value); toast(t("lang.changed"), "lang"); $("#me-lang").focus(); });
-$("#me-lang").addEventListener("input", e => e.stopPropagation());
-// ---------- NEGOZI PREFERITI (dalla zona, OpenStreetMap) ----------
-export const splitShops = v => String(v || "").split(",").map(x => x.trim()).filter(Boolean);
-export let pickedShops = [], nearShops = [], shopsAll = false, shopsCtl = null;
-export const checkedShops = () => [...document.querySelectorAll('#z-shops-list input[name="negozio"]:checked')].map(x => x.value);
-export const kmFmt = km => km == null ? "" : km.toLocaleString(locale(), { maximumFractionDigits: 1 });
-export function renderShops() {
-  const box = $("#z-shops-list");
-  const sel = box.childElementCount ? checkedShops() : pickedShops; // non perdere le spunte non salvate
-  const extra = sel.filter(n => !nearShops.some(g => shops.sameShop(g.nome, n))).map(nome => ({ nome, n: 0, km: null }));
-  const all = [...extra, ...nearShops];
-  const isSel = n => sel.some(x => shops.sameShop(x, n));
-  const ord = [...all.filter(g => isSel(g.nome)), ...all.filter(g => !isSel(g.nome))];
-  const MAX = 24, show = shopsAll ? ord : ord.slice(0, Math.max(MAX, all.filter(g => isSel(g.nome)).length));
-  box.innerHTML = show.map(g => `<label><input type="checkbox" name="negozio" value="${esc(g.nome)}"${isSel(g.nome) ? " checked" : ""}> ${esc(g.nome)}${g.n ? ` <small>${esc(t("zone.shopsCount", { n: g.n, km: kmFmt(g.km) }))}</small>` : ""}</label>`).join("");
-  const more = $("#z-shops-more"); more.hidden = show.length >= ord.length;
-  more.textContent = t("zone.shopsMore", { n: ord.length - show.length });
-}
-export async function loadShops() {
-  const s = state.settings, msg = $("#z-shops-msg");
-  nearShops = []; renderShops();
-  if (s.lat == null || s.lon == null) { msg.textContent = t("zone.shopsNeedZone"); return; }
-  const km = +$("#z-raggio").value || s.raggioKm || 5;
-  if (shopsCtl) shopsCtl.abort(); const ctl = shopsCtl = new AbortController();
-  msg.textContent = t("zone.shopsLoading");
-  try {
-    nearShops = await shops.nearby({ lat: s.lat, lon: s.lon, raggioKm: km }, { signal: ctl.signal });
-    if (ctl !== shopsCtl) return;
-    msg.textContent = nearShops.length ? t("zone.shopsHint", { km }) : t("zone.shopsNone", { km });
-  } catch (e) { if (e.name === "AbortError") return; msg.textContent = t("zone.shopsFail"); }
-  renderShops();
-}
-$("#z-shops-more").addEventListener("click", () => { shopsAll = true; renderShops(); $("#z-shops-list label:last-child input")?.focus(); });
-export let shopsTimer; $("#z-raggio").addEventListener("change", () => { clearTimeout(shopsTimer); shopsTimer = setTimeout(loadShops, 400); });
-
-// ---------- PAGINE UFFICIALI DEI VOLANTINI (scelte dall'utente) ----------
-export const OFFICIAL_LIST = () => Object.values(chains.OFFICIAL).join(", ");
-export function renderPages(pagine) {
-  $("#pg-hint").textContent = t("ch.pagesHint", { list: OFFICIAL_LIST() });
-  $("#pg-list").innerHTML = pagine.map(p => `<label class="check"><input type="checkbox" name="pagina" value="${esc(p.url)}" checked>
-    <span><strong>${esc(p.nome)}</strong> <small class="hint">${esc(new URL(p.url).pathname.replace(/\/$/, "").split("/").pop() || p.url)}</small></span></label>`).join("");
-}
-$("#pg-add").addEventListener("click", () => {
-  const url = $("#pg-url").value.trim(), p = chains.newPage(url);
-  if (!p) { toast(t("ch.pageBad", { list: OFFICIAL_LIST() }), "warn"); $("#pg-url").focus(); return; }
-  const cur = [...document.querySelectorAll('#pg-list input[name="pagina"]')].map(x => ({ url: x.value, nome: chains.officialChainOf(x.value)?.nome, on: x.checked }));
-  if (!cur.some(c => c.url === p.url)) renderPages([...cur.filter(c => c.on), p]);
-  $("#pg-url").value = "";
-  $("#pg-list").dispatchEvent(new Event("change", { bubbles: true })); // segna le impostazioni come modificate
-  toast(t("ch.pageAdded", { chain: p.nome }), "store");
-});
-
-// ---------- PROVA DEL PONTE ----------
-/** Prova il ponte scritto nel campo: chiede la pagina ufficiale dei volantini Lidl. */
-export async function testPonte() {
-  const p = okProxy($("#z-ponte").value.trim()) || PROXY(), st = $("#ponte-st"), b = $("#ponte-test");
-  if (!p) { st.textContent = t("ch.ponteKo", { msg: "https://…workers.dev" }); $("#z-ponte").focus(); return; }
-  b.classList.add("loading"); st.textContent = "…";
-  try {
-    const r = await fetch(chains.via(p, "https://www.lidl.it/c/volantino-lidl/s10018048"), { signal: AbortSignal.timeout(20000) });
-    st.textContent = r.ok ? t("ch.ponteOk") + (r.headers.get("x-mochi-chiave") === "no" ? " " + t("ch.ponteNoKey") : "") : t("ch.ponteKo", { msg: `${r.status} ${(await r.text()).slice(0, 40)}` });
-  } catch (e) { st.textContent = t("ch.ponteKo", { msg: e.name === "TimeoutError" ? "timeout" : e.message }); }
-  finally { b.classList.remove("loading"); }
-}
-$("#ponte-test").addEventListener("click", testPonte);
-
-// ---------- SERPAPI: prezzi veri da Amazon e Google Shopping (chiave dell'utente) ----------
-export function renderSerp() {
-  const k = serp.getKey();
-  $("#serp-signup").href = serp.SIGNUP; $("#serp-keypage").href = serp.KEY_PAGE;
-  $("#serp-state").textContent = k ? t("serp.on", { n: serp.used() }) : t("serp.off");
-  $("#serp-del").hidden = !k;
-  if (document.activeElement?.id !== "serp-key") $("#serp-key").value = "";
-  $("#serp-key").placeholder = k ? "•••• " + k.slice(-4) : "";
-}
-$("#serp-save").addEventListener("click", () => {
-  const k = $("#serp-key").value.trim();
-  if (k.length < 32) { toast(t("best.keyBad"), "warn"); $("#serp-key").focus(); return; }
-  serp.setKey(k); $("#serp-key").value = ""; renderSerp(); toast(t("common.saved"), "key");
-});
-$("#serp-del").addEventListener("click", async () => {
-  if (!(await confirmDlg(t("serp.removeConfirm"), t("serp.remove"), "delete"))) return;
-  serp.setKey(""); renderSerp(); $("#serp-key").focus();
-});
-
-// ---------- CHIAVI IA: più servizi e più chiavi, scelti in automatico ----------
-export const mask = k => "•••• " + k.slice(-4);
-export const until = ms => new Date(ms).toLocaleTimeString(locale(), { hour: "2-digit", minute: "2-digit" });
-export function providerInfo(id) {
-  const P = ai.PROVIDERS[id];
-  return [t(P.tier === "free" ? "ai.free" : P.tier === "quota" ? "ai.freeQuota" : "ai.paid"), t(ai.canWeb(id) ? "ai.web" : "ai.noweb")].join(" · ");
-}
-export function renderAiKeys() {
-  const keys = ai.allKeys();
-  $("#ai-keys").innerHTML = keys.length ? keys.map(k => {
-    const P = ai.PROVIDERS[k.provider], c = ai.cooling(k), n = ai.usage(k);
-    return `<li class="ai-key${c ? " cool" : ""}"><span class="ai-n"><strong>${esc(P.nome)}</strong> <code>${esc(mask(k.key))}</code>${k.shared ? ` <small>${ic("heart")} ${esc(t("zone.shared"))}</small>` : ""}</span>
-      <span class="ai-b"><span class="badge${P.tier === "paid" ? " gold" : ""}">${esc(providerInfo(k.provider))}</span></span>
-      <span class="ai-u hint">${esc(t("ai.usage", { n }))}${c ? ` · ${esc(t("ai.cooling", { time: until(c.until) }))}${c.msg ? ` – ${esc(c.msg)}` : ""}` : ""}</span>
-      ${k.shared ? "" : `<button class="icon-btn danger" type="button" data-aidel="${esc(k.id)}" aria-label="${esc(t("ai.removeKey", { name: P.nome }))}">${ic("delete")}</button>`}</li>`;
-  }).join("") : `<li class="hint">${ic("key")} ${esc(t("ai.none"))}</li>`;
-  const sh = state.settings.aiShared, mine = ai.localKeys();
-  $("#ai-share").checked = Array.isArray(sh) ? sh.length > 0 && mine.every(k => sh.some(x => x.key === k.key)) : !!(sh && sh.key);
-  $("#ai-share").disabled = !mine.length;
-  if ($("#best-how")) renderBestHow();
-}
-export function fillProviders() {
-  const sel = $("#ai-provider"), cur = sel.value || "groq";
-  sel.innerHTML = Object.entries(ai.PROVIDERS).map(([id, P]) => `<option value="${id}">${esc(P.nome)} – ${esc(providerInfo(id))}</option>`).join("");
-  sel.value = cur; fillProvider();
-}
-export function fillProvider() {
-  const id = $("#ai-provider").value, P = ai.PROVIDERS[id];
-  $("#ai-link").href = P.link;
-  $("#ai-model").placeholder = P.models[0].id;
-  $("#ai-pinfo").textContent = t("ai.p." + id);
-}
-$("#ai-provider").addEventListener("change", fillProvider);
-export const shareKeys = on => mutate((s, now) => { s.settings = { ...s.settings, aiShared: on ? ai.localKeys().map(({ provider, key, model }) => ({ provider, key, model })) : null, updatedAt: now }; });
-$("#ai-add").addEventListener("click", () => {
-  const key = $("#ai-key").value.trim(); if (!key) { $("#ai-key").focus(); return; }
-  ai.addKey({ provider: $("#ai-provider").value, key, model: $("#ai-model").value });
-  $("#ai-key").value = ""; $("#ai-model").value = "";
-  if ($("#ai-share").checked) shareKeys(true);
-  renderAiKeys(); renderOfferte(); toast(t("common.saved"), "key"); $("#ai-add-box").open = false;
-});
-$("#ai-keys").addEventListener("click", e => {
-  const b = e.target.closest("[data-aidel]"); if (!b) return;
-  ai.removeKey(b.dataset.aidel);
-  if ($("#ai-share").checked) shareKeys(true);
-  renderAiKeys(); renderOfferte(); toast(t("pref.removed"), "delete");
-});
-$("#ai-share").addEventListener("change", e => { shareKeys(e.target.checked); toast(t("common.saved"), "heart"); });
-// ---------- IMPOSTAZIONI: una sola barra Salva / Annulla ----------
-export let settingsDirty = false;
-export function setDirty(v) {
-  settingsDirty = v;
-  $("#save-bar").hidden = !v;
-  document.body.classList.toggle("has-save-bar", v);
-}
-for (const f of document.querySelectorAll("form.track")) {
-  f.addEventListener("input", () => setDirty(true));
-  f.addEventListener("change", () => setDirty(true));
-  f.addEventListener("submit", e => { e.preventDefault(); saveSettings(); });
-}
-export async function saveSettings() {
-  const btn = $("#set-save"); if (btn.getAttribute("aria-busy")) return;
-  btn.classList.add("loading"); btn.setAttribute("aria-busy", "true");
-  try {
-    // tu: nome e animazioni (solo su questo telefono)
-    const nome = $("#me-nome").value.trim();
-    setMe({ nome, anim: document.querySelector('input[name="anim"]:checked')?.value || "auto" });
-    setTheme(document.querySelector('input[name="theme"]:checked')?.value || "auto");
-    applyAnim();
-    // zona e dispensa (condivisi)
-    const luogo = $("#z-luogo").value.trim(), old = state.settings;
-    let coords = luogo === old.luogo && old.lat != null ? { lat: old.lat, lon: old.lon, paese: old.paese || "", zona: old.zona || "" } : { lat: null, lon: null, paese: "", zona: "" };
-    if (luogo && coords.lat == null) {
-      const g = await geo.geocode(luogo, lang());
-      // all'IA va solo quartiere e città (zona), mai l'indirizzo scritto
-      if (g) coords = { lat: g.lat, lon: g.lon, paese: g.paese, zona: (await geo.placeInfo(g, lang()).catch(() => null))?.nome || "" };
-      else $("#geo-msg").textContent = t("geo.geocodeFail");
-    }
-    const ripiani = document.querySelector('input[name="lvdir"]:checked')?.value === "basso" ? "basso" : "alto";
-    mutate((s, now) => {
-      s.settings = { ...s.settings, luogo, raggioKm: +$("#z-raggio").value, negozi: checkedShops().join(", "), amazon: $("#z-amz").checked,
-        valuta: $("#z-valuta").value, ripiani, catene: [...document.querySelectorAll('#z-chains-list input[name="catena"]:checked')].map(x => x.value),
-        ponte: okProxy($("#z-ponte").value.trim()) || "",
-        pagine: [...document.querySelectorAll('#pg-list input[name="pagina"]:checked')].map(x => chains.newPage(x.value)).filter(Boolean), ...coords, updatedAt: now };
-    });
-    setDirty(false); fillSettings(); render(); renderOfferte();
-    toast(t("set.saved"), "save"); mochi.mood("happy"); mochi.say(nome ? t("phr.nice", { name: nome }) : frase("aggiunto"));
-  } finally { btn.classList.remove("loading"); btn.removeAttribute("aria-busy"); }
-}
-$("#set-save").addEventListener("click", saveSettings);
-$("#set-cancel").addEventListener("click", () => { setDirty(false); fillSettings(); toast(t("set.reverted"), "undo"); $("#p-imp").querySelector("input, select")?.focus(); });
-window.addEventListener("beforeunload", e => { if (settingsDirty || flyer.busy()) { e.preventDefault(); e.returnValue = ""; } });
-export const normPath = p => { p = (p || "").trim() || "/Spesa/mochi-spesa.json"; if (!p.startsWith("/")) p = "/" + p; if (!/\.json$/i.test(p)) p += ".json"; return p; };
-$("#f-dbx").addEventListener("submit", async e => {
-  e.preventDefault();
-  const appKey = BUILT_KEY || $("#dbx-key").value.trim(), path = normPath($("#dbx-path").value);
-  if (!appKey) { $("#dbx-adv").open = true; $("#dbx-msg").textContent = t("dbx.needKey"); $("#dbx-key").focus(); return; }
-  lsSet(DBX_CFG_KEY, { appKey: BUILT_KEY ? "" : appKey, path });
-  $("#dbx-msg").textContent = t("dbx.redirecting");
-  await dbx.startAuth(appKey);
-});
-$("#dbx-off").addEventListener("click", async () => {
-  if (!(await confirmDlg(t("dbx.disconnectConfirm"), t("dbx.disconnect"), "disconnect"))) return;
-  dbx.disconnect(); fillSettings(); renderOnboard(); syncSet("local", "sync.local"); toast(t("dbx.disconnected"), "disconnect");
-});
-$("#dbx-share").addEventListener("click", async () => {
-  const c = { k: BUILT_KEY ? "" : $("#dbx-key").value.trim(), p: normPath($("#dbx-path").value), l: lang() };
-  if (!BUILT_KEY && !c.k) { $("#dbx-adv").open = true; $("#dbx-msg").textContent = t("dbx.needKey"); return; }
-  const link = dbx.redirectUri() + "#setup=" + btoa(unescape(encodeURIComponent(JSON.stringify(c)))); // solo app key, percorso e lingua: mai token
-  try { await navigator.clipboard.writeText(link); $("#dbx-msg").textContent = t("dbx.copied"); toast(t("dbx.copiedShort"), "copy"); }
-  catch { $("#dbx-msg").innerHTML = `${esc(t("dbx.copyThis"))} <input readonly dir="ltr" value="${esc(link)}" aria-label="${esc(t("dbx.share"))}">`; }
-});
-$("#open-legal").addEventListener("click", () => openLegal());
-$("#open-news").addEventListener("click", () => openNews(CHANGELOG, false));
-$("#ver-chip").addEventListener("click", () => openNews(CHANGELOG, false));
-$("#open-wizard").addEventListener("click", () => openWizard({ required: false }));
-
 // ---------- CONDIVIDI L'APP ----------
 export async function shareApp(btn) {
   const url = dbx.redirectUri(); // indirizzo pubblico dell'app, senza configurazioni né dati
@@ -509,84 +260,6 @@ export async function shareApp(btn) {
 }
 $("#share-top").addEventListener("click", e => shareApp(e.currentTarget));
 $("#share-app").addEventListener("click", e => shareApp(e.currentTarget));
-
-// ---------- SINCRONIZZAZIONE ----------
-export let rev = lsGet("mochi.rev", null), syncing = false, syncAgain = false, syncT;
-export let syncKind = "local", syncKey = "sync.local", syncVars = null;
-export function syncSet(kind, key, vars) {
-  syncKind = kind; syncKey = key; syncVars = vars || null;
-  const b = $("#sync");
-  b.className = "sync " + ({ ok: "ok", busy: "busy", err: "err" }[kind] || "");
-  $("#sync-ic").className = "mi mi-" + ({ ok: "cloud-ok", busy: "cloud-up", err: "cloud-off" }[kind] || "phone");
-  $("#sync-txt").textContent = t(key, vars);
-  b.setAttribute("aria-label", t(key, vars) + ". " + t(dbx.isConnected() ? "sync.tapSync" : "sync.tapConnect"));
-}
-export let conflictRuns = 0; // conflitti di fila: la nuova prova aspetta 30 s, 60 s, … fino a 5 minuti
-let readOnlyFile = false; // file scritto da una versione più nuova: si legge e basta
-let localChanged = true; // modifiche locali non ancora inviate: senza, basta confrontare la revisione del file
-export function scheduleSync() { localChanged = true; clearTimeout(syncT); syncT = setTimeout(sync, 700); }
-export async function sync() {
-  if (!dbx.isConnected()) { syncSet("local", "sync.local"); return; }
-  if (!navigator.onLine) { syncSet("err", "sync.offline"); return; }
-  if (syncing) { syncAgain = true; return; }
-  syncing = true; syncSet("busy", "sync.busy");
-  const path = dbxCfg().path;
-  try {
-    let done = false;
-    // nessuna modifica qui e file uguale all'ultima volta: niente da scaricare
-    if (!localChanged && rev && await dbx.currentRev(path) === rev) {
-      if (readOnlyFile) { syncSet("err", "sync.newer"); return; }
-      syncSet("ok", "sync.ok", { time: new Date().toLocaleTimeString(locale(), { hour: "2-digit", minute: "2-digit" }) });
-      return;
-    }
-    localChanged = false;
-    for (let attempt = 0; attempt < 4 && !done; attempt++) {
-      const remote = await dbx.download(path);
-      const remoteState = remote && remote.data ? normalize(remote.data) : null;
-      if (remoteState) for (const it of Object.values(remoteState.items)) it.cat = legacyCat(it.cat);
-      const merged = merge(state, remoteState);
-      // file scritto da una versione più nuova del formato: si legge e basta
-      const readOnly = !canWrite(merged);
-      try {
-        if (!readOnly && (!remoteState || !same(merged, remoteState))) rev = await dbx.upload(path, merged, remote && remote.rev);
-        else rev = remote ? remote.rev : rev;
-      } catch (e) { if (e.code === "conflict") continue; throw e; }
-      const before = state;
-      setState(merge(state, merged));
-      lsSet("mochi.rev", rev); save();
-      if (!same(before, state)) {
-        const nuovi = live(state.items).filter(i => !seen.has(i.id) && i.da && i.da !== me().nome);
-        render();
-        if (nuovi.length) {
-          toast(nuovi.length === 1 ? t("toast.fromOther", { who: nuovi[0].da, what: nuovi[0].nome }) : t("toast.fromOtherN", { who: nuovi[0].da, n: nuovi.length }), "send-love");
-          mochi.mood("wow"); mochi.say(frase("novita"));
-        }
-      }
-      readOnlyFile = readOnly;
-      if (readOnly) syncSet("err", "sync.newer");
-      else syncSet("ok", "sync.ok", { time: new Date().toLocaleTimeString(locale(), { hour: "2-digit", minute: "2-digit" }) });
-      done = true;
-    }
-    // 4 conflitti di fila (altri stanno scrivendo): riprova più tardi invece di restare su «sincronizzo…»
-    if (!done) { localChanged = true; syncSet("err", "sync.retry"); clearTimeout(syncT); syncT = setTimeout(sync, Math.min(300e3, 30e3 * 2 ** conflictRuns++)); }
-    else conflictRuns = 0;
-  } catch (e) {
-    localChanged = true;
-    if (e.code === "auth") { syncSet("err", "sync.reconnect"); fillSettings(); }
-    else syncSet("err", "sync.retry");
-  } finally {
-    syncing = false;
-    if (syncAgain) { syncAgain = false; scheduleSync(); }
-  }
-}
-$("#sync").addEventListener("click", () => {
-  if (dbx.isConnected()) sync();
-  else connectDropbox();
-});
-setInterval(() => { if (document.visibilityState === "visible") sync(); }, 20000);
-document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") sync(); });
-addEventListener("online", sync);
-addEventListener("offline", () => syncSet("err", "sync.offline"));
 
 // ---------- onboarding nella lista ----------
 export function renderOnboard() {
@@ -624,60 +297,6 @@ export function renderInstall() {
   });
   $("#inst-later").addEventListener("click", () => { lsSet("mochi.installLater", Date.now()); renderInstall(); $("#add-nome").focus(); });
 }
-
-// ---------- POSIZIONE ----------
-// Casa = impostazione condivisa (indirizzo + coordinate). "Fuori casa" = solo su questo telefono.
-export const AWAY_KEY = "mochi.away";
-export const away = () => lsGet(AWAY_KEY, null);          // { lat, lon, nome, paese } se si cercano offerte fuori casa
-// chi aveva già la zona prima della 2.5.0: il paese si ricava una volta dalle coordinate di casa
-export async function fillCountry() {
-  const s = state.settings;
-  if ((s.paese && s.zona) || s.lat == null || !navigator.onLine) return;
-  const info = await geo.placeInfo({ lat: s.lat, lon: s.lon }, lang());
-  if (info?.paese || info?.nome) mutate((st, now) => { st.settings = { ...st.settings, paese: st.settings.paese || info.paese || "", zona: st.settings.zona || info.nome || "", updatedAt: now }; });
-}
-export let awayAsked = null;                              // posizione per cui l'utente ha già risposto "no" in questa sessione
-export const home = () => state.settings.lat != null ? { lat: state.settings.lat, lon: state.settings.lon } : null;
-
-/** "Usa la mia posizione" nelle impostazioni: imposta casa qui. */
-export async function usaPosizione(btn) {
-  const msg = $("#geo-msg");
-  btn.classList.add("loading"); btn.setAttribute("aria-busy", "true"); msg.textContent = t("geo.locating");
-  try {
-    const pos = await geo.here();
-    const info = await geo.placeInfo(pos, lang()), nome = info?.nome || t("geo.label", pos);
-    mutate((s, now) => { s.settings = { ...s.settings, ...pos, paese: info?.paese || "", zona: info?.nome || "", luogo: nome, updatedAt: now }; });
-    lsSet(AWAY_KEY, null);
-    $("#z-luogo").value = nome; fillSettings(); msg.textContent = t("geo.ok"); toast(t("geo.ok"), "pin"); mochi.mood("happy"); mochi.say(frase("guardo"));
-  } catch (err) {
-    msg.textContent = err && err.code === 1 ? t("geo.denied") : t("geo.fail"); $("#z-luogo").focus();
-  } finally { btn.classList.remove("loading"); btn.removeAttribute("aria-busy"); }
-}
-$("#geo-btn").addEventListener("click", e => usaPosizione(e.currentTarget));
-
-/** Se sei a più di 40 km da casa propone di cercare qui. modal=true usa il dialogo, altrimenti una scheda in Offerte. */
-export async function checkAway({ ask = false, modal = false } = {}) {
-  const h = home(); if (!h) return;
-  if (!ask && (await geo.permission()) !== "granted") return; // senza permesso già dato non chiediamo all'apertura
-  let pos; try { pos = await geo.here({ timeout: 8000 }); } catch { return; }
-  const a = away();
-  if (geo.distKm(h, pos) <= geo.AWAY_KM) { if (a) { lsSet(AWAY_KEY, null); renderOfferte(); } return; }
-  if (a && geo.distKm(a, pos) <= geo.AWAY_KM) return;                    // già in uso qui
-  if (awayAsked && geo.distKm(awayAsked, pos) <= geo.AWAY_KM) return;    // ha già detto no qui
-  const km = Math.round(geo.distKm(h, pos));
-  const info = await geo.placeInfo(pos, lang()), nome = info?.nome || t("geo.label", pos);
-  const accetta = () => { lsSet(AWAY_KEY, { ...pos, nome, paese: info?.paese || "" }); awayAsked = null; renderOfferte(); toast(t("geo.using", { place: nome }), "pin"); mochi.mood("wow"); };
-  const rifiuta = () => { awayAsked = pos; renderOfferte(); };
-  if (modal) { (await confirmDlg(t("geo.away", { km, place: nome }), t("geo.awayYes"), "pin")) ? accetta() : rifiuta(); return; }
-  $("#away").innerHTML = `<div class="card notice-card" role="region" aria-labelledby="away-t">
-    <p id="away-t">${ic("pin")} ${esc(t("geo.away", { km, place: nome }))}</p>
-    <div class="row gap"><button class="btn primary" type="button" id="away-yes">${ic("ok")} ${esc(t("geo.awayYes"))}</button>
-    <button class="btn ghost" type="button" id="away-no">${ic("close")} ${esc(t("geo.awayNo"))}</button></div></div>`;
-  $("#away-yes").addEventListener("click", accetta);
-  $("#away-no").addEventListener("click", rifiuta);
-}
-$("#t-offerte").addEventListener("click", () => { checkAway(); refreshChains(); renderBestHow(); });
-$("#t-imp").addEventListener("click", () => { renderAiKeys(); renderSerp(); });
 
 // ---------- avvio ----------
 (async function start() {
@@ -730,29 +349,6 @@ $("#t-imp").addEventListener("click", () => { renderAiKeys(); renderSerp(); });
   if ("serviceWorker" in navigator && location.protocol === "https:") watchUpdates();
 })();
 
-// ---------- ESPORTA / IMPORTA (file JSON nel formato condiviso, docs/sync-format.md) ----------
-$("#data-export").addEventListener("click", () => {
-  const blob = new Blob([JSON.stringify(state, null, 1)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob); a.download = `mochi-spesa-${new Date().toISOString().slice(0, 10)}.json`;
-  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-});
-$("#data-import-btn").addEventListener("click", () => $("#data-import").click());
-$("#data-import").addEventListener("change", async e => {
-  const f = e.target.files?.[0]; e.target.value = "";
-  if (!f) return;
-  try {
-    const raw = JSON.parse(await f.text());
-    if (!raw || typeof raw !== "object" || !raw.items) throw new Error("format"); // non è un file di Mochi Spesa
-    const data = normalize(raw);
-    for (const it of Object.values(data.items)) it.cat = legacyCat(it.cat);
-    if (!canWrite(merge(state, data))) throw new Error("format");
-    // si unisce come con Dropbox: niente va perso, vince la modifica più recente
-    setState(merge(state, data)); save(); render(); fillSettings(); scheduleSync();
-    toast(t("data.imported"), "import"); mochi.mood("happy", 1500);
-  } catch { toast(t("data.importFail"), "warn"); }
-});
-
 // ---------- AGGIORNAMENTI ----------
 // L'app aperta a lungo controlla ogni ora (e quando torna in primo piano) se c'è una versione nuova.
 // Il service worker nuovo prende subito il controllo: si avvisa con un pulsante «Ricarica»; se l'app va in
@@ -773,4 +369,5 @@ function watchUpdates() {
     if (pending && document.visibilityState === "visible" && !settingsDirty && !flyer.busy()) location.reload();
   });
 }
+
 

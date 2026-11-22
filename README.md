@@ -124,8 +124,11 @@ L'app non ha dipendenze né build: HTML, CSS e moduli JavaScript. `npm` serve so
 ```
 index.html            struttura e accessibilità (landmark, tab ARIA, dialog)
 css/style.css         stile kawaii, temi (chiaro, scuro, alto contrasto, daltonici), animazioni, reduced-motion
-js/app.js             lista, impostazioni, sincronizzazione, avvio
-js/ui/core.js         base dell'interfaccia: utilità, configurazione, stato, mascotte, avvisi, schede
+js/app.js             lista, dettatura, installazione, avvio, aggiornamenti
+js/ui/settings.js     impostazioni, chiavi IA e SerpApi, ponte, file di salvataggio
+js/ui/sync.js         sincronizzazione con Dropbox
+js/ui/location.js     casa, paese dalla posizione, «fuori casa»
+js/ui/core.js         base dell'interfaccia: utilità, configurazione, stato, mascotte, avvisi, schede (non importa gli altri moduli UI: passa da app.js)
 js/ui/pantry.js       dispensa, «metti via la spesa», Kapibo
 js/ui/prices.js       prezzo migliore, volantini, «I miei prezzi», dove conviene, offerte, valuta
 js/ui/onboarding.js   privacy, novità, presentazione, guida sugli elementi

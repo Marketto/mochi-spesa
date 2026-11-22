@@ -6,6 +6,7 @@ import { t, locale } from "../i18n.js";
 import * as dbx from "../dropbox.js";
 import * as pricedb from "../pricedb.js";
 import { amazonSearch, isAmazon } from "../amazon.js";
+// da app.js (che li riesporta): così core.js non fa partire gli altri moduli prima di essere pronto
 import { away, render, scheduleSync } from "../app.js";
 
 // ---------- utilità ----------

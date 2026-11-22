@@ -3,8 +3,9 @@ import * as tour from "../tour.js";
 import { MOCHI_SVG } from "../mascot.js";
 import { t, locale } from "../i18n.js";
 import { APP_VERSION, POLICY_VERSION } from "../version.js";
-import { changeLang, fillLangSelect, fillSettings, render, renderInstall } from "../app.js";
+import { render, renderInstall } from "../app.js";
 import { $, confetti, esc, ic, lsGet, lsSet, me, mochi, motionOk, selectTab, setMe, tabs } from "./core.js";
+import { changeLang, fillLangSelect, fillSettings } from "./settings.js";
 
 // ---------- PRIVACY E CONDIZIONI ----------
 export function legalHtml() {
