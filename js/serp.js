@@ -5,6 +5,7 @@
 // La chiamata parte dal browser; se il browser la blocca (CORS) e il ponte Cloudflare è configurato, passa dal ponte.
 
 import { via } from "./chains.js";
+import { amazonHost } from "./amazon.js";
 
 const LS = "mochi.serp", CACHE = "mochi.serpCache", USE = "mochi.serpUse";
 const TTL = 24 * 3600e3;
@@ -22,13 +23,10 @@ export function used() { const u = ls(USE, {}); return u.m === month() ? u.n || 
 function countUse() { const u = ls(USE, {}); lsSet(USE, { m: month(), n: (u.m === month() ? u.n || 0 : 0) + 1 }); }
 
 // ---------- paese ----------
-const AMZ = { it: "amazon.it", de: "amazon.de", fr: "amazon.fr", es: "amazon.es", nl: "amazon.nl", pl: "amazon.pl", sv: "amazon.se", en: "amazon.co.uk" };
-/** Parametri per il paese dell'utente (dalla lingua). */
-// codice del paese di Google per la lingua (dove la sigla della lingua non è quella del paese)
-const GL = { en: "uk", sv: "se", cs: "cz", da: "dk", el: "gr", et: "ee", ga: "ie", ja: "jp", ko: "kr", sl: "si", zh: "cn", ar: "ae" };
-export function country(lang = "it") {
-  const l = String(lang).slice(0, 2);
-  return { gl: GL[l] || l, hl: l, amazon_domain: AMZ[l] || "amazon.com" };
+/** Parametri SerpApi per il paese in cui si fa la spesa (dalla posizione) e la lingua dei risultati. */
+export function country(paese = "", lang = "it") {
+  const p = String(paese).toLowerCase();
+  return { gl: p === "gb" ? "uk" : p, hl: String(lang).slice(0, 2), amazon_domain: amazonHost(p).replace(/^www\./, "") };
 }
 
 // ---------- lettura dei risultati (funzioni pure, testate) ----------
@@ -78,15 +76,15 @@ async function get(params, { proxy = "", signal, fetchFn = fetch } = {}) {
  * Cerca un prodotto su Amazon e su Google Shopping (2 ricerche della quota, poi 24 ore di cache).
  * @returns {Promise<{ amazon: object[], shopping: object[], cached: boolean }>}
  */
-export async function search(q, { lang = "it", proxy = "", signal, fetchFn } = {}) {
+export async function search(q, { paese = "", lang = "it", proxy = "", signal, fetchFn } = {}) {
   if (!getKey()) return { amazon: [], shopping: [], cached: false };
-  const c = country(lang), id = [q.toLowerCase().trim(), c.gl].join("|");
+  const c = country(paese, lang), id = [q.toLowerCase().trim(), c.gl].join("|");
   const cache = ls(CACHE, {});
   if (cache[id] && Date.now() - cache[id].at < TTL) return { ...cache[id].res, cached: true };
   const opt = { proxy, signal, fetchFn };
   const [a, s] = await Promise.allSettled([
     get({ engine: "amazon", amazon_domain: c.amazon_domain, k: q, language: c.hl === "it" ? "it_IT" : undefined }, opt).then(j => { countUse(); return parseAmazon(j); }),
-    get({ engine: "google_shopping", q, gl: c.gl, hl: c.hl }, opt).then(j => { countUse(); return parseShopping(j); }),
+    get({ engine: "google_shopping", q, gl: c.gl || undefined, hl: c.hl }, opt).then(j => { countUse(); return parseShopping(j); }),
   ]);
   if (a.status === "rejected" && s.status === "rejected") throw a.reason;
   const res = { amazon: a.status === "fulfilled" ? a.value : [], shopping: s.status === "fulfilled" ? s.value : [] };

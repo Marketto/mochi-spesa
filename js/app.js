@@ -31,10 +31,15 @@ const quando = ts => new Date(ts).toLocaleString(locale(), { day: "numeric", mon
 
 // Valuta: impostazione condivisa, con un valore iniziale sensato per la lingua
 const CURRENCIES = ["EUR", "GBP", "CHF", "SEK", "DKK", "NOK", "PLN", "CZK", "HUF", "RON", "USD", "RUB", "CNY", "JPY", "KRW", "AED", "SAR", "EGP", "MAD"];
-const CUR_BY_LANG = { sv: "SEK", da: "DKK", pl: "PLN", cs: "CZK", hu: "HUF", ro: "RON", ru: "RUB", zh: "CNY", ja: "JPY", ko: "KRW", ar: "AED", en: "GBP" };
-const currency = () => state.settings.valuta || CUR_BY_LANG[lang()] || "EUR";
+// Paese e valuta vengono dalla posizione (GPS o città scritta nelle impostazioni), mai dalla lingua.
+const CUR_BY_COUNTRY = { se: "SEK", dk: "DKK", no: "NOK", is: "ISK", pl: "PLN", cz: "CZK", hu: "HUF", ro: "RON", bg: "BGN", ch: "CHF", li: "CHF",
+  gb: "GBP", us: "USD", ca: "CAD", au: "AUD", jp: "JPY", cn: "CNY", kr: "KRW", ae: "AED", sa: "SAR", eg: "EGP", tr: "TRY", ru: "RUB",
+  ua: "UAH", by: "BYN", rs: "RSD", ba: "BAM", mk: "MKD", al: "ALL", in: "INR", mx: "MXN", br: "BRL", sg: "SGD" };
+/** Paese (ISO 2) dove si fa la spesa: quello «fuori casa» se attivo, altrimenti quello di casa. "" se non ancora impostato. */
+const paese = () => (away()?.paese || state.settings.paese || "").toLowerCase();
+const currency = () => state.settings.valuta || CUR_BY_COUNTRY[paese()] || "EUR";
 const amzOn = () => state.settings.amazon !== false;
-const amzLink = (nome, cls = "") => `<a class="${cls}" href="${esc(amazonSearch(nome, currency(), lang()))}" target="_blank" rel="noopener noreferrer" aria-label="${esc(t("amz.searchName", { name: nome }))} ${esc(t("a11y.newTab"))}">${ic("external")}${cls.includes("icon-btn") ? "" : esc(t("amz.search"))}</a>`;
+const amzLink = (nome, cls = "") => `<a class="${cls}" href="${esc(amazonSearch(nome, paese()))}" target="_blank" rel="noopener noreferrer" aria-label="${esc(t("amz.searchName", { name: nome }))} ${esc(t("a11y.newTab"))}">${ic("external")}${cls.includes("icon-btn") ? "" : esc(t("amz.search"))}</a>`;
 // ultimo prezzo Amazon che l'utente ha salvato in «I miei prezzi»
 const amzSaved = nome => pricedb.recent(nome, 365).filter(r => isAmazon(r.negozio)).sort((a, b) => (b.data || "").localeCompare(a.data || ""))[0] || null;
 const fmt = (n, d) => new Intl.NumberFormat(locale(), { style: "currency", currency: currency(), ...(d ? { minimumFractionDigits: 2, maximumFractionDigits: 3 } : {}) }).format(n);
@@ -230,7 +235,7 @@ function renderOfferte() {
   const nt = `<span class="sr"> ${esc(t("a11y.newTab"))}</span>`;
   $("#offerte").innerHTML = list.map((x, i) => {
     const v = VOTO[x.voto], sv = !x.amazon && amzOn() ? amzSaved(x.prodotto) : null;
-    const az = x.amazon || (sv && { prezzo: sv.prezzo, prezzoUnit: sv.prezzoUnit, url: amazonSearch(x.prodotto, currency(), lang()), mio: sv.data }) || null;
+    const az = x.amazon || (sv && { prezzo: sv.prezzo, prezzoUnit: sv.prezzoUnit, url: amazonSearch(x.prodotto, paese()), mio: sv.data }) || null;
     let diff = "";
     if (az && az.prezzoUnit > 0 && x.prezzoUnit > 0) {
       const p = Math.round((x.prezzoUnit / az.prezzoUnit - 1) * 100);
@@ -855,7 +860,7 @@ function renderBest(res) {
     ${res.avviso && !busy ? `<p class="hint">${ic("info")} ${esc(t("best.partial", { msg: res.avviso }))}</p>` : ""}
     ${righe.length ? `<ol class="best-list">${righe.map((r, i) => bestRow(r, i, i === 0 && !busy)).join("")}</ol>` : `<p class="hint">${esc(busy ? t("best.searching") : t("best.none"))}</p>`}
     ${amzOn() && !righe.some(r => isAmazon(r.negozio)) ? `<p class="cmp">${amzLink(res.q)}</p>` : ""}
-    ${lang() === "it" ? `<p class="cmp"><a href="https://www.promoqui.it/offerte/${encodeURIComponent(best.slug(res.q))}" target="_blank" rel="noopener noreferrer">${ic("external")}${esc(t("best.also", { site: "PromoQui" }))}<span class="sr"> ${esc(t("a11y.newTab"))}</span></a></p>` : ""}
+    ${paese() === "it" ? `<p class="cmp"><a href="https://www.promoqui.it/offerte/${encodeURIComponent(best.slug(res.q))}" target="_blank" rel="noopener noreferrer">${ic("external")}${esc(t("best.also", { site: "PromoQui" }))}<span class="sr"> ${esc(t("a11y.newTab"))}</span></a></p>` : ""}
     ${righe.some(r => r.src === "web") ? `<p class="hint">${ic("info")} ${esc(t("best.check"))}</p>` : ""}
     ${righe.some(r => r.src === "op") ? OP_CREDIT() : ""}
     <p class="hint">${esc(t("cmp.when", { when: quando(res.at) }))}</p></section>`;
@@ -891,7 +896,7 @@ async function findBest(q, link = "") {
     .then(list => { parts.op = best.variants(q).flatMap(v => op.bestFor(v, list, 8)).map(x => ({ negozio: x.negozio, nome: [x.marca, x.nome].filter(Boolean).join(" "), prezzo: x.prezzo, quantita: x.quantita, data: x.data, fonte: op.priceUrl(x.id), src: "op" })); res.stato.op = "ok"; res.n.op = parts.op.length; })
     .catch(() => { res.stato.op = "err"; }).then(update));
   // 3. Amazon e negozi online con prezzi veri (SerpApi: Amazon + Google Shopping), se l'utente ha la chiave
-  if (res.stato.serp) jobs.push(serp.search(q, { lang: lang(), proxy: PROXY(), signal: ctl.signal })
+  if (res.stato.serp) jobs.push(serp.search(q, { paese: paese(), lang: lang(), proxy: PROXY(), signal: ctl.signal })
     .then(r => { parts.serp = [...r.amazon, ...r.shopping].map(x => ({ ...x, src: "serp" })); res.stato.serp = "ok"; res.n.serp = parts.serp.length; renderSerp(); })
     .catch(e => { res.stato.serp = "err"; res.avviso = "SerpApi: " + e.message; }).then(update));
   // 4. ricerca web con l'IA, divisa per fonte: volantini delle catene vicine (a gruppi), aggregatori, spesa online, Amazon
@@ -1157,6 +1162,7 @@ $("#db-clear").addEventListener("click", async () => {
 });
 pricedb.all().then(() => pricedb.prune()).then(() => { renderDb(); renderOfferte(); }).catch(() => {});
 renderBestHow();
+fillCountry().catch(() => {});
 // arrivo da "Condividi" di un'altra app: link/testo → ricerca; screenshot o PDF → lettura prezzi
 async function takeShare() {
   if (!new URLSearchParams(location.search).has("share") || !("caches" in window)) return;
@@ -1208,7 +1214,7 @@ function compareBody() {
     const r = res.find(x => x.id === it.id) || res.find(x => pantry.sameProduct(x.nome || "", it.nome));
     let ops = (r && Array.isArray(r.opzioni) ? r.opzioni : []).filter(o => o && o.negozio && typeof o.prezzo === "number");
     const az = amzOn() && !ops.some(o => isAmazon(o.negozio)) ? amzSaved(it.nome) : null;
-    if (az) ops = [...ops, { negozio: "Amazon", prezzo: az.prezzo, prezzoUnit: az.prezzoUnit, fonte: amazonSearch(it.nome, currency(), lang()), validoFino: null }];
+    if (az) ops = [...ops, { negozio: "Amazon", prezzo: az.prezzo, prezzoUnit: az.prezzoUnit, fonte: amazonSearch(it.nome, paese()), validoFino: null }];
     const evitati = ops.filter(o => prefOf(it.nome, o.negozio)?.tipo === "evita");
     ops = ops.filter(o => !evitati.includes(o)).sort((a, b) => (prefOf(it.nome, b.negozio)?.tipo === "preferito") - (prefOf(it.nome, a.negozio)?.tipo === "preferito") || a.prezzo - b.prezzo);
     const sel = $("#sheet-body").querySelector(`input[name="${CSS.escape(it.id)}"]:checked`)?.value
@@ -1635,10 +1641,10 @@ async function saveSettings() {
     applyAnim();
     // zona e dispensa (condivisi)
     const luogo = $("#z-luogo").value.trim(), old = state.settings;
-    let coords = luogo === old.luogo && old.lat != null ? { lat: old.lat, lon: old.lon } : { lat: null, lon: null };
+    let coords = luogo === old.luogo && old.lat != null ? { lat: old.lat, lon: old.lon, paese: old.paese || "" } : { lat: null, lon: null, paese: "" };
     if (luogo && coords.lat == null) {
       const g = await geo.geocode(luogo, lang());
-      if (g) coords = { lat: g.lat, lon: g.lon }; else $("#geo-msg").textContent = t("geo.geocodeFail");
+      if (g) coords = { lat: g.lat, lon: g.lon, paese: g.paese }; else $("#geo-msg").textContent = t("geo.geocodeFail");
     }
     const ripiani = document.querySelector('input[name="lvdir"]:checked')?.value === "basso" ? "basso" : "alto";
     mutate((s, now) => {
@@ -1800,7 +1806,14 @@ function renderInstall() {
 // ---------- POSIZIONE ----------
 // Casa = impostazione condivisa (indirizzo + coordinate). "Fuori casa" = solo su questo telefono.
 const AWAY_KEY = "mochi.away";
-const away = () => lsGet(AWAY_KEY, null);          // { lat, lon, nome } se si cercano offerte fuori casa
+const away = () => lsGet(AWAY_KEY, null);          // { lat, lon, nome, paese } se si cercano offerte fuori casa
+// chi aveva già la zona prima della 2.5.0: il paese si ricava una volta dalle coordinate di casa
+async function fillCountry() {
+  const s = state.settings;
+  if (s.paese || s.lat == null || !navigator.onLine) return;
+  const info = await geo.placeInfo({ lat: s.lat, lon: s.lon }, lang());
+  if (info?.paese) mutate((st, now) => { st.settings = { ...st.settings, paese: info.paese, updatedAt: now }; });
+}
 let awayAsked = null;                              // posizione per cui l'utente ha già risposto "no" in questa sessione
 const home = () => state.settings.lat != null ? { lat: state.settings.lat, lon: state.settings.lon } : null;
 
@@ -1810,8 +1823,8 @@ async function usaPosizione(btn) {
   btn.classList.add("loading"); btn.setAttribute("aria-busy", "true"); msg.textContent = t("geo.locating");
   try {
     const pos = await geo.here();
-    const nome = (await geo.placeName(pos, lang())) || t("geo.label", pos);
-    mutate((s, now) => { s.settings = { ...s.settings, ...pos, luogo: nome, updatedAt: now }; });
+    const info = await geo.placeInfo(pos, lang()), nome = info?.nome || t("geo.label", pos);
+    mutate((s, now) => { s.settings = { ...s.settings, ...pos, paese: info?.paese || "", luogo: nome, updatedAt: now }; });
     lsSet(AWAY_KEY, null);
     $("#z-luogo").value = nome; fillSettings(); msg.textContent = t("geo.ok"); toast(t("geo.ok"), "pin"); mochi.mood("happy"); mochi.say(frase("guardo"));
   } catch (err) {
@@ -1830,8 +1843,8 @@ async function checkAway({ ask = false, modal = false } = {}) {
   if (a && geo.distKm(a, pos) <= geo.AWAY_KM) return;                    // già in uso qui
   if (awayAsked && geo.distKm(awayAsked, pos) <= geo.AWAY_KM) return;    // ha già detto no qui
   const km = Math.round(geo.distKm(h, pos));
-  const nome = (await geo.placeName(pos, lang())) || t("geo.label", pos);
-  const accetta = () => { lsSet(AWAY_KEY, { ...pos, nome }); awayAsked = null; renderOfferte(); toast(t("geo.using", { place: nome }), "pin"); mochi.mood("wow"); };
+  const info = await geo.placeInfo(pos, lang()), nome = info?.nome || t("geo.label", pos);
+  const accetta = () => { lsSet(AWAY_KEY, { ...pos, nome, paese: info?.paese || "" }); awayAsked = null; renderOfferte(); toast(t("geo.using", { place: nome }), "pin"); mochi.mood("wow"); };
   const rifiuta = () => { awayAsked = pos; renderOfferte(); };
   if (modal) { (await confirmDlg(t("geo.away", { km, place: nome }), t("geo.awayYes"), "pin")) ? accetta() : rifiuta(); return; }
   $("#away").innerHTML = `<div class="card notice-card" role="region" aria-labelledby="away-t">

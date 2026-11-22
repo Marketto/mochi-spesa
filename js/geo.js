@@ -38,21 +38,27 @@ async function osm(path, lang) {
   return r.json();
 }
 
-/** Indirizzo → { lat, lon, nome } oppure null. */
+// Il paese (codice ISO a 2 lettere, es. "it") viene SEMPRE dalla posizione (GPS o città scritta),
+// mai dalla lingua dell'app: chi usa l'app in inglese a Roma fa la spesa in Italia.
+const cc = a => (a && /^[a-z]{2}$/i.test(a.country_code || "") ? a.country_code.toLowerCase() : "");
+
+/** Indirizzo → { lat, lon, nome, paese } oppure null. */
 export async function geocode(q, lang) {
   try {
-    const j = await osm(`/search?q=${encodeURIComponent(q)}&limit=1`, lang);
+    const j = await osm(`/search?q=${encodeURIComponent(q)}&limit=1&addressdetails=1`, lang);
     if (!j[0]) return null;
-    return { lat: round(+j[0].lat), lon: round(+j[0].lon), nome: j[0].display_name };
+    return { lat: round(+j[0].lat), lon: round(+j[0].lon), nome: j[0].display_name, paese: cc(j[0].address) };
   } catch { return null; }
 }
 
-/** Coordinate → nome breve del luogo (es. "Borgo San Paolo, Torino") oppure null. */
-export async function placeName({ lat, lon }, lang) {
+/** Coordinate → { nome, paese }: nome breve del luogo (es. "Borgo San Paolo, Torino") e paese; null se non trovato. */
+export async function placeInfo({ lat, lon }, lang) {
   try {
     const j = await osm(`/reverse?lat=${lat}&lon=${lon}&zoom=14`, lang);
     const a = j.address || {};
     const parts = [a.suburb || a.neighbourhood || a.village || a.town, a.city || a.town || a.village || a.county].filter(Boolean);
-    return [...new Set(parts)].join(", ") || j.display_name || null;
+    return { nome: [...new Set(parts)].join(", ") || j.display_name || null, paese: cc(a) };
   } catch { return null; }
 }
+/** Solo il nome del luogo (compatibilità). */
+export const placeName = async (pos, lang) => (await placeInfo(pos, lang))?.nome || null;
