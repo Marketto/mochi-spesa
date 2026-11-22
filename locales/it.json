@@ -588,5 +588,9 @@
   "tour.prev": "Indietro",
   "tour.skip": "Salta",
   "tour.done": "Fatto",
-  "tour.help": "Guida"
+  "tour.help": "Guida",
+  "new.langs42": "Mochi ora parla 42 lingue, tra cui ucraino, turco, catalano e norvegese.",
+  "new.themes": "Nuovi temi: alto contrasto e per daltonici, oppure come il telefono.",
+  "new.tour": "Una guida sui pulsanti veri: tocca ? per rivederla.",
+  "new.safer": "Più sicura e più offline: caratteri e librerie serviti dall'app, conferma per i link di configurazione."
 }

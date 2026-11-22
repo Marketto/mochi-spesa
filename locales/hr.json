@@ -588,5 +588,9 @@
   "tour.prev": "Natrag",
   "tour.skip": "Preskoči",
   "tour.done": "Gotovo",
-  "tour.help": "Vodič"
+  "tour.help": "Vodič",
+  "new.langs42": "Mochi sada govori 42 jezika, među ostalim ukrajinski, turski, katalonski i norveški.",
+  "new.themes": "Nove teme: visoki kontrast i za daltoniste, ili kao mobitel.",
+  "new.tour": "Vodič na pravim gumbima: dodirni ? da ga ponovno vidiš.",
+  "new.safer": "Sigurnije i bolje izvan mreže: fontovi i biblioteke iz same aplikacije, potvrda za poveznice s postavkama."
 }

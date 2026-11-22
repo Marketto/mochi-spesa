@@ -588,5 +588,9 @@
   "tour.prev": "Vissza",
   "tour.skip": "Kihagyás",
   "tour.done": "Kész",
-  "tour.help": "Útmutató"
+  "tour.help": "Útmutató",
+  "new.langs42": "Mochi már 42 nyelven beszél, köztük ukránul, törökül, katalánul és norvégul.",
+  "new.themes": "Új témák: nagy kontraszt és színtévesztőknek, vagy mint a telefon.",
+  "new.tour": "Útmutató a valódi gombokon: érintsd meg a ?-t az újbóli megtekintéshez.",
+  "new.safer": "Biztonságosabb és jobban működik offline: betűtípusok és könyvtárak az appból, megerősítés a beállítási linkekhez."
 }

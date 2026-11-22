@@ -588,5 +588,9 @@
   "tour.prev": "Zpět",
   "tour.skip": "Přeskočit",
   "tour.done": "Hotovo",
-  "tour.help": "Průvodce"
+  "tour.help": "Průvodce",
+  "new.langs42": "Mochi teď mluví 42 jazyky, mimo jiné ukrajinsky, turecky, katalánsky a norsky.",
+  "new.themes": "Nové motivy: vysoký kontrast a pro barvoslepé, nebo jako telefon.",
+  "new.tour": "Průvodce přímo na tlačítkách: klepni na ? a uvidíš ho znovu.",
+  "new.safer": "Bezpečnější a víc offline: písma a knihovny z aplikace, potvrzení odkazů s nastavením."
 }

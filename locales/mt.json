@@ -588,5 +588,9 @@
   "tour.prev": "Lura",
   "tour.skip": "Aqbeż",
   "tour.done": "Lest",
-  "tour.help": "Gwida"
+  "tour.help": "Gwida",
+  "new.langs42": "Mochi issa jitkellem 42 lingwa, fosthom l-Ukren, it-Tork, il-Katalan u n-Norveġiż.",
+  "new.themes": "Temi ġodda: kuntrast għoli u għal min hu daltoniku, jew bħall-mowbajl.",
+  "new.tour": "Gwida fuq il-buttuni nfushom: agħfas ? biex terġa' tarah.",
+  "new.safer": "Aktar sigura u aħjar offline: fonts u libreriji mill-app innifisha, konferma għal-links tas-settings."
 }

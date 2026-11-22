@@ -12,7 +12,8 @@ export const MAX_PAGES = 24;
 
 // lingua dell'app → modello Tesseract
 const OCR_LANG = { it: "ita", en: "eng", es: "spa", fr: "fra", de: "deu", pt: "por", nl: "nld", pl: "pol", ro: "ron", cs: "ces", sk: "slk", sl: "slv", hr: "hrv",
-  hu: "hun", bg: "bul", el: "ell", sv: "swe", da: "dan", fi: "fin", et: "est", lv: "lav", lt: "lit", ga: "gle", mt: "mlt", ru: "rus", zh: "chi_sim", ja: "jpn", ko: "kor", ar: "ara" };
+  hu: "hun", bg: "bul", el: "ell", sv: "swe", da: "dan", fi: "fin", et: "est", lv: "lav", lt: "lit", ga: "gle", mt: "mlt", ru: "rus", zh: "chi_sim", ja: "jpn", ko: "kor", ar: "ara",
+  be: "bel", bs: "bos", ca: "cat", eu: "eus", gl: "glg", is: "isl", lb: "ltz", mk: "mkd", no: "nor", sq: "sqi", sr: "srp", tr: "tur", uk: "ukr" };
 export const ocrLang = l => OCR_LANG[l] || "eng";
 
 function loadScript(src) {

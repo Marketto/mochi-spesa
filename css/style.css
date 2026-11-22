@@ -593,3 +593,10 @@ a.btn { text-decoration: none; display: inline-flex; align-items: center; gap: 6
 :root[data-theme="contrast"] .tour-hole { outline-color: var(--pink); }
 @media (forced-colors: active) { .tour-hole { outline: 3px solid Highlight; } }
 @media (max-width: 360px) { .tabbar { gap: 0; padding: 4px; } .tabbar button { font-size: 10.5px; padding-inline: 2px; } }
+/* parole lunghe (lingue con parole composte, indirizzi): niente scorrimento orizzontale */
+fieldset { min-width: 0; }
+p, label, li, legend, summary, h2, h3 { overflow-wrap: break-word; }
+#ponte-box .best-row { flex-wrap: wrap; }
+.ver-chip { border-width: 8px 0; min-width: 44px; }
+.title-row:first-child { flex-wrap: wrap; row-gap: 0; }
+.chip { max-width: 100%; overflow-wrap: anywhere; }

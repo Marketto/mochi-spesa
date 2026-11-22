@@ -10,11 +10,12 @@ const en = load("en");
 const codes = fs.readdirSync(path.join(root, "locales")).filter(f => f.endsWith(".json")).map(f => f.slice(0, -5));
 const ph = s => [...s.matchAll(/\{(\w+)\}/g)].map(m => m[1]).sort().join(",");
 
-test("29 lingue presenti", () => {
+test("42 lingue presenti", () => {
   const src = fs.readFileSync(path.join(root, "js/i18n.js"), "utf8");
   const block = src.slice(src.indexOf("export const LANGS"), src.indexOf("};", src.indexOf("export const LANGS")));
   const declared = [...block.matchAll(/\b([a-z]{2}): "/g)].map(m => m[1]);
-  assert.equal(declared.length, 29);
+  assert.equal(declared.length, 42);
+  assert.equal(declared.length, codes.length, "ogni file di locales/ deve essere in LANGS");
   for (const c of declared) assert.ok(codes.includes(c), "manca locales/" + c + ".json");
 });
 

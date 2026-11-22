@@ -588,5 +588,9 @@
   "tour.prev": "Nazaj",
   "tour.skip": "Preskoči",
   "tour.done": "Končano",
-  "tour.help": "Vodnik"
+  "tour.help": "Vodnik",
+  "new.langs42": "Mochi zdaj govori 42 jezikov, med drugim ukrajinsko, turško, katalonsko in norveško.",
+  "new.themes": "Nove teme: visok kontrast in za barvno slepe, ali kot telefon.",
+  "new.tour": "Vodnik na pravih gumbih: dotakni se ?, da ga spet vidiš.",
+  "new.safer": "Varnejša in bolj brez povezave: pisave in knjižnice iz aplikacije, potrditev povezav z nastavitvami."
 }

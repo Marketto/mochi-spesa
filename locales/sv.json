@@ -588,5 +588,9 @@
   "tour.prev": "Tillbaka",
   "tour.skip": "Hoppa över",
   "tour.done": "Klar",
-  "tour.help": "Guide"
+  "tour.help": "Guide",
+  "new.langs42": "Mochi talar nu 42 språk, bland annat ukrainska, turkiska, katalanska och norska.",
+  "new.themes": "Nya teman: hög kontrast och färgblindvänligt, eller som telefonen.",
+  "new.tour": "En guide på de riktiga knapparna: tryck på ? för att se den igen.",
+  "new.safer": "Säkrare och mer offline: typsnitt och bibliotek från appen, bekräftelse för inställningslänkar."
 }

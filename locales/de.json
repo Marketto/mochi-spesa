@@ -588,5 +588,9 @@
   "tour.prev": "Zurück",
   "tour.skip": "Überspringen",
   "tour.done": "Fertig",
-  "tour.help": "Anleitung"
+  "tour.help": "Anleitung",
+  "new.langs42": "Mochi spricht jetzt 42 Sprachen, darunter Ukrainisch, Türkisch, Katalanisch und Norwegisch.",
+  "new.themes": "Neue Designs: hoher Kontrast und farbenblind-freundlich, oder wie das Handy.",
+  "new.tour": "Eine Anleitung direkt an den Knöpfen: tippe auf ?, um sie erneut zu sehen.",
+  "new.safer": "Sicherer und offline-tauglicher: Schriften und Bibliotheken kommen von der App, Bestätigung für Einrichtungslinks."
 }

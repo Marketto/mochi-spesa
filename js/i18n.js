@@ -8,9 +8,11 @@ export const LANGS = {
   hu: "Magyar", it: "Italiano", lt: "Lietuvių", lv: "Latviešu", mt: "Malti", nl: "Nederlands",
   pl: "Polski", pt: "Português", ro: "Română", sk: "Slovenčina", sl: "Slovenščina", sv: "Svenska",
   ru: "Русский", zh: "简体中文", ja: "日本語", ko: "한국어", ar: "العربية",
+  be: "Беларуская", bs: "Bosanski", ca: "Català", eu: "Euskara", gl: "Galego", is: "Íslenska", lb: "Lëtzebuergesch",
+  mk: "Македонски", no: "Norsk bokmål", sq: "Shqip", sr: "Српски", tr: "Türkçe", uk: "Українська",
 };
 export const RTL = new Set(["ar"]);
-const LOCALE = { zh: "zh-CN", pt: "pt-PT", en: "en-GB" };
+const LOCALE = { zh: "zh-CN", pt: "pt-PT", en: "en-GB", no: "nb-NO", sr: "sr-Cyrl" };
 
 let cur = "en", dict = {}, fallback = {};
 const cache = {};
@@ -24,7 +26,7 @@ export function detect(saved) {
   if (saved && LANGS[saved]) return saved;
   for (const l of navigator.languages || [navigator.language || "en"]) {
     const c = (l || "").toLowerCase().split("-")[0];
-    if (c === "nb" || c === "nn" || c === "no") continue;
+    if (c === "nb" || c === "nn") return "no"; // norvegese: bokmål
     if (LANGS[c]) return c;
   }
   return "en";

@@ -588,5 +588,9 @@
   "tour.prev": "Takaisin",
   "tour.skip": "Ohita",
   "tour.done": "Valmis",
-  "tour.help": "Opas"
+  "tour.help": "Opas",
+  "new.langs42": "Mochi puhuu nyt 42 kieltä, mm. ukrainaa, turkkia, katalaania ja norjaa.",
+  "new.themes": "Uudet teemat: suuri kontrasti ja värisokeille, tai kuten puhelin.",
+  "new.tour": "Opas oikeiden painikkeiden päällä: napauta ? nähdäksesi sen uudelleen.",
+  "new.safer": "Turvallisempi ja toimii paremmin offline: fontit ja kirjastot sovelluksesta, vahvistus asetuslinkeille."
 }

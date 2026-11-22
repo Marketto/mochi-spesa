@@ -588,5 +588,9 @@
   "tour.prev": "Atpakaļ",
   "tour.skip": "Izlaist",
   "tour.done": "Gatavs",
-  "tour.help": "Ceļvedis"
+  "tour.help": "Ceļvedis",
+  "new.langs42": "Mochi tagad runā 42 valodās, tostarp ukraiņu, turku, katalāņu un norvēģu.",
+  "new.themes": "Jauni motīvi: augsts kontrasts un daltoniķiem, vai kā tālrunī.",
+  "new.tour": "Ceļvedis uz īstajām pogām: pieskaries ?, lai to redzētu vēlreiz.",
+  "new.safer": "Drošāk un labāk bezsaistē: fonti un bibliotēkas no pašas lietotnes, iestatījumu saišu apstiprinājums."
 }

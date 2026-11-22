@@ -588,5 +588,9 @@
   "tour.prev": "Siar",
   "tour.skip": "Scipeáil",
   "tour.done": "Déanta",
-  "tour.help": "Treoir"
+  "tour.help": "Treoir",
+  "new.langs42": "Labhraíonn Mochi 42 teanga anois, Úcráinis, Tuircis, Catalóinis agus Ioruais ina measc.",
+  "new.themes": "Téamaí nua: ardchodarsnacht agus do dhaoine dathdhalla, nó cosúil leis an bhfón.",
+  "new.tour": "Treoir ar na cnaipí féin: tapáil ? chun í a fheiceáil arís.",
+  "new.safer": "Níos sábháilte agus níos fearr as líne: clónna agus leabharlanna ón aip, deimhniú do naisc socraithe."
 }

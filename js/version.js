@@ -7,6 +7,12 @@ export const APP_VERSION = "2.5.0";
 export const POLICY_VERSION = "2026-11-22";
 
 export const CHANGELOG = [
+  { v: "2.5.0", items: [
+    ["lang", "new.langs42"],
+    ["star", "new.themes"],
+    ["mochi", "new.tour"],
+    ["privacy", "new.safer"],
+  ] },
   { v: "2.4.2", items: [
     ["magic", "new.ponte2"],
   ] },

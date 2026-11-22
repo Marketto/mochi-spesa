@@ -588,5 +588,9 @@
   "tour.prev": "Atrás",
   "tour.skip": "Saltar",
   "tour.done": "Hecho",
-  "tour.help": "Guía"
+  "tour.help": "Guía",
+  "new.langs42": "Mochi ya habla 42 idiomas, entre ellos ucraniano, turco, catalán y noruego.",
+  "new.themes": "Nuevos temas: alto contraste y para daltónicos, o como el móvil.",
+  "new.tour": "Una guía sobre los botones reales: toca ? para verla otra vez.",
+  "new.safer": "Más segura y más offline: fuentes y bibliotecas servidas por la app, confirmación para los enlaces de configuración."
 }

@@ -588,5 +588,9 @@
   "tour.prev": "Terug",
   "tour.skip": "Overslaan",
   "tour.done": "Klaar",
-  "tour.help": "Gids"
+  "tour.help": "Gids",
+  "new.langs42": "Mochi spreekt nu 42 talen, waaronder Oekraïens, Turks, Catalaans en Noors.",
+  "new.themes": "Nieuwe thema's: hoog contrast en kleurenblind, of zoals de telefoon.",
+  "new.tour": "Een gids op de echte knoppen: tik op ? om hem opnieuw te zien.",
+  "new.safer": "Veiliger en meer offline: lettertypen en bibliotheken van de app zelf, bevestiging voor instellingslinks."
 }

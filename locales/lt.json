@@ -588,5 +588,9 @@
   "tour.prev": "Atgal",
   "tour.skip": "Praleisti",
   "tour.done": "Baigta",
-  "tour.help": "Vadovas"
+  "tour.help": "Vadovas",
+  "new.langs42": "Mochi dabar kalba 42 kalbomis, tarp jų ukrainiečių, turkų, katalonų ir norvegų.",
+  "new.themes": "Naujos temos: didelis kontrastas ir daltonikams, arba kaip telefone.",
+  "new.tour": "Vadovas ant tikrų mygtukų: paliesk ?, kad pamatytum vėl.",
+  "new.safer": "Saugiau ir geriau be ryšio: šriftai ir bibliotekos iš pačios programėlės, nustatymų nuorodos patvirtinamos."
 }

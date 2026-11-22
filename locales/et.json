@@ -588,5 +588,9 @@
   "tour.prev": "Tagasi",
   "tour.skip": "Jäta vahele",
   "tour.done": "Valmis",
-  "tour.help": "Juhend"
+  "tour.help": "Juhend",
+  "new.langs42": "Mochi räägib nüüd 42 keelt, sh ukraina, türgi, katalaani ja norra keelt.",
+  "new.themes": "Uued teemad: kõrge kontrast ja värvipimedatele, või nagu telefonis.",
+  "new.tour": "Juhend päris nuppudel: puuduta ?, et seda uuesti näha.",
+  "new.safer": "Turvalisem ja paremini võrguühenduseta: fondid ja teegid rakendusest endast, seadistuslinkidele kinnitus."
 }

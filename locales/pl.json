@@ -588,5 +588,9 @@
   "tour.prev": "Wstecz",
   "tour.skip": "Pomiń",
   "tour.done": "Gotowe",
-  "tour.help": "Przewodnik"
+  "tour.help": "Przewodnik",
+  "new.langs42": "Mochi mówi teraz w 42 językach, m.in. po ukraińsku, turecku, katalońsku i norwesku.",
+  "new.themes": "Nowe motywy: wysoki kontrast i dla daltonistów, albo jak w telefonie.",
+  "new.tour": "Przewodnik na prawdziwych przyciskach: dotknij ?, by go zobaczyć ponownie.",
+  "new.safer": "Bezpieczniejsza i bardziej offline: czcionki i biblioteki z aplikacji, potwierdzenie linków konfiguracyjnych."
 }

@@ -28,7 +28,7 @@ Lista della spesa **condivisa**, **kawaii** e **senza server**, con Mochi che ce
 - 🆓 **Prezzi gratis, senza chiave**: Mochi usa i prezzi segnalati dalla community di [Open Food Facts – Open Prices](https://prices.openfoodfacts.org) (ODbL) vicino a casa, sia in “Dove conviene?” sia in Offerte. Ci sono anche link rapidi per cercare i volantini. La chiave Claude è facoltativa: serve per i volantini aggiornati e per Amazon.
 - 🏷️ **Offerte vicino a casa**: scegli i prodotti da tenere d'occhio (detersivo lavatrice, ammorbidente…), la zona e il raggio. Mochi cerca nei volantini e confronta con Amazon il **prezzo per lavaggio, litro o kg**.
 - ⚖️ **È un buon affare?**: incolli un link Amazon o un prezzo. Ottieni subito il prezzo per unità e, se vuoi, un'analisi di qualità e prezzo.
-- 🌍 **29 lingue**: le 24 lingue ufficiali dell'UE più russo, cinese, giapponese, coreano e arabo (impaginazione da destra a sinistra). Rileva la lingua del telefono e si cambia dalle impostazioni.
+- 🌍 **42 lingue**: le 24 lingue ufficiali dell'UE più albanese, arabo (impaginazione da destra a sinistra), basco, bielorusso, bosniaco, catalano, cinese, coreano, galiziano, giapponese, islandese, lussemburghese, macedone, norvegese, russo, serbo, turco e ucraino. Rileva la lingua del telefono e si cambia dalle impostazioni.
 - 📍 **Posizione**: scrivi l'indirizzo di casa o usa la posizione del telefono. Se sei a più di 40 km da casa, Mochi ti chiede se cercare le offerte dove sei.
 - 🎙️ **Dettatura vocale gratuita**: tocca il microfono e di' “latte, pane e uova”. Usa il riconoscimento vocale del browser (Chrome su Android, Safari su iPhone).
 - 💌 **Condividi l'app** con un tocco (menu di condivisione del telefono) e **versione** sempre visibile accanto al titolo.
@@ -158,7 +158,7 @@ js/i18n.js            traduzioni, lingua RTL
 vendor/               pdf.js e tesseract.js serviti dal sito (versioni fisse, vedi vendor/README.md)
 css/fonts.css         font serviti dal sito (tools/build-fonts.py)
 js/version.js         versione, novità e versione della policy
-locales/              29 file di traduzione
+locales/              42 file di traduzione
 css/icons.css         classi delle icone (generato)
 fonts/                font Mochi Icons, anteprima e licenza Phosphor
 tools/build-icons.mjs costruisce il font da Phosphor + glifo Mochi

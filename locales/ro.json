@@ -588,5 +588,9 @@
   "tour.prev": "Înapoi",
   "tour.skip": "Sari",
   "tour.done": "Gata",
-  "tour.help": "Ghid"
+  "tour.help": "Ghid",
+  "new.langs42": "Mochi vorbește acum 42 de limbi, printre care ucraineana, turca, catalana și norvegiana.",
+  "new.themes": "Teme noi: contrast ridicat și pentru daltoniști, sau ca telefonul.",
+  "new.tour": "Un ghid pe butoanele reale: atinge ? ca să-l revezi.",
+  "new.safer": "Mai sigură și mai offline: fonturi și biblioteci servite de aplicație, confirmare pentru linkurile de configurare."
 }
