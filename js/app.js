@@ -323,6 +323,7 @@ export function renderInstall() {
   catch (e) { toast(e.message, "warn"); }
 
   fillSettings(); renderOnboard(); render(); renderBestHow(); fillCountry().catch(() => {});
+  window.__mochiOk = true; // avvio riuscito: il salvagente (js/rescue.js) non serve
   pricedb.all().then(() => pricedb.prune()).then(() => { renderDb(); renderOfferte(); }).catch(() => {});
   selectTab(tabs.find(x => "#" + x.id.slice(2) === location.hash) || tabs[0], false);
   syncSet(dbx.isConnected() ? "busy" : "local", dbx.isConnected() ? "sync.busy" : "sync.local");

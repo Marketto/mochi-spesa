@@ -1,8 +1,8 @@
 // Service worker: l'app funziona anche offline (al supermercato senza campo!).
-const CACHE = "mochi-spesa-v33";
+const CACHE = "mochi-spesa-v34";
 const SHELL = [
   "./", "index.html", "css/style.css", "css/icons.css", "css/fonts.css", "fonts/mochi-icons.woff2", "manifest.webmanifest",
-  "js/app.js", "js/ui/core.js", "js/ui/pantry.js", "js/ui/prices.js", "js/ui/onboarding.js", "js/ui/settings.js", "js/ui/sync.js", "js/ui/location.js", "js/i18n.js", "js/version.js", "locales/en.json", "js/mascot.js", "js/store.js", "js/categories.js", "js/dropbox.js", "js/ai/index.js", "js/ai/providers.js", "js/ai/keys.js", "js/ai/adapters.js", "js/ai/router.js", "js/ai/tasks.js", "js/geo.js", "js/voice.js", "js/pantry.js", "js/importer.js", "js/openprices.js", "js/flyer.js", "js/chains.js", "js/pricedb.js", "js/shops.js", "js/amazon.js", "js/best.js", "js/serp.js", "js/bridge.js", "js/util.js", "js/theme.js", "js/theme-boot.js", "js/tour.js",
+  "js/app.js", "js/rescue.js", "js/ui/core.js", "js/ui/pantry.js", "js/ui/prices.js", "js/ui/onboarding.js", "js/ui/settings.js", "js/ui/sync.js", "js/ui/location.js", "js/i18n.js", "js/version.js", "locales/en.json", "js/mascot.js", "js/store.js", "js/categories.js", "js/dropbox.js", "js/ai/index.js", "js/ai/providers.js", "js/ai/keys.js", "js/ai/adapters.js", "js/ai/router.js", "js/ai/tasks.js", "js/geo.js", "js/voice.js", "js/pantry.js", "js/importer.js", "js/openprices.js", "js/flyer.js", "js/chains.js", "js/pricedb.js", "js/shops.js", "js/amazon.js", "js/best.js", "js/serp.js", "js/bridge.js", "js/util.js", "js/theme.js", "js/theme-boot.js", "js/tour.js",
   "icons/icon.svg", "icons/icon-192.png", "icons/icon-512.png", "icons/icon-maskable-512.png",
 ];
 self.addEventListener("install", e => {
