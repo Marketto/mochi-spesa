@@ -16,9 +16,9 @@ import * as pricedb from "./pricedb.js";
 import * as flyer from "./flyer.js";
 import { fillSettings, normPath, settingsDirty } from "./ui/settings.js";
 import { away, AWAY_KEY, fillCountry, usaPosizione } from "./ui/location.js";
-import { sync, syncSet } from "./ui/sync.js";
-export { away } from "./ui/location.js";
-export { scheduleSync } from "./ui/sync.js";
+import { scheduleSync, sync, syncSet } from "./ui/sync.js";
+import { setHooks } from "./ui/core.js";
+setHooks({ render: () => render(), scheduleSync: () => scheduleSync() }); // core.js non dipende da app.js
 
 
 // ---------- RENDER ----------

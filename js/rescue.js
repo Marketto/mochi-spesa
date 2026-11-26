@@ -9,11 +9,12 @@
   addEventListener("unhandledrejection", function (e) { var r = e.reason; note(r && (r.stack || r.message) ? (r.message || String(r)) + " " + String(r.stack || "").split("\n")[1] : String(r)); });
   var it = /^it\b/i.test(navigator.language || "");
   var T = it
-    ? { t: "Mochi non è partita", p: "Qualcosa si è inceppato all'avvio. Prova questi rimedi, nell'ordine:", a: "Ricarica pulita", ah: "Scarica di nuovo l'app (i tuoi dati restano).", b: "Metti da parte i dati di questo telefono", bh: "Salva una copia dei dati locali e riparte vuota: se usi Dropbox la lista torna da lì.", c: "Copia l'errore", e: "Dettagli", m: "Memoria usata dal sito", ok: "Copiato", bc: "Sicuro? I dati locali vengono salvati in un file e tolti da questo telefono." }
-    : { t: "Mochi didn't start", p: "Something got stuck at startup. Try these fixes, in order:", a: "Clean reload", ah: "Download the app again (your data stays).", b: "Set aside this phone's data", bh: "Saves a copy of the local data and starts empty: if you use Dropbox the list comes back from there.", c: "Copy the error", e: "Details", m: "Storage used by the site", ok: "Copied", bc: "Sure? Local data is saved to a file and removed from this phone." };
+    ? { t: "Mochi non è partita", p: "Qualcosa si è inceppato all'avvio. Prova questi rimedi, nell'ordine:", a: "Ricarica pulita", ah: "Scarica di nuovo l'app (i tuoi dati restano).", b: "Metti da parte i dati di questo telefono", bh: "Salva una copia dei dati locali e riparte vuota: se usi Dropbox la lista torna da lì.", c: "Copia l'errore", e: "Dettagli", m: "Memoria usata da Mochi", ok: "Copiato", bc: "Sicuro? I dati locali vengono salvati in un file e tolti da questo telefono." }
+    : { t: "Mochi didn't start", p: "Something got stuck at startup. Try these fixes, in order:", a: "Clean reload", ah: "Download the app again (your data stays).", b: "Set aside this phone's data", bh: "Saves a copy of the local data and starts empty: if you use Dropbox the list comes back from there.", c: "Copy the error", e: "Details", m: "Storage used by Mochi", ok: "Copied", bc: "Sure? Local data is saved to a file and removed from this phone." };
   function used() {
     var by = {}, tot = 0;
-    try { for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i), n = (k.length + (localStorage.getItem(k) || "").length) * 2; tot += n; var g = k.split(".")[0]; by[g] = (by[g] || 0) + n; } } catch (e) {}
+    // solo le chiavi di Mochi: le altre app dello stesso sito non sono affar nostro (e non vanno nei dettagli copiati)
+    try { for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (!/^mochi\./.test(k)) continue; var n = (k.length + (localStorage.getItem(k) || "").length) * 2; tot += n; var g = k.slice(6).split(/[.:]/)[0]; by[g] = (by[g] || 0) + n; } } catch (e) {}
     return Math.round(tot / 1024) + " KB (" + Object.keys(by).map(function (g) { return g + " " + Math.round(by[g] / 1024) + " KB"; }).join(", ") + ")";
   }
   async function cleanReload() {

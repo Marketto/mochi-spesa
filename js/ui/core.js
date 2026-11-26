@@ -6,8 +6,14 @@ import { t, locale } from "../i18n.js";
 import * as dbx from "../dropbox.js";
 import * as pricedb from "../pricedb.js";
 import { amazonSearch, isAmazon } from "../amazon.js";
-// da app.js (che li riesporta): così core.js non fa partire gli altri moduli prima di essere pronto
-import { away, render, scheduleSync } from "../app.js";
+// core.js non importa nulla dagli altri moduli UI né da app.js: è la base e deve funzionare anche se viene
+// chiamata prima che gli altri siano pronti (niente errori «Cannot access … before initialization»).
+// render e scheduleSync arrivano da app.js con setHooks(); prima d'allora non fanno nulla.
+// `var` e `function` (non const/let) perché esistono già prima che il modulo finisca di partire.
+var hooks = { render() {}, scheduleSync() {} };
+export function setHooks(h) { Object.assign(hooks, h); }
+/** Posizione «fuori casa» se attiva: { lat, lon, nome, paese }, altrimenti null. */
+export function away() { try { return JSON.parse(localStorage.getItem("mochi.away")) || null; } catch { return null; } }
 
 // ---------- utilità ----------
 export const $ = s => document.querySelector(s);
@@ -84,7 +90,7 @@ export const save = () => lsSet("mochi.state", state);
 // id stabile del dispositivo: finisce nel campo "by" di ogni elemento modificato (spareggio nell'unione)
 export const deviceId = lsGet("mochi.device", null) || (() => { const id = uid(); lsSet("mochi.device", id); return id; })();
 export const BY = "phone:" + deviceId;
-export function mutate(fn) { const now = Date.now(); fn(state, now); stamp(state, now, BY); save(); render(); scheduleSync(); }
+export function mutate(fn) { const now = Date.now(); fn(state, now); stamp(state, now, BY); save(); hooks.render(); hooks.scheduleSync(); }
 
 // ---------- mascotte, toast, effetti ----------
 export const mochi = mountMochi($("#mascot"), $("#bubble"));

@@ -2,7 +2,7 @@
 import { frase } from "../mascot.js";
 import { t, lang } from "../i18n.js";
 import * as geo from "../geo.js";
-import { $, confirmDlg, esc, ic, lsGet, lsSet, mochi, mutate, state, toast } from "./core.js";
+import { $, away, confirmDlg, esc, ic, lsGet, lsSet, mochi, mutate, state, toast } from "./core.js";
 import { refreshChains, renderBestHow } from "./prices.js";
 import { fillSettings, renderAiKeys, renderSerp } from "./settings.js";
 import { renderOfferte } from "../app.js";
@@ -10,7 +10,7 @@ import { renderOfferte } from "../app.js";
 // ---------- POSIZIONE ----------
 // Casa = impostazione condivisa (indirizzo + coordinate). "Fuori casa" = solo su questo telefono.
 export const AWAY_KEY = "mochi.away";
-export const away = () => lsGet(AWAY_KEY, null);          // { lat, lon, nome, paese } se si cercano offerte fuori casa
+export { away }; // (definita in core.js: serve anche lì)
 // chi aveva già la zona prima della 2.5.0: il paese si ricava una volta dalle coordinate di casa
 export async function fillCountry() {
   const s = state.settings;

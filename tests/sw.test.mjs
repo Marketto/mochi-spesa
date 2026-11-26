@@ -35,4 +35,5 @@ test("gli import dinamici puntano a file esistenti (config.js e config.local.js 
 test("js/ui/core.js non importa gli altri moduli UI (si caricherebbero prima della base: errori TDZ)", () => {
   const src = readFileSync(new URL("js/ui/core.js", root), "utf8");
   assert.ok(!/from "\.\/(pantry|prices|onboarding|settings|sync|location)\.js"/.test(src));
+  assert.ok(!/from "\.\.\/app\.js"/.test(src), "core.js non deve importare da app.js (ciclo: errori «before initialization» sui telefoni)");
 });
