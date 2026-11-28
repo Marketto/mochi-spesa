@@ -1,17 +1,17 @@
 // Service worker: l'app funziona anche offline (al supermercato senza campo!).
-const CACHE = "mochi-spesa-v34";
+const CACHE = "mochi-spesa-v35";
 const SHELL = [
   "./", "index.html", "css/style.css", "css/icons.css", "css/fonts.css", "fonts/mochi-icons.woff2", "manifest.webmanifest",
   "js/app.js", "js/rescue.js", "js/ui/core.js", "js/ui/pantry.js", "js/ui/prices.js", "js/ui/onboarding.js", "js/ui/settings.js", "js/ui/sync.js", "js/ui/location.js", "js/i18n.js", "js/version.js", "locales/en.json", "js/mascot.js", "js/store.js", "js/categories.js", "js/dropbox.js", "js/ai/index.js", "js/ai/providers.js", "js/ai/keys.js", "js/ai/adapters.js", "js/ai/router.js", "js/ai/tasks.js", "js/geo.js", "js/voice.js", "js/pantry.js", "js/importer.js", "js/openprices.js", "js/flyer.js", "js/chains.js", "js/pricedb.js", "js/shops.js", "js/amazon.js", "js/best.js", "js/serp.js", "js/bridge.js", "js/util.js", "js/theme.js", "js/theme-boot.js", "js/tour.js",
   "icons/icon.svg", "icons/icon-192.png", "icons/icon-512.png", "icons/icon-maskable-512.png",
 ];
 self.addEventListener("install", e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL.map(u => new Request(u, { cache: "reload" })))).then(() => self.skipWaiting())); // «reload»: niente copie vecchie dalla cache HTTP
 });
 self.addEventListener("activate", e => {
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE && k !== "mochi-share").map(k => caches.delete(k)))).then(() => self.clients.claim()));
 });
-// Solo file dell'app (stessa origine): rete prima, cache se offline. Dropbox e API non passano dalla cache.
+// Solo file dell'app (stessa origine): prima la cache della versione installata, poi la rete (con limite di tempo). Dropbox e API non passano dalla cache.
 // condivisione da altre app (Android): testo/link (es. un prodotto Amazon) o screenshot/volantino
 const SHARE = "mochi-share";
 async function receiveShare(req) {
@@ -23,14 +23,29 @@ async function receiveShare(req) {
     await c.put("./shared-file-" + i, new Response(file, { headers: { "content-type": file.type || "application/octet-stream", "x-name": encodeURIComponent(file.name || "screenshot-" + (i + 1)) } }));
   return Response.redirect("./?share=1", 303);
 }
+// rete con limite di tempo; le risposte buone aggiornano la cache
+function fromNet(req, ms) {
+  return new Promise((ok, ko) => {
+    const timer = setTimeout(() => ko(new Error("timeout")), ms);
+    fetch(req).then(r => {
+      clearTimeout(timer);
+      if (r.ok) { const copy = r.clone(); caches.open(CACHE).then(c => c.put(req, copy)); }
+      ok(r);
+    }, err => { clearTimeout(timer); ko(err); });
+  });
+}
 self.addEventListener("fetch", e => {
   const url = new URL(e.request.url);
   if (e.request.method === "POST" && url.origin === location.origin && url.pathname.endsWith("/share")) { e.respondWith(receiveShare(e.request)); return; }
   if (e.request.method !== "GET" || url.origin !== location.origin || url.pathname.endsWith("config.local.js")) return;
-  e.respondWith(
-    fetch(e.request).then(r => {
-      if (r.ok) { const copy = r.clone(); caches.open(CACHE).then(c => c.put(e.request, copy)); }
-      return r;
-    }).catch(() => caches.match(e.request, { ignoreSearch: true }).then(r => r || (e.request.mode === "navigate" ? caches.match("index.html") : Response.error())))
-  );
+  const req = e.request;
+  e.respondWith((async () => {
+    const cached = await caches.match(req, { ignoreSearch: true });
+    // file dell'app già nella cache di questa versione: subito, senza aspettare la rete (con campo debole o in roaming
+    // la rete può non rispondere per minuti e l'app restava sulla schermata iniziale)
+    // vale anche per la pagina: le versioni nuove arrivano con un sw.js nuovo (CACHE diversa), non da qui
+    if (cached) return cached;
+    try { return await fromNet(req, cached ? 3000 : 20000); }
+    catch { return cached || (req.mode === "navigate" ? (await caches.match("index.html")) || Response.error() : Response.error()); }
+  })());
 });

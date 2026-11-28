@@ -58,7 +58,8 @@ export const perUnit = (n, u) => `${money3(n)} ${t("unitPer." + (u || "pezzi"))}
 // config.js è generato dal deploy (App key Dropbox da variabile del repo); config.local.js solo in sviluppo.
 export let LOCAL_CFG = {};
 export const isLocal = ["localhost", "127.0.0.1"].includes(location.hostname);
-try { LOCAL_CFG = (await import(isLocal ? "../../config.local.js" : "../../config.js")).default || {}; } catch {}
+// al massimo 4 s: con la rete bloccata l'app parte lo stesso (senza configurazione del sito)
+try { LOCAL_CFG = (await Promise.race([import(isLocal ? "../../config.local.js" : "../../config.js"), new Promise((_, ko) => setTimeout(ko, 4000))])).default || {}; } catch {}
 export const BUILT_KEY = String(LOCAL_CFG.dropboxAppKey || "");
 // ponte Cloudflare: dalla configurazione del deploy oppure scritto dall'utente nelle impostazioni (condiviso in famiglia)
 export const okProxy = u => /^https:\/\/[^\s/]+(\/[^\s]*)?$/.test(String(u || "")) ? String(u).replace(/\/+$/, "") : "";
